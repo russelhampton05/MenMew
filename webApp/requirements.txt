@@ -1,3 +1,3 @@
 Django==1.10.1
 djangorestframework==3.4.6
-testttt
+Pygments==2.1.3
