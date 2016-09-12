@@ -1,6 +1,5 @@
 from rest_framework import serializers
-from Team3.MenMew.models import User, LANGUAGE_CHOICES, STYLE_CHOICES
-
+from MenMew.models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
