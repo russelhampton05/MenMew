@@ -1210,3 +1210,10 @@ webApp/Team3/MenMew/migrations/__pycache__/0002_auto_20160911_1727.cpython-35.py
 webApp/Team3/Team3/__pycache__/__init__.cpython-35.pyc
 webApp/Team3/Team3/__pycache__/settings.cpython-35.pyc
 webApp/Team3/Team3/__pycache__/urls.cpython-35.pyc
+webApp/Team3/MenMew/__pycache__/__init__.cpython-35.pyc
+webApp/Team3/MenMew/__pycache__/admin.cpython-35.pyc
+webApp/Team3/MenMew/__pycache__/apps.cpython-35.pyc
+webApp/Team3/MenMew/__pycache__/models.cpython-35.pyc
+webApp/Team3/MenMew/migrations/__pycache__/__init__.cpython-35.pyc
+webApp/Team3/MenMew/migrations/__pycache__/0001_initial.cpython-35.pyc
+webApp/Team3/MenMew/migrations/__pycache__/0002_auto_20160911_1727.cpython-35.pyc
