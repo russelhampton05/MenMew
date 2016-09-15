@@ -164,3 +164,4 @@ ENV/
 
 # Rope project settings
 .ropeproject
+webApp/.idea/workspace.xml
