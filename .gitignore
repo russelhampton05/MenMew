@@ -127,6 +127,7 @@ coverage.xml
 
 # Django stuff:
 *.log
+*.idea
 local_settings.py
 
 # Flask stuff:
