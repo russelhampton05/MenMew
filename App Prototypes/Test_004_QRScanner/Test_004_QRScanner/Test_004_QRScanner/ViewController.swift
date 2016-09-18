@@ -11,6 +11,9 @@ import AVFoundation
 
 class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
+    let transition = CircleTransition()
+    var flag: Bool = true
+    
     @IBOutlet weak var messageLabel:UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     
@@ -20,10 +23,22 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     }
     
     override func viewDidLoad() {
+        
+        self.navigationController?.navigationBarHidden = true
+    
+        
         super.viewDidLoad()
         self.configureVideoCapture()
         self.addVideoPreviewLayer()
         self.initializeQRView()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        self.navigationController?.navigationBarHidden = true
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        self.navigationController?.navigationBarHidden = false
     }
     
     
@@ -113,6 +128,7 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
             messageLabel.text = "No QR Code detected"
             return
         }
+        
         let objMetadataMachineReadableCodeObject = metadataObjects[0] as! AVMetadataMachineReadableCodeObject
         if objMetadataMachineReadableCodeObject.type == AVMetadataObjectTypeQRCode {
             let objBarCode = videoPreviewLayer?.transformedMetadataObjectForMetadataObject(objMetadataMachineReadableCodeObject as AVMetadataMachineReadableCodeObject) as! AVMetadataMachineReadableCodeObject
@@ -120,10 +136,28 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
             if objMetadataMachineReadableCodeObject.stringValue != nil {
                 
                 //This is where we can retrieve the data, for now it just presents the URL for URL QR Codes
-                //JSON parsing is possible here
+                //JSON parsing can be done here
                 messageLabel.text = objMetadataMachineReadableCodeObject.stringValue
+                
+                if flag {
+                    //Conditional to check for valid objects
+                    if messageLabel.text == "RJ's Steakhouse" {
+                        flag = false
+                        qrCodeFrameView!.removeFromSuperview()
+                        videoPreviewLayer!.removeFromSuperlayer()
+                        captureSession!.stopRunning()
+                        performSegueWithIdentifier("MenuLoadSegue", sender: self)
+                    }
+                }
             }
         }
     }
     
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let newVC = segue.destinationViewController as! RestaurantViewController
+        
+        newVC.restaurant = messageLabel.text
+        newVC.tableNum = "Table 4"
+    }
 }
