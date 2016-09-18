@@ -19,7 +19,7 @@ class User(models.Model):
 
 class Table(models.Model):
     id = models.IntegerField(primary_key=True, auto_created=True)
-    restaurant_id = models.ForeignKey(Restaurant, related_name="tables")
+    restaurant_id = models.ForeignKey(Restaurant, related_name='tables')
     code = models.CharField(max_length=45)
 
     class Meta:
@@ -51,9 +51,9 @@ class Address(models.Model):
 class Ticket(models.Model):
     id = models.IntegerField(primary_key=True, auto_created=True)
     restaurant_id = models.ForeignKey(Restaurant, "tickets")
-    table_id = models.ForeignKey(Table)
+    table_id = models.ForeignKey(Table, related_name='tickets')
     server_id = models.ForeignKey(Server, related_name='tickets')
-    user_id = models.ForeignKey(User, related_name='user_id')
+    user_id = models.ForeignKey(User, related_name='tickets')
 
     class Meta:
         ordering = ('id',)
@@ -64,7 +64,7 @@ class Server(models.Model):
     first_name = models.CharField(max_length=45)
     last_name = models.CharField(max_length=45)
     employee_id = models.CharField(max_length=45)
-    restaurant_id = models.ForeignKey(Restaurant)
+    restaurant_id = models.ForeignKey(Restaurant, related_name='servers')
 
     class Meta:
         ordering = ('id',)
@@ -89,9 +89,9 @@ class Ingredient(models.Model):
 
 class ItemOrdered(models.Model):
     id = models.IntegerField(primary_key=True, auto_created=True)
-    user_id = models.ForeignKey(Ticket, related_name= "items_ordered")
-    ticket_id = models.ForeignKey(User)
-    item_id = models.ForeignKey(Item)
+    user_id = models.ForeignKey(User, related_name="items_ordered")
+    ticket_id = models.ForeignKey(Ticket, related_name="items_ordered")
+    item_id = models.ForeignKey(Item, related_name='items_ordered')
 
 
 class ItemIngredient(models.Model):
@@ -106,7 +106,7 @@ class Item(models.Model):
     name = models.CharField(max_length=45)
     desc = models.CharField(max_length=255)
     restaurant_id = models.ForeignKey(Restaurant, related_name="items")
-    item_category_id = models.ForeignKey(ItemCategory)
+    item_category_id = models.ForeignKey(ItemCategory, related_name='items')
     item_photo = models.CharField(max_length=255)
     item_price = models.DecimalField(max_digits=10, decimal_places=2)
 
