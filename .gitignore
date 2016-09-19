@@ -154,7 +154,8 @@ celerybeat-schedule
 
 # dotenv
 .env
-
+#sql
+*.sqlite3
 # virtualenv
 .venv/
 venv/

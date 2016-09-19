@@ -3,8 +3,8 @@ from MenMew.models import *
 
 
 class UserSerializer(serializers.ModelSerializer):
-    items_ordered = serializers.RelatedField(many=True)
-    tickets = serializers.RelatedField(many=True)
+    items_ordered = serializers.RelatedField(many=True, read_only=True)
+    tickets = serializers.RelatedField(many=True, read_only=True)
 
     class Meta:
         model = User
@@ -12,17 +12,17 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class TableSerializer(serializers.ModelSerializer):
-    tickets = serializers.RelatedField(many=True)
+    tickets = serializers.RelatedField(many=True, read_only=True)
     class Meta:
         model = Table
         fields = ('id','tickets', 'code')
 
 
 class RestaurantSerializer(serializers.ModelSerializer):
-    tables = serializers.RelatedField(many=True)
-    servers = serializers.RelatedField(many=True)
-    tickets = serializers.RelatedField(many=True)
-    items = serializers.RelatedField(many=True)
+    tables = serializers.RelatedField(many=True, read_only=True)
+    servers = serializers.RelatedField(many=True, read_only=True)
+    tickets = serializers.RelatedField(many=True, read_only=True)
+    items = serializers.RelatedField(many=True, read_only=True)
 
     class Meta:
         model = Restaurant
@@ -30,7 +30,7 @@ class RestaurantSerializer(serializers.ModelSerializer):
 
 
 class AddressSerializer(serializers.ModelSerializer):
-    restaurant = serializers.RelatedField(many=False)
+    restaurant = serializers.RelatedField(many=False, read_only=True)
 
     class Meta:
         model = Address
@@ -46,7 +46,7 @@ class TicketSerializer(serializers.ModelSerializer):
 
 
 class ServerSerializer(serializers.ModelSerializer):
-    tickets = serializers.RelatedField(many=True)
+    tickets = serializers.RelatedField(many=True, read_only=True)
 
     class Meta:
         model = Server
@@ -54,8 +54,8 @@ class ServerSerializer(serializers.ModelSerializer):
 
 
 class IngredientCategorySerializer(serializers.ModelSerializer):
-    ingredients = serializers.RelatedField(many=True)
-    items = serializers.RelatedField(many=True)
+    ingredients = serializers.RelatedField(many=True, read_only=True)
+    items = serializers.RelatedField(many=True, read_only=True)
 
     class Meta:
         model = IngredientCategory
@@ -63,7 +63,7 @@ class IngredientCategorySerializer(serializers.ModelSerializer):
 
 
 class IngredientSerializer(serializers.ModelSerializer):
-    item_customization = serializers.RelatedField(many=True)
+    item_customization = serializers.RelatedField(many=True, read_only=True)
 
     class Meta:
         model = Ingredient
@@ -71,7 +71,7 @@ class IngredientSerializer(serializers.ModelSerializer):
 
 
 class ItemOrderedSerializer(serializers.ModelSerializer):
-    item_customization = serializers.RelatedField(many=True)
+    item_customization = serializers.RelatedField(many=True, read_only=True)
 
     class Meta:
         Model = ItemOrdered
@@ -79,7 +79,7 @@ class ItemOrderedSerializer(serializers.ModelSerializer):
 
 
 class ItemIngredientSerializer(serializers.ModelSerializer):
-    items = serializers.RelatedField(many=True)
+    items = serializers.RelatedField(many=True, read_only=True)
 
     class Meta:
         Model = ItemIngredient
@@ -87,7 +87,7 @@ class ItemIngredientSerializer(serializers.ModelSerializer):
 
 
 class ItemSerializer(serializers.ModelSerializer):
-    items_ordered = serializers.RelatedField(many=True)
+    items_ordered = serializers.RelatedField(many=True, read_only=True)
 
     class Meta:
         model = Item

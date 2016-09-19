@@ -17,10 +17,13 @@ class User(models.Model):
         ordering = ('id',)
 
 
-class Table(models.Model):
+class Address(models.Model):
     id = models.IntegerField(primary_key=True, auto_created=True)
-    restaurant_id = models.ForeignKey(Restaurant, related_name='tables')
-    code = models.CharField(max_length=45)
+    line1 = models.CharField(max_length=45)
+    line2 = models.CharField(max_length=45)
+    city = models.CharField(max_length=45)
+    state = models.CharField(max_length=2)
+    zip = models.PositiveIntegerField(max_length=5)
 
     class Meta:
         ordering = ('id',)
@@ -36,24 +39,10 @@ class Restaurant(models.Model):
         ordering = ('id',)
 
 
-class Address(models.Model):
+class Table(models.Model):
     id = models.IntegerField(primary_key=True, auto_created=True)
-    line1 = models.CharField(max_length=45)
-    line2 = models.CharField(max_length=45)
-    city = models.CharField(max_length=45)
-    state = models.CharField(max_length=2)
-    zip = models.PositiveIntegerField(max_length=5)
-
-    class Meta:
-        ordering = ('id',)
-
-
-class Ticket(models.Model):
-    id = models.IntegerField(primary_key=True, auto_created=True)
-    restaurant_id = models.ForeignKey(Restaurant, "tickets")
-    table_id = models.ForeignKey(Table, related_name='tickets')
-    server_id = models.ForeignKey(Server, related_name='tickets')
-    user_id = models.ForeignKey(User, related_name='tickets')
+    restaurant_id = models.ForeignKey(Restaurant, related_name="tables")
+    code = models.CharField(max_length=45)
 
     class Meta:
         ordering = ('id',)
@@ -64,7 +53,18 @@ class Server(models.Model):
     first_name = models.CharField(max_length=45)
     last_name = models.CharField(max_length=45)
     employee_id = models.CharField(max_length=45)
-    restaurant_id = models.ForeignKey(Restaurant, related_name='servers')
+    restaurant_id = models.ForeignKey(Restaurant)
+
+    class Meta:
+        ordering = ('id',)
+
+
+class Ticket(models.Model):
+    id = models.IntegerField(primary_key=True, auto_created=True)
+    restaurant_id = models.ForeignKey(Restaurant, "tickets")
+    table_id = models.ForeignKey(Table)
+    server_id = models.ForeignKey(Server, related_name='tickets')
+    user_id = models.ForeignKey(User, related_name='user_id')
 
     class Meta:
         ordering = ('id',)
@@ -86,16 +86,9 @@ class Ingredient(models.Model):
     class Meta:
         ordering = ('id',)
 
-
-class ItemOrdered(models.Model):
+class ItemCategory(models.Model):
     id = models.IntegerField(primary_key=True, auto_created=True)
-    user_id = models.ForeignKey(User, related_name="items_ordered")
-    ticket_id = models.ForeignKey(Ticket, related_name="items_ordered")
-    item_id = models.ForeignKey(Item, related_name='items_ordered')
-
-
-class ItemIngredient(models.Model):
-    id = models.IntegerField(primary_key=True, auto_created=True)
+    name = models.CharField(max_length=45)
 
     class Meta:
         ordering = ('id',)
@@ -106,26 +99,34 @@ class Item(models.Model):
     name = models.CharField(max_length=45)
     desc = models.CharField(max_length=255)
     restaurant_id = models.ForeignKey(Restaurant, related_name="items")
-    item_category_id = models.ForeignKey(ItemCategory, related_name='items')
+    item_category_id = models.ForeignKey(ItemCategory)
     item_photo = models.CharField(max_length=255)
     item_price = models.DecimalField(max_digits=10, decimal_places=2)
 
     class Meta:
         ordering = ('id',)
 
-
-class ItemCategory(models.Model):
+class ItemOrdered(models.Model):
     id = models.IntegerField(primary_key=True, auto_created=True)
-    name = models.CharField(max_length=45)
+    user_id = models.ForeignKey(Ticket, related_name="items_ordered")
+    ticket_id = models.ForeignKey(User)
+    item_id = models.ForeignKey(Item)
+
+
+class ItemIngredient(models.Model):
+    id = models.IntegerField(primary_key=True, auto_created=True)
 
     class Meta:
         ordering = ('id',)
 
 
+
+
+
 class ItemCustomization(models.Model):
     id = models.IntegerField(primary_key=True, auto_created=True)
     item_ordered_id = models.ForeignKey(ItemOrdered, related_name="item_customization")
-    ingredient_id = models.ForeignKey(Ingredient, "item_customization")
+    ingredient_id = models.ForeignKey(Ingredient, related_name="item_customization")
     add = models.BinaryField()
 
     class Meta:

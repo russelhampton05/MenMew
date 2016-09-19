@@ -2,8 +2,8 @@ from django.shortcuts import render
 
 # Create your views here.
 
-from MenMew.models import User
-from MenMew.serializers import UserSerializer
+from MenMew.models import *
+from MenMew.serializers import *
 from rest_framework import generics
 
 
@@ -18,120 +18,120 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class TableList(generics.ListCreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+    queryset = Table.objects.all()
+    serializer_class = TableSerializer
 
 
 class TableDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+    queryset = Table.objects.all()
+    serializer_class = TableSerializer
 
 
 class RestaurantList(generics.ListCreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+    queryset = Restaurant.objects.all()
+    serializer_class = RestaurantSerializer
 
 
 class RestaurantDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+    queryset = Restaurant.objects.all()
+    serializer_class = RestaurantSerializer
 
 
 class AddressList(generics.ListCreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+    queryset = Address.objects.all()
+    serializer_class = AddressSerializer
 
 
 class AddressDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+    queryset = Address.objects.all()
+    serializer_class = AddressSerializer
 
 
 class TicketList(generics.ListCreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+    queryset = Ticket.objects.all()
+    serializer_class = TicketSerializer
 
 
 class TicketDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+    queryset = Ticket.objects.all()
+    serializer_class = TicketSerializer
 
 
 class ServerList(generics.ListCreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+    queryset = Server.objects.all()
+    serializer_class = ServerSerializer
 
 
 class ServerDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+    queryset = Server.objects.all()
+    serializer_class = ServerSerializer
 
 
 class IngredientCategoryList(generics.ListCreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+    queryset = IngredientCategory.objects.all()
+    serializer_class = IngredientCategorySerializer
 
 
 class IngredientCategoryDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+    queryset = IngredientCategory.objects.all()
+    serializer_class = IngredientCategorySerializer
 
 
 class IngredientList(generics.ListCreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+    queryset = Ingredient.objects.all()
+    serializer_class = IngredientSerializer
 
 
 class IngredientDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+    queryset = Ingredient.objects.all()
+    serializer_class = IngredientSerializer
 
 
 class ItemOrderedList(generics.ListCreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+    queryset = ItemOrdered.objects.all()
+    serializer_class = ItemOrderedSerializer
 
 
 class ItemOrderedDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+    queryset = ItemOrdered.objects.all()
+    serializer_class = ItemOrderedSerializer
 
 
 class ItemIngredientList(generics.ListCreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+    queryset = ItemIngredient.objects.all()
+    serializer_class = ItemIngredientSerializer
 
 
 class ItemIngredientDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+    queryset = ItemIngredient.objects.all()
+    serializer_class = ItemIngredientSerializer
 
 
 class ItemList(generics.ListCreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+    queryset = Item.objects.all()
+    serializer_class = ItemSerializer
 
 
 class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+    queryset = Item.objects.all()
+    serializer_class = ItemSerializer
 
 
 class ItemCategoryList(generics.ListCreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+    queryset = ItemCategory.objects.all()
+    serializer_class = ItemCategorySerializer
 
 
 class ItemCategoryDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+    queryset = ItemCategory.objects.all()
+    serializer_class = ItemCategorySerializer
 
 
 class ItemCustomizationList(generics.ListCreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+    queryset = ItemCustomization.objects.all()
+    serializer_class = ItemCustomizationSerializer
 
 
 class ItemCustomizationDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+    queryset = ItemCustomization.objects.all()
+    serializer_class = ItemCustomizationSerializer
