@@ -12,7 +12,8 @@ class MenuDetailsViewController: UITableViewController {
     
     var orderArray: [(title: String, price: String)]?
     var selectedIndexPath : NSIndexPath?
-
+    var ordered: Bool = false
+    
     //Can load data directly from the parent menu (which loads from JSON)
     var menuArray: [MenuItem]?
     var categoryTitle: String?
@@ -33,7 +34,8 @@ class MenuDetailsViewController: UITableViewController {
         }	
 
         categoryLabel.title = categoryTitle!
-        if orderArray!.count > 0 {
+        
+        if orderArray!.count > 0 && ordered == false {
             doneButton.enabled = true
         }
     }
@@ -122,7 +124,7 @@ class MenuDetailsViewController: UITableViewController {
             doneButton.enabled = true
         }
         
-        let confirmPopup = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("menuAddID") as! PopupViewController
+        let confirmPopup = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("Popup") as! PopupViewController
         
         addToOrder(menuArray![selectedIndexPath!.row].title, foodPrice: menuArray![selectedIndexPath!.row].price)
         
@@ -156,14 +158,26 @@ class MenuDetailsViewController: UITableViewController {
         }
     }
 
+    //Back Button for Unwind Segue to Main Menu
     @IBAction func backButtonPressed(sender: AnyObject) {
         for i in 0...menuArray!.count-1 {
             let cell = tableView.visibleCells[i] as! MenuCell
-            print("cell \(cell.foodTitle.text)")
             cell.ignoreFrameChanges()
-        }
+        }   
         
         self.performSegueWithIdentifier("ReturnMainSegue", sender: self)
+    }
+    
+    //Unwind Segue for Order Summary
+    @IBAction func unwindToMenuDetails(sender: UIStoryboardSegue) {
+        if let sourceVC = sender.sourceViewController as? OrderConfirmationViewController {
+            orderArray = sourceVC.orderArray!
+            doneButton.enabled = false
+        }
+        else if let sourceVC = sender.sourceViewController as? SummaryViewController {
+            orderArray = sourceVC.orderArray
+            doneButton.enabled = false
+        }
     }
     
 }

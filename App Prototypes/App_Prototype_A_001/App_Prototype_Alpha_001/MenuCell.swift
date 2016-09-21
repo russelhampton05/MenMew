@@ -24,8 +24,6 @@ class MenuCell : UITableViewCell {
     //Check for the cell's height to show or hide details
     func checkHeight() {
         
-        self.addButton.layer.cornerRadius = 15
-        
         UIView.animateWithDuration(0.1, animations: {
             self.foodDesc.hidden = (self.frame.size.height < MenuCell.expandedHeight)
             self.addButton.hidden = (self.frame.size.height < MenuCell.expandedHeight)
@@ -54,7 +52,7 @@ class MenuCell : UITableViewCell {
     //Unsubscribe the cell for observing frame changes
     func ignoreFrameChanges() {
         if isObserving {
-            removeObserver(self, forKeyPath: "frame                             ")
+            removeObserver(self, forKeyPath: "frame")
             isObserving = false
         }
     }

@@ -14,24 +14,27 @@ class PopupViewController: UIViewController {
     @IBOutlet weak var confirmButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     
-    var menuItem = String()
+    var menuItem: String?
     var customMessage = String()
-    var cancelOrder : Bool = false
+    var cancelOrder: Bool = false
+    var confirmCancel: Bool = false
     
     //Initial view load, check if the instigator is a cancel prompt
     override func viewDidLoad() {
         self.view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
         self.showAnimate()
+        
         if cancelOrder {
             cancelButton.hidden = false
         }
     }
     
-    
+    //if self.cancelOrder == true {
+    //self.performSegueWithIdentifier("ReturnMenu", sender: self)
+    //}
     //Confirm button
     @IBAction func confirmAction(sender: AnyObject) {
-        cancelOrder = false
-        
+        confirmCancel = true
         self.removeAnimate()
     }
     
@@ -61,26 +64,25 @@ class PopupViewController: UIViewController {
                     self.view.removeFromSuperview()
                     let parent = self.parentViewController as! UITableViewController
                     parent.tableView.scrollEnabled = true
+                    
+                    if self.confirmCancel {
+                        if let summaryP = self.parentViewController as? SummaryViewController {
+                            summaryP.orderArray = []
+                            summaryP.performSegueWithIdentifier("UnwindMenu", sender: summaryP)
+                        }
+                    }
                 }
         })
     }
     
     //Add to order message
     func orderAddMessage() {
-        addedLabel.text = menuItem + " has been added to the order."
+        addedLabel.text = menuItem! + " has been added to the order."
     }
     
     //Cancel ask message
     func orderCancelMessage() {
         addedLabel.text = "Are you sure you want to cancel the order/s?"
-    }
-    
-    //Segue back to main menu
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "ReturnMenu" {
-            let menuTable: MenuDetailsViewController = segue.destinationViewController as! MenuDetailsViewController
-            menuTable.orderArray = []
-        }
     }
     
 }

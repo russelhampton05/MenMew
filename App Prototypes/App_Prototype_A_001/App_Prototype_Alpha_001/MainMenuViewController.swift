@@ -59,6 +59,12 @@ class MainMenuViewController: UITableViewController{
         cell.textLabel!.text = categoryArray[indexPath.row].name
         cell.detailTextLabel!.text = categoryArray[indexPath.row].desc
         
+        let bgView = UIView()
+        bgView.backgroundColor = UIColor.whiteColor()
+        cell.selectedBackgroundView = bgView
+        cell.textLabel?.highlightedTextColor = self.view.backgroundColor
+        cell.detailTextLabel?.highlightedTextColor = self.view.backgroundColor
+        
         return cell
     }
     

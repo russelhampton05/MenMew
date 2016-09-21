@@ -69,7 +69,7 @@ class SummaryViewController : UITableViewController {
     
     //Cancel all orders
     @IBAction func cancelOrders(sender: AnyObject) {
-        let cancelPopup = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("orderCancelID") as! PopupViewController
+        let cancelPopup = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("Popup") as! PopupViewController
         
         //Enable the cancel button on popup
         cancelPopup.cancelOrder = true
@@ -79,13 +79,21 @@ class SummaryViewController : UITableViewController {
         cancelPopup.view.frame.origin.y = tableView.contentOffset.y
         self.view.addSubview(cancelPopup.view)
         cancelPopup.didMoveToParentViewController(self)
-        cancelPopup.orderCancelMessage()
-        
+        cancelPopup.orderCancelMessage()	
         
         tableView.scrollEnabled = false
     }
     
     func delay(time: Double, closure: () -> ()) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), closure)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "ConfirmOrderSegue" {
+            let orderConfirmVC = segue.destinationViewController as! OrderConfirmationViewController
+            
+            orderConfirmVC.orderArray = orderArray
+        }
+        
     }
 }
