@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4A9B5D491D91C461009F2F72 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9B5D481D91C461009F2F72 /* SettingsViewController.swift */; };
 		4A9B5D4B1D91D023009F2F72 /* OrderConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9B5D4A1D91D023009F2F72 /* OrderConfirmationViewController.swift */; };
+		4ACB60421D94A37800021A63 /* WebHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACB60411D94A37800021A63 /* WebHandler.swift */; };
 		945A67081D8F260E00FAB14A /* MenuDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945C693C1D8EDECA0022C83A /* MenuDetailsViewController.swift */; };
 		945C693B1D8EDECA0022C83A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945C693A1D8EDECA0022C83A /* AppDelegate.swift */; };
 		945C69401D8EDECA0022C83A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 945C693E1D8EDECA0022C83A /* Main.storyboard */; };
@@ -47,6 +48,7 @@
 /* Begin PBXFileReference section */
 		4A9B5D481D91C461009F2F72 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		4A9B5D4A1D91D023009F2F72 /* OrderConfirmationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderConfirmationViewController.swift; sourceTree = "<group>"; };
+		4ACB60411D94A37800021A63 /* WebHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebHandler.swift; sourceTree = "<group>"; };
 		945C69371D8EDECA0022C83A /* App_Prototype_Alpha_001.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App_Prototype_Alpha_001.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		945C693A1D8EDECA0022C83A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		945C693C1D8EDECA0022C83A /* MenuDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuDetailsViewController.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 				945C69431D8EDECA0022C83A /* LaunchScreen.storyboard */,
 				945C69461D8EDECA0022C83A /* Info.plist */,
 				945C696A1D8EDFCB0022C83A /* App_Prototype_Alpha_001-Bridging-Header.h */,
+				4ACB60411D94A37800021A63 /* WebHandler.swift */,
 			);
 			path = App_Prototype_Alpha_001;
 			sourceTree = "<group>";
@@ -295,6 +298,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				945C69761D8EDFCB0022C83A /* PopupViewController.swift in Sources */,
+				4ACB60421D94A37800021A63 /* WebHandler.swift in Sources */,
 				945C69741D8EDFCB0022C83A /* MainMenuViewController.swift in Sources */,
 				945C69791D8EDFCB0022C83A /* SummaryCell.swift in Sources */,
 				945C69781D8EDFCB0022C83A /* RestaurantViewController.swift in Sources */,
