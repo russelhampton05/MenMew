@@ -14,12 +14,12 @@ class OrderConfirmationViewController: UIViewController {
         super.viewDidLoad()
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
     }
     
-    @IBAction func confirmButtonPressed(sender: AnyObject) {
-        performSegueWithIdentifier("UnwindToDetailSegue", sender: self)
+    @IBAction func confirmButtonPressed(_ sender: AnyObject) {
+        performSegue(withIdentifier: "UnwindToDetailSegue", sender: self)
     }
     
 }

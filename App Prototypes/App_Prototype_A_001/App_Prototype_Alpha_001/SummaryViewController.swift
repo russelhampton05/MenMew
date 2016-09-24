@@ -22,7 +22,7 @@ class SummaryViewController : UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         if let font = UIFont(name: "HelveticaNeueLight", size: 12) {
-            UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: font], forState: UIControlState.Normal)
+            UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: font], for: UIControlState())
         }
         
         delay(0.1){
@@ -32,24 +32,24 @@ class SummaryViewController : UITableViewController {
     }
     
     //Load summary details in table
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("SummaryCell") as! SummaryCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SummaryCell") as! SummaryCell
         
         let title = cell.viewWithTag(1) as! UILabel
-        title.text = orderArray[indexPath.row].title
+        title.text = orderArray[(indexPath as NSIndexPath).row].title
         
         let price = cell.viewWithTag(2) as! UILabel
-        price.text = "$" + orderArray[indexPath.row].price
+        price.text = "$" + orderArray[(indexPath as NSIndexPath).row].price
         
-        if let currPrice = Double(orderArray[indexPath.row].price) {
+        if let currPrice = Double(orderArray[(indexPath as NSIndexPath).row].price) {
             total += currPrice
         }
 
         return cell
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return orderArray.count
     }
     
@@ -68,8 +68,8 @@ class SummaryViewController : UITableViewController {
     }
     
     //Cancel all orders
-    @IBAction func cancelOrders(sender: AnyObject) {
-        let cancelPopup = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("Popup") as! PopupViewController
+    @IBAction func cancelOrders(_ sender: AnyObject) {
+        let cancelPopup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Popup") as! PopupViewController
         
         //Enable the cancel button on popup
         cancelPopup.cancelOrder = true
@@ -78,19 +78,19 @@ class SummaryViewController : UITableViewController {
         cancelPopup.view.frame = self.view.frame
         cancelPopup.view.frame.origin.y = tableView.contentOffset.y
         self.view.addSubview(cancelPopup.view)
-        cancelPopup.didMoveToParentViewController(self)
+        cancelPopup.didMove(toParentViewController: self)
         cancelPopup.orderCancelMessage()	
         
-        tableView.scrollEnabled = false
+        tableView.isScrollEnabled = false
     }
     
-    func delay(time: Double, closure: () -> ()) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), closure)
+    func delay(_ time: Double, closure: @escaping () -> ()) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ConfirmOrderSegue" {
-            let orderConfirmVC = segue.destinationViewController as! OrderConfirmationViewController
+            let orderConfirmVC = segue.destination as! OrderConfirmationViewController
             
             orderConfirmVC.orderArray = orderArray
         }

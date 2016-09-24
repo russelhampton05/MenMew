@@ -18,14 +18,14 @@ class RestaurantViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBarHidden = true
+        self.navigationController?.isNavigationBarHidden = true
         
         restaurantLabel.text = restaurant!
         tableLabel.text = tableNum!
         
         delay(2.0) {
             //Segue
-            self.performSegueWithIdentifier("MainMenuSegue", sender: self)
+            self.performSegue(withIdentifier: "MainMenuSegue", sender: self)
         }
     }
 
@@ -34,20 +34,20 @@ class RestaurantViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewWillAppear(animated: Bool) {
-        self.navigationController?.navigationBarHidden = true
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = true
     }
     
-    override func viewWillDisappear(animated: Bool) {
-        self.navigationController?.navigationBarHidden = false
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = false
     }
     
-    func delay(time: Double, closure: () -> ()) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), closure)
+    func delay(_ time: Double, closure: @escaping () -> ()) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let mainMenu = segue.destinationViewController as! MainMenuViewController
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let mainMenu = segue.destination as! MainMenuViewController
         
         mainMenu.restaurant = restaurant
         

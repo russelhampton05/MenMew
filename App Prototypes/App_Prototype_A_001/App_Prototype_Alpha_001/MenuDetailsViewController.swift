@@ -11,7 +11,7 @@ import UIKit
 class MenuDetailsViewController: UITableViewController {
     
     var orderArray: [(title: String, price: String)]?
-    var selectedIndexPath : NSIndexPath?
+    var selectedIndexPath : IndexPath?
     var ordered: Bool = false
     
     //Can load data directly from the parent menu (which loads from JSON)
@@ -30,13 +30,13 @@ class MenuDetailsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         if let font = UIFont(name: "HelveticaNeue", size: 12) {
-           UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: font], forState: UIControlState.Normal)
+           UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: font], for: UIControlState())
         }	
 
         categoryLabel.title = categoryTitle!
         
         if orderArray!.count > 0 && ordered == false {
-            doneButton.enabled = true
+            doneButton.isEnabled = true
         }
     }
 
@@ -46,29 +46,29 @@ class MenuDetailsViewController: UITableViewController {
     }
     
     //Return only one section (1 copy of table)
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
     //Populate table with cells and their data
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell") as! MenuCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! MenuCell
         
-        cell.foodTitle.text = menuArray![indexPath.row].title
-        cell.foodPrice.text = "$" + menuArray![indexPath.row].price
-        cell.foodDesc.text = menuArray![indexPath.row].desc
-        cell.foodImage.image = UIImage(named: menuArray![indexPath.row].image)
+        cell.foodTitle.text = menuArray![(indexPath as NSIndexPath).row].title
+        cell.foodPrice.text = "$" + menuArray![(indexPath as NSIndexPath).row].price
+        cell.foodDesc.text = menuArray![(indexPath as NSIndexPath).row].desc
+        cell.foodImage.image = UIImage(named: menuArray![(indexPath as NSIndexPath).row].image)
         
         return cell
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return menuArray!.count
     }
 
     //Check for selected items in the table via index paths
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let previousIndexPath = selectedIndexPath
         
         if indexPath == selectedIndexPath {
@@ -79,7 +79,7 @@ class MenuDetailsViewController: UITableViewController {
             selectedIndexPath = indexPath
         }
         
-        var indexPaths : Array<NSIndexPath> = []
+        var indexPaths : Array<IndexPath> = []
         
         if let previous = previousIndexPath {
             indexPaths += [previous]
@@ -90,7 +90,7 @@ class MenuDetailsViewController: UITableViewController {
         }
         
         if indexPaths.count > 0 {
-            tableView.reloadRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.Automatic)
+            tableView.reloadRows(at: indexPaths, with: UITableViewRowAnimation.automatic)
         }
         
         tableView.beginUpdates()
@@ -98,17 +98,17 @@ class MenuDetailsViewController: UITableViewController {
     }
     
     //Enable the cell to observe frame change
-    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         (cell as! MenuCell).watchFrameChanges()
     }
     
     //Disable the cell to observe frame change
-    override func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         (cell as! MenuCell).ignoreFrameChanges()
     }
     
     //Return the cell's height based on the selected index
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath == selectedIndexPath {
             return MenuCell.expandedHeight
         }
@@ -118,65 +118,65 @@ class MenuDetailsViewController: UITableViewController {
     }
     
     //Display the popup confirmation modal
-    @IBAction func addOrder(sender: AnyObject) {
+    @IBAction func addOrder(_ sender: AnyObject) {
         
-        if doneButton.enabled == false {
-            doneButton.enabled = true
+        if doneButton.isEnabled == false {
+            doneButton.isEnabled = true
         }
         
-        let confirmPopup = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("Popup") as! PopupViewController
+        let confirmPopup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Popup") as! PopupViewController
         
-        addToOrder(menuArray![selectedIndexPath!.row].title, foodPrice: menuArray![selectedIndexPath!.row].price)
+        addToOrder(menuArray![(selectedIndexPath! as NSIndexPath).row].title, foodPrice: menuArray![(selectedIndexPath! as NSIndexPath).row].price)
         
-        confirmPopup.menuItem = menuArray![selectedIndexPath!.row].title
+        confirmPopup.menuItem = menuArray![(selectedIndexPath! as NSIndexPath).row].title
         self.addChildViewController(confirmPopup)
         confirmPopup.view.frame = self.view.frame
         confirmPopup.view.frame.origin.y = tableView.contentOffset.y
         self.view.addSubview(confirmPopup.view)
-        confirmPopup.didMoveToParentViewController(self)
+        confirmPopup.didMove(toParentViewController: self)
         confirmPopup.orderAddMessage()
         
-        tableView.scrollEnabled = false
+        tableView.isScrollEnabled = false
     }
     
     //Add the order to a summary array
-    func addToOrder(foodTitle: String, foodPrice: String) {
+    func addToOrder(_ foodTitle: String, foodPrice: String) {
         orderArray! += [(title: foodTitle, price: foodPrice)]
     }
     
     //Segue on Done button press
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ConfirmOrder" {
-            let summaryTable = segue.destinationViewController as! SummaryViewController
+            let summaryTable = segue.destination as! SummaryViewController
             
             summaryTable.orderArray = orderArray!
         }
         else if segue.identifier == "ReturnMainSegue" {
-            let mainVC = segue.destinationViewController as! MainMenuViewController
+            let mainVC = segue.destination as! MainMenuViewController
             
             mainVC.reloadDetails(orderArray!, sourceRestaurant: restaurantName!)
         }
     }
 
     //Back Button for Unwind Segue to Main Menu
-    @IBAction func backButtonPressed(sender: AnyObject) {
+    @IBAction func backButtonPressed(_ sender: AnyObject) {
         for i in 0...menuArray!.count-1 {
             let cell = tableView.visibleCells[i] as! MenuCell
             cell.ignoreFrameChanges()
         }   
         
-        self.performSegueWithIdentifier("ReturnMainSegue", sender: self)
+        self.performSegue(withIdentifier: "ReturnMainSegue", sender: self)
     }
     
     //Unwind Segue for Order Summary
-    @IBAction func unwindToMenuDetails(sender: UIStoryboardSegue) {
-        if let sourceVC = sender.sourceViewController as? OrderConfirmationViewController {
+    @IBAction func unwindToMenuDetails(_ sender: UIStoryboardSegue) {
+        if let sourceVC = sender.source as? OrderConfirmationViewController {
             orderArray = sourceVC.orderArray!
-            doneButton.enabled = false
+            doneButton.isEnabled = false
         }
-        else if let sourceVC = sender.sourceViewController as? SummaryViewController {
+        else if let sourceVC = sender.source as? SummaryViewController {
             orderArray = sourceVC.orderArray
-            doneButton.enabled = false
+            doneButton.isEnabled = false
         }
     }
     

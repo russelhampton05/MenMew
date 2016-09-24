@@ -25,17 +25,17 @@ class WebHandler{
         // ??? FUCK
         
         urlBase = "some value"
-        let url = NSURL(fileURLWithPath: urlBase)
+        let url = URL(fileURLWithPath: urlBase)
         //Need to have a dictionary of end points / params
-        let request = NSMutableURLRequest(URL: url)
+        let request = NSMutableURLRequest(url: url)
         
-        request.HTTPMethod = "GET" //need a list of these guys too
+        request.httpMethod = "GET" //need a list of these guys too
         
-        let task = NSURLSession.shared().dataTaskWithRequest(request)
-        {
+        //let task = NSURLSession.shared().dataTaskWithRequest(request)
+        //{
             
             
-        }
+        //}
         //is the task keep alive? cookies?
         
 

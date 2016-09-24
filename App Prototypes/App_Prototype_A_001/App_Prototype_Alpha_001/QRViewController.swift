@@ -24,7 +24,7 @@ class QRViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate
     
     override func viewDidLoad() {
         
-        self.navigationController?.navigationBarHidden = true
+        self.navigationController?.isNavigationBarHidden = true
     
         
         super.viewDidLoad()
@@ -33,12 +33,12 @@ class QRViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate
         self.initializeQRView()
     }
     
-    override func viewWillAppear(animated: Bool) {
-        self.navigationController?.navigationBarHidden = true
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = true
     }
     
-    override func viewWillDisappear(animated: Bool) {
-        self.navigationController?.navigationBarHidden = false
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = false
     }
     
     
@@ -50,7 +50,7 @@ class QRViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate
     
     //Configuration function
     func configureVideoCapture() {
-        let objCaptureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+        let objCaptureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
         var error : NSError?
         
         let objCaptureDeviceInput : AnyObject!
@@ -74,7 +74,7 @@ class QRViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate
         captureSession?.addInput(objCaptureDeviceInput as! AVCaptureInput)
         let objCaptureMetadataOutput = AVCaptureMetadataOutput()
         captureSession?.addOutput(objCaptureMetadataOutput)
-        objCaptureMetadataOutput.setMetadataObjectsDelegate(self, queue: dispatch_get_main_queue())
+        objCaptureMetadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
         objCaptureMetadataOutput.metadataObjectTypes = [AVMetadataObjectTypeQRCode]
     }
     	
@@ -85,28 +85,28 @@ class QRViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate
         videoPreviewLayer?.frame = view.layer.bounds
         self.view.layer.addSublayer(videoPreviewLayer!)
         captureSession?.startRunning()
-        self.view.bringSubviewToFront(titleLabel)
-        self.view.bringSubviewToFront(messageLabel)
+        self.view.bringSubview(toFront: titleLabel)
+        self.view.bringSubview(toFront: messageLabel)
     }
     
     //Video Preview Layer Orientation Transitions
     override func viewWillLayoutSubviews() {
         
-        let orientation: UIDeviceOrientation = UIDevice.currentDevice().orientation
+        let orientation: UIDeviceOrientation = UIDevice.current.orientation
         print(orientation)
         
         switch (orientation) {
-        case .Portrait:
-            videoPreviewLayer?.connection.videoOrientation = .Portrait
+        case .portrait:
+            videoPreviewLayer?.connection.videoOrientation = .portrait
             videoPreviewLayer?.frame = view.layer.bounds
-        case .LandscapeRight:
-            videoPreviewLayer?.connection.videoOrientation = .LandscapeLeft
+        case .landscapeRight:
+            videoPreviewLayer?.connection.videoOrientation = .landscapeLeft
             videoPreviewLayer?.frame = view.layer.bounds
-        case .LandscapeLeft:
-            videoPreviewLayer?.connection.videoOrientation = .LandscapeRight
+        case .landscapeLeft:
+            videoPreviewLayer?.connection.videoOrientation = .landscapeRight
             videoPreviewLayer?.frame = view.layer.bounds
         default:
-            videoPreviewLayer?.connection.videoOrientation = .Portrait
+            videoPreviewLayer?.connection.videoOrientation = .portrait
             videoPreviewLayer?.frame = view.layer.bounds
         }
     }
@@ -114,24 +114,24 @@ class QRViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate
     //Initialize QR Code View
     func initializeQRView() {
         qrCodeFrameView = UIView()
-        qrCodeFrameView?.layer.borderColor = UIColor.redColor().CGColor
+        qrCodeFrameView?.layer.borderColor = UIColor.red.cgColor
         qrCodeFrameView?.layer.borderWidth = 5
         self.view.addSubview(qrCodeFrameView!)
-        self.view.bringSubviewToFront(qrCodeFrameView!)
+        self.view.bringSubview(toFront: qrCodeFrameView!)
     }
     
     
     //Capture delegate
-    func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
+    func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!) {
         if metadataObjects == nil || metadataObjects.count == 0 {
-            qrCodeFrameView?.frame = CGRectZero
+            qrCodeFrameView?.frame = CGRect.zero
             messageLabel.text = "No QR Code detected"
             return
         }
         
         let objMetadataMachineReadableCodeObject = metadataObjects[0] as! AVMetadataMachineReadableCodeObject
         if objMetadataMachineReadableCodeObject.type == AVMetadataObjectTypeQRCode {
-            let objBarCode = videoPreviewLayer?.transformedMetadataObjectForMetadataObject(objMetadataMachineReadableCodeObject as AVMetadataMachineReadableCodeObject) as! AVMetadataMachineReadableCodeObject
+            let objBarCode = videoPreviewLayer?.transformedMetadataObject(for: objMetadataMachineReadableCodeObject as AVMetadataMachineReadableCodeObject) as! AVMetadataMachineReadableCodeObject
             qrCodeFrameView?.frame = objBarCode.bounds;
             if objMetadataMachineReadableCodeObject.stringValue != nil {
                 
@@ -146,7 +146,7 @@ class QRViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate
                         qrCodeFrameView!.removeFromSuperview()
                         videoPreviewLayer!.removeFromSuperlayer()
                         captureSession!.stopRunning()
-                        performSegueWithIdentifier("MenuLoadSegue", sender: self)
+                        performSegue(withIdentifier: "MenuLoadSegue", sender: self)
                     }
                 }
             }
@@ -154,8 +154,8 @@ class QRViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate
     }
     
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let newVC = segue.destinationViewController as! RestaurantViewController
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let newVC = segue.destination as! RestaurantViewController
         
         newVC.restaurant = messageLabel.text
         newVC.tableNum = "Table 4"
