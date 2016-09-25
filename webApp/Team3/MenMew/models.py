@@ -1,9 +1,5 @@
 from django.db import models
-from pygments.lexers import get_all_lexers
-from pygments.styles import get_all_styles
 
-
-# Create your models here.
 
 class User(models.Model):
     id = models.IntegerField(primary_key=True, auto_created=True)
@@ -61,10 +57,10 @@ class Server(models.Model):
 
 class Ticket(models.Model):
     id = models.IntegerField(primary_key=True, auto_created=True)
-    restaurant_id = models.ForeignKey(Restaurant, "tickets")
-    table_id = models.ForeignKey(Table)
+    restaurant_id = models.ForeignKey(Restaurant, related_name='tickets')
+    table_id = models.ForeignKey(Table, related_name='tickets')
     server_id = models.ForeignKey(Server, related_name='tickets')
-    user_id = models.ForeignKey(User, related_name='user_id')
+    user_id = models.ForeignKey(User, related_name='tickets')
 
     class Meta:
         ordering = ('id',)
@@ -81,10 +77,11 @@ class IngredientCategory(models.Model):
 class Ingredient(models.Model):
     id = models.IntegerField(primary_key=True, auto_created=True)
     name = models.CharField(max_length=45)
-    category = models.ForeignKey(IngredientCategory, "ingredients")
+    category = models.ForeignKey(IngredientCategory, related_name="ingredients")
 
     class Meta:
         ordering = ('id',)
+
 
 class ItemCategory(models.Model):
     id = models.IntegerField(primary_key=True, auto_created=True)
@@ -106,6 +103,7 @@ class Item(models.Model):
     class Meta:
         ordering = ('id',)
 
+
 class ItemOrdered(models.Model):
     id = models.IntegerField(primary_key=True, auto_created=True)
     user_id = models.ForeignKey(Ticket, related_name="items_ordered")
@@ -118,9 +116,6 @@ class ItemIngredient(models.Model):
 
     class Meta:
         ordering = ('id',)
-
-
-
 
 
 class ItemCustomization(models.Model):
