@@ -14,73 +14,75 @@ class PopupViewController: UIViewController {
     @IBOutlet weak var confirmButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     
-    var menuItem = String()
+    var menuItem: String?
     var customMessage = String()
-    var cancelOrder : Bool = false
+    var cancelOrder: Bool = false
+    var confirmCancel: Bool = false
     
     //Initial view load, check if the instigator is a cancel prompt
     override func viewDidLoad() {
-        self.view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
+        self.view.backgroundColor = UIColor.black.withAlphaComponent(0.6)
         self.showAnimate()
+        
         if cancelOrder {
-            cancelButton.hidden = false
+            cancelButton.isHidden = false
         }
     }
     
-    
+    //if self.cancelOrder == true {
+    //self.performSegueWithIdentifier("ReturnMenu", sender: self)
+    //}
     //Confirm button
-    @IBAction func confirmAction(sender: AnyObject) {
-        cancelOrder = false
-        
+    @IBAction func confirmAction(_ sender: AnyObject) {
+        confirmCancel = true
         self.removeAnimate()
     }
     
     //Cancel button
-    @IBAction func cancelAction(sender: AnyObject) {
+    @IBAction func cancelAction(_ sender: AnyObject) {
         self.removeAnimate()
     }
     
     //Popup view animation
     func showAnimate() {
-        self.view.transform = CGAffineTransformMakeScale(1.3, 1.3)
+        self.view.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
         self.view.alpha = 0.0
-        UIView.animateWithDuration(0.25, animations: {
+        UIView.animate(withDuration: 0.25, animations: {
             self.view.alpha = 1.0
-            self.view.transform = CGAffineTransformMakeScale(1.0, 1.0)
+            self.view.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
         })
     }
     
     //Popup remove animation
     func removeAnimate() {
-        UIView.animateWithDuration(0.25, animations: {
-            self.view.transform = CGAffineTransformMakeScale(1.3, 1.3)
+        UIView.animate(withDuration: 0.25, animations: {
+            self.view.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
             self.view.alpha = 0.0
             }, completion:{(finished : Bool) in
                 if (finished)
                 {
                     self.view.removeFromSuperview()
-                    let parent = self.parentViewController as! UITableViewController
-                    parent.tableView.scrollEnabled = true
+                    let parent = self.parent as! UITableViewController
+                    parent.tableView.isScrollEnabled = true
+                    
+                    if self.confirmCancel {
+                        if let summaryP = self.parent as? SummaryViewController {
+                            summaryP.orderArray = []
+                            summaryP.performSegue(withIdentifier: "UnwindMenu", sender: summaryP)
+                        }
+                    }
                 }
         })
     }
     
     //Add to order message
     func orderAddMessage() {
-        addedLabel.text = menuItem + " has been added to the order."
+        addedLabel.text = menuItem! + " has been added to the order."
     }
     
     //Cancel ask message
     func orderCancelMessage() {
         addedLabel.text = "Are you sure you want to cancel the order/s?"
-    }
-    
-    //Segue back to main menu
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "ReturnMenu" {
-            let menuTable: MenuDetailsViewController = segue.destinationViewController as! MenuDetailsViewController
-            menuTable.orderArray = []
-        }
     }
     
 }

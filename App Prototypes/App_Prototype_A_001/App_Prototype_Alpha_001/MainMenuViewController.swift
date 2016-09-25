@@ -44,7 +44,7 @@ class MainMenuViewController: UITableViewController{
         tableView.rowHeight = UITableViewAutomaticDimension
         
         menuButton.target = self.revealViewController()
-        menuButton.action = Selector("revealToggle:")
+        menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,31 +53,37 @@ class MainMenuViewController: UITableViewController{
     }
     
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(("MenuCell")) as UITableViewCell!
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: ("MenuCell")) as UITableViewCell!
         
-        cell.textLabel!.text = categoryArray[indexPath.row].name
-        cell.detailTextLabel!.text = categoryArray[indexPath.row].desc
+        cell?.textLabel!.text = categoryArray[(indexPath as NSIndexPath).row].name
+        cell?.detailTextLabel!.text = categoryArray[(indexPath as NSIndexPath).row].desc
         
-        return cell
+        let bgView = UIView()
+        bgView.backgroundColor = UIColor.white
+        cell?.selectedBackgroundView = bgView
+        cell?.textLabel?.highlightedTextColor = self.view.backgroundColor
+        cell?.detailTextLabel?.highlightedTextColor = self.view.backgroundColor
+        
+        return cell!
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        segueIndex = indexPath.row
-        self.performSegueWithIdentifier("CategoryDetailSegue", sender: self)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        segueIndex = (indexPath as NSIndexPath).row
+        self.performSegue(withIdentifier: "CategoryDetailSegue", sender: self)
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return categoryArray.count
     }
     
-    override func  numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func  numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "CategoryDetailSegue" {
-            let menuVC = segue.destinationViewController as! MenuDetailsViewController
+            let menuVC = segue.destination as! MenuDetailsViewController
             
             menuVC.categoryTitle = categoryArray[segueIndex!].name
             menuVC.menuArray = menuArray[segueIndex!]
@@ -85,18 +91,18 @@ class MainMenuViewController: UITableViewController{
             menuVC.restaurantName = restaurant!
         }
         else if segue.identifier == "SettingsSegue" {
-            let settingsVC = segue.destinationViewController as! UITableViewController
+            let settingsVC = segue.destination as! UITableViewController
         }
         
     }
     
-    func reloadDetails(sourceArray: [(title: String, price: String)], sourceRestaurant: String){
+    func reloadDetails(_ sourceArray: [(title: String, price: String)], sourceRestaurant: String){
         orderArray = sourceArray
         restaurant = sourceRestaurant
     }
     
-    @IBAction func unwindToMain(sender: UIStoryboardSegue) {
-        if let sourceVC = sender.sourceViewController as? MenuDetailsViewController {
+    @IBAction func unwindToMain(_ sender: UIStoryboardSegue) {
+        if let sourceVC = sender.source as? MenuDetailsViewController {
             orderArray = sourceVC.orderArray!
         }
     }
