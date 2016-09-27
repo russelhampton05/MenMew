@@ -1,0 +1,153 @@
+{
+    "name": "RJ's Steakhouse",
+    "location": "Houston, TX",
+    "application": "MenMew",
+    "table": 16,
+    "category": [
+                 {
+                 "cat_name": "Breakfast",
+                 "cat_desc": "The best way to start your day.",
+                 "item": [
+                          {
+                          "name": "Omelette",
+                          "desc": "Scrambled eggs with your choice of meats and vegetables.",
+                          "image": "b_01",
+                          "price": 8.95
+                          },
+                          {
+                          "name": "Eggs Benedict",
+                          "desc": "Classic poached eggs over ham and bacon on French toast.",
+                          "image": "b_02",
+                          "price": 10.25
+                          },
+                          {
+                          "name": "Pancakes",
+                          "desc": "Classic buttermilk pancakes served with butter and syrup.",
+                          "image": "b_03",
+                          "price": 8.5
+                          },
+                          {
+                          "name": "Waffles",
+                          "desc": "Belgian waffles topped with whipped cream and berries.",
+                          "image": "b_04",
+                          "price": 9
+                          },
+                          {
+                          "name": "Sausage Plate",
+                          "desc": "Thick-cut pork sausages with scrambled eggs and hash.",
+                          "image": "b_05",
+                          "price": 10.25
+                          }
+                          ]
+                 },
+                 {
+                 "cat_name": "Lunch",
+                 "cat_desc": "Dine in with our delectable entrees.",
+                 "item": [
+                          {
+                          "name": "Crawfish Bucket",
+                          "desc": "Cajun-style crawfish served with corn and potatoes.",
+                          "image": "l_01",
+                          "price": 15.5
+                          },
+                          {
+                          "name": "Pork Chop",
+                          "desc": "Grilled pork sirloin with steak sauce.",
+                          "image": "l_02",
+                          "price": 13.25
+                          },
+                          {
+                          "name": "Roast Chicken",
+                          "desc": "Oven roasted and seasoned with our spices.",
+                          "image": "l_03",
+                          "price": 16.65
+                          },
+                          {
+                          "name": "Baby Back Ribs",
+                          "desc": "Classic Chicago rub sauce on slow-cooked ribs.",
+                          "image": "l_04",
+                          "price": 12.75
+                          },
+                          {
+                          "name": "Top Sirloin",
+                          "desc": "Premium beef cut served with mushroom sauce.",
+                          "image": "l_05",
+                          "price": 13
+                          }
+                          ]
+                 },
+                 {
+                 "cat_name": "Specials",
+                 "cat_desc": "Our signature dishes.",
+                 "item": [
+                          {
+                          "name": "New York Strip",
+                          "desc": "Prime strip steak with grilled herbs and vegetables.",
+                          "image": "s_01",
+                          "price": 21.95
+                          },
+                          {
+                          "name": "Meatloaf",
+                          "desc": "Elevated homemade goodness served with our custom sauce.",
+                          "image": "s_02",
+                          "price": 18.5
+                          },
+                          {
+                          "name": "Salmon Steak",
+                          "desc": "Fresh Alaskan catch and grilled to perfection.",
+                          "image": "s_03",
+                          "price": 16.65
+                          },
+                          {
+                          "name": "Ribeye Steak",
+                          "desc": "Our best cut ever, enough said.",
+                          "image": "s_04",
+                          "price": 24.9
+                          },
+                          {
+                          "name": "Buffalo Burger",
+                          "desc": "Buffalo patty slathered with barbecue sauce.",
+                          "image": "s_05",
+                          "price": 16.75
+                          }
+                          ]
+                 },
+                 {
+                 "cat_name": "Drinks",
+                 "cat_desc": "The best refreshments.",
+                 "": {},
+                 "item": [
+                          {
+                          "name": "Margarita",
+                          "desc": "Lemon-lime zest for the classic Mexican tanginess.",
+                          "image": "d_01",
+                          "price": 6.45
+                          },
+                          {
+                          "name": "Bloody Mary",
+                          "desc": "Sumptuous crimson-red vodka cocktail.",
+                          "image": "d_02",
+                          "price": 9
+                          },
+                          {
+                          "name": "Orange Juice",
+                          "desc": "Pure squeezed oranges for maximum taste.",
+                          "image": "d_03",
+                          "price": 3.95
+                          },
+                          {
+                          "name": "Iced Tea",
+                          "desc": "Exquisitely selected tea leaves for the best flavor.",
+                          "image": "d_04",
+                          "price": 4
+                          },
+                          {
+                          "name": "Premium Coffee",
+                          "desc": "Dark roasted Arabica beans to perk you up.",
+                          "image": "d_05",
+                          "price": 4.55
+                          }
+                          ]
+                 }
+                 ]
+}

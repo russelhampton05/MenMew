@@ -40,7 +40,7 @@ class SummaryViewController : UITableViewController {
         title.text = orderArray[(indexPath as NSIndexPath).row].title
         
         let price = cell.viewWithTag(2) as! UILabel
-        price.text = "$" + orderArray[(indexPath as NSIndexPath).row].price
+        price.text = (NSString(format: "$%.2f", orderArray[(indexPath as NSIndexPath).row].price) as String)
         
         if let currPrice = Double(orderArray[(indexPath as NSIndexPath).row].price) {
             total += currPrice

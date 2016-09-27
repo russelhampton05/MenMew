@@ -9,10 +9,23 @@
 import UIKit
 import AVFoundation
 
+struct MenuItem {
+    var title: String
+    var price: Double
+    var image: String
+    var desc: String
+}
+
 class QRViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
     let transition = CircleTransition()
     var flag: Bool = true
+    
+    var appID: String?
+    var restaurantTitle: String?
+    var location: String?
+    var tableNum: Int?
+    var connectionURL: URL?
     
     @IBOutlet weak var messageLabel:UILabel!
     @IBOutlet weak var titleLabel: UILabel!
@@ -63,10 +76,10 @@ class QRViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate
             objCaptureDeviceInput = nil
         }
         
-        //UIAlertView is deprecated so this can change
+        //UIAlertController
         if error != nil {
-            let alertView : UIAlertView = UIAlertView(title: "Device error", message:"Device not Supported for this Application", delegate: nil, cancelButtonTitle: "Okay")
-            alertView.show()
+            let alertView = UIAlertController(title: "Device Error", message: "Device is not supported for this application.", preferredStyle: .alert)
+            alertView.show(self, sender: Any.self)
             return
         }
         
@@ -135,19 +148,19 @@ class QRViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate
             qrCodeFrameView?.frame = objBarCode.bounds;
             if objMetadataMachineReadableCodeObject.stringValue != nil {
                 
-                //This is where we can retrieve the data, for now it just presents the URL for URL QR Codes
-                //JSON parsing can be done here
+
+                //JSON loading and parsing can be done here
                 messageLabel.text = objMetadataMachineReadableCodeObject.stringValue
                 
                 if flag {
-                    //Conditional to check for valid objects
-                    if messageLabel.text == "RJ's Steakhouse" {
-                        flag = false
-                        qrCodeFrameView!.removeFromSuperview()
-                        videoPreviewLayer!.removeFromSuperlayer()
-                        captureSession!.stopRunning()
-                        performSegue(withIdentifier: "MenuLoadSegue", sender: self)
-                    }
+                    //Initiate segue to loading screen
+                    flag = false
+                    startConnection()
+                    qrCodeFrameView!.removeFromSuperview()
+                    videoPreviewLayer!.removeFromSuperlayer()
+                    captureSession!.stopRunning()
+
+                    performSegue(withIdentifier: "MenuLoadSegue", sender: self)
                 }
             }
         }
@@ -155,9 +168,66 @@ class QRViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let newVC = segue.destination as! RestaurantViewController
+        let menuLoadVC = segue.destination as! RestaurantViewController
         
-        newVC.restaurant = messageLabel.text
-        newVC.tableNum = "Table 4"
+
+        menuLoadVC.connectionURL = connectionURL
+    }
+    
+    
+    //JSON Loading Function
+    func loadJSON() {
+        
+        //Load the URL
+        startConnection()
+
+        URLSession.shared.dataTask(with: connectionURL!, completionHandler: {(data, response, error) in
+            if error != nil {
+                //Error
+                print(error)
+            } else {
+                do {
+                    let jsonData = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [String: Any]
+                    
+                    if let appIdentifier = jsonData["application"] as? String {
+                        self.appID = appIdentifier
+                    }
+                    
+                    if let restaurantName = jsonData["name"] as? String {
+                        self.restaurantTitle = restaurantName
+                    }
+                    
+                    if let restaurantLocation = jsonData["location"] as? String {
+                        self.location = restaurantLocation
+                    }
+                    
+                    if let restaurantTableNum = jsonData["table"] as? Int {
+                        self.tableNum = restaurantTableNum
+                    }
+                    
+                    self.verifyMenu()
+                    
+                } catch let error as NSError {
+                    //Error
+                    print(error)
+                }
+            }
+        }).resume()
+    }
+    
+    func startConnection() {
+        let urlPath = messageLabel.text
+        connectionURL = NSURL(string: urlPath!) as URL?
+    }
+    
+    func verifyMenu() {
+        //Conditional to check for valid objects
+        if appID == "MenMew" {
+            qrCodeFrameView!.removeFromSuperview()
+            videoPreviewLayer!.removeFromSuperlayer()
+            captureSession!.stopRunning()
+            
+            performSegue(withIdentifier: "MenuLoadSegue", sender: self)
+        }
     }
 }

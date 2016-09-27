@@ -10,8 +10,14 @@ import UIKit
 
 class RestaurantViewController: UIViewController {
     
-    var restaurant: String?
-    var tableNum: String?
+    var restaurantTitle: String?
+    var location: String?
+    var tableNum: Int?
+    var dataDictionary: [[String: Any]]?
+    var categoryArray = [(name: String, desc: String)]()
+    var menuGroup = [MenuItem]()
+    var menuArray = [[MenuItem]]()
+    var connectionURL: URL?
 
     @IBOutlet weak var restaurantLabel: UILabel!
     @IBOutlet weak var tableLabel: UILabel!
@@ -20,13 +26,9 @@ class RestaurantViewController: UIViewController {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
         
-        restaurantLabel.text = restaurant!
-        tableLabel.text = tableNum!
+
         
-        delay(2.0) {
-            //Segue
-            self.performSegue(withIdentifier: "MainMenuSegue", sender: self)
-        }
+        parseJSONData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -47,9 +49,71 @@ class RestaurantViewController: UIViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let mainMenu = segue.destination as! MainMenuViewController
+        let mainMenuVC = segue.destination as! MainMenuViewController
         
-        mainMenu.restaurant = restaurant
+        mainMenuVC.restaurant = restaurantTitle!
+        mainMenuVC.categoryArray = categoryArray
+        mainMenuVC.menuArray = menuArray
+    }
+    
+    func parseJSONData() {
+        
+        URLSession.shared.dataTask(with: connectionURL!, completionHandler: {(data, response, error) in
+            if error != nil {
+                //Error
+                print(error)
+            } else {
+                do {
+                    let jsonData = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [String: Any]
+                    
+                    
+                    if let categories = jsonData["category"] as? [[String: Any]] {
+                        
+                        if let restaurantName = jsonData["name"] as? String {
+                            self.restaurantTitle = restaurantName
+                        }
+                        
+                        if let restaurantLocation = jsonData["location"] as? String {
+                            self.location = restaurantLocation
+                        }
+                        
+                        if let restaurantTableNum = jsonData["table"] as? Int {
+                            self.tableNum = restaurantTableNum
+                        }
+                        
+                        DispatchQueue.main.async(execute: { () -> Void in
+                            self.restaurantLabel.text = self.restaurantTitle!
+                            self.tableLabel.text = "Table " + String(self.tableNum!)
+                        })
+                        
+                        
+                        for var category in categories {
+                            
+                            self.categoryArray.append((name: category["cat_name"] as! String, desc: category["cat_desc"] as! String))
+                            
+                            let items = category["item"] as! [[String: Any]]
+                            
+                            for item in items {
+                                
+                                let newMenuItem = MenuItem(title: item["name"] as! String, price: item["price"] as! Double, image: item["image"] as! String, desc: item["desc"] as! String)
+                                
+                                self.menuGroup.append(newMenuItem)
+                            }
+                            
+                            self.menuArray.append(self.menuGroup)
+                            self.menuGroup.removeAll()
+                        }
+                    }
+                    
+                    self.performSegue(withIdentifier: "MainMenuSegue", sender: self)
+                    
+                } catch let error as NSError {
+                    //Error
+                    print(error)
+                }
+            }
+        }).resume()
         
     }
+
 }

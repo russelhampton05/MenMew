@@ -7,13 +7,7 @@
 //
 
 import UIKit
-
-struct MenuItem {
-    var title: String
-    var price: String
-    var image: String
-    var desc: String
-}
+import Foundation
 
 
 class MainMenuViewController: UITableViewController{
@@ -23,13 +17,10 @@ class MainMenuViewController: UITableViewController{
 
     var orderArray: [(title: String, price: String)] = []
     let transition = CircleTransition()
-    var menuArray = [[MenuItem(title: "Omelette", price: "12.50", image: "b_01", desc: "Scrambled eggs with your choice of meats and vegetables."), MenuItem(title: "Eggs Benedict", price: "14.00", image: "b_02", desc: "Classic poached eggs over ham and bacon on French toast."), MenuItem(title: "Pancakes", price: "8.95", image: "b_03", desc: "Classic buttermilk pancakes.")],
-                         [MenuItem(title: "Crawfish Bucket", price: "15.50", image: "l_01", desc: "Cajun-style crawfish cooked fresh."), MenuItem(title: "Pork Chop", price: "13.25", image: "l_02", desc: "Grilled pork sirloin."), MenuItem(title: "Roast Chicken", price: "16.65", image: "l_03", desc: "Oven roasted and seasoned with our spices.")],
-                         [MenuItem(title: "New York Strip", price: "21.95", image: "s_01", desc: "Classic strip steak served with reduction sauce."), MenuItem(title: "Meatloaf", price: "18.50", image: "s_02", desc: "Homemade goodness, elevated."), MenuItem(title: "Salmon Steak", price: "8.95", image: "s_03", desc: "Fresh Alaskan catch.")],
-                        [MenuItem(title: "Margarita", price: "6.65", image: "d_01", desc: "Classic Mexican beverage."), MenuItem(title: "Bloody Mary", price: "9.00", image: "d_02", desc: "Sumptuous vodka cocktail."), MenuItem(title: "Orange Juice", price: "3.95", image: "d_03", desc: "Pure squeezed oranges for maximum taste.")]]
-    
-    var categoryArray: [(name: String, desc: String)] = [(name: "Breakfast", desc: "The best way to start your day."), (name: "Lunch", desc: "Dine in with our delectable entrees."), (name: "Specials", desc: "Our signature dishes."), (name: "Drinks", desc: "The best refreshments.")]
+    var menuArray = [[MenuItem]]()
+    var categoryArray = [(name: String, desc: String)]()
     var restaurant: String?
+    
     @IBOutlet weak var restaurantLabel: UINavigationItem!
     
     
@@ -45,6 +36,7 @@ class MainMenuViewController: UITableViewController{
         
         menuButton.target = self.revealViewController()
         menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -88,6 +80,8 @@ class MainMenuViewController: UITableViewController{
             menuVC.categoryTitle = categoryArray[segueIndex!].name
             menuVC.menuArray = menuArray[segueIndex!]
             menuVC.orderArray = orderArray
+            menuVC.categoryArray = categoryArray
+            menuVC.fullMenu = menuArray
             menuVC.restaurantName = restaurant!
         }
         else if segue.identifier == "SettingsSegue" {
@@ -96,8 +90,9 @@ class MainMenuViewController: UITableViewController{
         
     }
     
-    func reloadDetails(_ sourceArray: [(title: String, price: String)], sourceRestaurant: String){
+    func reloadDetails(_ sourceArray: [(title: String, price: String)], sourceMenuArray: [[MenuItem]], sourceRestaurant: String){
         orderArray = sourceArray
+        menuArray = sourceMenuArray
         restaurant = sourceRestaurant
     }
     

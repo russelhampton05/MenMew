@@ -1,4 +1,4 @@
-//
+    //
 //  MenuDetailsViewController.swift
 //  Test_003_TableViews
 //
@@ -16,6 +16,8 @@ class MenuDetailsViewController: UITableViewController {
     
     //Can load data directly from the parent menu (which loads from JSON)
     var menuArray: [MenuItem]?
+    var fullMenu: [[MenuItem]]?
+    var categoryArray = [(name: String, desc: String)]()
     var categoryTitle: String?
     var restaurantName: String?
     
@@ -56,7 +58,7 @@ class MenuDetailsViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! MenuCell
         
         cell.foodTitle.text = menuArray![(indexPath as NSIndexPath).row].title
-        cell.foodPrice.text = "$" + menuArray![(indexPath as NSIndexPath).row].price
+        cell.foodPrice.text = (NSString(format: "$%.2f", menuArray![(indexPath as NSIndexPath).row].price) as String)
         cell.foodDesc.text = menuArray![(indexPath as NSIndexPath).row].desc
         cell.foodImage.image = UIImage(named: menuArray![(indexPath as NSIndexPath).row].image)
         
@@ -126,7 +128,7 @@ class MenuDetailsViewController: UITableViewController {
         
         let confirmPopup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Popup") as! PopupViewController
         
-        addToOrder(menuArray![(selectedIndexPath! as NSIndexPath).row].title, foodPrice: menuArray![(selectedIndexPath! as NSIndexPath).row].price)
+        addToOrder(menuArray![(selectedIndexPath! as NSIndexPath).row].title, foodPrice: String(menuArray![(selectedIndexPath! as NSIndexPath).row].price))
         
         confirmPopup.menuItem = menuArray![(selectedIndexPath! as NSIndexPath).row].title
         self.addChildViewController(confirmPopup)
@@ -144,7 +146,7 @@ class MenuDetailsViewController: UITableViewController {
         orderArray! += [(title: foodTitle, price: foodPrice)]
     }
     
-    //Segue on Done button press
+    //Segues for Back and Done Button Presses
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ConfirmOrder" {
             let summaryTable = segue.destination as! SummaryViewController
@@ -153,8 +155,11 @@ class MenuDetailsViewController: UITableViewController {
         }
         else if segue.identifier == "ReturnMainSegue" {
             let mainVC = segue.destination as! MainMenuViewController
-            
-            mainVC.reloadDetails(orderArray!, sourceRestaurant: restaurantName!)
+            mainVC.menuArray = fullMenu!
+            mainVC.orderArray = orderArray!
+            mainVC.categoryArray = categoryArray
+            mainVC.restaurant = restaurantName!
+            //mainVC.reloadDetails(orderArray!, sourceMenuArray: fullMenu!, sourceRestaurant: restaurantName!)
         }
     }
 
