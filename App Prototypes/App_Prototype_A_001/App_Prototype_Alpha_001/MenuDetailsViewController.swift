@@ -159,6 +159,8 @@ class MenuDetailsViewController: UITableViewController {
             mainVC.orderArray = orderArray!
             mainVC.categoryArray = categoryArray
             mainVC.restaurant = restaurantName!
+            
+            //mainVC.reloadDetails()
             //mainVC.reloadDetails(orderArray!, sourceMenuArray: fullMenu!, sourceRestaurant: restaurantName!)
         }
     }

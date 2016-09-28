@@ -18,6 +18,7 @@ class PopupViewController: UIViewController {
     var customMessage = String()
     var cancelOrder: Bool = false
     var confirmCancel: Bool = false
+    var confirmRegister: Bool = false
     
     //Initial view load, check if the instigator is a cancel prompt
     override func viewDidLoad() {
@@ -29,9 +30,7 @@ class PopupViewController: UIViewController {
         }
     }
     
-    //if self.cancelOrder == true {
-    //self.performSegueWithIdentifier("ReturnMenu", sender: self)
-    //}
+
     //Confirm button
     @IBAction func confirmAction(_ sender: AnyObject) {
         confirmCancel = true
@@ -62,13 +61,20 @@ class PopupViewController: UIViewController {
                 if (finished)
                 {
                     self.view.removeFromSuperview()
-                    let parent = self.parent as! UITableViewController
-                    parent.tableView.isScrollEnabled = true
+                    
+                    if let parent = self.parent as? UITableViewController {
+                        parent.tableView.isScrollEnabled = true
+                    }
                     
                     if self.confirmCancel {
                         if let summaryP = self.parent as? SummaryViewController {
                             summaryP.orderArray = []
                             summaryP.performSegue(withIdentifier: "UnwindMenu", sender: summaryP)
+                        }
+                    }
+                    if self.confirmRegister {
+                        if let registerVC = self.parent as? RegisterViewController {
+                            registerVC.performSegue(withIdentifier: "QRScanSegue", sender: registerVC)
                         }
                     }
                 }
@@ -85,4 +91,8 @@ class PopupViewController: UIViewController {
         addedLabel.text = "Are you sure you want to cancel the order/s?"
     }
     
+    //Login message
+    func loginMessage(message: String) {
+        addedLabel.text = message
+    }
 }

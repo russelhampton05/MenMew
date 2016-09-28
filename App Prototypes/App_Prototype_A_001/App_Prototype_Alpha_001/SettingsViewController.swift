@@ -10,7 +10,28 @@ import UIKit
 
 class SettingsViewController: UITableViewController {
 
+    var orderArray: [(title: String, price: String)] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ProfileSegue" {
+            let profileVC = segue.destination as! ProfileViewController
+            
+        }
+        if segue.identifier == "OrderSegue" {
+            let orderVC = segue.destination as! SummaryViewController
+            
+            orderVC.orderArray = orderArray
+        }
+    }
+    
+    //Unwind Segue
+    @IBAction func unwindToSettings(_ sender: UIStoryboardSegue) {
+    if let sourceVC = sender.source as? ProfileViewController {
+    
+        }
     }
 }

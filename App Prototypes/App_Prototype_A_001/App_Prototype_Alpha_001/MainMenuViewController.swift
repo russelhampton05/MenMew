@@ -37,6 +37,8 @@ class MainMenuViewController: UITableViewController{
         menuButton.target = self.revealViewController()
         menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
         
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -85,15 +87,22 @@ class MainMenuViewController: UITableViewController{
             menuVC.restaurantName = restaurant!
         }
         else if segue.identifier == "SettingsSegue" {
-            let settingsVC = segue.destination as! UITableViewController
+            let settingsVC = segue.destination as! SettingsViewController
+            
+            settingsVC.orderArray = orderArray
         }
         
     }
     
-    func reloadDetails(_ sourceArray: [(title: String, price: String)], sourceMenuArray: [[MenuItem]], sourceRestaurant: String){
-        orderArray = sourceArray
-        menuArray = sourceMenuArray
-        restaurant = sourceRestaurant
+    func reloadDetails(){
+        if let rearNavController = self.revealViewController().rearViewController as? UINavigationController {
+        
+        if (rearNavController.topViewController?.isKind(of: SettingsViewController.self))! {
+            let settingsVC = rearNavController.topViewController! as! SettingsViewController
+            
+            settingsVC.orderArray = orderArray
+        }
+        }
     }
     
     @IBAction func unwindToMain(_ sender: UIStoryboardSegue) {
