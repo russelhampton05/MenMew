@@ -33,6 +33,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         if let user = FIRAuth.auth()?.currentUser {
             logoutButton.isHidden = false
             registerButton.isHidden = true
+            usernameField.text = user.email!
         }
         else {
             logoutButton.isHidden = true

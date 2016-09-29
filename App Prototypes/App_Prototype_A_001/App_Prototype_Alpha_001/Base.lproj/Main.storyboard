@@ -86,7 +86,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="equalSpacing" alignment="center" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="JQD-WV-095">
-                                <frame key="frameInset" minX="20" minY="212" width="343" height="2160"/>
+                                <frame key="frameInset" minX="20" minY="212" width="343" height="2157"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Now Loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uAB-lm-Spr">
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="23"/>
@@ -621,7 +621,7 @@
             <objects>
                 <tableViewController id="vWD-u8-Mhd" customClass="MainMenuViewController" customModule="App_Prototype_Alpha_001" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="fdC-tC-Fkc">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="0.41582992860000001" blue="0.3595783099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -660,7 +660,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Menu" id="Bew-zT-i7j">
-                        <barButtonItem key="leftBarButtonItem" image="burger3" id="zcJ-It-YnL"/>
+                        <barButtonItem key="leftBarButtonItem" image="menu_Icon" id="zcJ-It-YnL"/>
                     </navigationItem>
                     <connections>
                         <outlet property="menuButton" destination="zcJ-It-YnL" id="xlP-Ua-WMu"/>
@@ -701,7 +701,7 @@
             <objects>
                 <tableViewController id="7ov-nd-rea" customClass="MenuDetailsViewController" customModule="App_Prototype_Alpha_001" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="164" sectionHeaderHeight="28" sectionFooterHeight="28" id="cNE-Bq-cxO">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="0.41582992860000001" blue="0.3595783099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
@@ -815,13 +815,13 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Category" id="f09-Ls-fLQ">
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="36w-4o-ctv">
+                        <barButtonItem key="leftBarButtonItem" image="back" id="36w-4o-ctv">
                             <connections>
                                 <action selector="backButtonPressed:" destination="7ov-nd-rea" id="3A2-yr-OlT"/>
                                 <segue destination="vWD-u8-Mhd" kind="show" identifier="ReturnMainSegue" id="dpp-zc-24d"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="done" id="10o-fZ-1l2">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" image="cart-outline" id="10o-fZ-1l2">
                             <connections>
                                 <segue destination="4Qy-uD-AU0" kind="show" identifier="ConfirmOrder" id="MaD-a0-jJi"/>
                             </connections>
@@ -954,7 +954,7 @@
             <objects>
                 <tableViewController id="4Qy-uD-AU0" customClass="SummaryViewController" customModule="App_Prototype_Alpha_001" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="xPc-PI-lKU">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="0.41582992860000001" blue="0.3595783099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="separatorColor" red="1" green="0.41582992860000001" blue="0.3595783099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1397,6 +1397,20 @@
                                                 <constraint firstItem="Asr-cn-Cuz" firstAttribute="baseline" secondItem="p6u-1D-9j0" secondAttribute="firstBaseline" id="zz8-Rc-slE"/>
                                             </constraints>
                                         </stackView>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="cRr-a2-pbE">
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QpN-zO-MJx">
+                                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
+                                                    <state key="normal" title="Done">
+                                                        <color key="titleColor" red="1" green="0.41582992860000001" blue="0.3595783099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="doneButtonPressed:" destination="vuq-xq-iiH" eventType="touchUpInside" id="5bW-j1-mUc"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                        </stackView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="Uz3-2y-cgz" secondAttribute="trailing" id="7ik-QY-5Io"/>
@@ -1407,11 +1421,13 @@
                                         <constraint firstItem="dB4-LN-M9S" firstAttribute="leading" secondItem="CDs-bl-Ayy" secondAttribute="leadingMargin" id="He1-6Q-Asj"/>
                                         <constraint firstAttribute="trailing" secondItem="dB4-LN-M9S" secondAttribute="trailing" id="LV3-7n-DVG"/>
                                         <constraint firstItem="pmr-Gj-OJ8" firstAttribute="leading" secondItem="CDs-bl-Ayy" secondAttribute="leading" id="MOV-pY-NP2"/>
+                                        <constraint firstItem="cRr-a2-pbE" firstAttribute="leading" secondItem="CDs-bl-Ayy" secondAttribute="leading" constant="100" id="R3N-OE-9jK"/>
                                         <constraint firstItem="Uz3-2y-cgz" firstAttribute="top" secondItem="CDs-bl-Ayy" secondAttribute="top" id="a8O-13-IjO"/>
                                         <constraint firstItem="Uz3-2y-cgz" firstAttribute="top" secondItem="pmr-Gj-OJ8" secondAttribute="bottom" id="dt9-4Y-Xzo"/>
                                         <constraint firstItem="Uz3-2y-cgz" firstAttribute="leading" secondItem="CDs-bl-Ayy" secondAttribute="leading" id="g76-G4-fPT"/>
                                         <constraint firstItem="pmr-Gj-OJ8" firstAttribute="top" secondItem="CDs-bl-Ayy" secondAttribute="top" id="gXk-es-RUt"/>
                                         <constraint firstAttribute="bottom" secondItem="dB4-LN-M9S" secondAttribute="bottom" id="ix5-Kn-9UE"/>
+                                        <constraint firstAttribute="trailing" secondItem="cRr-a2-pbE" secondAttribute="trailing" constant="100" id="t24-ns-rsl"/>
                                         <constraint firstItem="dB4-LN-M9S" firstAttribute="leading" secondItem="CDs-bl-Ayy" secondAttribute="leading" id="xYa-PQ-Aar"/>
                                     </constraints>
                                     <variation key="default">
@@ -1500,6 +1516,7 @@
                         <barButtonItem key="backBarButtonItem" title="Menu" id="hOo-bt-hnH"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="doneButton" destination="QpN-zO-MJx" id="YOf-7s-Yh0"/>
                         <outlet property="taxValue" destination="J5a-mp-KhD" id="xj5-WI-bO3"/>
                         <outlet property="totalValue" destination="p6u-1D-9j0" id="cxk-ht-pwh"/>
                         <segue destination="F9G-nx-Nle" kind="unwind" identifier="UnwindMenu" unwindAction="unwindToMenuDetails:" id="qqH-Pg-Gzu"/>
@@ -1512,7 +1529,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="burger3" width="33" height="33"/>
+        <image name="back" width="24" height="24"/>
+        <image name="cart-outline" width="24" height="24"/>
+        <image name="menu_Icon" width="24" height="24"/>
         <image name="profile_round" width="312" height="312"/>
     </resources>
     <inferredMetricsTieBreakers>

@@ -9,9 +9,11 @@
 import UIKit
 
 class OrderConfirmationViewController: UIViewController {
-    var orderArray: [(title: String, price: String)]?
+    var orderArray: [(title: String, price: Double)]?
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationController?.isNavigationBarHidden = true
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -10,7 +10,7 @@ import UIKit
 
 class SettingsViewController: UITableViewController {
 
-    var orderArray: [(title: String, price: String)] = []
+    var orderArray: [(title: String, price: Double)] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,8 +30,12 @@ class SettingsViewController: UITableViewController {
     
     //Unwind Segue
     @IBAction func unwindToSettings(_ sender: UIStoryboardSegue) {
-    if let sourceVC = sender.source as? ProfileViewController {
+        if let sourceVC = sender.source as? ProfileViewController {
     
         }
+        else if let sourceVC = sender.source as? SummaryViewController {
+            
+        }
     }
+   
 }

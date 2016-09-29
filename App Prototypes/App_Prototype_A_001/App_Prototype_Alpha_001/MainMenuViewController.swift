@@ -15,7 +15,7 @@ class MainMenuViewController: UITableViewController{
     var test: String = ""
     @IBOutlet var menuButton: UIBarButtonItem!
 
-    var orderArray: [(title: String, price: String)] = []
+    var orderArray: [(title: String, price: Double)] = []
     let transition = CircleTransition()
     var menuArray = [[MenuItem]]()
     var categoryArray = [(name: String, desc: String)]()
@@ -95,14 +95,9 @@ class MainMenuViewController: UITableViewController{
     }
     
     func reloadDetails(){
-        if let rearNavController = self.revealViewController().rearViewController as? UINavigationController {
-        
-        if (rearNavController.topViewController?.isKind(of: SettingsViewController.self))! {
-            let settingsVC = rearNavController.topViewController! as! SettingsViewController
-            
-            settingsVC.orderArray = orderArray
-        }
-        }
+        //if let rearVC = self.revealViewController().rearViewController {
+            //print("Test")
+        //}
     }
     
     @IBAction func unwindToMain(_ sender: UIStoryboardSegue) {

@@ -10,7 +10,7 @@ import UIKit
 
 class MenuDetailsViewController: UITableViewController {
     
-    var orderArray: [(title: String, price: String)]?
+    var orderArray: [(title: String, price: Double)]?
     var selectedIndexPath : IndexPath?
     var ordered: Bool = false
     
@@ -128,7 +128,7 @@ class MenuDetailsViewController: UITableViewController {
         
         let confirmPopup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Popup") as! PopupViewController
         
-        addToOrder(menuArray![(selectedIndexPath! as NSIndexPath).row].title, foodPrice: String(menuArray![(selectedIndexPath! as NSIndexPath).row].price))
+        addToOrder(menuArray![(selectedIndexPath! as NSIndexPath).row].title, foodPrice: menuArray![(selectedIndexPath! as NSIndexPath).row].price)
         
         confirmPopup.menuItem = menuArray![(selectedIndexPath! as NSIndexPath).row].title
         self.addChildViewController(confirmPopup)
@@ -142,7 +142,7 @@ class MenuDetailsViewController: UITableViewController {
     }
     
     //Add the order to a summary array
-    func addToOrder(_ foodTitle: String, foodPrice: String) {
+    func addToOrder(_ foodTitle: String, foodPrice: Double) {
         orderArray! += [(title: foodTitle, price: foodPrice)]
     }
     
@@ -160,7 +160,7 @@ class MenuDetailsViewController: UITableViewController {
             mainVC.categoryArray = categoryArray
             mainVC.restaurant = restaurantName!
             
-            //mainVC.reloadDetails()
+            mainVC.reloadDetails()
             //mainVC.reloadDetails(orderArray!, sourceMenuArray: fullMenu!, sourceRestaurant: restaurantName!)
         }
     }
@@ -180,6 +180,7 @@ class MenuDetailsViewController: UITableViewController {
         if let sourceVC = sender.source as? OrderConfirmationViewController {
             orderArray = sourceVC.orderArray!
             doneButton.isEnabled = false
+            self.navigationController?.isNavigationBarHidden = false
         }
         else if let sourceVC = sender.source as? SummaryViewController {
             orderArray = sourceVC.orderArray

@@ -12,8 +12,9 @@ class SummaryViewController : UITableViewController {
     
     @IBOutlet weak var taxValue: UILabel!
     @IBOutlet weak var totalValue: UILabel!
-
-    var orderArray: [(title: String, price: String)] = []
+    @IBOutlet weak var doneButton: UIButton!
+    
+    var orderArray: [(title: String, price: Double)] = []
     var total: Double = 0.0
     var tax: Double = 0.0
     var runningTotal: Double = 0.0
@@ -39,12 +40,14 @@ class SummaryViewController : UITableViewController {
         let title = cell.viewWithTag(1) as! UILabel
         title.text = orderArray[(indexPath as NSIndexPath).row].title
         
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
         let price = cell.viewWithTag(2) as! UILabel
-        price.text = (NSString(format: "$%.2f", orderArray[(indexPath as NSIndexPath).row].price) as String)
+        price.text = formatter.string(from: orderArray[(indexPath as NSIndexPath).row].price as NSNumber)
         
-        if let currPrice = Double(orderArray[(indexPath as NSIndexPath).row].price) {
-            total += currPrice
-        }
+        
+        total += orderArray[(indexPath as NSIndexPath).row].price
+        
 
         return cell
     }
@@ -95,5 +98,9 @@ class SummaryViewController : UITableViewController {
             orderConfirmVC.orderArray = orderArray
         }
         
+    }
+    
+    @IBAction func doneButtonPressed(_ sender: AnyObject) {
+        performSegue(withIdentifier: "UnwindMenu", sender: self)
     }
 }
