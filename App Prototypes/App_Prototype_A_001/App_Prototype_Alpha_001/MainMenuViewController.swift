@@ -14,7 +14,8 @@ class MainMenuViewController: UITableViewController{
     var segueIndex: Int?
     var test: String = ""
     @IBOutlet var menuButton: UIBarButtonItem!
-
+    @IBOutlet weak var ordersButton: UIBarButtonItem!
+    
     var orderArray: [(title: String, price: Double)] = []
     let transition = CircleTransition()
     var menuArray = [[MenuItem]]()
@@ -34,11 +35,15 @@ class MainMenuViewController: UITableViewController{
         tableView.estimatedRowHeight = 44
         tableView.rowHeight = UITableViewAutomaticDimension
         
+        if orderArray.count > 0 {
+            ordersButton.isEnabled = true
+        }
+        else {
+            ordersButton.isEnabled = false
+        }
+        
         menuButton.target = self.revealViewController()
         menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
-        
-        
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -46,7 +51,6 @@ class MainMenuViewController: UITableViewController{
         // Dispose of any resources that can be recreated.
     }
     
-
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ("MenuCell")) as UITableViewCell!
         
@@ -91,13 +95,17 @@ class MainMenuViewController: UITableViewController{
             
             settingsVC.orderArray = orderArray
         }
-        
+        else if segue.identifier == "OrderSummarySegue" {
+            let orderVC = segue.destination as! SummaryViewController
+            
+            orderVC.orderArray = orderArray
+        }
     }
     
     func reloadDetails(){
-        //if let rearVC = self.revealViewController().rearViewController {
-            //print("Test")
-        //}
+        if let settingsVCX = self.revealViewController() {
+            print("test")
+        }
     }
     
     @IBAction func unwindToMain(_ sender: UIStoryboardSegue) {
@@ -106,4 +114,7 @@ class MainMenuViewController: UITableViewController{
         }
     }
 
+    @IBAction func ordersButtonPressed(_ sender: AnyObject) {
+        performSegue(withIdentifier: "OrderSummarySegue", sender: self)
+    }
 }
