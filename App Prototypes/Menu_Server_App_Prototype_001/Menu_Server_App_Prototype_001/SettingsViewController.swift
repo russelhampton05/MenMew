@@ -22,9 +22,9 @@ class SettingsViewController: UITableViewController {
             
         }
         if segue.identifier == "OrderSegue" {
-            let orderVC = segue.destination as! SummaryViewController
+            //let orderVC = segue.destination as! SummaryViewController
             
-            orderVC.orderArray = orderArray
+            //orderVC.orderArray = orderArray
         }
     }
     
@@ -32,9 +32,6 @@ class SettingsViewController: UITableViewController {
     @IBAction func unwindToSettings(_ sender: UIStoryboardSegue) {
         if let sourceVC = sender.source as? ProfileViewController {
     
-        }
-        else if let sourceVC = sender.source as? SummaryViewController {
-            
         }
     }
    

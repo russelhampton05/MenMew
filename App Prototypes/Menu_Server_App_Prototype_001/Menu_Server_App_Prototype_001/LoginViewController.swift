@@ -63,8 +63,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "QRScanSegue" {
-            //let scanVC = segue.destination as! QRViewController
+        if segue.identifier == "RestaurantListSegue" {
+            let restaurantVC = segue.destination as! RestaurantTableViewController
             
         }
         else if segue.identifier == "RegisterSegue" {
@@ -84,7 +84,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     self.usernameField.text = ""
                     self.passwordField.text = ""
                     
-                    self.performSegue(withIdentifier: "QRScanSegue", sender: self)
+                    self.performSegue(withIdentifier: "RestaurantListSegue", sender: self)
                 }
                 else {
                    self.showPopup(message: (error?.localizedDescription)!)

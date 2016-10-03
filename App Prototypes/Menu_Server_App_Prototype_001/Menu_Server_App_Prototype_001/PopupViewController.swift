@@ -67,15 +67,10 @@ class PopupViewController: UIViewController {
                     }
                     
                     if self.confirmCancel {
-                        if let summaryP = self.parent as? SummaryViewController {
-                            summaryP.orderArray = []
-                            summaryP.performSegue(withIdentifier: "UnwindMenu", sender: summaryP)
-                        }
+
                     }
                     if self.confirmRegister {
-                        if let registerVC = self.parent as? RegisterViewController {
-                            registerVC.performSegue(withIdentifier: "QRScanSegue", sender: registerVC)
-                        }
+
                     }
                 }
         })
