@@ -1,0 +1,6 @@
+framework module Pods_Menu_Server_App_Prototype_001 {
+  umbrella header "Pods-Menu_Server_App_Prototype_001-umbrella.h"
+
+  export *
+  module * { export * }
+}
