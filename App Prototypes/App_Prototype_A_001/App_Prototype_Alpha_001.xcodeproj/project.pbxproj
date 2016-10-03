@@ -12,6 +12,8 @@
 		4A0E979F1D9C171C00ECA82F /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0E979E1D9C171C00ECA82F /* RegisterViewController.swift */; };
 		4A0ECC781D9C3C09004811F3 /* OrderDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0ECC771D9C3C09004811F3 /* OrderDetailsTableViewController.swift */; };
 		4A1135C61D9974F7006DDFAE /* Test_Data.json in Resources */ = {isa = PBXBuildFile; fileRef = 4A1135C51D9974F7006DDFAE /* Test_Data.json */; };
+		4A3C67E01DA2F74D00D9D263 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3C67DF1DA2F74D00D9D263 /* Models.swift */; };
+		4A3C67E21DA2F8BF00D9D263 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3C67E11DA2F8BF00D9D263 /* UserManager.swift */; };
 		4A4BACB81D9BF75F008330BD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4A4BACB71D9BF75F008330BD /* GoogleService-Info.plist */; };
 		4A9B5D491D91C461009F2F72 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9B5D481D91C461009F2F72 /* SettingsViewController.swift */; };
 		4A9B5D4B1D91D023009F2F72 /* OrderConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9B5D4A1D91D023009F2F72 /* OrderConfirmationViewController.swift */; };
@@ -59,6 +61,8 @@
 		4A0E979E1D9C171C00ECA82F /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RegisterViewController.swift; path = ../RegisterViewController.swift; sourceTree = "<group>"; };
 		4A0ECC771D9C3C09004811F3 /* OrderDetailsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDetailsTableViewController.swift; sourceTree = "<group>"; };
 		4A1135C51D9974F7006DDFAE /* Test_Data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Test_Data.json; sourceTree = "<group>"; };
+		4A3C67DF1DA2F74D00D9D263 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		4A3C67E11DA2F8BF00D9D263 /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		4A4BACB71D9BF75F008330BD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4A9B5D481D91C461009F2F72 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		4A9B5D4A1D91D023009F2F72 /* OrderConfirmationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderConfirmationViewController.swift; sourceTree = "<group>"; };
@@ -134,6 +138,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		4A3C67DE1DA2F72900D9D263 /* DBstuff */ = {
+			isa = PBXGroup;
+			children = (
+				4A3C67DF1DA2F74D00D9D263 /* Models.swift */,
+				4A3C67E11DA2F8BF00D9D263 /* UserManager.swift */,
+			);
+			name = DBstuff;
+			sourceTree = "<group>";
+		};
 		945C692E1D8EDECA0022C83A = {
 			isa = PBXGroup;
 			children = (
@@ -157,6 +170,7 @@
 		945C69391D8EDECA0022C83A /* App_Prototype_Alpha_001 */ = {
 			isa = PBXGroup;
 			children = (
+				4A3C67DE1DA2F72900D9D263 /* DBstuff */,
 				945C696A1D8EDFCB0022C83A /* App_Prototype_Alpha_001-Bridging-Header.h */,
 				945C693A1D8EDECA0022C83A /* AppDelegate.swift */,
 				945C69411D8EDECA0022C83A /* Assets.xcassets */,
@@ -480,8 +494,10 @@
 				945C69771D8EDFCB0022C83A /* QRViewController.swift in Sources */,
 				4A0E979F1D9C171C00ECA82F /* RegisterViewController.swift in Sources */,
 				945C697A1D8EDFCB0022C83A /* SummaryViewController.swift in Sources */,
+				4A3C67E01DA2F74D00D9D263 /* Models.swift in Sources */,
 				945A67081D8F260E00FAB14A /* MenuDetailsViewController.swift in Sources */,
 				4A9B5D491D91C461009F2F72 /* SettingsViewController.swift in Sources */,
+				4A3C67E21DA2F8BF00D9D263 /* UserManager.swift in Sources */,
 				4A0ECC781D9C3C09004811F3 /* OrderDetailsTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

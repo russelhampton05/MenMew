@@ -9,9 +9,10 @@
 import UIKit
 import Firebase
 
-class LoginViewController: UIViewController, UITextFieldDelegate {
 
-    @IBOutlet weak var usernameField: UITextField!
+
+class LoginViewController: UIViewController, UITextFieldDelegate {
+           @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     
     @IBOutlet weak var registerButton: UIButton!
@@ -19,6 +20,19 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        FIRAuth.auth()?.addStateDidChangeListener { auth, user in
+            if user != nil {
+                // User is signed in.
+                
+                var currentUser = User(id: (FIRAuth.auth()?.currentUser?.uid)!, otherInformation: String(describing: NSDate()))
+                UserManager.AddUser(user: currentUser)
+                
+            } else {
+                // No user is signed in.
+            }
+        }
+        
 
         usernameField.delegate = self
         passwordField.delegate = self

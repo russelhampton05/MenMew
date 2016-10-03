@@ -9,6 +9,7 @@ target 'App_Prototype_Alpha_001' do
 pod 'Firebase'
 pod 'FirebaseAuth'
 pod 'FirebaseDatabase’
+pod 'Firebase/Crash’
   target 'App_Prototype_Alpha_001Tests' do
     inherit! :search_paths
     # Pods for testing
