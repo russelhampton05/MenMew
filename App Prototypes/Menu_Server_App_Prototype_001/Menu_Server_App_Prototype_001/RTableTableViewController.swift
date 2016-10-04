@@ -92,11 +92,28 @@ class RTableTableViewController: UITableViewController {
         performSegue(withIdentifier: "TableDetailSegue", sender: self)
     }
     
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
+    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "TableDetailSegue" {
             let tableDetailVC = segue.destination as! TableDetailViewController
             
             tableDetailVC.table = tableList[segueIndex!]
+        }
+    }
+    
+    @IBAction func unwindToTableList(_ sender: UIStoryboardSegue) {
+        if let sourceVC = sender.source as? TableDetailViewController {
+            
+            tableList[segueIndex!].fulfilled = true
+            tableList[segueIndex!].category = "Order Fulfilled"
+            
+            tableView.reloadData()
         }
     }
 }

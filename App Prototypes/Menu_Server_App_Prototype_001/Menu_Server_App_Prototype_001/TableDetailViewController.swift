@@ -17,6 +17,7 @@ class TableDetailViewController: UIViewController {
     @IBOutlet weak var ticketLabel: UILabel!
     @IBOutlet weak var customerContainer: UIView!
     @IBOutlet weak var orderContainer: UIView!
+    @IBOutlet weak var fulfillButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +26,17 @@ class TableDetailViewController: UIViewController {
         ticketLabel.text = "Ticket " + table!.ticket
         statusLabel.text = table!.category
         
+        if table!.category == "Ready to Serve" {
+            fulfillButton.isHidden = false
+            fulfillButton.setTitle("Fulfill Order", for: .normal)
+        }
+        else if table!.category == "Refill Requested" {
+            fulfillButton.isHidden = false
+            fulfillButton.setTitle("Perform Refill", for: .normal)
+        }
+        else {
+            fulfillButton.isHidden = true
+        }
         //performSegue(withIdentifier: "CustomerTableSegue", sender: self)
         //performSegue(withIdentifier: "OrderTableSegue", sender: self)
         // Do any additional setup after loading the view.
@@ -46,5 +58,18 @@ class TableDetailViewController: UIViewController {
             
             orderVC.orderList = table!.orderList
         }
+    }
+    @IBAction func fulfillButtonPressed(_ sender: AnyObject) {
+        
+        let fulfillPopup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Popup") as! PopupViewController
+        
+        self.addChildViewController(fulfillPopup)
+        self.view.addSubview(fulfillPopup.view)
+        fulfillPopup.didMove(toParentViewController: self)
+        fulfillPopup.ticket = table!.ticket
+        fulfillPopup.addMessage(context: "FulfillOrder")
+        
+
+        //performSegue(withIdentifier: "UnwindToTableListSegue", sender: self)
     }
 }

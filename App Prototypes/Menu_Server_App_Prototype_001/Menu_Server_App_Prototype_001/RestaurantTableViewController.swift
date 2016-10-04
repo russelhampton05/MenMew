@@ -10,6 +10,7 @@ import UIKit
 
 class RestaurantTableViewController: UITableViewController {
     
+    @IBOutlet weak var menuButton: UIBarButtonItem!
     //Dummy Data
     var restaurantArray: [(name: String, location: String)] = [(name: "RJ's Steakhouse", location: "Spring, TX"), (name: "P.F. Chang's", location: "Houston, TX"), (name: "Cafe 101", location: "University of Houston, TX")]
     var segueIndex: Int?
@@ -22,6 +23,11 @@ class RestaurantTableViewController: UITableViewController {
         tableView.sectionHeaderHeight = 70
         tableView.estimatedRowHeight = 44
         tableView.rowHeight = UITableViewAutomaticDimension
+        
+        navigationItem.hidesBackButton = true
+        
+        menuButton.target = self.revealViewController()
+        menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false

@@ -101,10 +101,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         let loginPopup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Popup") as! PopupViewController
         
         self.addChildViewController(loginPopup)
-        loginPopup.view.frame = self.view.frame
         self.view.addSubview(loginPopup.view)
         loginPopup.didMove(toParentViewController: self)
-        loginPopup.loginMessage(message: message)
+        loginPopup.addMessage(context: message)
         
     }
     

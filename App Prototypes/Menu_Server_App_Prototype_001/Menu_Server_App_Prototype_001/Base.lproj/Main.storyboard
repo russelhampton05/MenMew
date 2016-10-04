@@ -530,14 +530,14 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0jJ-9D-8oP">
-                                            <frame key="frameInset" minX="15" minY="-5" width="53" height="35.5"/>
+                                            <frame key="frameInset" minX="15" minY="-5" width="53" height="36"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="30"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gTs-3Y-cmA">
-                                            <frame key="frameInset" minX="15" minY="30.5" width="52" height="19"/>
+                                            <frame key="frameInset" minX="15" minY="31" width="52" height="19"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -553,7 +553,11 @@
                             <outlet property="delegate" destination="7Xm-Wu-6rf" id="5pX-N1-Dg7"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Restaurants" id="Zr2-gt-ND3">
+                        <barButtonItem key="leftBarButtonItem" title="Menu" id="sAn-HV-9L1"/>
+                    </navigationItem>
                     <connections>
+                        <outlet property="menuButton" destination="sAn-HV-9L1" id="WzO-EF-Un3"/>
                         <segue destination="Vwu-QH-9RI" kind="show" identifier="TableListSegue" id="CHz-HL-wkC"/>
                     </connections>
                 </tableViewController>
@@ -689,9 +693,12 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TrX-3X-ZD1">
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
-                                        <state key="normal" title="Fullfil Order">
+                                        <state key="normal" title="ButtonText">
                                             <color key="titleColor" red="1" green="0.41582992860000001" blue="0.3595783099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="fulfillButtonPressed:" destination="87t-ud-tUF" eventType="touchUpInside" id="1e3-c3-DsU"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -708,13 +715,16 @@
                     </view>
                     <connections>
                         <outlet property="customerContainer" destination="Fbv-qs-bvl" id="Hf7-Je-6sI"/>
+                        <outlet property="fulfillButton" destination="TrX-3X-ZD1" id="3fi-fd-tDs"/>
                         <outlet property="orderContainer" destination="1ZP-uo-77t" id="QaZ-sQ-cGL"/>
                         <outlet property="statusLabel" destination="XOO-Sj-sQ0" id="oJ7-MQ-ukH"/>
                         <outlet property="tableNumLabel" destination="RSa-1w-dwD" id="Jmb-jL-L1B"/>
                         <outlet property="ticketLabel" destination="bbD-EI-kVm" id="6Ef-aG-Gup"/>
+                        <segue destination="yLO-b2-Tfj" kind="unwind" identifier="UnwindToTableListSegue" unwindAction="unwindToTableList:" id="coe-t8-PSr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="npF-mq-R4p" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="yLO-b2-Tfj" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2927" y="-911"/>
         </scene>
@@ -950,7 +960,7 @@
                                                             <color key="titleColor" red="1" green="0.41582992860000001" blue="0.3595783099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </state>
                                                         <connections>
-                                                            <action selector="confirmAction:" destination="SX7-2r-0ps" eventType="touchUpInside" id="fRw-jw-8HX"/>
+                                                            <action selector="confirmButtonPressed:" destination="SX7-2r-0ps" eventType="touchUpInside" id="1sC-Sg-xVJ"/>
                                                         </connections>
                                                     </button>
                                                     <button hidden="YES" opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RI5-SY-ud9">
@@ -960,7 +970,7 @@
                                                             <color key="titleColor" red="1" green="0.41582992860000001" blue="0.3595783099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </state>
                                                         <connections>
-                                                            <action selector="cancelAction:" destination="SX7-2r-0ps" eventType="touchUpInside" id="6jH-84-JJf"/>
+                                                            <action selector="cancelButtonPressed:" destination="SX7-2r-0ps" eventType="touchUpInside" id="5RS-mW-Kyu"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -1025,7 +1035,7 @@
                     <connections>
                         <outlet property="addedLabel" destination="pTB-b6-u2N" id="8SF-rU-XRY"/>
                         <outlet property="cancelButton" destination="RI5-SY-ud9" id="IFF-DC-1pG"/>
-                        <outlet property="confirmButton" destination="3d8-Gu-MzT" id="fGJ-3s-wu1"/>
+                        <outlet property="confirmButton" destination="3d8-Gu-MzT" id="eBC-7i-IGT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hEZ-8S-vno" userLabel="First Responder" sceneMemberID="firstResponder"/>

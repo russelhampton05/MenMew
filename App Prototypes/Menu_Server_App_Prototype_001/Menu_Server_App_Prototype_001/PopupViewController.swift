@@ -15,30 +15,23 @@ class PopupViewController: UIViewController {
     @IBOutlet weak var cancelButton: UIButton!
     
     var menuItem: String?
+    var ticket: String?
     var customMessage = String()
-    var cancelOrder: Bool = false
-    var confirmCancel: Bool = false
-    var confirmRegister: Bool = false
+    var condition: String?
     
     //Initial view load, check if the instigator is a cancel prompt
     override func viewDidLoad() {
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0.6)
         self.showAnimate()
-        
-        if cancelOrder {
-            cancelButton.isHidden = false
-        }
+
     }
     
-
-    //Confirm button
-    @IBAction func confirmAction(_ sender: AnyObject) {
-        confirmCancel = true
+    
+    @IBAction func confirmButtonPressed(_ sender: AnyObject) {
         self.removeAnimate()
     }
     
-    //Cancel button
-    @IBAction func cancelAction(_ sender: AnyObject) {
+    @IBAction func cancelButtonPressed(_ sender: AnyObject) {
         self.removeAnimate()
     }
     
@@ -66,28 +59,29 @@ class PopupViewController: UIViewController {
                         parent.tableView.isScrollEnabled = true
                     }
                     
-                    if self.confirmCancel {
-
-                    }
-                    if self.confirmRegister {
-
+                    if self.condition == "FulfillOrder" {
+                        if let parent = self.parent as? TableDetailViewController {
+                            parent.performSegue(withIdentifier: "UnwindToTableListSegue", sender: parent)
+                        }
                     }
                 }
         })
     }
     
-    //Add to order message
-    func orderAddMessage() {
-        addedLabel.text = menuItem! + " has been added to the order."
-    }
-    
-    //Cancel ask message
-    func orderCancelMessage() {
-        addedLabel.text = "Are you sure you want to cancel the order/s?"
-    }
-    
-    //Login message
-    func loginMessage(message: String) {
-        addedLabel.text = message
+    func addMessage(context: String) {
+        condition = context
+        if context == "AddMenuItem" {
+            addedLabel.text = menuItem! + " has been added to the order."
+        }
+        else if context == "CancelMenuItems" {
+            addedLabel.text = "Are you sure you want to cancel the order/s?"
+            cancelButton.isHidden = false
+        }
+        else if context == "FulfillOrder" {
+            addedLabel.text = "The ticket has been fulfilled."
+        }
+        else {
+            addedLabel.text = context
+        }
     }
 }
