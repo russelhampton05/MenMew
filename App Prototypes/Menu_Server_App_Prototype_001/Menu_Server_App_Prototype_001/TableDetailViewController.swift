@@ -8,15 +8,15 @@
 
 import UIKit
 
-class TableDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class TableDetailViewController: UIViewController {
 
     //Variables
     var table: Table?
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var tableNumLabel: UILabel!
     @IBOutlet weak var ticketLabel: UILabel!
-    @IBOutlet weak var customersTableView: UITableView!
-    @IBOutlet weak var ordersTableView: UITableView!
+    @IBOutlet weak var customerContainer: UIView!
+    @IBOutlet weak var orderContainer: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,16 +25,8 @@ class TableDetailViewController: UIViewController, UITableViewDataSource, UITabl
         ticketLabel.text = "Ticket " + table!.ticket
         statusLabel.text = table!.category
         
-        customersTableView.delegate = self
-        customersTableView.dataSource = self
-        
-        ordersTableView.delegate = self
-        ordersTableView.dataSource = self
-        
-        
-        
-        customersTableView.reloadData()
-        ordersTableView.reloadData()
+        //performSegue(withIdentifier: "CustomerTableSegue", sender: self)
+        //performSegue(withIdentifier: "OrderTableSegue", sender: self)
         // Do any additional setup after loading the view.
     }
 
@@ -43,36 +35,16 @@ class TableDetailViewController: UIViewController, UITableViewDataSource, UITabl
         // Dispose of any resources that can be recreated.
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        var count: Int?
-        
-        if tableView == self.customersTableView {
-            count = table!.clientList.count
-        }
-        else if tableView == self.ordersTableView {
-            count = table!.orderList.count
-        }
-        
-        return count!
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell: UITableViewCell?
-        
-        if tableView == self.customersTableView {
-            cell = tableView.dequeueReusableCell(withIdentifier: "CustomerCell", for: indexPath)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "CustomerTableSegue" {
+            let custVC = segue.destination as! CustomerTableViewController
             
-            cell!.textLabel!.text = table!.clientList[indexPath.row]
+            custVC.customerList = table!.clientList
         }
-        else if tableView == self.ordersTableView {
-            cell = tableView.dequeueReusableCell(withIdentifier: "OrderCell", for: indexPath)
+        else if segue.identifier == "OrderTableSegue" {
+            let orderVC = segue.destination as! OrderTableViewController
             
-            cell!.textLabel!.text = table!.orderList[indexPath.row].name
-            cell!.detailTextLabel!.text = "$ " + String(table!.orderList[indexPath.row].price)
+            orderVC.orderList = table!.orderList
         }
-        
-        return cell!
     }
-    
 }

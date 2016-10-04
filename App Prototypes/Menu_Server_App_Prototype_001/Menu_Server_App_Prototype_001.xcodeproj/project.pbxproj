@@ -22,6 +22,8 @@
 		4A3C67D91DA2984000D9D263 /* RTableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3C67D81DA2984000D9D263 /* RTableTableViewController.swift */; };
 		4A3C67DB1DA2B65900D9D263 /* RTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3C67DA1DA2B65900D9D263 /* RTableCell.swift */; };
 		4A3C67DD1DA2C4C000D9D263 /* TableDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3C67DC1DA2C4C000D9D263 /* TableDetailViewController.swift */; };
+		4A80DD9F1DA3E51C00F91DC5 /* CustomerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A80DD9E1DA3E51C00F91DC5 /* CustomerTableViewController.swift */; };
+		4A80DDA21DA3E5FB00F91DC5 /* OrderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A80DDA11DA3E5FB00F91DC5 /* OrderTableViewController.swift */; };
 		E8679A88D27FDC3808EA495E /* Pods_Menu_Server_App_Prototype_001.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 769A80FCD1D7CAB63A9E5D3B /* Pods_Menu_Server_App_Prototype_001.framework */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +47,8 @@
 		4A3C67D81DA2984000D9D263 /* RTableTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RTableTableViewController.swift; sourceTree = "<group>"; };
 		4A3C67DA1DA2B65900D9D263 /* RTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RTableCell.swift; sourceTree = "<group>"; };
 		4A3C67DC1DA2C4C000D9D263 /* TableDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableDetailViewController.swift; sourceTree = "<group>"; };
+		4A80DD9E1DA3E51C00F91DC5 /* CustomerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerTableViewController.swift; sourceTree = "<group>"; };
+		4A80DDA11DA3E5FB00F91DC5 /* OrderTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderTableViewController.swift; sourceTree = "<group>"; };
 		769A80FCD1D7CAB63A9E5D3B /* Pods_Menu_Server_App_Prototype_001.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Menu_Server_App_Prototype_001.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FE362CCA8900A7C234B71AA /* Pods-Menu_Server_App_Prototype_001.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Menu_Server_App_Prototype_001.release.xcconfig"; path = "Pods/Target Support Files/Pods-Menu_Server_App_Prototype_001/Pods-Menu_Server_App_Prototype_001.release.xcconfig"; sourceTree = "<group>"; };
 		A0ACAF45C1287081F0F18814 /* Pods-Menu_Server_App_Prototype_001.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Menu_Server_App_Prototype_001.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Menu_Server_App_Prototype_001/Pods-Menu_Server_App_Prototype_001.debug.xcconfig"; sourceTree = "<group>"; };
@@ -84,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				4A3C67D01DA2888A00D9D263 /* GoogleService-Info.plist */,
+				4A80DDA01DA3E52500F91DC5 /* Table Detail Subview Controllers */,
 				4A3C67D71DA2938600D9D263 /* Restaurant and Table Controllers */,
 				4A3C67D21DA2895F00D9D263 /* User Profile Controllers */,
 				4A3C67D41DA289A500D9D263 /* Custom View Controllers */,
@@ -135,6 +140,15 @@
 				4A3C67DC1DA2C4C000D9D263 /* TableDetailViewController.swift */,
 			);
 			name = "Restaurant and Table Controllers";
+			sourceTree = "<group>";
+		};
+		4A80DDA01DA3E52500F91DC5 /* Table Detail Subview Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4A80DD9E1DA3E51C00F91DC5 /* CustomerTableViewController.swift */,
+				4A80DDA11DA3E5FB00F91DC5 /* OrderTableViewController.swift */,
+			);
+			name = "Table Detail Subview Controllers";
 			sourceTree = "<group>";
 		};
 		899AAE421D601B06CD0B7F9F /* Pods */ = {
@@ -283,6 +297,7 @@
 				4A3C67CD1DA2808600D9D263 /* SWRevealViewController.m in Sources */,
 				4A3C67DD1DA2C4C000D9D263 /* TableDetailViewController.swift in Sources */,
 				4A3C67D91DA2984000D9D263 /* RTableTableViewController.swift in Sources */,
+				4A80DDA21DA3E5FB00F91DC5 /* OrderTableViewController.swift in Sources */,
 				4A3C67C91DA2808600D9D263 /* LoginViewController.swift in Sources */,
 				4A3C67CF1DA283B200D9D263 /* RegisterViewController.swift in Sources */,
 				4A3C67CB1DA2808600D9D263 /* ProfileViewController.swift in Sources */,
@@ -291,6 +306,7 @@
 				4A3C67CA1DA2808600D9D263 /* PopupViewController.swift in Sources */,
 				4A3C67D61DA2937700D9D263 /* RestaurantTableViewController.swift in Sources */,
 				4A3C67CC1DA2808600D9D263 /* SettingsViewController.swift in Sources */,
+				4A80DD9F1DA3E51C00F91DC5 /* CustomerTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

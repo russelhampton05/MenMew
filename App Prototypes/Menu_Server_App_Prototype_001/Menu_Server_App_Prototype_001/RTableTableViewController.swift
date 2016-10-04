@@ -41,7 +41,7 @@ class RTableTableViewController: UITableViewController {
     func loadTables(restaurant: String) {
         
         if restaurant == "RJ's Steakhouse" {
-            let table12 = Table(tableNum: 12, clientList: ["John Doe, Ana Smith"], orderList: [], category: "Ordering", ticket: "A-12",fulfilled: false)
+            let table12 = Table(tableNum: 12, clientList: ["John Doe", "Ana Smith"], orderList: [], category: "Ordering", ticket: "A-12",fulfilled: false)
             let table22 = Table(tableNum: 22, clientList: [], orderList: [], category: "Available", ticket: "A-22", fulfilled: false)
             let table7 = Table(tableNum: 7, clientList: ["Drake Jones", "Talia Majeti", "Erik Hansson"], orderList: [(name: "New York Strip", price: 21.75), (name: "Pork Chop", price: 15.75), (name: "Margarita", price: 6.40)], category: "Ready to Serve", ticket: "A-7", fulfilled: false)
             
@@ -49,7 +49,7 @@ class RTableTableViewController: UITableViewController {
         }
         else if restaurant == "P.F. Chang's" {
             
-            let table11 = Table(tableNum: 11, clientList: ["Jack Finch, Taylor Miles"], orderList: [(name: "Garlic Noodles", price: 7.50), (name: "Crispy Honey Shrimp", price: 15.95), (name: "Hot Tea", price: 2.25)], category: "Refill Requested", ticket: "RZ224", fulfilled: false)
+            let table11 = Table(tableNum: 11, clientList: ["Jack Finch", "Taylor Miles"], orderList: [(name: "Garlic Noodles", price: 7.50), (name: "Crispy Honey Shrimp", price: 15.95), (name: "Hot Tea", price: 2.25)], category: "Refill Requested", ticket: "RZ224", fulfilled: false)
             let table13 = Table(tableNum: 13, clientList: [], orderList: [], category: "Available", ticket: "HR32E", fulfilled: false)
             let table7 = Table(tableNum: 7, clientList: [], orderList: [], category: "Available", ticket: "A8REE", fulfilled: false)
             tableList = [table11, table13, table7]
