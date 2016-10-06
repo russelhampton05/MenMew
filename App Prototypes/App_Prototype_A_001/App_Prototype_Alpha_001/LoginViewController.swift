@@ -24,7 +24,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         FIRAuth.auth()?.addStateDidChangeListener { auth, user in
             if user != nil {
                 // User is signed in.
-                
+                //UserManager.GetUser(id: "123")
                 var currentUser = User(id: (FIRAuth.auth()?.currentUser?.uid)!, otherInformation: String(describing: NSDate()))
                 UserManager.AddUser(user: currentUser)
                 

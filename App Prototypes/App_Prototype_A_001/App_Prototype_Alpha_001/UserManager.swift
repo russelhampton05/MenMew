@@ -11,22 +11,37 @@ import Firebase
 import FirebaseDatabase
 
 class UserManager{
+    
+    static let ref = FIRDatabase.database().reference().child("users")
+    
     static func AddUser(user: User){
-        let ref = FIRDatabase.database().reference()
+        
         guard let otherStuff = user.otherInformation else {
-            ref.child("users").child(user.ID).setValue(["otherStuff": ""])
+            UserManager.ref.child(user.ID).setValue(["otherStuff": ""])
             return
         }
-        ref.setValue("users")
-        ref.child("users").child(user.ID).setValue(["otherStuff": user.otherInformation])
+        
+        
+        UserManager.ref.child("123").setValue(["otherStuff": user.otherInformation])
     }
     static func AddUser(id: String, otherStuff: String? = nil){
-        let ref = FIRDatabase.database().reference()
         guard let otherStuff = otherStuff else {
-            ref.child("users").child(id).setValue(["otherStuff": ""])
+            UserManager.ref.child(id).setValue(["otherStuff": ""])
             return
         }
-        ref.child("users").child(id).setValue(["otherStuff": otherStuff])
+        UserManager.ref.child(id).setValue(["otherStuff": otherStuff])
         
     }
+    static func GetUser(id: String){
+        var test: String?
+        UserManager.ref.child("123").observeSingleEvent(of: .value, with: { (snapshot) in
+            let value = snapshot.value as? NSDictionary
+            let otherstuff = value?["otherStuff"] as! String
+            test = otherstuff
+        }) {(error) in
+            print(error.localizedDescription)
+            test = error.localizedDescription}
+        
+    }
+    
 }
