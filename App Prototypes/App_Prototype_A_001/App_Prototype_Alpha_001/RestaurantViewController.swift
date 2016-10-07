@@ -10,6 +10,7 @@ import UIKit
 
 class RestaurantViewController: UIViewController {
     
+    //Variables
     var restaurantTitle: String?
     var location: String?
     var tableNum: Int?
@@ -19,6 +20,7 @@ class RestaurantViewController: UIViewController {
     var menuArray = [[MenuItem]]()
     var connectionURL: URL?
 
+    //IBOutlets
     @IBOutlet weak var restaurantLabel: UILabel!
     @IBOutlet weak var tableLabel: UILabel!
     
@@ -27,7 +29,7 @@ class RestaurantViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = true
         
 
-        
+        //Call on JSON Parsing
         parseJSONData()
     }
 
@@ -56,6 +58,7 @@ class RestaurantViewController: UIViewController {
         mainMenuVC.menuArray = menuArray
     }
     
+    //JSON parsing method, may be changed/replaced
     func parseJSONData() {
         
         URLSession.shared.dataTask(with: connectionURL!, completionHandler: {(data, response, error) in

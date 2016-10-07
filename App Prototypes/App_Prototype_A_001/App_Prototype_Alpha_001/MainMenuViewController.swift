@@ -11,19 +11,20 @@ import Foundation
 
 
 class MainMenuViewController: UITableViewController{
-    var segueIndex: Int?
-    var test: String = ""
+    
+    //IBOutlets
     @IBOutlet var menuButton: UIBarButtonItem!
     @IBOutlet weak var ordersButton: UIBarButtonItem!
+    @IBOutlet weak var restaurantLabel: UINavigationItem!
     
+    //Variables
     var orderArray: [(title: String, price: Double)] = []
     let transition = CircleTransition()
     var menuArray = [[MenuItem]]()
     var categoryArray = [(name: String, desc: String)]()
     var restaurant: String?
-    
-    @IBOutlet weak var restaurantLabel: UINavigationItem!
-    
+    var segueIndex: Int?
+    var test: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +36,7 @@ class MainMenuViewController: UITableViewController{
         tableView.estimatedRowHeight = 44
         tableView.rowHeight = UITableViewAutomaticDimension
         
+        //Check for existing orders
         if orderArray.count > 0 {
             ordersButton.isEnabled = true
         }
@@ -103,9 +105,7 @@ class MainMenuViewController: UITableViewController{
     }
     
     func reloadDetails(){
-        if let settingsVCX = self.revealViewController() {
-            print("test")
-        }
+        //May be deleted
     }
     
     @IBAction func unwindToMain(_ sender: UIStoryboardSegue) {
