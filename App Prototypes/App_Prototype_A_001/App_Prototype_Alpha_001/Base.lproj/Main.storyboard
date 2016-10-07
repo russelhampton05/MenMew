@@ -640,14 +640,14 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="m4A-ff-hZG">
-                                            <frame key="frameInset" minX="15" minY="-5" width="53" height="36"/>
+                                            <frame key="frameInset" minX="15" minY="-5" width="53" height="35.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="30"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="InT-N5-Yhb">
-                                            <frame key="frameInset" minX="15" minY="31" width="52" height="19"/>
+                                            <frame key="frameInset" minX="15" minY="30.5" width="52" height="19"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -776,7 +776,7 @@
                                                         <color key="titleColor" red="1" green="0.41582992860000001" blue="0.3595783099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="addOrder:" destination="7ov-nd-rea" eventType="touchUpInside" id="33Q-Jc-JwM"/>
+                                                        <action selector="addMenuItem:" destination="7ov-nd-rea" eventType="touchUpInside" id="kcR-oT-po5"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -848,10 +848,10 @@
             </objects>
             <point key="canvasLocation" x="1896" y="-103"/>
         </scene>
-        <!--Popup View Controller-->
+        <!--Menu Detail Popup View Controller-->
         <scene sceneID="cs5-Pb-IfH">
             <objects>
-                <viewController storyboardIdentifier="Popup" id="Dfu-yp-sce" customClass="PopupViewController" customModule="App_Prototype_Alpha_001" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MenuPopup" id="Dfu-yp-sce" customClass="MenuDetailPopupViewController" customModule="App_Prototype_Alpha_001" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3h-Q6-tBe"/>
                         <viewControllerLayoutGuide type="bottom" id="2Dq-TL-KsM"/>
@@ -866,51 +866,90 @@
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Q64-xc-yjm">
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AddedLabel" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="HAf-ar-9m2">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TitleLabel" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="HAf-ar-9m2">
                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
                                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Ui-gd-ypA">
-                                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
-                                                        <state key="normal" title="Okay">
-                                                            <color key="titleColor" red="1" green="0.41582992860000001" blue="0.3595783099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="confirmAction:" destination="Dfu-yp-sce" eventType="touchUpInside" id="KUk-Ze-a6t"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button hidden="YES" opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5GP-0Z-Ugz">
-                                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
-                                                        <state key="normal" title="Cancel">
-                                                            <color key="titleColor" red="1" green="0.41582992860000001" blue="0.3595783099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="cancelAction:" destination="Dfu-yp-sce" eventType="touchUpInside" id="j5K-UJ-TGV"/>
-                                                        </connections>
-                                                    </button>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="W4l-eE-jbW">
+                                                        <subviews>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="yrd-Zq-e8b">
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sides:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SNQ-qD-6Z2">
+                                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
+                                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="oZc-XI-3c8">
+                                                                        <subviews>
+                                                                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Se-uh-Sw4">
+                                                                                <connections>
+                                                                                    <segue destination="eDi-16-dxi" kind="embed" identifier="SidesSegue" id="CSS-xo-ls6"/>
+                                                                                </connections>
+                                                                            </containerView>
+                                                                        </subviews>
+                                                                    </stackView>
+                                                                </subviews>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="100" id="S6b-0Y-saI"/>
+                                                                </constraints>
+                                                            </stackView>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="vre-6h-Wak">
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cook Type:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DXg-uZ-1aG">
+                                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
+                                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ifn-e8-938">
+                                                                        <subviews>
+                                                                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="56D-Ys-CuC">
+                                                                                <connections>
+                                                                                    <segue destination="fJk-bh-xn1" kind="embed" identifier="CookTypeSegue" id="bba-6D-XOT"/>
+                                                                                </connections>
+                                                                            </containerView>
+                                                                        </subviews>
+                                                                    </stackView>
+                                                                </subviews>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="100" id="xaG-hm-xtT"/>
+                                                                </constraints>
+                                                            </stackView>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="xPP-lE-rEM">
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Ui-gd-ypA">
+                                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
+                                                                <state key="normal" title="Okay">
+                                                                    <color key="titleColor" red="1" green="0.41582992860000001" blue="0.3595783099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="confirmButtonPressed:" destination="Dfu-yp-sce" eventType="touchUpInside" id="JRD-kY-r4x"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button hidden="YES" opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5GP-0Z-Ugz">
+                                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
+                                                                <state key="normal" title="Cancel">
+                                                                    <color key="titleColor" red="1" green="0.41582992860000001" blue="0.3595783099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="cancelButtonPressed:" destination="Dfu-yp-sce" eventType="touchUpInside" id="w4w-xe-lSq"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                    </stackView>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="5GP-0Z-Ugz" secondAttribute="trailing" constant="50" id="5S5-E4-QnP"/>
-                                                    <constraint firstItem="7Ui-gd-ypA" firstAttribute="leading" secondItem="Q64-xc-yjm" secondAttribute="leading" constant="50" id="PjB-DC-BFP"/>
-                                                    <constraint firstItem="5GP-0Z-Ugz" firstAttribute="leading" secondItem="Q64-xc-yjm" secondAttribute="leading" constant="50" id="Qbx-oX-RJn"/>
-                                                    <constraint firstAttribute="bottom" secondItem="5GP-0Z-Ugz" secondAttribute="bottom" id="YLd-Yx-lPW"/>
+                                                    <constraint firstItem="xPP-lE-rEM" firstAttribute="leading" secondItem="Q64-xc-yjm" secondAttribute="leading" constant="50" id="ATn-ef-ybN"/>
+                                                    <constraint firstItem="W4l-eE-jbW" firstAttribute="leading" secondItem="Q64-xc-yjm" secondAttribute="leading" constant="20" id="Nhl-gi-LWL"/>
+                                                    <constraint firstAttribute="trailing" secondItem="xPP-lE-rEM" secondAttribute="trailing" constant="50" id="VlB-zo-1eC"/>
                                                     <constraint firstAttribute="trailing" secondItem="HAf-ar-9m2" secondAttribute="trailing" constant="50" id="ZtA-6O-KW4"/>
                                                     <constraint firstItem="HAf-ar-9m2" firstAttribute="leading" secondItem="Q64-xc-yjm" secondAttribute="leading" constant="50" id="fO6-RG-MJ9"/>
-                                                    <constraint firstItem="5GP-0Z-Ugz" firstAttribute="bottom" secondItem="7Ui-gd-ypA" secondAttribute="bottom" id="guK-kM-P4Y"/>
-                                                    <constraint firstItem="5GP-0Z-Ugz" firstAttribute="top" secondItem="Q64-xc-yjm" secondAttribute="top" constant="134" id="hwm-m7-ZgB"/>
-                                                    <constraint firstItem="7Ui-gd-ypA" firstAttribute="top" secondItem="HAf-ar-9m2" secondAttribute="bottom" constant="20" id="msv-dm-xfl"/>
-                                                    <constraint firstAttribute="trailing" secondItem="7Ui-gd-ypA" secondAttribute="trailing" constant="50" id="r8L-ct-sOu"/>
+                                                    <constraint firstAttribute="trailing" secondItem="W4l-eE-jbW" secondAttribute="trailing" constant="20" id="sih-Cu-Hdo"/>
                                                 </constraints>
-                                                <variation key="default">
-                                                    <mask key="constraints">
-                                                        <exclude reference="guK-kM-P4Y"/>
-                                                        <exclude reference="hwm-m7-ZgB"/>
-                                                        <exclude reference="msv-dm-xfl"/>
-                                                    </mask>
-                                                </variation>
                                             </stackView>
                                         </subviews>
                                         <color key="backgroundColor" red="1" green="0.41582992860000001" blue="0.3595783099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -939,7 +978,7 @@
                                     </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="150" id="lIC-qf-ONH"/>
+                                    <constraint firstAttribute="height" constant="430" id="lIC-qf-ONH"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -951,9 +990,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="addedLabel" destination="HAf-ar-9m2" id="2uA-dq-4DK"/>
-                        <outlet property="cancelButton" destination="5GP-0Z-Ugz" id="5md-Cc-PWI"/>
-                        <outlet property="confirmButton" destination="7Ui-gd-ypA" id="m66-Q0-9bi"/>
+                        <outlet property="titleLabel" destination="HAf-ar-9m2" id="1vc-iW-h5r"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gcS-6l-t0l" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1538,6 +1575,176 @@
             </objects>
             <point key="canvasLocation" x="1710" y="-1897"/>
         </scene>
+        <!--Sides Picker View Controller-->
+        <scene sceneID="p6d-ST-ecV">
+            <objects>
+                <viewController id="eDi-16-dxi" customClass="SidesPickerViewController" customModule="App_Prototype_Alpha_001" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="sQ0-qc-yXt">
+                        <rect key="frame" x="0.0" y="0.0" width="263" height="69"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Jo7-mE-rwR">
+                                <subviews>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aeX-M7-zm0">
+                                        <color key="backgroundColor" red="1" green="0.41582992860000001" blue="0.3595783099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </pickerView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.41582992860000001" blue="0.3595783099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Jo7-mE-rwR" firstAttribute="leading" secondItem="sQ0-qc-yXt" secondAttribute="leading" id="KYY-YK-weW"/>
+                            <constraint firstAttribute="bottom" secondItem="Jo7-mE-rwR" secondAttribute="bottom" id="N02-qK-D0h"/>
+                            <constraint firstAttribute="trailing" secondItem="Jo7-mE-rwR" secondAttribute="trailing" id="jsA-kL-P08"/>
+                            <constraint firstItem="Jo7-mE-rwR" firstAttribute="top" secondItem="sQ0-qc-yXt" secondAttribute="top" id="xID-0Q-K6G"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="sidesPicker" destination="aeX-M7-zm0" id="11m-cj-uio"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NE1-xR-vpT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3613" y="-346"/>
+        </scene>
+        <!--Cook Type Picker View Controller-->
+        <scene sceneID="l3b-ra-7sg">
+            <objects>
+                <viewController id="fJk-bh-xn1" customClass="CookTypePickerViewController" customModule="App_Prototype_Alpha_001" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bDK-7Y-Gaz">
+                        <rect key="frame" x="0.0" y="0.0" width="263" height="69"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="t7I-ek-SOw">
+                                <subviews>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="332-zC-6Qf">
+                                        <color key="backgroundColor" red="1" green="0.41582992860000001" blue="0.3595783099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </pickerView>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.41582992860000001" blue="0.3595783099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.41582992860000001" blue="0.3595783099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="t7I-ek-SOw" secondAttribute="bottom" id="Xu6-qj-GXu"/>
+                            <constraint firstItem="t7I-ek-SOw" firstAttribute="leading" secondItem="bDK-7Y-Gaz" secondAttribute="leading" id="cwn-br-njU"/>
+                            <constraint firstItem="t7I-ek-SOw" firstAttribute="top" secondItem="bDK-7Y-Gaz" secondAttribute="top" id="mBS-vZ-dg0"/>
+                            <constraint firstAttribute="trailing" secondItem="t7I-ek-SOw" secondAttribute="trailing" id="wDH-m1-0sM"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="cookTypePicker" destination="332-zC-6Qf" id="qpy-Tw-58H"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XjJ-N0-Osc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3614" y="-149"/>
+        </scene>
+        <!--Popup View Controller-->
+        <scene sceneID="RCD-fr-T07">
+            <objects>
+                <viewController storyboardIdentifier="Popup" id="bwG-3R-ufa" customClass="PopupViewController" customModule="App_Prototype_Alpha_001" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="b9P-OL-6cw"/>
+                        <viewControllerLayoutGuide type="bottom" id="ble-Wc-cMk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="mO7-c1-tQI">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleAspectFit" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="bzo-ZB-q6W">
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tB7-w1-L5I">
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="U4f-8s-aUy">
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AddedLabel" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="unL-yL-B9m">
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
+                                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="niv-Oe-ewf">
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kI8-bd-02v">
+                                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
+                                                                <state key="normal" title="Okay">
+                                                                    <color key="titleColor" red="1" green="0.41582992860000001" blue="0.3595783099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="confirmButtonPressed:" destination="bwG-3R-ufa" eventType="touchUpInside" id="g03-nK-UpS"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button hidden="YES" opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7vG-aZ-6Kj">
+                                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
+                                                                <state key="normal" title="Cancel">
+                                                                    <color key="titleColor" red="1" green="0.41582992860000001" blue="0.3595783099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="cancelButtonPressed:" destination="bwG-3R-ufa" eventType="touchUpInside" id="gyH-F4-j55"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="niv-Oe-ewf" firstAttribute="leading" secondItem="U4f-8s-aUy" secondAttribute="leading" constant="50" id="7IX-mK-xqD"/>
+                                                    <constraint firstItem="unL-yL-B9m" firstAttribute="leading" secondItem="U4f-8s-aUy" secondAttribute="leading" constant="50" id="AOp-wQ-Xjr"/>
+                                                    <constraint firstAttribute="trailing" secondItem="unL-yL-B9m" secondAttribute="trailing" constant="50" id="WwG-ct-0Hq"/>
+                                                    <constraint firstAttribute="trailing" secondItem="niv-Oe-ewf" secondAttribute="trailing" constant="50" id="gNW-5C-exE"/>
+                                                </constraints>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" red="1" green="0.41582992860000001" blue="0.3595783099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="U4f-8s-aUy" secondAttribute="bottom" constant="20" id="0bv-db-APp"/>
+                                            <constraint firstItem="U4f-8s-aUy" firstAttribute="leading" secondItem="tB7-w1-L5I" secondAttribute="leading" id="FWT-Wn-56d"/>
+                                            <constraint firstItem="U4f-8s-aUy" firstAttribute="top" secondItem="tB7-w1-L5I" secondAttribute="top" constant="44" id="KCG-Dl-ttY"/>
+                                            <constraint firstItem="U4f-8s-aUy" firstAttribute="leading" secondItem="tB7-w1-L5I" secondAttribute="leading" id="Oa4-Nm-Unq"/>
+                                            <constraint firstItem="U4f-8s-aUy" firstAttribute="leading" secondItem="tB7-w1-L5I" secondAttribute="leading" id="ObX-zb-xXY"/>
+                                            <constraint firstItem="U4f-8s-aUy" firstAttribute="top" secondItem="tB7-w1-L5I" secondAttribute="top" constant="20" id="S89-tt-eR1"/>
+                                            <constraint firstAttribute="trailing" secondItem="U4f-8s-aUy" secondAttribute="trailing" id="YXh-WR-hPN"/>
+                                            <constraint firstAttribute="bottom" secondItem="U4f-8s-aUy" secondAttribute="bottom" constant="56" id="jBL-pd-Ihq"/>
+                                            <constraint firstItem="U4f-8s-aUy" firstAttribute="top" secondItem="tB7-w1-L5I" secondAttribute="top" constant="50" id="oRW-p0-8Na"/>
+                                            <constraint firstAttribute="bottom" secondItem="U4f-8s-aUy" secondAttribute="bottom" constant="50" id="zoc-5z-6CV"/>
+                                        </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="oRW-p0-8Na"/>
+                                                <exclude reference="jBL-pd-Ihq"/>
+                                                <exclude reference="KCG-Dl-ttY"/>
+                                                <exclude reference="Oa4-Nm-Unq"/>
+                                                <exclude reference="zoc-5z-6CV"/>
+                                                <exclude reference="ObX-zb-xXY"/>
+                                            </mask>
+                                        </variation>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="150" id="9Jd-uE-7jQ"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="bzo-ZB-q6W" firstAttribute="leading" secondItem="mO7-c1-tQI" secondAttribute="leadingMargin" constant="20" id="3GC-HC-aW6"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="bzo-ZB-q6W" secondAttribute="trailing" constant="20" id="f8n-qJ-rvS"/>
+                            <constraint firstItem="bzo-ZB-q6W" firstAttribute="centerY" secondItem="mO7-c1-tQI" secondAttribute="centerY" id="rzF-wD-vd6"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="addedLabel" destination="unL-yL-B9m" id="lnP-Ni-90o"/>
+                        <outlet property="cancelButton" destination="7vG-aZ-6Kj" id="fCW-xF-yPt"/>
+                        <outlet property="confirmButton" destination="kI8-bd-02v" id="2ah-zE-rHz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Uo-Y7-Zwy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4166" y="-252"/>
+        </scene>
     </scenes>
     <resources>
         <image name="back" width="24" height="24"/>
@@ -1547,7 +1754,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="PBk-Rp-eOU"/>
+        <segue reference="MaD-a0-jJi"/>
         <segue reference="dpp-zc-24d"/>
-        <segue reference="PM8-Wi-MNN"/>
     </inferredMetricsTieBreakers>
 </document>

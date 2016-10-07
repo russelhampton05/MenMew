@@ -74,15 +74,12 @@ class SummaryViewController : UITableViewController {
     @IBAction func cancelOrders(_ sender: AnyObject) {
         let cancelPopup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Popup") as! PopupViewController
         
-        //Enable the cancel button on popup
-        cancelPopup.cancelOrder = true
-        
         self.addChildViewController(cancelPopup)
         cancelPopup.view.frame = self.view.frame
         cancelPopup.view.frame.origin.y = tableView.contentOffset.y
         self.view.addSubview(cancelPopup.view)
         cancelPopup.didMove(toParentViewController: self)
-        cancelPopup.orderCancelMessage()	
+        cancelPopup.addMessage(context: "CancelMenuItems")
         
         tableView.isScrollEnabled = false
     }

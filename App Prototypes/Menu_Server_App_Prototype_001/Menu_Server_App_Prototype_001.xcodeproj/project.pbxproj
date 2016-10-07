@@ -92,7 +92,6 @@
 				4A3C67D71DA2938600D9D263 /* Restaurant and Table Controllers */,
 				4A3C67D21DA2895F00D9D263 /* User Profile Controllers */,
 				4A3C67D41DA289A500D9D263 /* Custom View Controllers */,
-				4A3C67C61DA2808600D9D263 /* SettingsViewController.swift */,
 				4A3C67D31DA2897C00D9D263 /* SWRevealViewController */,
 				4A3C67B01DA27F8300D9D263 /* AppDelegate.swift */,
 				4A3C67B41DA27F8300D9D263 /* Main.storyboard */,
@@ -109,6 +108,7 @@
 				4A3C67CE1DA283B200D9D263 /* RegisterViewController.swift */,
 				4A3C67C31DA2808600D9D263 /* LoginViewController.swift */,
 				4A3C67C51DA2808600D9D263 /* ProfileViewController.swift */,
+				4A3C67C61DA2808600D9D263 /* SettingsViewController.swift */,
 			);
 			name = "User Profile Controllers";
 			sourceTree = "<group>";

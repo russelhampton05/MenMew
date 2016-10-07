@@ -15,6 +15,9 @@
 		4A3C67E01DA2F74D00D9D263 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3C67DF1DA2F74D00D9D263 /* Models.swift */; };
 		4A3C67E21DA2F8BF00D9D263 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3C67E11DA2F8BF00D9D263 /* UserManager.swift */; };
 		4A4BACB81D9BF75F008330BD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4A4BACB71D9BF75F008330BD /* GoogleService-Info.plist */; };
+		4A54AC6D1DA807F5008C7E57 /* SidesPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A54AC6C1DA807F5008C7E57 /* SidesPickerViewController.swift */; };
+		4A54AC6F1DA810F4008C7E57 /* CookTypePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A54AC6E1DA810F4008C7E57 /* CookTypePickerViewController.swift */; };
+		4A54AC711DA81380008C7E57 /* MenuDetailPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A54AC701DA81380008C7E57 /* MenuDetailPopupViewController.swift */; };
 		4A9B5D491D91C461009F2F72 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9B5D481D91C461009F2F72 /* SettingsViewController.swift */; };
 		4A9B5D4B1D91D023009F2F72 /* OrderConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9B5D4A1D91D023009F2F72 /* OrderConfirmationViewController.swift */; };
 		4ACB60421D94A37800021A63 /* WebHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACB60411D94A37800021A63 /* WebHandler.swift */; };
@@ -64,6 +67,9 @@
 		4A3C67DF1DA2F74D00D9D263 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		4A3C67E11DA2F8BF00D9D263 /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		4A4BACB71D9BF75F008330BD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		4A54AC6C1DA807F5008C7E57 /* SidesPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SidesPickerViewController.swift; path = ../SidesPickerViewController.swift; sourceTree = "<group>"; };
+		4A54AC6E1DA810F4008C7E57 /* CookTypePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CookTypePickerViewController.swift; sourceTree = "<group>"; };
+		4A54AC701DA81380008C7E57 /* MenuDetailPopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuDetailPopupViewController.swift; sourceTree = "<group>"; };
 		4A9B5D481D91C461009F2F72 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		4A9B5D4A1D91D023009F2F72 /* OrderConfirmationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderConfirmationViewController.swift; sourceTree = "<group>"; };
 		4ACB60411D94A37800021A63 /* WebHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebHandler.swift; sourceTree = "<group>"; };
@@ -142,10 +148,91 @@
 		4A3C67DE1DA2F72900D9D263 /* DBstuff */ = {
 			isa = PBXGroup;
 			children = (
+				4ACB60411D94A37800021A63 /* WebHandler.swift */,
 				4A3C67DF1DA2F74D00D9D263 /* Models.swift */,
 				4A3C67E11DA2F8BF00D9D263 /* UserManager.swift */,
 			);
 			name = DBstuff;
+			sourceTree = "<group>";
+		};
+		4A54AC721DA82AB7008C7E57 /* Menu Option Subview Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4A54AC6C1DA807F5008C7E57 /* SidesPickerViewController.swift */,
+				4A54AC6E1DA810F4008C7E57 /* CookTypePickerViewController.swift */,
+			);
+			name = "Menu Option Subview Controllers";
+			sourceTree = "<group>";
+		};
+		4A54AC731DA82AD4008C7E57 /* Popup Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4A54AC701DA81380008C7E57 /* MenuDetailPopupViewController.swift */,
+				945C696D1D8EDFCB0022C83A /* PopupViewController.swift */,
+			);
+			name = "Popup Controllers";
+			sourceTree = "<group>";
+		};
+		4A54AC741DA82ADF008C7E57 /* Custom Cell Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				945C696C1D8EDFCB0022C83A /* MenuCell.swift */,
+				945C69701D8EDFCB0022C83A /* SummaryCell.swift */,
+			);
+			name = "Custom Cell Controllers";
+			sourceTree = "<group>";
+		};
+		4A67428A1DA7E9E70033DCEF /* User Profile Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4A0E979C1D9C0CC900ECA82F /* ProfileViewController.swift */,
+				4A0E979A1D9C06F800ECA82F /* LoginViewController.swift */,
+				4A0E979E1D9C171C00ECA82F /* RegisterViewController.swift */,
+				4A9B5D481D91C461009F2F72 /* SettingsViewController.swift */,
+			);
+			name = "User Profile Controllers";
+			sourceTree = "<group>";
+		};
+		4A67428B1DA7EA020033DCEF /* Menu Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				945C696B1D8EDFCB0022C83A /* MainMenuViewController.swift */,
+				945C693C1D8EDECA0022C83A /* MenuDetailsViewController.swift */,
+				945C696F1D8EDFCB0022C83A /* RestaurantViewController.swift */,
+				945C69711D8EDFCB0022C83A /* SummaryViewController.swift */,
+			);
+			name = "Menu Controllers";
+			sourceTree = "<group>";
+		};
+		4A67428C1DA7EA230033DCEF /* Order Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4A9B5D4A1D91D023009F2F72 /* OrderConfirmationViewController.swift */,
+				4A0ECC771D9C3C09004811F3 /* OrderDetailsTableViewController.swift */,
+			);
+			name = "Order Controllers";
+			sourceTree = "<group>";
+		};
+		4A67428D1DA7EA370033DCEF /* Custom View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4A54AC731DA82AD4008C7E57 /* Popup Controllers */,
+				4A54AC721DA82AB7008C7E57 /* Menu Option Subview Controllers */,
+				945C696E1D8EDFCB0022C83A /* QRViewController.swift */,
+				945C697C1D8EDFE70022C83A /* CircleTransition.swift */,
+				4A54AC741DA82ADF008C7E57 /* Custom Cell Controllers */,
+			);
+			name = "Custom View Controllers";
+			sourceTree = "<group>";
+		};
+		4A67428E1DA7EA470033DCEF /* SWRevealViewController */ = {
+			isa = PBXGroup;
+			children = (
+				945C696A1D8EDFCB0022C83A /* App_Prototype_Alpha_001-Bridging-Header.h */,
+				945C69721D8EDFCB0022C83A /* SWRevealViewController.h */,
+				945C69731D8EDFCB0022C83A /* SWRevealViewController.m */,
+			);
+			name = SWRevealViewController;
 			sourceTree = "<group>";
 		};
 		945C692E1D8EDECA0022C83A = {
@@ -173,32 +260,18 @@
 			children = (
 				843B9E7C1DA5F7040039816F /* App_Prototype_Alpha_001.entitlements */,
 				4A3C67DE1DA2F72900D9D263 /* DBstuff */,
-				945C696A1D8EDFCB0022C83A /* App_Prototype_Alpha_001-Bridging-Header.h */,
+				4A67428E1DA7EA470033DCEF /* SWRevealViewController */,
 				945C693A1D8EDECA0022C83A /* AppDelegate.swift */,
 				945C69411D8EDECA0022C83A /* Assets.xcassets */,
-				945C697C1D8EDFE70022C83A /* CircleTransition.swift */,
+				4A67428D1DA7EA370033DCEF /* Custom View Controllers */,
 				4A4BACB71D9BF75F008330BD /* GoogleService-Info.plist */,
 				945C69461D8EDECA0022C83A /* Info.plist */,
 				945C69431D8EDECA0022C83A /* LaunchScreen.storyboard */,
 				945C693E1D8EDECA0022C83A /* Main.storyboard */,
-				4A0E979C1D9C0CC900ECA82F /* ProfileViewController.swift */,
-				4A0E979A1D9C06F800ECA82F /* LoginViewController.swift */,
-				945C696B1D8EDFCB0022C83A /* MainMenuViewController.swift */,
-				945C696C1D8EDFCB0022C83A /* MenuCell.swift */,
-				945C693C1D8EDECA0022C83A /* MenuDetailsViewController.swift */,
-				4A9B5D4A1D91D023009F2F72 /* OrderConfirmationViewController.swift */,
-				945C696D1D8EDFCB0022C83A /* PopupViewController.swift */,
-				945C696E1D8EDFCB0022C83A /* QRViewController.swift */,
-				4A0E979E1D9C171C00ECA82F /* RegisterViewController.swift */,
-				945C696F1D8EDFCB0022C83A /* RestaurantViewController.swift */,
-				4A9B5D481D91C461009F2F72 /* SettingsViewController.swift */,
-				945C69701D8EDFCB0022C83A /* SummaryCell.swift */,
-				4A0ECC771D9C3C09004811F3 /* OrderDetailsTableViewController.swift */,
-				945C69711D8EDFCB0022C83A /* SummaryViewController.swift */,
-				945C69721D8EDFCB0022C83A /* SWRevealViewController.h */,
-				945C69731D8EDFCB0022C83A /* SWRevealViewController.m */,
+				4A67428A1DA7E9E70033DCEF /* User Profile Controllers */,
+				4A67428B1DA7EA020033DCEF /* Menu Controllers */,
+				4A67428C1DA7EA230033DCEF /* Order Controllers */,
 				4A1135C51D9974F7006DDFAE /* Test_Data.json */,
-				4ACB60411D94A37800021A63 /* WebHandler.swift */,
 			);
 			path = App_Prototype_Alpha_001;
 			sourceTree = "<group>";
@@ -289,7 +362,7 @@
 				TargetAttributes = {
 					945C69361D8EDECA0022C83A = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 3Z9PRJ7WVB;
+						DevelopmentTeam = 6YQJN59DK9;
 						LastSwiftMigration = 0800;
 						SystemCapabilities = {
 							com.apple.Keychain = {
@@ -492,12 +565,15 @@
 				4A0E979B1D9C06F800ECA82F /* LoginViewController.swift in Sources */,
 				945C69791D8EDFCB0022C83A /* SummaryCell.swift in Sources */,
 				945C69781D8EDFCB0022C83A /* RestaurantViewController.swift in Sources */,
+				4A54AC6F1DA810F4008C7E57 /* CookTypePickerViewController.swift in Sources */,
 				4A0E979D1D9C0CC900ECA82F /* ProfileViewController.swift in Sources */,
 				4A9B5D4B1D91D023009F2F72 /* OrderConfirmationViewController.swift in Sources */,
 				945C69751D8EDFCB0022C83A /* MenuCell.swift in Sources */,
 				945C697D1D8EDFE70022C83A /* CircleTransition.swift in Sources */,
 				945C693B1D8EDECA0022C83A /* AppDelegate.swift in Sources */,
 				945C697B1D8EDFCB0022C83A /* SWRevealViewController.m in Sources */,
+				4A54AC6D1DA807F5008C7E57 /* SidesPickerViewController.swift in Sources */,
+				4A54AC711DA81380008C7E57 /* MenuDetailPopupViewController.swift in Sources */,
 				945C69771D8EDFCB0022C83A /* QRViewController.swift in Sources */,
 				4A0E979F1D9C171C00ECA82F /* RegisterViewController.swift in Sources */,
 				945C697A1D8EDFCB0022C83A /* SummaryViewController.swift in Sources */,
@@ -657,7 +733,7 @@
 				CODE_SIGN_ENTITLEMENTS = App_Prototype_Alpha_001/App_Prototype_Alpha_001.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 3Z9PRJ7WVB;
+				DEVELOPMENT_TEAM = 6YQJN59DK9;
 				INFOPLIST_FILE = App_Prototype_Alpha_001/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "AppleShillSociety.App-Prototype-Alpha-001";
@@ -678,7 +754,7 @@
 				CODE_SIGN_ENTITLEMENTS = App_Prototype_Alpha_001/App_Prototype_Alpha_001.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 3Z9PRJ7WVB;
+				DEVELOPMENT_TEAM = 6YQJN59DK9;
 				INFOPLIST_FILE = App_Prototype_Alpha_001/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "AppleShillSociety.App-Prototype-Alpha-001";

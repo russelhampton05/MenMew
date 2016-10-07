@@ -26,7 +26,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 // User is signed in.
                 //UserManager.GetUser(id: "123")
                 var currentUser = User(id: (FIRAuth.auth()?.currentUser?.uid)!, otherInformation: String(describing: NSDate()))
-                UserManager.AddUser(user: currentUser)
+                //UserManager.AddUser(id: (FIRAuth.auth()?.currentUser?.uid)!)
+                //UserManager.AddUser(user: currentUser)
                 
             } else {
                 // No user is signed in.
@@ -118,7 +119,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         loginPopup.view.frame = self.view.frame
         self.view.addSubview(loginPopup.view)
         loginPopup.didMove(toParentViewController: self)
-        loginPopup.loginMessage(message: message)
+        loginPopup.addMessage(context: message)
         
     }
     

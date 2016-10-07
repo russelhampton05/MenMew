@@ -119,6 +119,29 @@ class MenuDetailsViewController: UITableViewController {
         }
     }
     
+    //Display the popup menu choices modal
+    @IBAction func addMenuItem(_ sender: AnyObject) {
+        
+        let detailPopup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MenuPopup") as! MenuDetailPopupViewController
+        
+        //Placeholder sides/cooking style details
+        let tempSides = ["Rice Pilaf", "Corn on a Cob", "Coleslaw", "Hash browns"]
+        let tempCookStyles = ["Rare", "Medium Rare", "Medium Well", "Well Done"]
+        let tempDetails = Details(sides: tempSides, cookType: tempCookStyles)
+        
+        
+        detailPopup.menuItem = menuArray![(selectedIndexPath! as NSIndexPath).row].title
+        detailPopup.showMenuDetails(details: tempDetails)
+        self.addChildViewController(detailPopup)
+        detailPopup.view.frame = self.view.frame
+        detailPopup.view.frame.origin.y = tableView.contentOffset.y
+        self.view.addSubview(detailPopup.view)
+        detailPopup.didMove(toParentViewController: self)
+    
+        tableView.isScrollEnabled = false
+    }
+    
+    
     //Display the popup confirmation modal
     @IBAction func addOrder(_ sender: AnyObject) {
         
@@ -136,7 +159,7 @@ class MenuDetailsViewController: UITableViewController {
         confirmPopup.view.frame.origin.y = tableView.contentOffset.y
         self.view.addSubview(confirmPopup.view)
         confirmPopup.didMove(toParentViewController: self)
-        confirmPopup.orderAddMessage()
+        confirmPopup.addMessage(context: "AddMenuItem")
         
         tableView.isScrollEnabled = false
     }

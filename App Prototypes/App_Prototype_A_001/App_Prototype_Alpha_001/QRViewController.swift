@@ -9,11 +9,17 @@
 import UIKit
 import AVFoundation
 
+//Placeholder structs (will be replaced with actual models)
 struct MenuItem {
     var title: String
     var price: Double
     var image: String
     var desc: String
+}
+
+struct Details {
+    var sides: [String]
+    var cookType: [String]
 }
 
 class QRViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {

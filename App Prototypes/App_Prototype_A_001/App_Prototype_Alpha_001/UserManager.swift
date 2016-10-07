@@ -22,7 +22,7 @@ class UserManager{
         }
         
         
-        UserManager.ref.child("123").setValue(["otherStuff": user.otherInformation])
+        UserManager.ref.child(String(123)).setValue(["otherStuff": user.otherInformation])
     }
     static func AddUser(id: String, otherStuff: String? = nil){
         guard let otherStuff = otherStuff else {

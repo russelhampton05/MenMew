@@ -15,30 +15,22 @@ class PopupViewController: UIViewController {
     @IBOutlet weak var cancelButton: UIButton!
     
     var menuItem: String?
+    var ticket: String?
     var customMessage = String()
-    var cancelOrder: Bool = false
-    var confirmCancel: Bool = false
-    var confirmRegister: Bool = false
+    var condition: String?
     
-    //Initial view load, check if the instigator is a cancel prompt
+    
     override func viewDidLoad() {
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0.6)
         self.showAnimate()
-        
-        if cancelOrder {
-            cancelButton.isHidden = false
-        }
     }
     
-
-    //Confirm button
-    @IBAction func confirmAction(_ sender: AnyObject) {
-        confirmCancel = true
+    
+    @IBAction func confirmButtonPressed(_ sender: AnyObject) {
         self.removeAnimate()
     }
     
-    //Cancel button
-    @IBAction func cancelAction(_ sender: AnyObject) {
+    @IBAction func cancelButtonPressed(_ sender: AnyObject) {
         self.removeAnimate()
     }
     
@@ -60,39 +52,56 @@ class PopupViewController: UIViewController {
             }, completion:{(finished : Bool) in
                 if (finished)
                 {
+                    self.checkSegueCondition()
                     self.view.removeFromSuperview()
-                    
-                    if let parent = self.parent as? UITableViewController {
-                        parent.tableView.isScrollEnabled = true
-                    }
-                    
-                    if self.confirmCancel {
-                        if let summaryP = self.parent as? SummaryViewController {
-                            summaryP.orderArray = []
-                            summaryP.performSegue(withIdentifier: "UnwindMenu", sender: summaryP)
-                        }
-                    }
-                    if self.confirmRegister {
-                        if let registerVC = self.parent as? RegisterViewController {
-                            registerVC.performSegue(withIdentifier: "QRScanSegue", sender: registerVC)
-                        }
-                    }
                 }
         })
     }
     
-    //Add to order message
-    func orderAddMessage() {
-        addedLabel.text = menuItem! + " has been added to the order."
+    //Check for which controller the popup must segue into
+    func checkSegueCondition() {
+        if self.condition == "FulfillOrder" {
+            //if let parent = self.parent as? TableDetailViewController {
+                //parent.performSegue(withIdentifier: "UnwindToTableListSegue", sender: parent)
+            //}
+        }
+        else if self.condition == "AddOrderDetails" {
+            if let parent = self.parent as? MenuDetailsViewController {
+                
+                parent.tableView.isScrollEnabled = true
+                parent.addOrder(parent)
+            }
+        }
+        else if self.condition == "CancelMenuItems" {
+            if let summaryP = self.parent as? SummaryViewController {
+                summaryP.orderArray = []
+                summaryP.performSegue(withIdentifier: "UnwindMenu", sender: summaryP)
+            }
+        }
+        else if self.condition == "RegisterUser" {
+            if let registerVC = self.parent as? RegisterViewController {
+                registerVC.performSegue(withIdentifier: "QRScanSegue", sender: registerVC)
+            }
+        }
     }
     
-    //Cancel ask message
-    func orderCancelMessage() {
-        addedLabel.text = "Are you sure you want to cancel the order/s?"
-    }
-    
-    //Login message
-    func loginMessage(message: String) {
-        addedLabel.text = message
+    //Custom message display
+    func addMessage(context: String) {
+        condition = context
+        if context == "AddMenuItem" {
+            addedLabel.text = menuItem! + " has been added to the order."
+        }
+        else if context == "CancelMenuItems" {
+            addedLabel.text = "Are you sure you want to cancel the order/s?"
+            cancelButton.isHidden = false
+        }
+        else if context == "FulfillOrder" {
+            addedLabel.text = "The ticket has been fulfilled."
+        }
+        else {
+            addedLabel.text = context
+        }
     }
 }
+
+
