@@ -12,6 +12,7 @@ class WebHandler{
     let urlBase: String
     init()
     {
+    
         //One class to build the request and params
         //one class to take that request and make a NSURLsession and get a response
         //  this class will return json
