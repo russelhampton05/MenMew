@@ -13,6 +13,10 @@ class MenuManager{
     static let menuRef = FIRDatabase.database().reference().child("Menus")
     static let menuItemRef = FIRDatabase.database().reference().child("MenuItems")
     static let menuGroupRef = FIRDatabase.database().reference().child("MenuGroups")
+    
+    static func GetMenuGroup(id: String)->MenuGroup{
+        
+    }
     static func GetMenu(id: String)-> Menu{
         
         var menu = Menu()
@@ -22,6 +26,11 @@ class MenuManager{
             menuRef.child(id).observeSingleEvent(of: .value, with:{(snapshot) in
                 
                 let value = snapshot.value as? NSDictionary
+                menu.rest_id = id
+                menu.title = value?["title"] as! String
+                menu.cover_picture = value?["cover_picture"] as! String
+                var menu_groups = value?["items"] as? NSDictionary
+                
                 
                 
             }){(error) in
@@ -33,5 +42,6 @@ class MenuManager{
         }
         return menu
     }
+    
 }
 
