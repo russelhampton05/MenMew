@@ -10,10 +10,28 @@ import Foundation
 import Firebase
 
 class MenuManager{
-static let ref = FIRDatabase.database().reference().child("menus")
-    
-    static GetMenu(id: String) -> Menu{
-    
+    static let menuRef = FIRDatabase.database().reference().child("Menus")
+    static let menuItemRef = FIRDatabase.database().reference().child("MenuItems")
+    static let menuGroupRef = FIRDatabase.database().reference().child("MenuGroups")
+    static func GetMenu(id: String)-> Menu{
+        
+        var menu = Menu()
+        
+        do{
+            
+            menuRef.child(id).observeSingleEvent(of: .value, with:{(snapshot) in
+                
+                let value = snapshot.value as? NSDictionary
+                
+                
+            }){(error) in
+                print(error.localizedDescription)
+            }
+            
+        }catch{
+            //not sure
+        }
+        return menu
     }
 }
 

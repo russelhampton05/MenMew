@@ -26,16 +26,19 @@ class User{
 }
 
 class Menu{
-    var rest_id : String
-    var title : String
+    var rest_id : String?
+    var title : String?
     var cover_picture : String?
-    var menu_groups : [MenuGroup] = []
+    var menu_groups : [MenuGroup]? = []
     init(id:String, title:String, cover_picture:String?, groups: [MenuGroup]){
         self.rest_id = id
         self.title = title
     
         self.cover_picture = cover_picture
         self.menu_groups = groups
+    }
+    init(){
+        
     }
     convenience init(id:String, title:String, groups: [MenuGroup] ) {
         self.init(id:id, title:title, cover_picture:nil, groups:groups)
@@ -44,12 +47,17 @@ class Menu{
 
 class MenuGroup{
     var cover_picture: String?
-    var desc: String
+    var desc: String?
     var title: String?
-    var items: [MenuItem]
-    
-    init(desc: String,items: [MenuItem], title: String?, cover_picture:String?){
+    var items: [MenuItem]?
+    init(){
         
+    }
+    init(desc: String,items: [MenuItem], title: String?, cover_picture:String?){
+        self.cover_picture = cover_picture
+        self.desc = desc
+        self.title = title
+        self.items = items
     }
     convenience init(desc: String,items: [MenuItem], title: String?){
         self.init(desc:desc,items:items, title:title, cover_picture:nil)
