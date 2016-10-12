@@ -11,16 +11,20 @@ import Foundation
 
 
 class MainMenuViewController: UITableViewController{
+    
+    var menu: Menu?
+    
     var segueIndex: Int?
-    var test: String = ""
+    
     @IBOutlet var menuButton: UIBarButtonItem!
     @IBOutlet weak var ordersButton: UIBarButtonItem!
     
     var orderArray: [(title: String, price: Double)] = []
     let transition = CircleTransition()
-    var menuArray = [[MenuItem]]()
-    var categoryArray = [(name: String, desc: String)]()
-    var restaurant: String?
+  //  var menuArray = [[MenuItem]]()
+   // var categoryArray = [(name: String, desc: String)]()
+   // var restaurant: String?
+ 
     
     @IBOutlet weak var restaurantLabel: UINavigationItem!
     
@@ -28,7 +32,7 @@ class MainMenuViewController: UITableViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        restaurantLabel.title = restaurant
+        restaurantLabel.title = menu?.title
         self.navigationItem.setHidesBackButton(true, animated: false)
         
         tableView.sectionHeaderHeight = 70
@@ -54,8 +58,11 @@ class MainMenuViewController: UITableViewController{
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ("MenuCell")) as UITableViewCell!
         
-        cell?.textLabel!.text = categoryArray[(indexPath as NSIndexPath).row].name
-        cell?.detailTextLabel!.text = categoryArray[(indexPath as NSIndexPath).row].desc
+         cell?.textLabel!.text = menu?.menu_groups?[(indexPath as NSIndexPath).row].title
+         cell?.detailTextLabel!.text = menu?.menu_groups?[(indexPath as NSIndexPath).row].desc
+
+       // cell?.textLabel!.text = categoryArray[(indexPath as NSIndexPath).row].name
+      //  cell?.detailTextLabel!.text = categoryArray[(indexPath as NSIndexPath).row].desc
         
         let bgView = UIView()
         bgView.backgroundColor = UIColor.white
@@ -72,23 +79,26 @@ class MainMenuViewController: UITableViewController{
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categoryArray.count
+        //return categoryArray.count
+        return (menu?.menu_groups?.count)!
     }
     
     override func  numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
+    //what the hell is going on jon, why are we passing in both the menu and the menu groups here?
+    //I thought this class was kind of the collection of menu groups and the one that this seg points to is the
+    //collection of items that make up the menu group that was clicked on.
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "CategoryDetailSegue" {
             let menuVC = segue.destination as! MenuDetailsViewController
-            
-            menuVC.categoryTitle = categoryArray[segueIndex!].name
-            menuVC.menuArray = menuArray[segueIndex!]
+            menuVC.menu_group = menu?.menu_groups![segueIndex!]
+          //  menuVC.categoryTitle = categoryArray[segueIndex!].name
+           // menuVC.menuArray = menuArray[segueIndex!]
             menuVC.orderArray = orderArray
-            menuVC.categoryArray = categoryArray
-            menuVC.fullMenu = menuArray
-            menuVC.restaurantName = restaurant!
+        //    menuVC.categoryArray = categoryArray
+           // menuVC.fullMenu = menuArray
+            menuVC.restaurantName = menu?.title
         }
         else if segue.identifier == "SettingsSegue" {
             let settingsVC = segue.destination as! SettingsViewController
@@ -103,11 +113,11 @@ class MainMenuViewController: UITableViewController{
     }
     
     func reloadDetails(){
-        if let settingsVCX = self.revealViewController() {
+        if (self.revealViewController()) != nil {
             print("test")
         }
     }
-    
+ 
     @IBAction func unwindToMain(_ sender: UIStoryboardSegue) {
         if let sourceVC = sender.source as? MenuDetailsViewController {
             orderArray = sourceVC.orderArray!

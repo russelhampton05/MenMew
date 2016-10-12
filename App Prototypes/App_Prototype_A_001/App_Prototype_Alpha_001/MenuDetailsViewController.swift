@@ -13,10 +13,11 @@ class MenuDetailsViewController: UITableViewController {
     var orderArray: [(title: String, price: Double)]?
     var selectedIndexPath : IndexPath?
     var ordered: Bool = false
-    
+    //I'm not sure if this class should use the menu object or just the menugroup. Going with group for now!
+    var menu_group:MenuGroup?
     //Can load data directly from the parent menu (which loads from JSON)
-    var menuArray: [MenuItem]?
-    var fullMenu: [[MenuItem]]?
+    //var menuArray: [MenuItem]?
+    //var fullMenu: [[MenuItem]]?
     var categoryArray = [(name: String, desc: String)]()
     var categoryTitle: String?
     var restaurantName: String?
@@ -57,16 +58,21 @@ class MenuDetailsViewController: UITableViewController {
     
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! MenuCell
         
-        cell.foodTitle.text = menuArray![(indexPath as NSIndexPath).row].title
-        cell.foodPrice.text = (NSString(format: "$%.2f", menuArray![(indexPath as NSIndexPath).row].price) as String)
-        cell.foodDesc.text = menuArray![(indexPath as NSIndexPath).row].desc
-        cell.foodImage.image = UIImage(named: menuArray![(indexPath as NSIndexPath).row].image)
+        cell.foodTitle.text = menu_group?.items![(indexPath as NSIndexPath).row].title
+        cell.foodPrice.text = (NSString(format: "$%.2f", (menu_group?.items![(indexPath as NSIndexPath).row].price!)!) as String)
+        cell.foodDesc.text = menu_group?.items![(indexPath as NSIndexPath).row].desc
+        cell.foodImage.image = UIImage(named: (menu_group?.items![(indexPath as NSIndexPath).row].image)!)
+
+       //cell.foodTitle.text = menuArray![(indexPath as NSIndexPath).row].title
+      //  cell.foodPrice.text = (NSString(format: "$%.2f", menuArray![(indexPath as NSIndexPath).row].price) as String)
+      //  cell.foodDesc.text = menuArray![(indexPath as NSIndexPath).row].desc
+      //  cell.foodImage.image = UIImage(named: menuArray![(indexPath as NSIndexPath).row].image)
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return menuArray!.count
+        return (menu_group?.items!.count)!
     }
 
     //Check for selected items in the table via index paths
@@ -124,13 +130,14 @@ class MenuDetailsViewController: UITableViewController {
         
         let detailPopup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MenuPopup") as! MenuDetailPopupViewController
         
-        //Placeholder sides/cooking style details
+        //Placeholder sides/cooking style details // we're going to do this a bit differently. Sides will be its own model seperate from the actual items. That's how every single place does it now.
         let tempSides = ["Rice Pilaf", "Corn on a Cob", "Coleslaw", "Hash browns"]
         let tempCookStyles = ["Rare", "Medium Rare", "Medium Well", "Well Done"]
+        //i never deleted a "Details" So I'm not sure what's going on here. Or maybe I did? Who knows.
         let tempDetails = Details(sides: tempSides, cookType: tempCookStyles)
         
         
-        detailPopup.menuItem = menuArray![(selectedIndexPath! as NSIndexPath).row].title
+        detailPopup.menuItem = menu_group?.items![(selectedIndexPath! as NSIndexPath).row].title
         detailPopup.showMenuDetails(details: tempDetails)
         self.addChildViewController(detailPopup)
         detailPopup.view.frame = self.view.frame
@@ -151,9 +158,9 @@ class MenuDetailsViewController: UITableViewController {
         
         let confirmPopup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Popup") as! PopupViewController
         
-        addToOrder(menuArray![(selectedIndexPath! as NSIndexPath).row].title, foodPrice: menuArray![(selectedIndexPath! as NSIndexPath).row].price)
+        addToOrder((menu_group?.items![(selectedIndexPath! as NSIndexPath).row].title)!, foodPrice: (menu_group?.items![(selectedIndexPath! as NSIndexPath).row].price)!)
         
-        confirmPopup.menuItem = menuArray![(selectedIndexPath! as NSIndexPath).row].title
+        confirmPopup.menuItem = menu_group?.items![(selectedIndexPath! as NSIndexPath).row].title
         self.addChildViewController(confirmPopup)
         confirmPopup.view.frame = self.view.frame
         confirmPopup.view.frame.origin.y = tableView.contentOffset.y

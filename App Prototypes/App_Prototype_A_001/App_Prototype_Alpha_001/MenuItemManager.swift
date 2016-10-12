@@ -16,31 +16,27 @@ class MenuItemManager{
     
     
     static func GetMenuItem(id: String)->MenuItem{
-        var item = MenuItem()
+        let item = MenuItem()
         
-        do{
+        ref.child(id).observeSingleEvent(of: .value, with:{(snapshot) in
             
-            ref.child(id).observeSingleEvent(of: .value, with:{(snapshot) in
-                
-                let value = snapshot.value as? NSDictionary
-                item.desc = value?["desc"] as! String
-                item.image = value?["image"] as! String
-                item.title = value?["title"] as! String
-                item.price = Double(value?["price"] as! String)
-                }){(error) in
-                    print(error.localizedDescription)
-            }
-            
-        }catch{
-            //not sure
+            let value = snapshot.value as? NSDictionary
+            item.desc = value?["desc"] as? String
+            item.image = value?["image"] as? String
+            item.title = value?["title"] as? String
+            item.price = Double(value?["price"] as! String)
+        }){(error) in
+            print(error.localizedDescription)
         }
+        
+        
         return item
         
     }
     static func GetMenuItem(ids: [String]) -> [MenuItem]{
         var items :[MenuItem] = []
         for id in ids{
-            items.append(GetMenuItem(id))
+            items.append(GetMenuItem(id: id))
         }
         return items
     }

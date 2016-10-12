@@ -8,8 +8,13 @@
 
 import UIKit
 
+//might have to decide if this class is even actually worth keeping.
+//The only reason it would be worth having still is if we wanted real time swapping of
+//menus. That logic for deciding which menu would go here.
+
 class RestaurantViewController: UIViewController {
     
+    /*
     var restaurantTitle: String?
     var location: String?
     var tableNum: Int?
@@ -18,17 +23,21 @@ class RestaurantViewController: UIViewController {
     var menuGroup = [MenuItem]()
     var menuArray = [[MenuItem]]()
     var connectionURL: URL?
-
+ */
+    
+    
     @IBOutlet weak var restaurantLabel: UILabel!
     @IBOutlet weak var tableLabel: UILabel!
+    
+    var menu: Menu?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
         
 
+        menu = MenuManager.GetMenu(id: "fac4b7243c8d47d69a309fb7471d21b9") //get this from QR eventually
         
-        parseJSONData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -51,11 +60,11 @@ class RestaurantViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let mainMenuVC = segue.destination as! MainMenuViewController
         
-        mainMenuVC.restaurant = restaurantTitle!
-        mainMenuVC.categoryArray = categoryArray
-        mainMenuVC.menuArray = menuArray
+        mainMenuVC.menu = self.menu
+        
     }
-    
+}
+    /*
     func parseJSONData() {
         
         URLSession.shared.dataTask(with: connectionURL!, completionHandler: {(data, response, error) in
@@ -113,7 +122,5 @@ class RestaurantViewController: UIViewController {
                 }
             }
         }).resume()
-        
-    }
-
-}
+        */
+   

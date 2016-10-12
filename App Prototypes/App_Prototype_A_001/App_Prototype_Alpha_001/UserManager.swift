@@ -16,13 +16,13 @@ class UserManager{
     
     static func AddUser(user: User){
         
-        guard let otherStuff = user.otherInformation else {
+        guard user.otherInformation != nil else {
             UserManager.ref.child(user.ID).setValue(["otherStuff": ""])
             return
         }
         
         
-        UserManager.ref.child(String(123)).setValue(["otherStuff": user.otherInformation])
+        UserManager.ref.child(String(user.ID)).setValue(["otherStuff": user.otherInformation])
     }
     static func AddUser(id: String, otherStuff: String? = nil){
         guard let otherStuff = otherStuff else {
