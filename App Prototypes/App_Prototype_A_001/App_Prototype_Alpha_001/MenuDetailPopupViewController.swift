@@ -65,7 +65,6 @@ class MenuDetailPopupViewController: UIViewController {
     //Show menu details (side dishes, cooking types, etc)
     func showMenuDetails(details: Details) {
         
-
         sidesList = details.sides
         cookList = details.cookType
     }

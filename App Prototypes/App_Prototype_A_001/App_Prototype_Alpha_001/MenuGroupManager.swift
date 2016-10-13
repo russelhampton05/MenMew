@@ -23,7 +23,6 @@ class MenuGroupManager{
         
         
         ref.child(id).observeSingleEvent(of: .value, with:{(snapshot) in
-            
             let value = snapshot.value as? NSDictionary
             group.cover_picture = value?["cover_picture"] as? String
             group.desc = value?["desc"] as? String

@@ -24,7 +24,11 @@ class User{
     
     
 }
-
+//need to look at maybe changing this
+struct Details {
+    var sides: [String]
+    var cookType: [String]
+}
 class Menu{
     var rest_id : String?
     var title : String?

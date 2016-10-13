@@ -22,9 +22,11 @@ class RestaurantViewController: UIViewController {
     var categoryArray = [(name: String, desc: String)]()
     var menuGroup = [MenuItem]()
     var menuArray = [[MenuItem]]()
+ 
+ 
     var connectionURL: URL?
- */
-    
+ 
+    */
     
     @IBOutlet weak var restaurantLabel: UILabel!
     @IBOutlet weak var tableLabel: UILabel!

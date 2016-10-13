@@ -10,6 +10,7 @@ import UIKit
 
 class MenuDetailsViewController: UITableViewController {
     
+    var menu: Menu?
     var orderArray: [(title: String, price: Double)]?
     var selectedIndexPath : IndexPath?
     var ordered: Bool = false
@@ -130,7 +131,7 @@ class MenuDetailsViewController: UITableViewController {
         
         let detailPopup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MenuPopup") as! MenuDetailPopupViewController
         
-        //Placeholder sides/cooking style details // we're going to do this a bit differently. Sides will be its own model seperate from the actual items. That's how every single place does it now.
+       
         let tempSides = ["Rice Pilaf", "Corn on a Cob", "Coleslaw", "Hash browns"]
         let tempCookStyles = ["Rare", "Medium Rare", "Medium Well", "Well Done"]
         //i never deleted a "Details" So I'm not sure what's going on here. Or maybe I did? Who knows.
@@ -185,11 +186,11 @@ class MenuDetailsViewController: UITableViewController {
         }
         else if segue.identifier == "ReturnMainSegue" {
             let mainVC = segue.destination as! MainMenuViewController
-            mainVC.menuArray = fullMenu!
+        //    mainVC.menuArray = fullMenu!
             mainVC.orderArray = orderArray!
-            mainVC.categoryArray = categoryArray
-            mainVC.restaurant = restaurantName!
-            
+          //  mainVC.categoryArray = categoryArray
+           // mainVC.restaurant = restaurantName!
+            mainVC.menu = menu
             //mainVC.reloadDetails()
             //mainVC.reloadDetails(orderArray!, sourceMenuArray: fullMenu!, sourceRestaurant: restaurantName!)
         }
@@ -197,7 +198,7 @@ class MenuDetailsViewController: UITableViewController {
 
     //Back Button for Unwind Segue to Main Menu
     @IBAction func backButtonPressed(_ sender: AnyObject) {
-        for i in 0...menuArray!.count-1 {
+        for i in 0...(menu_group?.items?.count)!-1 {
             let cell = tableView.visibleCells[i] as! MenuCell
             cell.ignoreFrameChanges()
         }   
