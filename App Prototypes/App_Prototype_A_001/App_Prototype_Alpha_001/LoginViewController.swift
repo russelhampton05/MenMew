@@ -10,9 +10,10 @@ import UIKit
 import Firebase
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
-           @IBOutlet weak var usernameField: UITextField!
-    @IBOutlet weak var passwordField: UITextField!
     
+    //IBOutlets
+    @IBOutlet weak var usernameField: UITextField!
+    @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var logoutButton: UIButton!
     
