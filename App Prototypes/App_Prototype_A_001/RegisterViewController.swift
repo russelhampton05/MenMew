@@ -11,7 +11,7 @@ import Firebase
 
 class RegisterViewController: UIViewController, UITextFieldDelegate {
 
-    
+    //IBOutlets
     @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var confirmPasswordField: UITextField!

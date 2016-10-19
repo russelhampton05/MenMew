@@ -3,6 +3,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -760,14 +762,31 @@
                                                         </label>
                                                     </subviews>
                                                 </stackView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7P1-qn-wWM">
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="leN-bG-AOM">
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7P1-qn-wWM">
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="100" translatesAutoresizingMaskIntoConstraints="NO" id="dXv-v0-g4U">
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="200" id="Ffp-1f-SBT"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="dXv-v0-g4U" firstAttribute="baseline" secondItem="7P1-qn-wWM" secondAttribute="firstBaseline" id="3tJ-Ko-Ch5"/>
+                                                    </constraints>
+                                                </stackView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="leN-bG-AOM" firstAttribute="leading" secondItem="el0-Mc-3VA" secondAttribute="leading" id="6is-4c-NEJ"/>
                                                 <constraint firstItem="vub-0l-cBA" firstAttribute="leading" secondItem="el0-Mc-3VA" secondAttribute="leading" id="DiW-2p-hyO"/>
+                                                <constraint firstAttribute="trailing" secondItem="leN-bG-AOM" secondAttribute="trailing" id="e0s-la-Bz4"/>
                                                 <constraint firstAttribute="trailing" secondItem="vub-0l-cBA" secondAttribute="trailing" id="qFI-ct-Ugk"/>
                                             </constraints>
                                         </stackView>
@@ -781,6 +800,7 @@
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="1" green="0.41582992860000001" blue="0.3595783099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
+                                    <outlet property="dateLabel" destination="dXv-v0-g4U" id="fkx-Rm-4kf"/>
                                     <outlet property="statusLabel" destination="7P1-qn-wWM" id="9y1-q6-RJI"/>
                                     <outlet property="tableLabel" destination="gTW-xt-RRO" id="ugz-pd-QRR"/>
                                     <outlet property="ticketLabel" destination="GNp-DY-ueU" id="NwP-QQ-rVg"/>

@@ -14,7 +14,9 @@ import UIKit
 
 class RestaurantViewController: UIViewController {
     
+
     /*
+
     var restaurantTitle: String?
     var location: String?
     var tableNum: Int?
@@ -28,6 +30,10 @@ class RestaurantViewController: UIViewController {
  
     */
     
+
+
+    //IBOutlets
+
     @IBOutlet weak var restaurantLabel: UILabel!
     @IBOutlet weak var tableLabel: UILabel!
     
@@ -38,8 +44,13 @@ class RestaurantViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = true
         
 
+
         menu = MenuManager.GetMenu(id: "fac4b7243c8d47d69a309fb7471d21b9") //get this from QR eventually
         
+
+        //Call on JSON Parsing
+      //  parseJSONData()
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -65,8 +76,13 @@ class RestaurantViewController: UIViewController {
         mainMenuVC.menu = self.menu
         
     }
+
 }
     /*
+=======
+    
+    //JSON parsing method, may be changed/replaced
+>>>>>>> master
     func parseJSONData() {
         
         URLSession.shared.dataTask(with: connectionURL!, completionHandler: {(data, response, error) in

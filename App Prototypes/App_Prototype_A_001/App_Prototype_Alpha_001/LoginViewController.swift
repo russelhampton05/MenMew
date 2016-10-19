@@ -9,8 +9,6 @@
 import UIKit
 import Firebase
 
-
-
 class LoginViewController: UIViewController, UITextFieldDelegate {
            @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
@@ -21,6 +19,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Check Firebase for user
         FIRAuth.auth()?.addStateDidChangeListener { auth, user in
             if user != nil {
                 // User is signed in.
@@ -45,6 +44,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         usernameField.autocorrectionType = UITextAutocorrectionType.no
         passwordField.autocorrectionType = UITextAutocorrectionType.no
         
+        //Check for existing logged in user
         if let user = FIRAuth.auth()?.currentUser {
             logoutButton.isHidden = false
             registerButton.isHidden = true
@@ -60,7 +60,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
     
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

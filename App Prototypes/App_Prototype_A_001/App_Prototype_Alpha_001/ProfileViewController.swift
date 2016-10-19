@@ -11,6 +11,7 @@ import Firebase
 
 class ProfileViewController: UIViewController {
     
+    //IBOutlets
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var passwordLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
@@ -40,17 +41,6 @@ class ProfileViewController: UIViewController {
         
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
     @IBAction func backButtonPressed(_ sender: AnyObject) {
         performSegue(withIdentifier: "UnwindToSettingsSegue", sender: self)
     }

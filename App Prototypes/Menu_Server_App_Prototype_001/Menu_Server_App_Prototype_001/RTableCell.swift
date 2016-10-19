@@ -10,10 +10,11 @@ import UIKit
 
 class RTableCell: UITableViewCell {
 
-    //Variables
+    //IBOutlets
     @IBOutlet weak var tableLabel: UILabel!
     @IBOutlet weak var ticketLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
