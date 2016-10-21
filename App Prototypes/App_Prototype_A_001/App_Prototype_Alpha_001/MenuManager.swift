@@ -13,37 +13,47 @@ class MenuManager{
     static let ref = FIRDatabase.database().reference().child("Menus")
     
     
-    
-    
-    static func GetMenu(id: String)-> Menu{
-        
+    static func GetMenu(id: String, completionHandler: @escaping (_ menu: Menu) -> ()) {
         let menu = Menu()
         
-        ref.child(id).observeSingleEvent(of: .value, with:{(snapshot) in
-            let value = snapshot.value as? NSDictionary
+        print("Main menu ref: ")
+        print(ref)
+        
+        ref.child(id).observeSingleEvent(of: .value, with: {(FIRDataSnapshot) in
+            
+            let value = FIRDataSnapshot.value as? NSDictionary
             menu.rest_id = id
             menu.title = value?["title"] as? String
             menu.cover_picture = value?["cover_picture"] as? String
             let menu_groups = value?["menu_groups"] as? NSDictionary
             var groups: [String] = []
-            for group in (menu_groups?.allKeys)!{
-                if ((menu_groups?.value(forKey: group as! String) as? String) == "true"){
+            for group in (menu_groups?.allKeys)! {
+                
+                if ((menu_groups?.value(forKey: group as! String) as! Bool) == true) {
                     groups.append(group as! String)
                 }
             }
-            menu.menu_groups = MenuGroupManager.GetMenuGroup(ids: groups)
+            
+            MenuGroupManager.GetMenuGroup(ids: groups) {
+                groups in
+                
+                menu.menu_groups = groups
+                
+                print("Finished building menu")
+                completionHandler(menu)
+            }
             
             
             
-        }){(error) in
-            print(error.localizedDescription)
-        }
+            }, withCancel: {(Error) in
+                    print(Error.localizedDescription)
+                })
         
-        return menu
     }
-    
+
 }
 
 
 
 
+		

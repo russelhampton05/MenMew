@@ -167,7 +167,7 @@ class QRViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate
         let menuLoadVC = segue.destination as! RestaurantViewController
         
 
-      //  menuLoadVC.connectionURL = connectionURL
+      //menuLoadVC.connectionURL = connectionURL
     }
     
     

@@ -18,7 +18,7 @@
                         <viewControllerLayoutGuide type="bottom" id="bZy-p3-xEc"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="HpH-1o-VRb">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waiting for QR Code..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZdE-C0-dCg">
@@ -72,7 +72,7 @@
                         <viewControllerLayoutGuide type="bottom" id="mDN-Fm-db8"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8to-eS-gmU">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rOl-sJ-6ZY">
@@ -133,6 +133,7 @@
                         <segue destination="vWD-u8-Mhd" kind="show" identifier="MainMenuSegue" id="ouf-kx-wY0">
                             <nil key="action"/>
                         </segue>
+                        <segue destination="HSm-UU-GBD" kind="show" identifier="QRReturnSegue" id="2it-ye-nAL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J90-d6-5WA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1579,8 +1580,12 @@
         <scene sceneID="p6d-ST-ecV">
             <objects>
                 <viewController id="eDi-16-dxi" customClass="SidesPickerViewController" customModule="App_Prototype_Alpha_001" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Hbv-g8-x66"/>
+                        <viewControllerLayoutGuide type="bottom" id="4AM-o9-E0S"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="sQ0-qc-yXt">
-                        <rect key="frame" x="0.0" y="0.0" width="263" height="69"/>
+                        <rect key="frame" x="0.0" y="0.0" width="263" height="90"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Jo7-mE-rwR">
@@ -1612,8 +1617,12 @@
         <scene sceneID="l3b-ra-7sg">
             <objects>
                 <viewController id="fJk-bh-xn1" customClass="CookTypePickerViewController" customModule="App_Prototype_Alpha_001" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="bl2-5e-Ggt"/>
+                        <viewControllerLayoutGuide type="bottom" id="Ugw-bn-NTb"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="bDK-7Y-Gaz">
-                        <rect key="frame" x="0.0" y="0.0" width="263" height="69"/>
+                        <rect key="frame" x="0.0" y="0.0" width="263" height="90"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="t7I-ek-SOw">
@@ -1713,12 +1722,12 @@
                                         </constraints>
                                         <variation key="default">
                                             <mask key="constraints">
-                                                <exclude reference="oRW-p0-8Na"/>
-                                                <exclude reference="jBL-pd-Ihq"/>
                                                 <exclude reference="KCG-Dl-ttY"/>
                                                 <exclude reference="Oa4-Nm-Unq"/>
-                                                <exclude reference="zoc-5z-6CV"/>
                                                 <exclude reference="ObX-zb-xXY"/>
+                                                <exclude reference="jBL-pd-Ihq"/>
+                                                <exclude reference="oRW-p0-8Na"/>
+                                                <exclude reference="zoc-5z-6CV"/>
                                             </mask>
                                         </variation>
                                     </view>
@@ -1753,8 +1762,8 @@
         <image name="profile_round" width="312" height="312"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="PBk-Rp-eOU"/>
+        <segue reference="2it-ye-nAL"/>
+        <segue reference="ouf-kx-wY0"/>
         <segue reference="MaD-a0-jJi"/>
-        <segue reference="dpp-zc-24d"/>
     </inferredMetricsTieBreakers>
 </document>

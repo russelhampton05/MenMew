@@ -37,7 +37,7 @@ class MenuDetailsViewController: UITableViewController {
            UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: font], for: UIControlState())
         }	
 
-        categoryLabel.title = categoryTitle!
+        categoryLabel.title = menu_group!.title
         
         if orderArray!.count > 0 && ordered == false {
             doneButton.isEnabled = true

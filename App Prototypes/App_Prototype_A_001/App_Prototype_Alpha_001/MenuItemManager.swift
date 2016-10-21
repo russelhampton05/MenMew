@@ -15,29 +15,48 @@ class MenuItemManager{
     
     
     
-    static func GetMenuItem(id: String)->MenuItem{
+    static func GetMenuItem(id: String, completionHandler: @escaping (_ item: MenuItem) -> ()) {
         let item = MenuItem()
         
-        ref.child(id).observeSingleEvent(of: .value, with:{(snapshot) in
+        ref.child(id).observeSingleEvent(of: .value, with:{(FIRDataSnapshot) in
             
-            let value = snapshot.value as? NSDictionary
-            item.desc = value?["desc"] as? String
+            let value = FIRDataSnapshot.value as? NSDictionary
+            item.title = value?["name"] as? String
             item.image = value?["image"] as? String
-            item.title = value?["title"] as? String
-            item.price = Double(value?["price"] as! String)
+            item.desc = value?["desc"] as? String
+            item.price = value?["price"] as? Double
         }){(error) in
             print(error.localizedDescription)
         }
         
         
-        return item
+        completionHandler(item)
         
     }
-    static func GetMenuItem(ids: [String]) -> [MenuItem]{
+    static func GetMenuItem(ids: [String], completionHandler: @escaping (_ items: [MenuItem]) -> ()) {
         var items :[MenuItem] = []
+
+        let sem1 = DispatchGroup.init()
+        
         for id in ids{
-            items.append(GetMenuItem(id: id))
+            print("Initiating request for item id " + id)
+            var newItem: MenuItem?
+            
+            sem1.enter()
+            GetMenuItem(id: id) {
+                    item in
+                
+                print("Finished request for item id " + id)
+                    newItem = item
+                    items.append(newItem!)
+                
+                    sem1.leave()
+                }
+            
         }
-        return items
+
+        sem1.notify(queue: DispatchQueue.main, execute: {
+            print("Finished all requests for menu items")
+                completionHandler(items) })
     }
 }

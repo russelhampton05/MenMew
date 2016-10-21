@@ -17,39 +17,70 @@ class MenuGroupManager{
     static let ref = FIRDatabase.database().reference().child("MenuGroups")
     
     
-    
-    static func GetMenuGroup(id: String)->MenuGroup{
+    static func GetMenuGroup(id: String, completionHandler: @escaping (_ group: MenuGroup) -> ()) {
         let group = MenuGroup()
-        
-        
-        ref.child(id).observeSingleEvent(of: .value, with:{(snapshot) in
-            let value = snapshot.value as? NSDictionary
+        print("Menu group ref: ")
+        print(ref)
+        ref.child(id).observeSingleEvent(of: .value, with:{(FIRDataSnapshot) in
+
+            let value = FIRDataSnapshot.value as? NSDictionary
+            print(value)
             group.cover_picture = value?["cover_picture"] as? String
             group.desc = value?["desc"] as? String
             group.title = value?["title"] as? String
             let group_items = value?["items"] as? NSDictionary
             var items: [String] = []
             for item in (group_items?.allKeys)!{
-                if ((group_items?.value(forKey: item as! String) as? String) == "true"){
+                if ((group_items?.value(forKey: item as! String) as! Bool) == true){
                     items.append(item as! String)
                 }
             }
-            group.items = MenuItemManager.GetMenuItem(ids:items)
+            
+            MenuItemManager.GetMenuItem(ids:items) {
+                items in
+                
+                group.items = items
+                
+                completionHandler(group)
+            }
+            
+            
             
         }){(error) in
             print(error.localizedDescription)
         }
         
         
-        return group
         
     }
-    static func GetMenuGroup(ids: [String]) -> [MenuGroup]{
+    static func GetMenuGroup(ids: [String], completionHandler: @escaping (_ groups: [MenuGroup]) -> ()) {
         var groups :[MenuGroup] = []
+        
+        let sem	= DispatchGroup.init()
+        
         for id in ids{
-            groups.append(GetMenuGroup(id: id))
+            print("Initiating request for group id " + id)
+
+            var newGroup: MenuGroup?
+            
+            sem.enter()
+             GetMenuGroup(id: id) {
+                    group in
+                    print("Finished request for group id " + id)
+                    newGroup = group
+                    groups.append(newGroup!)
+                
+                    sem.leave()
+                }
+            
+        
         }
-        return groups
+        
+        sem.notify(queue: DispatchQueue.main, execute: {
+            print("Finished all requests for menu groups")
+            completionHandler(groups) })
+        
+        
     }
     
 }

@@ -45,9 +45,24 @@ class RestaurantViewController: UIViewController {
         
 
 
-        menu = MenuManager.GetMenu(id: "fac4b7243c8d47d69a309fb7471d21b9") //get this from QR eventually
-        
+        MenuManager.GetMenu(id: "fac4b7243c8d47d69a309fb7471d21b9") {
+            menu in
+            
+            self.menu = menu
+            
+            if menu.menu_groups == nil {
+                self.printError()
+            }
+            else {
+                self.performSegue(withIdentifier: "MainMenuSegue", sender: self)
+            }
 
+        }
+        
+        
+        //get this from QR eventually
+        
+        
         //Call on JSON Parsing
       //  parseJSONData()
 
@@ -71,10 +86,23 @@ class RestaurantViewController: UIViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let mainMenuVC = segue.destination as! MainMenuViewController
+        if segue.identifier == "MainMenuSegue" {
+            let mainMenuVC = segue.destination as! MainMenuViewController
         
-        mainMenuVC.menu = self.menu
+            mainMenuVC.menu = self.menu
+        }
+        else if segue.identifier == "QRReturnSegue" {
+            let qrVC = segue.destination as! QRViewController
+        }
+    }
+    
+    func printError() {
+        let errorPopup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Popup") as! PopupViewController
         
+        self.addChildViewController(errorPopup)
+        self.view.addSubview(errorPopup.view)
+        errorPopup.didMove(toParentViewController: self)
+        errorPopup.addMessage(context: "QRError")
     }
 
 }

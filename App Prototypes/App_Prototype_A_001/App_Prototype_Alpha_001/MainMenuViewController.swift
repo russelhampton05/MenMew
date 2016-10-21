@@ -32,12 +32,12 @@ class MainMenuViewController: UITableViewController{
    // var restaurant: String?
  
     
-    @IBOutlet weak var restaurantLabel: UINavigationItem!
+    //@IBOutlet weak var restaurantLabel: UINavigationItem!
 
     var menuArray = [[MenuItem]]()
     var categoryArray = [(name: String, desc: String)]()
     var restaurant: String?
-    var segueIndex: Int?
+    //var segueIndex: Int?
     var test: String = ""
 
     
@@ -93,7 +93,12 @@ class MainMenuViewController: UITableViewController{
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //return categoryArray.count
-        return (menu?.menu_groups?.count)!
+        if menu?.menu_groups != nil {
+            return (menu?.menu_groups?.count)!
+        }
+        else {
+            return 0
+        }
     }
     
     override func  numberOfSections(in tableView: UITableView) -> Int {
@@ -102,6 +107,8 @@ class MainMenuViewController: UITableViewController{
     //what the hell is going on jon, why are we passing in both the menu and the menu groups here?
     //I thought this class was kind of the collection of menu groups and the one that this seg points to is the
     //collection of items that make up the menu group that was clicked on.
+    
+    //Reply: Yes, MainMenuVC is a collection of menu groups. Looks like you fixed it tho :v
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "CategoryDetailSegue" {
             let menuVC = segue.destination as! MenuDetailsViewController

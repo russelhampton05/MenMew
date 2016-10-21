@@ -83,6 +83,11 @@ class PopupViewController: UIViewController {
                 registerVC.performSegue(withIdentifier: "QRScanSegue", sender: registerVC)
             }
         }
+        else if self.condition == "QRError" {
+            if let restoVC = self.parent as? RestaurantViewController {
+                restoVC.performSegue(withIdentifier: "QRReturnSegue", sender: restoVC)
+            }
+        }
     }
     
     //Custom message display
@@ -97,6 +102,9 @@ class PopupViewController: UIViewController {
         }
         else if context == "FulfillOrder" {
             addedLabel.text = "The ticket has been fulfilled."
+        }
+        else if context == "QRError" {
+            addedLabel.text = "Error in retrieving QR code data. Please scan again."
         }
         else {
             addedLabel.text = context
