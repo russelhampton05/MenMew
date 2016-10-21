@@ -24,9 +24,7 @@ class MenuDetailsViewController: UITableViewController {
     var restaurantName: String?
     
     @IBOutlet var categoryLabel: UINavigationItem!
-    
     @IBOutlet weak var doneButton: UIBarButtonItem!
-    
     @IBOutlet var backButton: UIBarButtonItem!
     
     
@@ -129,24 +127,32 @@ class MenuDetailsViewController: UITableViewController {
     //Display the popup menu choices modal
     @IBAction func addMenuItem(_ sender: AnyObject) {
         
-        let detailPopup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MenuPopup") as! MenuDetailPopupViewController
-        
-       
-        let tempSides = ["Rice Pilaf", "Corn on a Cob", "Coleslaw", "Hash browns"]
-        let tempCookStyles = ["Rare", "Medium Rare", "Medium Well", "Well Done"]
-        //i never deleted a "Details" So I'm not sure what's going on here. Or maybe I did? Who knows.
-        let tempDetails = Details(sides: tempSides, cookType: tempCookStyles)
-        
-        
-        detailPopup.menuItem = menu_group?.items![(selectedIndexPath! as NSIndexPath).row].title
-        detailPopup.showMenuDetails(details: tempDetails)
-        self.addChildViewController(detailPopup)
-        detailPopup.view.frame = self.view.frame
-        detailPopup.view.frame.origin.y = tableView.contentOffset.y
-        self.view.addSubview(detailPopup.view)
-        detailPopup.didMove(toParentViewController: self)
-    
-        tableView.isScrollEnabled = false
+        //Real condition will be checking if the menu item allows for extra menu choices
+        if menu_group?.title == "Specials" || menu_group?.title == "Lunch" {
+            let detailPopup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MenuPopup") as! MenuDetailPopupViewController
+            
+            //Here, in production the choices will be loaded from Firebase
+            
+            let tempSides = ["Rice Pilaf", "Corn on a Cob", "Coleslaw", "Hash browns"]
+            let tempCookStyles = ["Rare", "Medium Rare", "Medium Well", "Well Done"]
+            //i never deleted a "Details" So I'm not sure what's going on here. Or maybe I did? Who knows.
+            let tempDetails = Details(sides: tempSides, cookType: tempCookStyles)
+            
+            
+            detailPopup.menuItem = menu_group?.items![(selectedIndexPath! as NSIndexPath).row].title
+            detailPopup.showMenuDetails(details: tempDetails)
+            self.addChildViewController(detailPopup)
+            detailPopup.view.frame = self.view.frame
+            detailPopup.view.frame.origin.y = tableView.contentOffset.y
+            self.view.addSubview(detailPopup.view)
+            detailPopup.didMove(toParentViewController: self)
+            
+            tableView.isScrollEnabled = false
+
+        }
+        else {
+            addOrder(self)
+        }
     }
     
     

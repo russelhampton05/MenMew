@@ -33,7 +33,7 @@ class SidesPickerViewController: UIViewController, UIPickerViewDelegate, UIPicke
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         let label = UILabel()
         let title = choiceArray![row]
-        let customStyle = NSAttributedString(string: title, attributes: [NSFontAttributeName:UIFont(name:"HelveticaNeue-Light", size: 18.0)!, NSForegroundColorAttributeName: UIColor.white])
+        let customStyle = NSAttributedString(string: title, attributes: [NSFontAttributeName:UIFont(name:"HelveticaNeue-Light", size: 24.0)!, NSForegroundColorAttributeName: UIColor.white])
         
         label.attributedText = customStyle
         return label

@@ -112,12 +112,9 @@ class MainMenuViewController: UITableViewController{
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "CategoryDetailSegue" {
             let menuVC = segue.destination as! MenuDetailsViewController
+            menuVC.menu = menu!
             menuVC.menu_group = menu?.menu_groups![segueIndex!]
-          //  menuVC.categoryTitle = categoryArray[segueIndex!].name
-           // menuVC.menuArray = menuArray[segueIndex!]
             menuVC.orderArray = orderArray
-        //    menuVC.categoryArray = categoryArray
-           // menuVC.fullMenu = menuArray
             menuVC.restaurantName = menu?.title
         }
         else if segue.identifier == "SettingsSegue" {

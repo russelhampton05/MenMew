@@ -11,6 +11,7 @@ import UIKit
 class SettingsViewController: UITableViewController {
 
     var orderArray: [(title: String, price: Double)] = []
+    var restaurantName: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +20,8 @@ class SettingsViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ProfileSegue" {
             let profileVC = segue.destination as! ProfileViewController
+            
+            profileVC.restaurantName = "RJ's Steakhouse"
             
         }
         if segue.identifier == "OrderSegue" {
@@ -31,7 +34,7 @@ class SettingsViewController: UITableViewController {
     //Unwind Segue
     @IBAction func unwindToSettings(_ sender: UIStoryboardSegue) {
         if let sourceVC = sender.source as? ProfileViewController {
-    
+            
         }
         else if let sourceVC = sender.source as? SummaryViewController {
             

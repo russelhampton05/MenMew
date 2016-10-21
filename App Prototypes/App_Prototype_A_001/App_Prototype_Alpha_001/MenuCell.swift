@@ -9,7 +9,8 @@
 import UIKit
 
 class MenuCell : UITableViewCell {
-    var isObserving = false
+    
+    //IBOutlets
     @IBOutlet weak var foodTitle: UILabel!
     @IBOutlet weak var foodPrice: UILabel!
     @IBOutlet weak var foodImage: UIImageView!
@@ -18,6 +19,9 @@ class MenuCell : UITableViewCell {
     @IBOutlet weak var shadowHeight: NSLayoutConstraint!
     @IBOutlet weak var addButton: UIButton!
     
+    var isObserving = false
+    
+    //Cell heights
     class var expandedHeight: CGFloat { get { return 300 } }
     class var normalHeight: CGFloat { get { return 180 } }
     

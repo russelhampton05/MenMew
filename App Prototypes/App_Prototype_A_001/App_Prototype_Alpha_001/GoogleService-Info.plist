@@ -7,9 +7,9 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>617972481318-e8hj2ujcu099f452rh39qvgcbe03qt3d.apps.googleusercontent.com</string>
+	<string>617972481318-ef6mrjrorg0drs8vccpd250rpbp3t7at.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.617972481318-e8hj2ujcu099f452rh39qvgcbe03qt3d</string>
+	<string>com.googleusercontent.apps.617972481318-ef6mrjrorg0drs8vccpd250rpbp3t7at</string>
 	<key>API_KEY</key>
 	<string>AIzaSyB06VzjYIeRnebyB5obIZoMYmBkf1hRfJE</string>
 	<key>GCM_SENDER_ID</key>
@@ -17,7 +17,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>AppleShillSociety.App-Prototype-Alpha-001</string>
+	<string>AppleShillSociety.MenMew</string>
 	<key>PROJECT_ID</key>
 	<string>menmew-792f0</string>
 	<key>STORAGE_BUCKET</key>
@@ -33,7 +33,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:617972481318:ios:7cf7be40afa52a34</string>
+	<string>1:617972481318:ios:9d535a625c969236</string>
 	<key>DATABASE_URL</key>
 	<string>https://menmew-792f0.firebaseio.com</string>
 </dict>
