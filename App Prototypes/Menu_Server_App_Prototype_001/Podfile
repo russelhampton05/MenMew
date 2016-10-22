@@ -9,4 +9,6 @@ target 'Menu_Server_App_Prototype_001' do
 pod 'Firebase'
 pod 'FirebaseAuth'
 pod 'FirebaseDatabase'
+pod 'Firebase/Core’
+pod 'Firebase/Messaging’
 end

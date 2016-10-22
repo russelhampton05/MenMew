@@ -34,6 +34,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             }
         }
         
+        //Initialize messaging and notification service to receive messages from FireBase
+        //Stub
+        
 
         usernameField.delegate = self
         passwordField.delegate = self

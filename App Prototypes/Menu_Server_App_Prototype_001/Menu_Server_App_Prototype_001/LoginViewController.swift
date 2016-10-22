@@ -30,6 +30,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         usernameField.autocorrectionType = UITextAutocorrectionType.no
         passwordField.autocorrectionType = UITextAutocorrectionType.no
         
+        //Entry point for notifications and messages from Firebase
+        //Stub
+        
         if let user = FIRAuth.auth()?.currentUser {
             logoutButton.isHidden = false
             registerButton.isHidden = true
@@ -116,4 +119,5 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         registerButton.isHidden = false
         
     }
+    
 }
