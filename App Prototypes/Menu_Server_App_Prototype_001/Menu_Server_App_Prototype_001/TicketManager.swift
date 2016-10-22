@@ -23,56 +23,42 @@ class TicketManager {
             
             let value = FIRDataSnapshot.value as? NSDictionary
             
-            ticket.ticket_ID = value?["ticket_ID"] as? String
+            ticket.user_ID = value?["user_ID"] as? String
+            ticket.restaurant_ID = value?["restaurant_ID"] as? String
             ticket.tableNum = value?["tableNum"] as? String
+            ticket.timestamp = value?["timestamp"] as? NSDate
+            ticket.paid = value?["paid"] as? Bool
             ticket.desc = value?["desc"] as? String
             
-            //Users is an array of users registered in the system
-            let users = value?["users"] as? NSDictionary
-            var userArray: [String] = []
-            for item in (users?.allKeys)! {
-                if ((users?.value(forKey: item as! String) as! Bool) == true) {
-                    userArray.append(item as! String)
-                }
-            }
-            
-            
-            //UserManager needs to be created
-            //Same process as in MenuItem and MenuGroup managers
-            UserManager.GetUser(ids: userArray) {
-                items in
-                
-                ticket.users = users
-            }
             
             //ItemsOrdered is the array of items ordered for the table
             let menuItems = value?["menuItems"] as? NSDictionary
+            
             var itemArray: [String] = []
+            var quantityArray: [Int] = []
             for item in (menuItems?.allKeys)! {
-                if ((menuItems?.value(forKey: item as! String) as! Bool) == true) {
-                    itemArray.append(item as! String)
-                }
+                itemArray.append(item as! String)
+                quantityArray.append(menuItems?.value(forKey: item as! String) as! Int)
             }
             
             MenuItemManager.GetMenuItem(ids: itemArray) {
                 items in
                 
-                ticket.itemsOrdered = items
+                var orderedArray: [(item: MenuItem, quantity: Int)] = []
+                
+                //Build the array of tuples (items ordered alongside their quantity)
+                for index in 1...items.count {
+                    orderedArray.append((item: items[index], quantity: quantityArray[index]))
+                }
+                
+                ticket.itemsOrdered = orderedArray
+                
+                completionHandler(ticket)
             }
-            
-            //Current price is calculated via the sum + tax of the currently ordered items
-            var currPrice = 0.0
-            for item in ticket.itemsOrdered! {
-                currPrice += item.price!
-            }
-            
-            ticket.currPrice = currPrice
-            
-            completionHandler(ticket)
+
             
         }){(error) in
-            print(error.localizedDescription)
-        }
+            print(error.localizedDescription)}
     }
 	
     

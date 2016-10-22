@@ -14,16 +14,18 @@ class User {
     var email: String?
     var password: String?
     var payment: [Payment]?
+    var ticket: Ticket?
     
     init() {
         
     }
     
-    init(name: String, email: String, password: String, payment: [Payment]) {
+    init(name: String, email: String, password: String, payment: [Payment], ticket: Ticket?) {
         self.name = name
         self.email = email
         self.password = password
         self.payment = payment
+        self.ticket = ticket
     }
 }
 
@@ -45,26 +47,26 @@ class Payment {
 
 class Ticket {
     
-    var ticket_ID: String?
+    var user_ID: String?
+    var restaurant_ID: String?
     var tableNum: String?
+    var timestamp: NSDate?
+    var paid: Bool?
+    var itemsOrdered: [(item: MenuItem, quantity: Int)]?
     var desc: String?
-    var users: [User]? = []
-    var itemsOrdered: [MenuItem]?
-    var currPrice: Double?
     
     init() {
-        
     }
     
-    init(ticket_ID: String, tableNum: String, desc: String, users: [User]?, itemsOrdered: [MenuItem]?) {
-        self.ticket_ID = ticket_ID
+    init(user_ID: String, restaurant_ID: String, tableNum: String, timestamp: NSDate, paid: Bool, itemsOrdered: [(item: MenuItem, quantity: Int)]?, desc: String?) {
+        self.user_ID = user_ID
+        self.restaurant_ID = restaurant_ID
         self.tableNum = tableNum
-        self.desc = desc
-        self.users = users
+        self.timestamp = timestamp
+        self.paid = paid
         self.itemsOrdered = itemsOrdered
+        self.desc = desc
     }
-    
-
 }
 
 
