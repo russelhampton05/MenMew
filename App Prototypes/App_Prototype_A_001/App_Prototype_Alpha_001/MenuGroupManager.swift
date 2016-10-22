@@ -19,12 +19,11 @@ class MenuGroupManager{
     
     static func GetMenuGroup(id: String, completionHandler: @escaping (_ group: MenuGroup) -> ()) {
         let group = MenuGroup()
-        print("Menu group ref: ")
-        print(ref)
+
         ref.child(id).observeSingleEvent(of: .value, with:{(FIRDataSnapshot) in
 
             let value = FIRDataSnapshot.value as? NSDictionary
-            print(value)
+
             group.cover_picture = value?["cover_picture"] as? String
             group.desc = value?["desc"] as? String
             group.title = value?["title"] as? String
@@ -44,29 +43,24 @@ class MenuGroupManager{
                 completionHandler(group)
             }
             
-            
-            
         }){(error) in
             print(error.localizedDescription)
         }
-        
-        
-        
     }
+    
     static func GetMenuGroup(ids: [String], completionHandler: @escaping (_ groups: [MenuGroup]) -> ()) {
         var groups :[MenuGroup] = []
         
         let sem	= DispatchGroup.init()
         
         for id in ids{
-            print("Initiating request for group id " + id)
 
             var newGroup: MenuGroup?
             
             sem.enter()
              GetMenuGroup(id: id) {
                     group in
-                    print("Finished request for group id " + id)
+
                     newGroup = group
                     groups.append(newGroup!)
                 
@@ -77,7 +71,6 @@ class MenuGroupManager{
         }
         
         sem.notify(queue: DispatchQueue.main, execute: {
-            print("Finished all requests for menu groups")
             completionHandler(groups) })
         
         

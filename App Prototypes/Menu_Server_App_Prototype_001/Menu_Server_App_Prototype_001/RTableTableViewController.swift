@@ -44,9 +44,6 @@ class RTableTableViewController: UITableViewController {
     //Dummy Function to load Different Table Lists depending on Restaurant
     func loadTables(restaurant: String) {
         
-        
-        
-        
         if restaurant == "RJ's Steakhouse" {
             let table12 = Table(tableNum: 12, clientList: ["John Doe", "Ana Smith"], orderList: [], category: "Ordering", ticket: "A-12",fulfilled: false, lastUpdated: formatter.date(from: "2016/07/08 16:22")!)
             let table22 = Table(tableNum: 22, clientList: [], orderList: [], category: "Available", ticket: "A-22", fulfilled: false, lastUpdated: formatter.date(from: "2016/07/08 15:00")!)
@@ -87,6 +84,9 @@ class RTableTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableCell", for: indexPath) as! RTableCell
         
+        //Get updated informationn regarding status
+        
+        
         cell.tableLabel.text = "Table " + String(tableList[indexPath.row].tableNum)
         cell.ticketLabel.text = "Ticket #" + tableList[indexPath.row].ticket
         cell.statusLabel.text = tableList[indexPath.row].category
@@ -123,5 +123,9 @@ class RTableTableViewController: UITableViewController {
             tableList[segueIndex!].lastUpdated = NSDate() as Date
             tableView.reloadData()
         }
+    }
+    
+    func getStatus() {
+        
     }
 }
