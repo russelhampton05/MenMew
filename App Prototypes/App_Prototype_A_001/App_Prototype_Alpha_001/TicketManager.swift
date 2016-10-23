@@ -44,11 +44,13 @@ class TicketManager {
             MenuItemManager.GetMenuItem(ids: itemArray) {
                 items in
                 
-                var orderedArray: [(item: MenuItem, quantity: Int)] = []
+                var orderedArray: [MenuItem] = []
                 
                 //Build the array of tuples (items ordered alongside their quantity)
                 for index in 1...items.count {
-                    orderedArray.append((item: items[index], quantity: quantityArray[index]))
+                    for _ in 1...quantityArray[index]{
+                    orderedArray.append(items[index])
+                    }
                 }
                 
                 ticket.itemsOrdered = orderedArray
