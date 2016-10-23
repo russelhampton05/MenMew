@@ -20,6 +20,7 @@
 		4A9B5D491D91C461009F2F72 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9B5D481D91C461009F2F72 /* SettingsViewController.swift */; };
 		4A9B5D4B1D91D023009F2F72 /* OrderConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9B5D4A1D91D023009F2F72 /* OrderConfirmationViewController.swift */; };
 		846FD9801DA8A2D600191223 /* MenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846FD97F1DA8A2D600191223 /* MenuManager.swift */; };
+		84C403851DBD0B6F00775FCE /* TicketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C403841DBD0B6F00775FCE /* TicketManager.swift */; };
 		941C681E1DBAAA76006B2F78 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 941C681D1DBAAA76006B2F78 /* GoogleService-Info.plist */; };
 		9443215C1DBA9C30003746D8 /* ProfilePopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9443215B1DBA9C30003746D8 /* ProfilePopupViewController.swift */; };
 		945A67081D8F260E00FAB14A /* MenuDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945C693C1D8EDECA0022C83A /* MenuDetailsViewController.swift */; };
@@ -78,6 +79,7 @@
 		66DC118A466A7FAEECFBC8B7 /* Pods-App_Prototype_Alpha_001Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App_Prototype_Alpha_001Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-App_Prototype_Alpha_001Tests/Pods-App_Prototype_Alpha_001Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		843B9E7C1DA5F7040039816F /* App_Prototype_Alpha_001.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = App_Prototype_Alpha_001.entitlements; sourceTree = "<group>"; };
 		846FD97F1DA8A2D600191223 /* MenuManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuManager.swift; sourceTree = "<group>"; };
+		84C403841DBD0B6F00775FCE /* TicketManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketManager.swift; sourceTree = "<group>"; };
 		8791E1D16694397796CC46C6 /* Pods-App_Prototype_Alpha_001UITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App_Prototype_Alpha_001UITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-App_Prototype_Alpha_001UITests/Pods-App_Prototype_Alpha_001UITests.debug.xcconfig"; sourceTree = "<group>"; };
 		941C681D1DBAAA76006B2F78 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9443215B1DBA9C30003746D8 /* ProfilePopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilePopupViewController.swift; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 				846FD97F1DA8A2D600191223 /* MenuManager.swift */,
 				AC97524F1DAC345100BCC0A7 /* MenuGroupManager.swift */,
 				AC9752511DAC368700BCC0A7 /* MenuItemManager.swift */,
+				84C403841DBD0B6F00775FCE /* TicketManager.swift */,
 			);
 			name = DBstuff;
 			sourceTree = "<group>";
@@ -571,6 +574,7 @@
 				945C69761D8EDFCB0022C83A /* PopupViewController.swift in Sources */,
 				945C69741D8EDFCB0022C83A /* MainMenuViewController.swift in Sources */,
 				4A0E979B1D9C06F800ECA82F /* LoginViewController.swift in Sources */,
+				84C403851DBD0B6F00775FCE /* TicketManager.swift in Sources */,
 				945C69791D8EDFCB0022C83A /* SummaryCell.swift in Sources */,
 				945C69781D8EDFCB0022C83A /* RestaurantViewController.swift in Sources */,
 				4A54AC6F1DA810F4008C7E57 /* CookTypePickerViewController.swift in Sources */,
