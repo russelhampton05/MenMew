@@ -19,25 +19,26 @@ class UserManager{
     
     static let ref = FIRDatabase.database().reference().child("users")
     
-    static func AddUser(user: User){
-        
+    static func AddUser(user: User) {
         guard user.otherInformation != nil else {
             UserManager.ref.child(user.ID).setValue(["otherStuff": ""])
             return
         }
         
-        
         UserManager.ref.child(String(user.ID)).setValue(["otherStuff": user.otherInformation])
     }
+    
     static func AddUser(id: String, otherStuff: String? = nil){
         guard let otherStuff = otherStuff else {
             UserManager.ref.child(id).setValue(["otherStuff": ""])
             return
         }
+        
         UserManager.ref.child(id).setValue(["otherStuff": otherStuff])
         
     }
-    static func GetUser(id: String){
+    
+    static func GetUser(id: String) {
         var test: String?
         UserManager.ref.child("123").observeSingleEvent(of: .value, with: { (snapshot) in
             let value = snapshot.value as? NSDictionary
@@ -47,6 +48,14 @@ class UserManager{
             print(error.localizedDescription)
             test = error.localizedDescription}
         
+    }
+    
+    static func GetTicket(user: User, restaurant: String) -> Ticket {
+        
+    }
+    
+    static func CompleteTicket(user: User, ticket: String) {
+        UserManager.ref.child(String(user.ID)).child("tickets").child(String(ticket)).setValue(false)
     }
     
 }
