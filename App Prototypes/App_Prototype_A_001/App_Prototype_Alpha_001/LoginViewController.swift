@@ -9,6 +9,10 @@
 import UIKit
 import Firebase
 
+//global
+var currentUser: User?
+
+
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
     //IBOutlets
@@ -21,13 +25,16 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         //Check Firebase for user
+        
+        //This needs love! Check to see if logged in user exists, if he doesn't MAKE a new user in our
+        //FB for him.
         FIRAuth.auth()?.addStateDidChangeListener { auth, user in
             if user != nil {
                 // User is signed in.
-                //UserManager.GetUser(id: "123")
-                var currentUser = User(id: (FIRAuth.auth()?.currentUser?.uid)!, otherInformation: String(describing: NSDate()))
-                //UserManager.AddUser(id: (FIRAuth.auth()?.currentUser?.uid)!)
-                //UserManager.AddUser(user: currentUser)
+                
+                //this line needs to be replaced by finding the user from FB
+                currentUser = User(id: (FIRAuth.auth()?.currentUser?.uid)!, otherInformation: String(describing: NSDate()))
+                
                 
             } else {
                 // No user is signed in.

@@ -104,5 +104,27 @@ class MenuItem {
     
 }
 
+class Ticket {
+    var user_ID: String?
+    var restaurant_ID: String?
+    var tableNum: String?
+    var timestamp: NSDate?
+    var paid: Bool?
+    var itemsOrdered: [(item: MenuItem, quantity: Int)]?
+    var desc: String?
+    
+    init() {
+    }
+    
+    init(user_ID: String, restaurant_ID: String, tableNum: String, timestamp: NSDate, paid: Bool, itemsOrdered: [(item: MenuItem, quantity: Int)]?, desc: String?) {
+        self.user_ID = user_ID
+        self.restaurant_ID = restaurant_ID
+        self.tableNum = tableNum
+        self.timestamp = timestamp
+        self.paid = paid
+        self.itemsOrdered = itemsOrdered
+        self.desc = desc
+    }
+}
 
 
