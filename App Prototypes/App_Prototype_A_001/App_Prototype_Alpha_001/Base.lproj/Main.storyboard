@@ -593,6 +593,7 @@
                                                         </state>
                                                         <connections>
                                                             <action selector="paymentButtonPressed:" destination="jdX-t7-eOs" eventType="touchUpInside" id="kHA-Rl-hxw"/>
+                                                            <segue destination="7GD-ul-Fo6" kind="show" identifier="PaymentSegue" id="Sc4-rE-YhC"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -660,14 +661,14 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="m4A-ff-hZG">
-                                            <frame key="frameInset" minX="15" minY="-5" width="53" height="36"/>
+                                            <frame key="frameInset" minX="15" minY="-5" width="53" height="35.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="30"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="InT-N5-Yhb">
-                                            <frame key="frameInset" minX="15" minY="31" width="52" height="19"/>
+                                            <frame key="frameInset" minX="15" minY="30.5" width="52" height="19"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1199,11 +1200,17 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Order Summary" id="u7i-Ii-Ogz">
                         <barButtonItem key="backBarButtonItem" title="Menu" id="PgO-dW-r2r"/>
+                        <barButtonItem key="leftBarButtonItem" image="back" id="0bc-xU-lJa">
+                            <connections>
+                                <action selector="backButtonPressed:" destination="4Qy-uD-AU0" id="zvc-se-qJz"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="taxValue" destination="qPV-6t-zWA" id="agS-Zt-n6B"/>
                         <outlet property="totalValue" destination="rMJ-wk-99p" id="lrj-HC-8of"/>
                         <segue destination="d2T-7G-BoZ" kind="unwind" identifier="UnwindMenu" unwindAction="unwindToMenuDetails:" id="Gti-uU-oXd"/>
+                        <segue destination="d2T-7G-BoZ" kind="unwind" identifier="UnwindMainMenu" unwindAction="unwindToMain:" id="FrR-8g-TSk"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jsf-0f-tJn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1917,6 +1924,139 @@
             </objects>
             <point key="canvasLocation" x="2607" y="-2633"/>
         </scene>
+        <!--Payment View Controller-->
+        <scene sceneID="URX-Cr-ndn">
+            <objects>
+                <viewController id="7GD-ul-Fo6" customClass="PaymentViewController" customModule="App_Prototype_Alpha_001" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="kv9-RZ-g2O"/>
+                        <viewControllerLayoutGuide type="bottom" id="siv-gF-jMH"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="FM4-Vf-ddg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="MHE-Yp-MfV">
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="tas-XP-8n3">
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Payments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rat-Sy-gfY">
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="40"/>
+                                                <color key="textColor" red="1" green="0.41582992860000001" blue="0.3595783099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="Vik-hG-IAb">
+                                        <subviews>
+                                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fyu-ez-OVg">
+                                                <connections>
+                                                    <segue destination="Jn7-UL-FIn" kind="embed" identifier="PaymentListSegue" id="w0q-5f-vAf"/>
+                                                </connections>
+                                            </containerView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="Fyu-ez-OVg" firstAttribute="leading" secondItem="Vik-hG-IAb" secondAttribute="leading" id="AmW-ee-z4A"/>
+                                            <constraint firstAttribute="height" constant="350" id="lpy-jm-GaO"/>
+                                            <constraint firstAttribute="trailing" secondItem="Fyu-ez-OVg" secondAttribute="trailing" id="pBV-nz-HnW"/>
+                                        </constraints>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="AXg-hb-sMe">
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bjQ-O1-hF1">
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
+                                                <state key="normal" title="Add Payment">
+                                                    <color key="titleColor" red="1" green="0.41582992860000001" blue="0.3595783099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="addButtonPressed:" destination="7GD-ul-Fo6" eventType="touchUpInside" id="TbT-yJ-fYW"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S2U-tF-Dbg">
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
+                                                <state key="normal" title="Back">
+                                                    <color key="titleColor" red="1" green="0.41582992860000001" blue="0.3595783099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="backButtonPressed:" destination="7GD-ul-Fo6" eventType="touchUpInside" id="jWF-aX-aYN"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="AXg-hb-sMe" secondAttribute="trailing" constant="50" id="5Zc-36-SAy"/>
+                                    <constraint firstItem="Vik-hG-IAb" firstAttribute="leading" secondItem="MHE-Yp-MfV" secondAttribute="leading" id="Wpi-7K-xzk"/>
+                                    <constraint firstAttribute="trailing" secondItem="Vik-hG-IAb" secondAttribute="trailing" id="hxl-Ge-DAu"/>
+                                    <constraint firstItem="tas-XP-8n3" firstAttribute="leading" secondItem="MHE-Yp-MfV" secondAttribute="leading" constant="50" id="myh-FN-5jd"/>
+                                    <constraint firstAttribute="trailing" secondItem="tas-XP-8n3" secondAttribute="trailing" constant="50" id="njd-vz-60K"/>
+                                    <constraint firstItem="AXg-hb-sMe" firstAttribute="leading" secondItem="MHE-Yp-MfV" secondAttribute="leading" constant="50" id="v3b-mf-Imq"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="MHE-Yp-MfV" firstAttribute="leading" secondItem="FM4-Vf-ddg" secondAttribute="leadingMargin" id="Sc0-qf-Pte"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="MHE-Yp-MfV" secondAttribute="trailing" id="aot-ur-Rdo"/>
+                            <constraint firstItem="MHE-Yp-MfV" firstAttribute="top" secondItem="kv9-RZ-g2O" secondAttribute="bottom" constant="30" id="fDt-Rg-wVb"/>
+                            <constraint firstItem="siv-gF-jMH" firstAttribute="top" secondItem="MHE-Yp-MfV" secondAttribute="bottom" id="meI-DC-2Vo"/>
+                            <constraint firstItem="siv-gF-jMH" firstAttribute="top" secondItem="MHE-Yp-MfV" secondAttribute="bottom" constant="30" id="rFc-2M-fsB"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="meI-DC-2Vo"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <segue destination="8N7-HG-SQs" kind="unwind" identifier="UnwindToPaymentsSegue" unwindAction="unwindToPayments:" id="Xtq-mg-geg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SRn-hF-bSO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="8N7-HG-SQs" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="3540" y="-2633"/>
+        </scene>
+        <!--Payment Table View Controller-->
+        <scene sceneID="y0B-UG-l8c">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0fL-tf-POz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="Jn7-UL-FIn" customClass="PaymentTableViewController" customModule="App_Prototype_Alpha_001" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="70" sectionHeaderHeight="28" sectionFooterHeight="28" id="Pac-nW-WdX">
+                        <rect key="frame" x="0.0" y="0.0" width="343" height="350"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PaymentCell" textLabel="Rqc-vg-xPF" detailTextLabel="eqL-zM-nGA" style="IBUITableViewCellStyleSubtitle" id="I3r-jw-k8I">
+                                <rect key="frame" x="0.0" y="28" width="343" height="70"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="I3r-jw-k8I" id="cWK-30-6oX">
+                                    <frame key="frameInset" width="343" height="70"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Rqc-vg-xPF">
+                                            <frame key="frameInset" minX="15" minY="11" width="43" height="29"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="24"/>
+                                            <color key="textColor" red="1" green="0.41582992860000001" blue="0.3595783099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eqL-zM-nGA">
+                                            <frame key="frameInset" minX="15" minY="40" width="52" height="19"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
+                                            <color key="textColor" red="1" green="0.41582992860000001" blue="0.3595783099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                    </tableView>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="4461" y="-2634"/>
+        </scene>
     </scenes>
     <resources>
         <image name="back" width="24" height="24"/>
@@ -1925,8 +2065,8 @@
         <image name="profile_round" width="312" height="312"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ouf-kx-wY0"/>
         <segue reference="2it-ye-nAL"/>
-        <segue reference="PM8-Wi-MNN"/>
+        <segue reference="dpp-zc-24d"/>
+        <segue reference="MaD-a0-jJi"/>
     </inferredMetricsTieBreakers>
 </document>

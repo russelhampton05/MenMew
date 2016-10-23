@@ -37,6 +37,8 @@
 		945C697A1D8EDFCB0022C83A /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945C69711D8EDFCB0022C83A /* SummaryViewController.swift */; };
 		945C697B1D8EDFCB0022C83A /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945C69731D8EDFCB0022C83A /* SWRevealViewController.m */; };
 		945C697D1D8EDFE70022C83A /* CircleTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945C697C1D8EDFE70022C83A /* CircleTransition.swift */; };
+		947F63271DBD38AC00ABF04F /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947F63261DBD38AC00ABF04F /* PaymentViewController.swift */; };
+		947F63291DBD38E000ABF04F /* PaymentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947F63281DBD38E000ABF04F /* PaymentTableViewController.swift */; };
 		94DC4C377099C87DD5549139 /* Pods_App_Prototype_Alpha_001Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7DBEF1DA767B467488F678E /* Pods_App_Prototype_Alpha_001Tests.framework */; };
 		A9F39910AE570093517640E5 /* Pods_App_Prototype_Alpha_001.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F276019D833DC05103A24234 /* Pods_App_Prototype_Alpha_001.framework */; };
 		AC9752501DAC345100BCC0A7 /* MenuGroupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC97524F1DAC345100BCC0A7 /* MenuGroupManager.swift */; };
@@ -103,6 +105,8 @@
 		945C69721D8EDFCB0022C83A /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		945C69731D8EDFCB0022C83A /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		945C697C1D8EDFE70022C83A /* CircleTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleTransition.swift; sourceTree = "<group>"; };
+		947F63261DBD38AC00ABF04F /* PaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
+		947F63281DBD38E000ABF04F /* PaymentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentTableViewController.swift; sourceTree = "<group>"; };
 		AC97524F1DAC345100BCC0A7 /* MenuGroupManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuGroupManager.swift; sourceTree = "<group>"; };
 		AC9752511DAC368700BCC0A7 /* MenuItemManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItemManager.swift; sourceTree = "<group>"; };
 		B8A40ACADD8F9F007A71E838 /* Pods-App_Prototype_Alpha_001.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App_Prototype_Alpha_001.debug.xcconfig"; path = "Pods/Target Support Files/Pods-App_Prototype_Alpha_001/Pods-App_Prototype_Alpha_001.debug.xcconfig"; sourceTree = "<group>"; };
@@ -197,6 +201,8 @@
 		4A67428A1DA7E9E70033DCEF /* User Profile Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				947F63261DBD38AC00ABF04F /* PaymentViewController.swift */,
+				947F63281DBD38E000ABF04F /* PaymentTableViewController.swift */,
 				4A0E979C1D9C0CC900ECA82F /* ProfileViewController.swift */,
 				4A0E979A1D9C06F800ECA82F /* LoginViewController.swift */,
 				4A0E979E1D9C171C00ECA82F /* RegisterViewController.swift */,
@@ -578,6 +584,7 @@
 				945C69791D8EDFCB0022C83A /* SummaryCell.swift in Sources */,
 				945C69781D8EDFCB0022C83A /* RestaurantViewController.swift in Sources */,
 				4A54AC6F1DA810F4008C7E57 /* CookTypePickerViewController.swift in Sources */,
+				947F63271DBD38AC00ABF04F /* PaymentViewController.swift in Sources */,
 				4A0E979D1D9C0CC900ECA82F /* ProfileViewController.swift in Sources */,
 				4A9B5D4B1D91D023009F2F72 /* OrderConfirmationViewController.swift in Sources */,
 				945C69751D8EDFCB0022C83A /* MenuCell.swift in Sources */,
@@ -598,6 +605,7 @@
 				4A9B5D491D91C461009F2F72 /* SettingsViewController.swift in Sources */,
 				4A3C67E21DA2F8BF00D9D263 /* UserManager.swift in Sources */,
 				4A0ECC781D9C3C09004811F3 /* OrderDetailsTableViewController.swift in Sources */,
+				947F63291DBD38E000ABF04F /* PaymentTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

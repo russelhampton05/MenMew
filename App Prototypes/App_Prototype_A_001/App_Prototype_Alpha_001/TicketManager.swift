@@ -23,16 +23,16 @@ class TicketManager {
             
             let value = FIRDataSnapshot.value as? NSDictionary
             
-            ticket.user_ID = value?["user_ID"] as? String
-            ticket.restaurant_ID = value?["restaurant_ID"] as? String
+            ticket.user_ID = value?["user"] as? String
+            ticket.restaurant_ID = value?["restaurant"] as? String
             ticket.tableNum = value?["tableNum"] as? String
-            ticket.timestamp = value?["timestamp"] as? NSDate
-            ticket.paid = value?["paid"] as? Bool
+            ticket.timestamp = value?["timestamp"] as? String
+            //ticket.paid = value?["paid"] as? Bool
             ticket.desc = value?["desc"] as? String
             
             
             //ItemsOrdered is the array of items ordered for the table
-            let menuItems = value?["menuItems"] as? NSDictionary
+            let menuItems = value?["itemsOrdered"] as? NSDictionary
             
             var itemArray: [String] = []
             var quantityArray: [Int] = []
@@ -41,23 +41,25 @@ class TicketManager {
                 quantityArray.append(menuItems?.value(forKey: item as! String) as! Int)
             }
             
+            let semItem = DispatchGroup.init()
+            semItem.enter()
             MenuItemManager.GetMenuItem(ids: itemArray) {
                 items in
                 
                 var orderedArray: [MenuItem] = []
                 
-                //Build the array of tuples (items ordered alongside their quantity)
-                for index in 1...items.count {
-                    for _ in 1...quantityArray[index]{
+                //Build the array of tuples
+                for index in 0...items.count-1 {
                     orderedArray.append(items[index])
-                    }
                 }
                 
                 ticket.itemsOrdered = orderedArray
                 
-                completionHandler(ticket)
+                semItem.leave()
             }
             
+            semItem.notify(queue: DispatchQueue.main, execute: {
+                completionHandler(ticket) })
             
         }){(error) in
             print(error.localizedDescription)}

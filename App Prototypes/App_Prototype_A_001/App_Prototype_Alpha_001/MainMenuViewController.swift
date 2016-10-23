@@ -52,7 +52,7 @@ class MainMenuViewController: UITableViewController{
         tableView.rowHeight = UITableViewAutomaticDimension
         
         //Check for existing orders
-        if orderArray.count > 0 {
+        if ticket != nil {
             ordersButton.isEnabled = true
         }
         else {

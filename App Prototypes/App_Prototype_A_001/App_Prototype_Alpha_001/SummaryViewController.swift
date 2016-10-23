@@ -45,13 +45,13 @@ class SummaryViewController : UITableViewController {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         let price = cell.viewWithTag(2) as! UILabel
-        var priceHolder = self.ticket?.itemsOrdered?[(indexPath as NSIndexPath).row].price
-        price.text = "\(priceHolder)"
+        let priceHolder = self.ticket!.itemsOrdered![(indexPath as NSIndexPath).row].price!
+        price.text = formatter.string(from: priceHolder as NSNumber)
         
        
         
         
-        total += priceHolder!
+        total += priceHolder
         
 
         return cell
@@ -97,6 +97,17 @@ class SummaryViewController : UITableViewController {
             let orderConfirmVC = segue.destination as! OrderConfirmationViewController
             
             orderConfirmVC.ticket = ticket
+        }
+        
+    }
+    @IBAction func backButtonPressed(_ sender: AnyObject) {
+        
+        let n: Int! = self.navigationController?.viewControllers.count
+        if self.navigationController!.viewControllers[n-2] is MenuDetailsViewController {
+            performSegue(withIdentifier: "UnwindMenu", sender: self)
+        }
+        else if self.navigationController!.viewControllers[n-2] is MainMenuViewController {
+            performSegue(withIdentifier: "UnwindMainMenu", sender: self)
         }
         
     }

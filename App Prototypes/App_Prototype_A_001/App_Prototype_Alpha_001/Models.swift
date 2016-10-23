@@ -14,17 +14,16 @@ func testFunc(){
 class User{
     
     var ID: String
-    var otherInformation: String?
+    var name: String?
     var ticket: Ticket?
-    init(id: String, otherInformation: String? = nil, ticket:Ticket?){
+    init(id: String, ticket:Ticket?){
         self.ID = id
         self.ticket = ticket
-        self.otherInformation = otherInformation
     }
     
-    convenience init(id: String, otherInformation: String?)
+    convenience init(id: String)
     {
-        self.init(id:id, otherInformation: otherInformation, ticket: nil)
+        self.init(id:id, ticket: nil)
     }
     
     
@@ -114,7 +113,7 @@ class Ticket {
     var user_ID: String?
     var restaurant_ID: String?
     var tableNum: String?
-    var timestamp: NSDate?
+    var timestamp: String?
     var paid: Bool?
     var itemsOrdered: [MenuItem]?
     var desc: String?
@@ -129,7 +128,7 @@ class Ticket {
         self.desc = ""
     }
     
-    init(user_ID: String, restaurant_ID: String, tableNum: String, timestamp: NSDate, paid: Bool, itemsOrdered:[MenuItem]?, desc: String?) {
+    init(user_ID: String, restaurant_ID: String, tableNum: String, timestamp: String, paid: Bool, itemsOrdered:[MenuItem]?, desc: String?) {
         self.user_ID = user_ID
         self.restaurant_ID = restaurant_ID
         self.tableNum = tableNum

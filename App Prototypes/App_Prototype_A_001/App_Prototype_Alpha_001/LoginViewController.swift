@@ -24,27 +24,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //Check Firebase for user
         
-        //This needs love! Check to see if logged in user exists, if he doesn't MAKE a new user in our
-        //FB for him.
-        FIRAuth.auth()?.addStateDidChangeListener { auth, user in
-            if user != nil {
-                // User is signed in.
-                
-                //this line needs to be replaced by finding the user from FB
-                currentUser = User(id: (FIRAuth.auth()?.currentUser?.uid)!, otherInformation: String(describing: NSDate()))
-                
-                
-            } else {
-                // No user is signed in.
-            }
-        }
-        
-        //Initialize messaging and notification service to receive messages from FireBase
-        //Stub
-        
-
         usernameField.delegate = self
         passwordField.delegate = self
         
@@ -90,7 +70,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "QRScanSegue" {
             let scanVC = segue.destination as! QRViewController
-            
         }
         else if segue.identifier == "RegisterSegue" {
             let regVC = segue.destination as! RegisterViewController

@@ -38,7 +38,14 @@ class MenuDetailsViewController: UITableViewController {
 
         categoryLabel.title = menu_group!.title
         
-        if (ticket?.itemsOrdered?.count)! > 0 && ordered == false {
+        if  ticket == nil {
+            UserManager.CreateTicket(user: currentUser!, restaurant: "fac4b7243c8d47d69a309fb7471d21b9") {
+                ticket in
+            
+                self.ticket = ticket
+            }
+        }
+        else if (ticket?.itemsOrdered?.count)! > 0 && ordered == false {
             doneButton.isEnabled = true
         }
     }

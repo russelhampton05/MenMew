@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 //might have to decide if this class is even actually worth keeping.
 //The only reason it would be worth having still is if we wanted real time swapping of
@@ -43,22 +44,8 @@ class RestaurantViewController: UIViewController {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
         
-
-
-        MenuManager.GetMenu(id: "fac4b7243c8d47d69a309fb7471d21b9") {
-            menu in
-            
-            self.menu = menu
-            
-            if menu.menu_groups == nil {
-                self.printError()
-            }
-            else {
-                self.performSegue(withIdentifier: "MainMenuSegue", sender: self)
-            }
-
-        }
-        
+        //Check for user and restaurant IDs to load tickets
+        loadUserInformation()
         
         //get this from QR eventually
         
@@ -90,6 +77,7 @@ class RestaurantViewController: UIViewController {
             let mainMenuVC = segue.destination as! MainMenuViewController
         
             mainMenuVC.menu = self.menu
+            mainMenuVC.ticket = currentUser!.ticket
         }
         else if segue.identifier == "QRReturnSegue" {
             let qrVC = segue.destination as! QRViewController
@@ -104,7 +92,47 @@ class RestaurantViewController: UIViewController {
         errorPopup.didMove(toParentViewController: self)
         errorPopup.addMessage(context: "QRError")
     }
+    
+    func loadUserInformation() {
+        //Check Firebase for user
+        
+        //This needs love! Check to see if logged in user exists, if he doesn't MAKE a new user in our
+        //FB for him.
+        FIRAuth.auth()?.addStateDidChangeListener { auth, user in
+            if user != nil {
+                // User is signed in.
+                UserManager.GetUser(id: (FIRAuth.auth()?.currentUser?.uid)!) {
+                    user in
+                    
+                    currentUser = user
+                    
+                    self.loadRestaurantInformation()
+                }
+                
+            } else {
+                // No user is signed in.
+            }
+        }
+        
 
+        
+    }
+    
+    func loadRestaurantInformation() {
+        MenuManager.GetMenu(id: "fac4b7243c8d47d69a309fb7471d21b9") {
+            menu in
+            
+            self.menu = menu
+            
+            if menu.menu_groups == nil {
+                self.printError()
+            }
+            else {
+                self.performSegue(withIdentifier: "MainMenuSegue", sender: self)
+            }
+            
+        }
+    }
 }
     /*
 =======

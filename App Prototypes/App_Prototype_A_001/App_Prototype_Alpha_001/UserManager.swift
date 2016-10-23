@@ -17,15 +17,15 @@ import FirebaseDatabase
 
 class UserManager{
     
-    static let ref = FIRDatabase.database().reference().child("users")
+    static let ref = FIRDatabase.database().reference().child("Users")
     
     static func AddUser(user: User) {
-        guard user.otherInformation != nil else {
-            UserManager.ref.child(user.ID).setValue(["otherStuff": ""])
+        guard user.name != nil else {
+
             return
         }
         
-        UserManager.ref.child(String(user.ID)).setValue(["otherStuff": user.otherInformation])
+        //Add user
     }
     
     static func AddUser(id: String, otherStuff: String? = nil){
@@ -38,19 +38,38 @@ class UserManager{
         
     }
     
-    static func GetUser(id: String) {
-        var test: String?
-        UserManager.ref.child("123").observeSingleEvent(of: .value, with: { (snapshot) in
-            let value = snapshot.value as? NSDictionary
-            let otherstuff = value?["otherStuff"] as! String
-            test = otherstuff
+    static func GetUser(id: String, completionHandler: @escaping (_ user: User) -> ()) {
+        
+        let user = User(id: id)
+
+        UserManager.ref.child(id).observeSingleEvent(of: .value, with: { (FIRDataSnapshot) in
+            let value = FIRDataSnapshot.value as? NSDictionary
+
+            user.name = value?["name"] as? String
+            //Get most recent ticket
+            let tickets = value?["tickets"] as? NSDictionary
+            var currentTicketID: String?
+            
+            for item in (tickets?.allKeys)! {
+                if tickets?.value(forKey: item as! String) as! Bool == false {
+                    currentTicketID = item as? String
+                }
+            }
+            
+            TicketManager.GetTicket(id: currentTicketID!) {
+                ticket in
+                
+                user.ticket = ticket
+                
+                completionHandler(user)
+            }
+            
         }) {(error) in
-            print(error.localizedDescription)
-            test = error.localizedDescription}
+            print(error.localizedDescription)}
         
     }
     
-    static func CreateTicket(user: User, restaurant: String) -> Ticket {
+    static func CreateTicket(user: User, restaurant: String, completionHandler: @escaping (_ ticket: Ticket) -> ()) {
         var ticket = Ticket()
         ref.child(user.ID).child("tickets").observe(.value, with: {(FIRDataSnapshot) in
             if FIRDataSnapshot.value as! Bool == false {
@@ -66,12 +85,12 @@ class UserManager{
                     print(error.localizedDescription)
                 }
             } else {
-                // Create new ticket
+                ticket = Ticket()
             }
             
         }){(error) in
             print(error.localizedDescription)}
-        return ticket
+
     }
     
     static func CompleteTicket(user: User, ticket: String) {
