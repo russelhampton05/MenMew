@@ -50,12 +50,32 @@ class UserManager{
         
     }
     
-    static func GetTicket(user: User, restaurant: String) -> Ticket {
-  
+    static func CreateTicket(user: User, restaurant: String) -> Ticket {
+        var ticket = Ticket()
+        ref.child(user.ID).child("tickets").observe(.value, with: {(FIRDataSnapshot) in
+            if FIRDataSnapshot.value as! Bool == false {
+                FIRDatabase.database().reference().child("tickets").child(FIRDataSnapshot.key).observeSingleEvent(of: .value, with: { (snapshot) in
+                    let value = snapshot.value as? NSDictionary
+                    if value?["restaurant"] as! String == restaurant {
+                        TicketManager.GetTicket(id: FIRDataSnapshot.key) {
+                            retrievedTicket in
+                            ticket = retrievedTicket
+                        }
+                    }
+                }) { (error) in
+                    print(error.localizedDescription)
+                }
+            } else {
+                // Create new ticket
+            }
+            
+        }){(error) in
+            print(error.localizedDescription)}
+        return ticket
     }
     
     static func CompleteTicket(user: User, ticket: String) {
-        UserManager.ref.child(String(user.ID)).child("tickets").child(String(ticket)).setValue(false)
+        UserManager.ref.child(String(user.ID)).child("tickets").child(String(ticket)).setValue(true)
     }
     
 }
