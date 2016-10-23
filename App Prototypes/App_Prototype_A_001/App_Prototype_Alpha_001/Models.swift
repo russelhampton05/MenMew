@@ -15,11 +15,16 @@ class User{
     
     var ID: String
     var otherInformation: String?
-    
-    init(id: String, otherInformation: String? = nil){
+    var ticket: Ticket?
+    init(id: String, otherInformation: String? = nil, ticket:Ticket?){
         self.ID = id
+        self.ticket = ticket
         self.otherInformation = otherInformation
-        
+    }
+    
+    convenience init(id: String, otherInformation: String?)
+    {
+        self.init(id:id, otherInformation: otherInformation, ticket: nil)
     }
     
     
@@ -105,6 +110,7 @@ class MenuItem {
 }
 
 class Ticket {
+    
     var user_ID: String?
     var restaurant_ID: String?
     var tableNum: String?
