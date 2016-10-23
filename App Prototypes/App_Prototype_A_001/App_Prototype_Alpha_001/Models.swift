@@ -120,6 +120,13 @@ class Ticket {
     var desc: String?
     
     init() {
+       
+        self.user_ID = ""
+        self.restaurant_ID = ""
+        self.tableNum = ""
+        self.paid = false
+        self.itemsOrdered = []
+        self.desc = ""
     }
     
     init(user_ID: String, restaurant_ID: String, tableNum: String, timestamp: NSDate, paid: Bool, itemsOrdered:[MenuItem]?, desc: String?) {
