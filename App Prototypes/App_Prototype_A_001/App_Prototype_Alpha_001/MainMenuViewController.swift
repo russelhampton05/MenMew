@@ -13,12 +13,12 @@ import Foundation
 class MainMenuViewController: UITableViewController{
     
     var menu: Menu?
-    
+    var ticket: Ticket?
     var segueIndex: Int?
     
 
     //IBOutlets
-
+    
     @IBOutlet var menuButton: UIBarButtonItem!
     @IBOutlet weak var ordersButton: UIBarButtonItem!
     @IBOutlet weak var restaurantLabel: UINavigationItem!
@@ -104,28 +104,23 @@ class MainMenuViewController: UITableViewController{
     override func  numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    //what the hell is going on jon, why are we passing in both the menu and the menu groups here?
-    //I thought this class was kind of the collection of menu groups and the one that this seg points to is the
-    //collection of items that make up the menu group that was clicked on.
-    
-    //Reply: Yes, MainMenuVC is a collection of menu groups. Looks like you fixed it tho :v
+  
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "CategoryDetailSegue" {
             let menuVC = segue.destination as! MenuDetailsViewController
             menuVC.menu = menu!
             menuVC.menu_group = menu?.menu_groups![segueIndex!]
-            menuVC.orderArray = orderArray
+            menuVC.ticket = self.ticket
             menuVC.restaurantName = menu?.title
         }
         else if segue.identifier == "SettingsSegue" {
             let settingsVC = segue.destination as! SettingsViewController
             
-            settingsVC.orderArray = orderArray
-        }
+            settingsVC.ticket = ticket        }
         else if segue.identifier == "OrderSummarySegue" {
             let orderVC = segue.destination as! SummaryViewController
             
-            orderVC.orderArray = orderArray
+            orderVC.ticket = currentUser?.ticket
         }
     }
     
@@ -140,7 +135,7 @@ class MainMenuViewController: UITableViewController{
  
     @IBAction func unwindToMain(_ sender: UIStoryboardSegue) {
         if let sourceVC = sender.source as? MenuDetailsViewController {
-            orderArray = sourceVC.orderArray!
+            ticket = sourceVC.ticket
         }
     }
 

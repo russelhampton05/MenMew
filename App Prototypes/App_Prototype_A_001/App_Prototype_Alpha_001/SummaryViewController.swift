@@ -14,10 +14,12 @@ class SummaryViewController : UITableViewController {
     @IBOutlet weak var totalValue: UILabel!
     @IBOutlet weak var doneButton: UIButton!
     
-    var orderArray: [(title: String, price: Double)] = []
+  //  var orderArray: [(title: String, price: Double)] = []
     var total: Double = 0.0
+    var ticket: Ticket? //if those blows up just do ticket = Ticket() in the did load
     var tax: Double = 0.0
     var runningTotal: Double = 0.0
+    //tax rate really should be pulled from the DB! For now this is fine.
     let taxRate: Double = 0.12
     
     override func viewDidLoad() {
@@ -38,23 +40,25 @@ class SummaryViewController : UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SummaryCell") as! SummaryCell
         
         let title = cell.viewWithTag(1) as! UILabel
-        title.text = orderArray[(indexPath as NSIndexPath).row].title
+        title.text = self.ticket?.itemsOrdered?[(indexPath as NSIndexPath).row].title
         
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         let price = cell.viewWithTag(2) as! UILabel
-        price.text = formatter.string(from: orderArray[(indexPath as NSIndexPath).row].price as NSNumber)
+        var priceHolder = self.ticket?.itemsOrdered?[(indexPath as NSIndexPath).row].price
+        price.text = "\(priceHolder)"
+        
+       
         
         
-        total += orderArray[(indexPath as NSIndexPath).row].price
+        total += priceHolder!
         
 
         return cell
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return orderArray.count
-    }
+        return (ticket?.itemsOrdered?.count)!    }
     
     //Calculate added tax
     func calculateTax() {
@@ -80,7 +84,7 @@ class SummaryViewController : UITableViewController {
         self.view.addSubview(cancelPopup.view)
         cancelPopup.didMove(toParentViewController: self)
         cancelPopup.addMessage(context: "CancelMenuItems")
-        
+        ticket?.itemsOrdered?.removeAll()
         tableView.isScrollEnabled = false
     }
     
@@ -92,12 +96,13 @@ class SummaryViewController : UITableViewController {
         if segue.identifier == "ConfirmOrderSegue" {
             let orderConfirmVC = segue.destination as! OrderConfirmationViewController
             
-            orderConfirmVC.orderArray = orderArray
+            orderConfirmVC.ticket = ticket
         }
         
     }
     
     @IBAction func doneButtonPressed(_ sender: AnyObject) {
         performSegue(withIdentifier: "UnwindMenu", sender: self)
+        //usermanager.submitTicket(user ID ticket ID)
     }
 }

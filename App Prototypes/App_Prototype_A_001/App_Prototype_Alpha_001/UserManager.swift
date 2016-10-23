@@ -51,7 +51,7 @@ class UserManager{
     }
     
     static func GetTicket(user: User, restaurant: String) -> Ticket {
-        
+  
     }
     
     static func CompleteTicket(user: User, ticket: String) {

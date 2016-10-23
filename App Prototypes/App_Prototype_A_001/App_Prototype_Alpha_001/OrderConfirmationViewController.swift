@@ -9,7 +9,7 @@
 import UIKit
 
 class OrderConfirmationViewController: UIViewController {
-    var orderArray: [(title: String, price: Double)]?
+    var ticket: Ticket?
     override func viewDidLoad() {
         super.viewDidLoad()
         

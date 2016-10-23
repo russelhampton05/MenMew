@@ -10,7 +10,8 @@ import UIKit
 
 class OrderDetailsTableViewController: UITableViewController {
 
-    var orderArray: [(title: String, price: String)] = []
+    var ticket: Ticket?
+  //  var orderArray: [(title: String, price: String)] = []
     var total: Double = 0.0
     var tax: Double = 0.0
     var runningTotal: Double = 0.0
@@ -18,7 +19,7 @@ class OrderDetailsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        ticket = Ticket()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -40,7 +41,7 @@ class OrderDetailsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return orderArray.count
+        return (ticket?.itemsOrdered?.count)!
     }
 
     

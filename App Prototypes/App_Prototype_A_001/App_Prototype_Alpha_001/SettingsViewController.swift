@@ -10,7 +10,7 @@ import UIKit
 
 class SettingsViewController: UITableViewController {
 
-    var orderArray: [(title: String, price: Double)] = []
+    var ticket: Ticket?
     var restaurantName: String?
     
     override func viewDidLoad() {
@@ -27,7 +27,7 @@ class SettingsViewController: UITableViewController {
         if segue.identifier == "OrderSegue" {
             let orderVC = segue.destination as! SummaryViewController
             
-            orderVC.orderArray = orderArray
+            orderVC.ticket = ticket
         }
     }
     

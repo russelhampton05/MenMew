@@ -11,10 +11,10 @@ import UIKit
 class MenuDetailsViewController: UITableViewController {
     
     var menu: Menu?
-    var orderArray: [(title: String, price: Double)]?
+    //var orderArray: [(title: String, price: Double)]?
     var selectedIndexPath : IndexPath?
     var ordered: Bool = false
-    //I'm not sure if this class should use the menu object or just the menugroup. Going with group for now!
+    var ticket : Ticket?
     var menu_group:MenuGroup?
     //Can load data directly from the parent menu (which loads from JSON)
     //var menuArray: [MenuItem]?
@@ -33,11 +33,12 @@ class MenuDetailsViewController: UITableViewController {
         super.viewDidLoad()
         if let font = UIFont(name: "HelveticaNeue", size: 12) {
            UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: font], for: UIControlState())
+           // ticket = Ticket() //incase shit blows up
         }	
 
         categoryLabel.title = menu_group!.title
         
-        if orderArray!.count > 0 && ordered == false {
+        if (ticket?.itemsOrdered?.count)! > 0 && ordered == false {
             doneButton.isEnabled = true
         }
     }
@@ -165,7 +166,7 @@ class MenuDetailsViewController: UITableViewController {
         
         let confirmPopup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Popup") as! PopupViewController
         
-        addToOrder((menu_group?.items![(selectedIndexPath! as NSIndexPath).row].title)!, foodPrice: (menu_group?.items![(selectedIndexPath! as NSIndexPath).row].price)!)
+        addToOrder(item: (menu_group?.items![(selectedIndexPath! as NSIndexPath).row])!)
         
         confirmPopup.menuItem = menu_group?.items![(selectedIndexPath! as NSIndexPath).row].title
         self.addChildViewController(confirmPopup)
@@ -179,21 +180,22 @@ class MenuDetailsViewController: UITableViewController {
     }
     
     //Add the order to a summary array
-    func addToOrder(_ foodTitle: String, foodPrice: Double) {
-        orderArray! += [(title: foodTitle, price: foodPrice)]
+    func addToOrder(item: MenuItem) {
+        self.ticket?.itemsOrdered?.append(item)
     }
+
     
     //Segues for Back and Done Button Presses
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ConfirmOrder" {
             let summaryTable = segue.destination as! SummaryViewController
             
-            summaryTable.orderArray = orderArray!
+            summaryTable.ticket = ticket!
         }
         else if segue.identifier == "ReturnMainSegue" {
             let mainVC = segue.destination as! MainMenuViewController
         //    mainVC.menuArray = fullMenu!
-            mainVC.orderArray = orderArray!
+            mainVC.ticket = ticket
           //  mainVC.categoryArray = categoryArray
            // mainVC.restaurant = restaurantName!
             mainVC.menu = menu
@@ -215,12 +217,12 @@ class MenuDetailsViewController: UITableViewController {
     //Unwind Segue for Order Summary
     @IBAction func unwindToMenuDetails(_ sender: UIStoryboardSegue) {
         if let sourceVC = sender.source as? OrderConfirmationViewController {
-            orderArray = sourceVC.orderArray!
+            ticket = sourceVC.ticket!
             doneButton.isEnabled = false
             self.navigationController?.isNavigationBarHidden = false
         }
         else if let sourceVC = sender.source as? SummaryViewController {
-            orderArray = sourceVC.orderArray
+            ticket = sourceVC.ticket
             doneButton.isEnabled = false
         }
     }

@@ -74,7 +74,7 @@ class PopupViewController: UIViewController {
         }
         else if self.condition == "CancelMenuItems" {
             if let summaryP = self.parent as? SummaryViewController {
-                summaryP.orderArray = []
+               
                 summaryP.performSegue(withIdentifier: "UnwindMenu", sender: summaryP)
             }
         }
