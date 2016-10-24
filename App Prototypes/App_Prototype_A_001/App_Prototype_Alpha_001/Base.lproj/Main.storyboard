@@ -18,7 +18,7 @@
                         <viewControllerLayoutGuide type="bottom" id="bZy-p3-xEc"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="HpH-1o-VRb">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waiting for QR Code..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZdE-C0-dCg">
@@ -72,7 +72,7 @@
                         <viewControllerLayoutGuide type="bottom" id="mDN-Fm-db8"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8to-eS-gmU">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rOl-sJ-6ZY">
@@ -370,6 +370,24 @@
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="yV0-Xc-2hr">
                                         <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="lT4-Xj-WW7">
+                                                <subviews>
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DYN-8O-knu">
+                                                        <nil key="textColor"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DNk-kO-cQP">
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="DYN-8O-knu" secondAttribute="trailing" id="KuV-BC-beQ"/>
+                                                    <constraint firstItem="DYN-8O-knu" firstAttribute="leading" secondItem="lT4-Xj-WW7" secondAttribute="leading" id="PWY-pt-wev"/>
+                                                </constraints>
+                                            </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="0oG-tG-rV3">
                                                 <subviews>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CRD-Ke-YrJ">
@@ -430,8 +448,10 @@
                                             <constraint firstItem="27U-dn-JFb" firstAttribute="leading" secondItem="yV0-Xc-2hr" secondAttribute="leading" id="6kx-i4-mtH"/>
                                             <constraint firstAttribute="trailing" secondItem="qPy-tr-NDn" secondAttribute="trailing" id="Leh-7k-Yrg"/>
                                             <constraint firstItem="qPy-tr-NDn" firstAttribute="leading" secondItem="yV0-Xc-2hr" secondAttribute="leading" id="MHq-lq-D1v"/>
+                                            <constraint firstAttribute="trailing" secondItem="lT4-Xj-WW7" secondAttribute="trailing" id="PGD-SE-een"/>
                                             <constraint firstAttribute="trailing" secondItem="0oG-tG-rV3" secondAttribute="trailing" id="Qnr-ly-FPX"/>
                                             <constraint firstItem="0oG-tG-rV3" firstAttribute="leading" secondItem="yV0-Xc-2hr" secondAttribute="leading" id="dwR-sQ-fF1"/>
+                                            <constraint firstItem="lT4-Xj-WW7" firstAttribute="leading" secondItem="yV0-Xc-2hr" secondAttribute="leading" id="qfR-9v-UPe"/>
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="WsU-kZ-bQ4">
@@ -471,8 +491,9 @@
                     <connections>
                         <outlet property="confirmPasswordField" destination="0Yt-G8-OSv" id="pvD-WO-PLe"/>
                         <outlet property="confirmRegisterButton" destination="tXR-6K-r0u" id="Aad-VN-kIp"/>
+                        <outlet property="emailField" destination="CRD-Ke-YrJ" id="Dle-SU-8FE"/>
                         <outlet property="passwordField" destination="bVx-qn-Kgk" id="9Kv-vZ-7ld"/>
-                        <outlet property="usernameField" destination="CRD-Ke-YrJ" id="x07-nV-3sd"/>
+                        <outlet property="usernameField" destination="DYN-8O-knu" id="M05-WF-2Zt"/>
                         <segue destination="HSm-UU-GBD" kind="show" identifier="QRScanSegue" id="bTQ-qL-sHS"/>
                     </connections>
                 </viewController>
@@ -1081,6 +1102,7 @@
                                                         <color key="titleColor" red="1" green="0.41582992860000001" blue="0.3595783099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
                                                     <connections>
+                                                        <action selector="doneButtonPressed:" destination="4Qy-uD-AU0" eventType="touchUpInside" id="GWI-Z0-ifq"/>
                                                         <segue destination="3jS-Hu-cwf" kind="show" identifier="ConfirmOrderSegue" id="RGQ-El-rNf"/>
                                                     </connections>
                                                 </button>
@@ -1350,7 +1372,7 @@
                                             <constraint firstItem="seM-PW-Qw1" firstAttribute="leading" secondItem="tqO-0r-ep5" secondAttribute="leading" id="y3H-ub-sZh"/>
                                         </constraints>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="NMv-GM-ePQ">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="NMv-GM-ePQ">
                                         <subviews>
                                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IcP-GL-QAb">
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="24"/>
@@ -1383,7 +1405,11 @@
                                     </stackView>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="NMv-GM-ePQ" secondAttribute="trailing" constant="50" id="Ob4-LI-FdW"/>
                                     <constraint firstAttribute="trailing" secondItem="tqO-0r-ep5" secondAttribute="trailing" constant="50" id="dXR-Ig-287"/>
+                                    <constraint firstItem="NMv-GM-ePQ" firstAttribute="leading" secondItem="xDs-OH-9aD" secondAttribute="leading" constant="50" id="de8-WI-3Yf"/>
+                                    <constraint firstAttribute="trailing" secondItem="tqO-0r-ep5" secondAttribute="trailing" constant="50" id="hXA-IT-jE1"/>
+                                    <constraint firstItem="tqO-0r-ep5" firstAttribute="leading" secondItem="xDs-OH-9aD" secondAttribute="leading" constant="50" id="pvi-ft-8yJ"/>
                                     <constraint firstItem="tqO-0r-ep5" firstAttribute="leading" secondItem="xDs-OH-9aD" secondAttribute="leading" constant="50" id="unA-4h-TGp"/>
                                 </constraints>
                             </stackView>
@@ -2020,7 +2046,6 @@
         <!--Payment Table View Controller-->
         <scene sceneID="y0B-UG-l8c">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="0fL-tf-POz" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="Jn7-UL-FIn" customClass="PaymentTableViewController" customModule="App_Prototype_Alpha_001" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="70" sectionHeaderHeight="28" sectionFooterHeight="28" id="Pac-nW-WdX">
                         <rect key="frame" x="0.0" y="0.0" width="343" height="350"/>
@@ -2035,14 +2060,14 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Rqc-vg-xPF">
-                                            <frame key="frameInset" minX="15" minY="11" width="43" height="29"/>
+                                            <frame key="frameInset" minX="15" minY="12" width="42.5" height="28.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="24"/>
                                             <color key="textColor" red="1" green="0.41582992860000001" blue="0.3595783099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eqL-zM-nGA">
-                                            <frame key="frameInset" minX="15" minY="40" width="52" height="19"/>
+                                            <frame key="frameInset" minX="15" minY="40.5" width="52" height="19"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                             <color key="textColor" red="1" green="0.41582992860000001" blue="0.3595783099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2054,6 +2079,7 @@
                         </prototypes>
                     </tableView>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0fL-tf-POz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4461" y="-2634"/>
         </scene>
@@ -2065,8 +2091,8 @@
         <image name="profile_round" width="312" height="312"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="2it-ye-nAL"/>
-        <segue reference="dpp-zc-24d"/>
+        <segue reference="PBk-Rp-eOU"/>
         <segue reference="MaD-a0-jJi"/>
+        <segue reference="dpp-zc-24d"/>
     </inferredMetricsTieBreakers>
 </document>

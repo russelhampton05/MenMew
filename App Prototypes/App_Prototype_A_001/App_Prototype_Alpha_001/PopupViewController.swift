@@ -18,7 +18,8 @@ class PopupViewController: UIViewController {
     var ticket: String?
     var customMessage = String()
     var condition: String?
-    
+    var register = false
+
     
     override func viewDidLoad() {
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0.6)
@@ -78,7 +79,7 @@ class PopupViewController: UIViewController {
                 summaryP.performSegue(withIdentifier: "UnwindMenu", sender: summaryP)
             }
         }
-        else if self.condition == "RegisterUser" {
+        else if self.register {
             if let registerVC = self.parent as? RegisterViewController {
                 registerVC.performSegue(withIdentifier: "QRScanSegue", sender: registerVC)
             }
@@ -86,7 +87,7 @@ class PopupViewController: UIViewController {
         else if self.condition == "QRError" {
             if let restoVC = self.parent as? RestaurantViewController {
                 restoVC.performSegue(withIdentifier: "QRReturnSegue", sender: restoVC)
-            }
+            }		
         }
     }
     

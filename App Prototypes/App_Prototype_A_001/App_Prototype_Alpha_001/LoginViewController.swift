@@ -9,9 +9,9 @@
 import UIKit
 import Firebase
 
-//global
+//Global Variables
 var currentUser: User?
-
+var currentRestaurant: String?
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
@@ -36,17 +36,27 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         passwordField.autocorrectionType = UITextAutocorrectionType.no
         
         //Check for existing logged in user
-        if let user = FIRAuth.auth()?.currentUser {
-            logoutButton.isHidden = false
-            registerButton.isHidden = true
-            usernameField.text = user.email!
+        if let fbUser = FIRAuth.auth()?.currentUser {
+            //Check if logged in user exists in Firebase
+            UserManager.GetUser(id: fbUser.uid) {
+                user in
+                
+                if user.ID != nil {
+                    self.logoutButton.isHidden = false
+                    self.registerButton.isHidden = true
+                    self.usernameField.text = fbUser.email!
+                    
+                    currentUser = user
+                }
+            }
+            
         }
         else {
             logoutButton.isHidden = true
             registerButton.isHidden = false
         }
     }
-
+		
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

@@ -13,6 +13,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
 
     //IBOutlets
     @IBOutlet weak var usernameField: UITextField!
+    @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var confirmPasswordField: UITextField!
     @IBOutlet weak var confirmRegisterButton: UIButton!
@@ -22,15 +23,17 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
 
         usernameField.delegate = self
+        emailField.delegate = self
         passwordField.delegate = self
         confirmPasswordField.delegate = self
         confirmRegisterButton.isEnabled = false
         
-        usernameField.keyboardType = UIKeyboardType.emailAddress
+        emailField.keyboardType = UIKeyboardType.emailAddress
         passwordField.isSecureTextEntry = true
         confirmPasswordField.isSecureTextEntry = true
         
         usernameField.autocorrectionType = UITextAutocorrectionType.no
+        emailField.autocorrectionType = UITextAutocorrectionType.no
         passwordField.autocorrectionType = UITextAutocorrectionType.no
         confirmPasswordField.autocorrectionType = UITextAutocorrectionType.no
         
@@ -63,8 +66,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     
     
     @IBAction func registerButtonPressed(_ sender: AnyObject) {
-        if self.usernameField.text! == "" || self.passwordField.text! == "" {
-            showPopup(message: "Please enter an email and password.", isRegister: false)
+        if !self.emailField.hasText || !self.usernameField.hasText || !self.passwordField.hasText {
+            showPopup(message: "Please enter your name, email and password.", isRegister: false)
         }
         else if self.passwordField.text != self.confirmPasswordField.text {
             showPopup(message: "Password entries do not match.", isRegister: false)
@@ -72,9 +75,15 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             self.confirmPasswordField.text = ""
         }
         else {
-            FIRAuth.auth()?.createUser(withEmail: self.usernameField.text!, password: self.passwordField.text!, completion: {(user, error) in
+            FIRAuth.auth()?.createUser(withEmail: self.emailField.text!, password: self.passwordField.text!, completion: {(user, error) in
                 
                 if error == nil {
+                    //Create associated entry on Firebase
+                    let newUser = User(id: (user?.uid)!, email: (user?.email)!, name: self.usernameField.text!, ticket: nil)
+                    
+                    UserManager.AddUser(user: newUser)
+                    
+                    self.emailField.text = ""
                     self.passwordField.text = ""
                     self.confirmPasswordField.text = ""
                     
@@ -100,7 +109,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         let loginPopup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Popup") as! PopupViewController
         
         if isRegister {
-            loginPopup.condition = "RegisterUser"
+            loginPopup.register = true
         }
         
         self.addChildViewController(loginPopup)

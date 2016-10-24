@@ -19,50 +19,82 @@ class UserManager{
     
     static let ref = FIRDatabase.database().reference().child("Users")
     
-    static func AddUser(user: User) {
-        guard user.name != nil else {
-
-            return
-        }
+    static func AddUser(user: User){
         
-        //Add user
-    }
-    
-    static func AddUser(id: String, otherStuff: String? = nil){
-        guard let otherStuff = otherStuff else {
-            UserManager.ref.child(id).setValue(["otherStuff": ""])
-            return
-        }
+        //Create new user entry on database
+        UserManager.ref.child(user.ID).child("name").setValue(user.name)
+        UserManager.ref.child(user.ID).child("email").setValue(user.email)
         
-        UserManager.ref.child(id).setValue(["otherStuff": otherStuff])
-        
+        return
     }
     
     static func GetUser(id: String, completionHandler: @escaping (_ user: User) -> ()) {
         
-        let user = User(id: id)
+        let user = User(id: id, email: nil, name: nil, ticket: nil)
 
         UserManager.ref.child(id).observeSingleEvent(of: .value, with: { (FIRDataSnapshot) in
             let value = FIRDataSnapshot.value as? NSDictionary
 
             user.name = value?["name"] as? String
-            //Get most recent ticket
-            let tickets = value?["tickets"] as? NSDictionary
-            var currentTicketID: String?
+            user.email = value?["email"] as? String
             
-            for item in (tickets?.allKeys)! {
-                if tickets?.value(forKey: item as! String) as! Bool == false {
-                    currentTicketID = item as? String
+            
+            //Defer ticket retrieval to a separate function
+            user.ticket = nil
+            
+            completionHandler(user)
+            
+        }) {(error) in
+            print(error.localizedDescription)}
+        
+    }
+    
+    static func GetTicket(user: User, restaurant: String, completionHandler: @escaping (_ ticket: Ticket) -> ()) {
+        
+        var currentTicket = Ticket()
+        
+        UserManager.ref.child(user.ID).observeSingleEvent(of: .value, with: { (FIRDataSnapshot) in
+            let value = FIRDataSnapshot.value as? NSDictionary
+            
+            
+            //Get tickets
+            var tickets = value?["tickets"] as? NSDictionary
+            //var currentTicketID: String?
+            var openTickets: [String] = []
+            if tickets != nil {
+                
+                for item in (tickets?.allKeys)! {
+                    if tickets?.value(forKey: item as! String) as! Bool == false {
+                        openTickets.append((item as? String)!)
+                    }
                 }
-            }
-            
-            TicketManager.GetTicket(id: currentTicketID!) {
-                ticket in
                 
-                user.ticket = ticket
+                let semTicket = DispatchGroup.init()
+                semTicket.enter()
+                for openTicket in openTickets {
+                    
+                    
+                    TicketManager.GetTicket(id: openTicket, restaurant: restaurant)	{
+                        ticket in
+                        
+                        currentTicket = ticket
+                        
+                        if currentTicket.restaurant_ID == restaurant {
+                            semTicket.leave()
+                        }
+                    }
+                }
                 
-                completionHandler(user)
+                semTicket.notify(queue: DispatchQueue.main, execute: {
+                    completionHandler(currentTicket)
+                })
+                
             }
+            else {
+                tickets = nil
+                completionHandler(currentTicket)
+            }
+
             
         }) {(error) in
             print(error.localizedDescription)}
@@ -76,9 +108,11 @@ class UserManager{
                 FIRDatabase.database().reference().child("tickets").child(FIRDataSnapshot.key).observeSingleEvent(of: .value, with: { (snapshot) in
                     let value = snapshot.value as? NSDictionary
                     if value?["restaurant"] as! String == restaurant {
-                        TicketManager.GetTicket(id: FIRDataSnapshot.key) {
+                        TicketManager.GetTicket(id: FIRDataSnapshot.key, restaurant: restaurant) {
                             retrievedTicket in
                             ticket = retrievedTicket
+                            
+                            completionHandler(ticket)
                         }
                     }
                 }) { (error) in

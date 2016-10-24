@@ -15,7 +15,7 @@ class TicketManager {
     
     static let ref = FIRDatabase.database().reference().child("Tickets")
     
-    static func GetTicket(id: String, completionHandler: @escaping (_ ticket: Ticket) -> ()) {
+    static func GetTicket(id: String, restaurant: String, completionHandler: @escaping (_ ticket: Ticket) -> ()) {
         
         let ticket = Ticket()
         
@@ -23,6 +23,7 @@ class TicketManager {
             
             let value = FIRDataSnapshot.value as? NSDictionary
             
+            if value?["restaurant"] as? String == restaurant {
             ticket.user_ID = value?["user"] as? String
             ticket.restaurant_ID = value?["restaurant"] as? String
             ticket.tableNum = value?["tableNum"] as? String
@@ -60,13 +61,17 @@ class TicketManager {
             
             semItem.notify(queue: DispatchQueue.main, execute: {
                 completionHandler(ticket) })
+            }
+            else {
+                completionHandler(ticket)
+            }
             
         }){(error) in
             print(error.localizedDescription)}
     }
     
     
-    static func GetTicket(ids: [String], completionHandler: @escaping (_ tickets: [Ticket]) -> ()) {
+    static func GetTicket(ids: [String], restaurant: String, completionHandler: @escaping (_ tickets: [Ticket]) -> ()) {
         var tickets: [Ticket] = []
         
         let semTicket = DispatchGroup.init()
@@ -76,7 +81,7 @@ class TicketManager {
             
             semTicket.enter()
             
-            GetTicket(id: id) {
+            GetTicket(id: id, restaurant: restaurant) {
                 ticket in
                 
                 newTicket = ticket

@@ -15,18 +15,14 @@ class User{
     
     var ID: String
     var name: String?
+    var email: String?
     var ticket: Ticket?
-    init(id: String, ticket:Ticket?){
+    init(id: String, email: String?, name: String?, ticket:Ticket?){
         self.ID = id
+        self.email = email
+        self.name = name
         self.ticket = ticket
     }
-    
-    convenience init(id: String)
-    {
-        self.init(id:id, ticket: nil)
-    }
-    
-    
 }
 //need to look at maybe changing this
 struct Details {

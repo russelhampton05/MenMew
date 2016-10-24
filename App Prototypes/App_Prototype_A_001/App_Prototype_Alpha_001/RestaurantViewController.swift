@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 
+
 //might have to decide if this class is even actually worth keeping.
 //The only reason it would be worth having still is if we wanted real time swapping of
 //menus. That logic for deciding which menu would go here.
@@ -45,7 +46,7 @@ class RestaurantViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = true
         
         //Check for user and restaurant IDs to load tickets
-        loadUserInformation()
+        loadRestaurantInformation()
         
         //get this from QR eventually
         
@@ -113,9 +114,18 @@ class RestaurantViewController: UIViewController {
                 // No user is signed in.
             }
         }
-        
-
-        
+    }
+    
+    func loadTicketInformation() {
+        UserManager.GetTicket(user: currentUser!, restaurant: "fac4b7243c8d47d69a309fb7471d21b9") {
+            ticket in
+            
+            if ticket != nil {
+                currentUser!.ticket = ticket
+                
+                self.performSegue(withIdentifier: "MainMenuSegue", sender: self)
+            }
+        }
     }
     
     func loadRestaurantInformation() {
@@ -128,9 +138,9 @@ class RestaurantViewController: UIViewController {
                 self.printError()
             }
             else {
-                self.performSegue(withIdentifier: "MainMenuSegue", sender: self)
+                currentRestaurant = "fac4b7243c8d47d69a309fb7471d21b9"
+                self.loadTicketInformation()
             }
-            
         }
     }
 }
@@ -196,5 +206,35 @@ class RestaurantViewController: UIViewController {
                 }
             }
         }).resume()
+ 
+ 
+ //Get most recent ticket
+ var tickets = value?["tickets"] as? NSDictionary
+ var currentTicketID: String?
+ 
+ if tickets != nil {
+ 
+ for item in (tickets?.allKeys)! {
+ if tickets?.value(forKey: item as! String) as! Bool == false {
+ currentTicketID = item as? String
+ }
+ }
+ 
+ 
+ TicketManager.GetTicket(id: currentTicketID!)	{
+ ticket in
+ 
+ currentTicket = ticket
+ 
+ completionHandler(currentTicket)
+ }
+ }
+ else {
+ tickets = nil
+ completionHandler(currentTicket)
+ }
+
         */
-   
+
+
+
