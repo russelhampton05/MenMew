@@ -115,11 +115,11 @@ class SummaryViewController : UITableViewController {
     @IBAction func doneButtonPressed(_ sender: AnyObject) {
         
         //Submit the ticket
-        UserManager.CreateTicket(user: currentUser!, restaurant: currentRestaurant!) {
+        UserManager.CreateTicket(user: currentUser!, ticket: ticket!, restaurant: currentRestaurant!) {
             ticket in
-            
-            UserManager.CompleteTicket(user: currentUser!, ticket: ticket.user_ID!)
-            self.performSegue(withIdentifier: "UnwindMenu", sender: self)
+
+            self.ticket = ticket
+            self.performSegue(withIdentifier: "ConfirmOrderSegue", sender: self)
         }
         
     }

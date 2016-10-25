@@ -1103,7 +1103,6 @@
                                                     </state>
                                                     <connections>
                                                         <action selector="doneButtonPressed:" destination="4Qy-uD-AU0" eventType="touchUpInside" id="GWI-Z0-ifq"/>
-                                                        <segue destination="3jS-Hu-cwf" kind="show" identifier="ConfirmOrderSegue" id="RGQ-El-rNf"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cNN-CC-iYU">
@@ -1233,12 +1232,13 @@
                         <outlet property="totalValue" destination="rMJ-wk-99p" id="lrj-HC-8of"/>
                         <segue destination="d2T-7G-BoZ" kind="unwind" identifier="UnwindMenu" unwindAction="unwindToMenuDetails:" id="Gti-uU-oXd"/>
                         <segue destination="d2T-7G-BoZ" kind="unwind" identifier="UnwindMainMenu" unwindAction="unwindToMain:" id="FrR-8g-TSk"/>
+                        <segue destination="3jS-Hu-cwf" kind="show" identifier="ConfirmOrderSegue" id="x6l-xc-GtA"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jsf-0f-tJn" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="d2T-7G-BoZ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2564" y="641"/>
+            <point key="canvasLocation" x="2561" y="633"/>
         </scene>
         <!--Order Confirmation View Controller-->
         <scene sceneID="EKO-kW-n7C">
@@ -1299,7 +1299,7 @@
                         </variation>
                     </view>
                     <connections>
-                        <segue destination="WdC-r1-TXz" kind="unwind" identifier="UnwindToDetailSegue" unwindAction="unwindToMenuDetails:" id="xIg-NH-rKg"/>
+                        <segue destination="WdC-r1-TXz" kind="unwind" identifier="UnwindToMainSegue" unwindAction="unwindToMain:" id="xIg-NH-rKg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bsr-ok-8EQ" userLabel="First Responder" sceneMemberID="firstResponder"/>

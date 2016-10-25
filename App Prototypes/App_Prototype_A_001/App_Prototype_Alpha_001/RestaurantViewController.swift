@@ -234,6 +234,28 @@ class RestaurantViewController: UIViewController {
  completionHandler(currentTicket)
  }
 
+ 
+ ref.child(user.ID).child("tickets").observe(.value, with: {(FIRDataSnapshot) in
+ if FIRDataSnapshot.value as! Bool == false {
+ FIRDatabase.database().reference().child("tickets").child(FIRDataSnapshot.key).observeSingleEvent(of: .value, with: { (snapshot) in
+ let value = snapshot.value as? NSDictionary
+ if value?["restaurant"] as! String == restaurant {
+ TicketManager.GetTicket(id: FIRDataSnapshot.key, restaurant: restaurant) {
+ retrievedTicket in
+ ticket = retrievedTicket
+ 
+ completionHandler(ticket)
+ }
+ }
+ }) { (error) in
+ print(error.localizedDescription)
+ }
+ } else {
+ ticket = Ticket()
+ }
+ 
+ }){(error) in
+ print(error.localizedDescription)}
         */
 
 

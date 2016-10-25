@@ -81,6 +81,7 @@ class MenuItem {
     //will eventually point to an actual item (if we care to implement that, possibly not)
     //for now just UI facing fields and those needed for ordering/pricing
     
+    var item_ID: String?
     var title: String?
     var price: Double?
     //var sides: [String]?
@@ -90,8 +91,9 @@ class MenuItem {
     init(){
         
     }
-    init(title:String, price:Double, image: String, desc: String) {
+    init(item_ID: String?, title:String, price:Double, image: String, desc: String) {
         
+        self.item_ID = item_ID
         self.title = title
         self.image = image
         self.price = price
@@ -106,6 +108,7 @@ class MenuItem {
 
 class Ticket {
     
+    var ticket_ID: String?
     var user_ID: String?
     var restaurant_ID: String?
     var tableNum: String?
@@ -116,6 +119,7 @@ class Ticket {
     
     init() {
        
+        self.ticket_ID = ""
         self.user_ID = ""
         self.restaurant_ID = ""
         self.tableNum = ""
@@ -124,7 +128,8 @@ class Ticket {
         self.desc = ""
     }
     
-    init(user_ID: String, restaurant_ID: String, tableNum: String, timestamp: String, paid: Bool, itemsOrdered:[MenuItem]?, desc: String?) {
+    init(ticket_ID: String, user_ID: String, restaurant_ID: String, tableNum: String, timestamp: String, paid: Bool, itemsOrdered:[MenuItem]?, desc: String?) {
+        self.ticket_ID = ticket_ID
         self.user_ID = user_ID
         self.restaurant_ID = restaurant_ID
         self.tableNum = tableNum

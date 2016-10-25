@@ -21,7 +21,8 @@ class OrderConfirmationViewController: UIViewController {
     }
     
     @IBAction func confirmButtonPressed(_ sender: AnyObject) {
-        performSegue(withIdentifier: "UnwindToDetailSegue", sender: self)
+        self.navigationController?.isNavigationBarHidden = false
+        performSegue(withIdentifier: "UnwindToMainSegue", sender: self)
     }
     
 }

@@ -21,10 +21,12 @@ class MenuItemManager{
         ref.child(id).observeSingleEvent(of: .value, with:{(FIRDataSnapshot) in
             
             let value = FIRDataSnapshot.value as? NSDictionary
+            item.item_ID = id
             item.title = value?["name"] as? String
             item.image = value?["image"] as? String
             item.desc = value?["desc"] as? String
             item.price = value?["price"] as? Double
+            
         }){(error) in
             print(error.localizedDescription)
         }

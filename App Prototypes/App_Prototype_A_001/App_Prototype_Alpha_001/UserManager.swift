@@ -71,6 +71,7 @@ class UserManager{
                 
                 let semTicket = DispatchGroup.init()
                 semTicket.enter()
+                
                 for openTicket in openTickets {
                     
                     
@@ -101,30 +102,54 @@ class UserManager{
         
     }
     
-    static func CreateTicket(user: User, restaurant: String, completionHandler: @escaping (_ ticket: Ticket) -> ()) {
-        var ticket = Ticket()
-        ref.child(user.ID).child("tickets").observe(.value, with: {(FIRDataSnapshot) in
-            if FIRDataSnapshot.value as! Bool == false {
-                FIRDatabase.database().reference().child("tickets").child(FIRDataSnapshot.key).observeSingleEvent(of: .value, with: { (snapshot) in
-                    let value = snapshot.value as? NSDictionary
-                    if value?["restaurant"] as! String == restaurant {
-                        TicketManager.GetTicket(id: FIRDataSnapshot.key, restaurant: restaurant) {
-                            retrievedTicket in
-                            ticket = retrievedTicket
-                            
+    static func CreateTicket(user: User, ticket: Ticket?, restaurant: String, completionHandler: @escaping (_ ticket: Ticket) -> ()) {
+        var currentTicket = Ticket()
+        
+        if ticket != nil {
+            currentTicket = ticket!
+            
+            GetTicket(user: user, restaurant: restaurant) {
+                ticket in
+                
+                if ticket.ticket_ID == currentTicket.ticket_ID {
+                    
+                    //Set the ticket
+                    SetTicket(user: user, ticket: currentTicket) {
+                        completed in
+                        
+                        if completed {
                             completionHandler(ticket)
                         }
                     }
-                }) { (error) in
-                    print(error.localizedDescription)
                 }
-            } else {
-                ticket = Ticket()
+                else {
+                    completionHandler(currentTicket)
+                }
             }
+        }
+        else {
+            //Otherwise, create a new ticket entry by generating a UID
+            let uuid = UUID().uuidString
+            currentTicket.ticket_ID = uuid
             
-        }){(error) in
-            print(error.localizedDescription)}
-
+            completionHandler(currentTicket)
+        }
+    }
+    
+    static func SetTicket(user: User, ticket: Ticket, completionHandler: @escaping (_ completed: Bool) -> ()) {
+        TicketManager.ref.child(ticket.ticket_ID!).child("timestamp").setValue(ticket.timestamp)
+        
+        var itemFreq: [String:Int] = [:]
+        
+        for item in ticket.itemsOrdered! {
+            itemFreq[item.item_ID!] = (itemFreq[item.item_ID!] ?? 0) + 1
+        }
+        
+        for (key, value) in itemFreq {
+            TicketManager.ref.child(ticket.ticket_ID!).child("itemsOrdered").child(key).setValue(value)
+        }
+        
+        completionHandler(true)
     }
     
     static func CompleteTicket(user: User, ticket: String) {

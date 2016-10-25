@@ -44,6 +44,8 @@ class MainMenuViewController: UITableViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.isNavigationBarHidden = false
+        
         restaurantLabel.title = menu?.title
         self.navigationItem.setHidesBackButton(true, animated: false)
         
@@ -135,6 +137,9 @@ class MainMenuViewController: UITableViewController{
  
     @IBAction func unwindToMain(_ sender: UIStoryboardSegue) {
         if let sourceVC = sender.source as? MenuDetailsViewController {
+            ticket = sourceVC.ticket
+        }
+        else if let sourceVC = sender.source as? OrderConfirmationViewController {
             ticket = sourceVC.ticket
         }
     }
