@@ -137,6 +137,7 @@ class UserManager{
     }
     
     static func SetTicket(user: User, ticket: Ticket, completionHandler: @escaping (_ completed: Bool) -> ()) {
+        UserManager.ref.child(user.ID).child("tickets").child(ticket.ticket_ID!).setValue(false)
         TicketManager.ref.child(ticket.ticket_ID!).child("timestamp").setValue(ticket.timestamp)
         
         var itemFreq: [String:Int] = [:]
