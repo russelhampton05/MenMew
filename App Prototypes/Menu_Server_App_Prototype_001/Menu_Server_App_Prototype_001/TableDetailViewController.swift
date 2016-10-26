@@ -11,7 +11,7 @@ import UIKit
 class TableDetailViewController: UIViewController {
 
     //Variables
-    var table: Table?
+    var ticket: Ticket?
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var tableNumLabel: UILabel!
     @IBOutlet weak var ticketLabel: UILabel!
@@ -22,21 +22,19 @@ class TableDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableNumLabel.text = "Table #" + String(table!.tableNum)
-        ticketLabel.text = "Ticket " + table!.ticket
-        statusLabel.text = table!.category
+        tableNumLabel.text = "Table #" + ticket!.tableNum!
+        ticketLabel.text = "Ticket " + ticket!.ticket_ID!
         
-        if table!.category == "Ready to Serve" {
+        if ticket!.paid! {
+            statusLabel.text = "Fulfilled"
+            fulfillButton.isHidden = true
+        }
+        else if !(ticket!.paid!) {
+            statusLabel.text = "Open"
             fulfillButton.isHidden = false
             fulfillButton.setTitle("Fulfill Order", for: .normal)
         }
-        else if table!.category == "Refill Requested" {
-            fulfillButton.isHidden = false
-            fulfillButton.setTitle("Perform Refill", for: .normal)
-        }
-        else {
-            fulfillButton.isHidden = true
-        }
+
         //performSegue(withIdentifier: "CustomerTableSegue", sender: self)
         //performSegue(withIdentifier: "OrderTableSegue", sender: self)
         // Do any additional setup after loading the view.
@@ -51,14 +49,39 @@ class TableDetailViewController: UIViewController {
         if segue.identifier == "CustomerTableSegue" {
             let custVC = segue.destination as! CustomerTableViewController
             
-            custVC.customerList = table!.clientList
+            //custVC.customerList = ticket!.clientList
+            
+            //Call customers associated with ticket
+            //Sample customer until ticket can hold values for users and items
+            UserManager.GetUser(id: "S3Yyp2BRfSNCjgfW48hsS96B2Of1") {
+                user in
+                
+                var userList: [String] = []
+                userList.append(user.name!)
+                custVC.customerList = userList
+            }
         }
         else if segue.identifier == "OrderTableSegue" {
             let orderVC = segue.destination as! OrderTableViewController
             
-            orderVC.orderList = table!.orderList
+            //orderVC.orderList = ticket!.orderList
+            
+            //Call items associated with ticket
+            //Sample data
+            var idList: [String] = []
+            idList.append("ee3004f1cd774bba9afb9ab1c12dd567")
+            MenuItemManager.GetMenuItem(ids: idList) {
+                items in
+                
+                var orderList: [(name: String, price: Double)] = []
+                for item in items {
+                    orderList.append((name: item.desc!, price: item.price!))
+                }
+                
+                orderVC.orderList = orderList
+            }
         }
-    }
+    }	
     @IBAction func fulfillButtonPressed(_ sender: AnyObject) {
         
         let fulfillPopup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Popup") as! PopupViewController
@@ -66,7 +89,7 @@ class TableDetailViewController: UIViewController {
         self.addChildViewController(fulfillPopup)
         self.view.addSubview(fulfillPopup.view)
         fulfillPopup.didMove(toParentViewController: self)
-        fulfillPopup.ticket = table!.ticket
+        fulfillPopup.ticket = ticket!.desc
         fulfillPopup.addMessage(context: "FulfillOrder")
         
 

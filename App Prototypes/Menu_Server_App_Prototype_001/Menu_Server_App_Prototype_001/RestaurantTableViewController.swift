@@ -10,9 +10,11 @@ import UIKit
 
 class RestaurantTableViewController: UITableViewController {
     
+    //IBOutlets
     @IBOutlet weak var menuButton: UIBarButtonItem!
-    //Dummy Data
-    var restaurantArray: [(name: String, location: String)] = [(name: "RJ's Steakhouse", location: "Spring, TX"), (name: "P.F. Chang's", location: "Houston, TX"), (name: "Cafe 101", location: "University of Houston, TX")]
+
+    //Variables
+    var restaurantArray: [Restaurant] = []
     var segueIndex: Int?
     
     override func viewDidLoad() {
@@ -29,11 +31,9 @@ class RestaurantTableViewController: UITableViewController {
         menuButton.target = self.revealViewController()
         menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        //Load the assigned restaurants
+        loadRestaurants()
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
     override func didReceiveMemoryWarning() {
@@ -55,7 +55,7 @@ class RestaurantTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RestaurantCell", for: indexPath)
 
-        cell.textLabel!.text = restaurantArray[(indexPath as NSIndexPath).row].name
+        cell.textLabel!.text = restaurantArray[(indexPath as NSIndexPath).row].title
         cell.detailTextLabel!.text = restaurantArray[(indexPath as NSIndexPath).row].location
         
         let bgView = UIView()
@@ -76,8 +76,24 @@ class RestaurantTableViewController: UITableViewController {
         if segue.identifier == "TableListSegue" {
             let tableVC = segue.destination as! RTableTableViewController
             
-            tableVC.restaurant = restaurantArray[segueIndex!].name
-            tableVC.location = restaurantArray[segueIndex!].location
+            tableVC.restaurant = restaurantArray[segueIndex!]
+        }
+    }
+
+    func loadRestaurants() {
+        //For now, load all restaurants
+        var restaurantList: [String] = []
+        restaurantList.append("3681a0c9fad041da80e4fd53fb029910")
+        restaurantList.append("fac4b7243c8d47d69a309fb7471d21b9")
+        
+        RestaurantManager.GetRestaurant(ids: restaurantList) {
+            restaurants in
+            
+            self.restaurantArray = restaurants
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }
     }
 }

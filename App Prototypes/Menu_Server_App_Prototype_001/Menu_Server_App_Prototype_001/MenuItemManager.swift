@@ -39,14 +39,14 @@ class MenuItemManager{
         let sem1 = DispatchGroup.init()
         
         for id in ids{
-            print("Initiating request for item id " + id)
+            //print("Initiating request for item id " + id)
             var newItem: MenuItem?
             
             sem1.enter()
             GetMenuItem(id: id) {
                 item in
                 
-                print("Finished request for item id " + id)
+                //print("Finished request for item id " + id)
                 newItem = item
                 items.append(newItem!)
                 

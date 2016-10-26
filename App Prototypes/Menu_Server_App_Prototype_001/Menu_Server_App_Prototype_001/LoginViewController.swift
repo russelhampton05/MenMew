@@ -9,11 +9,14 @@
 import UIKit
 import Firebase
 
+//Globals
+var currentUser: User?
+
 class LoginViewController: UIViewController, UITextFieldDelegate {
 
+    //IBOutlets
     @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
-    
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var logoutButton: UIButton!
     
@@ -30,18 +33,27 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         usernameField.autocorrectionType = UITextAutocorrectionType.no
         passwordField.autocorrectionType = UITextAutocorrectionType.no
         
-        //Entry point for notifications and messages from Firebase
-        //Stub
-        
-        if let user = FIRAuth.auth()?.currentUser {
-            logoutButton.isHidden = false
-            registerButton.isHidden = true
-            usernameField.text = user.email!
+        //Check for existing logged in user
+        if let fbUser = FIRAuth.auth()?.currentUser {
+            //Check if logged in user exists in Firebase
+            UserManager.GetUser(id: fbUser.uid) {
+                user in
+                
+                if user.ID != nil {
+                    self.logoutButton.isHidden = false
+                    self.registerButton.isHidden = true
+                    self.usernameField.text = fbUser.email!
+                    
+                    currentUser = user
+                }
+            }
+            
         }
         else {
             logoutButton.isHidden = true
             registerButton.isHidden = false
         }
+
     }
 
     override func didReceiveMemoryWarning() {

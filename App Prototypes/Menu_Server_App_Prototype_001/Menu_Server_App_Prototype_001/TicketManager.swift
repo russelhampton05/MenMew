@@ -10,12 +10,12 @@ import Foundation
 import Firebase
 
 class TicketManager {
-    //This class handles ticket statuses that the app UI can use to display and update 
+    //This class handles ticket statuses that the app UI can use to display and update
     //order information for each table.
     
     static let ref = FIRDatabase.database().reference().child("Tickets")
     
-    static func GetTicket(id: String, completionHandler: @escaping (_ ticket: Ticket) -> ()) {
+    static func GetTicket(id: String, restaurant: String, completionHandler: @escaping (_ ticket: Ticket) -> ()) {
         
         let ticket = Ticket()
         
@@ -23,46 +23,58 @@ class TicketManager {
             
             let value = FIRDataSnapshot.value as? NSDictionary
             
-            ticket.user_ID = value?["user_ID"] as? String
-            ticket.restaurant_ID = value?["restaurant_ID"] as? String
-            ticket.tableNum = value?["tableNum"] as? String
-            ticket.timestamp = value?["timestamp"] as? NSDate
-            ticket.paid = value?["paid"] as? Bool
-            ticket.desc = value?["desc"] as? String
-            
-            
-            //ItemsOrdered is the array of items ordered for the table
-            let menuItems = value?["menuItems"] as? NSDictionary
-            
-            var itemArray: [String] = []
-            var quantityArray: [Int] = []
-            for item in (menuItems?.allKeys)! {
-                itemArray.append(item as! String)
-                quantityArray.append(menuItems?.value(forKey: item as! String) as! Int)
-            }
-            
-            MenuItemManager.GetMenuItem(ids: itemArray) {
-                items in
+            if value?["restaurant"] as? String == restaurant {
+                ticket.ticket_ID = id
+                ticket.user_ID = value?["user"] as? String
+                ticket.restaurant_ID = value?["restaurant"] as? String
+                print(value?["table"] as! Int)
+                ticket.tableNum = String(describing: value?["table"] as! Int)
+                ticket.timestamp = value?["timestamp"] as? String
+                //ticket.paid = value?["paid"] as? Bool
+                ticket.desc = value?["desc"] as? String
                 
-                var orderedArray: [(item: MenuItem, quantity: Int)] = []
                 
-                //Build the array of tuples (items ordered alongside their quantity)
-                for index in 1...items.count {
-                    orderedArray.append((item: items[index], quantity: quantityArray[index]))
+                //ItemsOrdered is the array of items ordered for the table
+                let menuItems = value?["itemsOrdered"] as? NSDictionary
+                
+                var itemArray: [String] = []
+                var quantityArray: [Int] = []
+                for item in (menuItems?.allKeys)! {
+                    itemArray.append(item as! String)
+                    quantityArray.append(menuItems?.value(forKey: item as! String) as! Int)
                 }
                 
-                ticket.itemsOrdered = orderedArray
+                let semItem = DispatchGroup.init()
+                semItem.enter()
                 
+                MenuItemManager.GetMenuItem(ids: itemArray) {
+                    items in
+                    
+                    var orderedArray: [MenuItem] = []
+                    
+                    //Build the array of tuples
+                    for index in 0...items.count-1 {
+                        orderedArray.append(items[index])
+                    }
+                    
+                    ticket.itemsOrdered = orderedArray
+                    
+                    semItem.leave()
+                }
+                
+                semItem.notify(queue: DispatchQueue.main, execute: {
+                    completionHandler(ticket) })
+            }
+            else {
                 completionHandler(ticket)
             }
-
             
         }){(error) in
             print(error.localizedDescription)}
     }
-	
     
-    static func GetTicket(ids: [String], completionHandler: @escaping (_ tickets: [Ticket]) -> ()) {
+    
+    static func GetTicket(ids: [String], restaurant: String, completionHandler: @escaping (_ tickets: [Ticket]) -> ()) {
         var tickets: [Ticket] = []
         
         let semTicket = DispatchGroup.init()
@@ -72,7 +84,7 @@ class TicketManager {
             
             semTicket.enter()
             
-            GetTicket(id: id) {
+            GetTicket(id: id, restaurant: restaurant) {
                 ticket in
                 
                 newTicket = ticket
@@ -85,5 +97,41 @@ class TicketManager {
         
         semTicket.notify(queue: DispatchQueue.main, execute: {
             completionHandler(tickets) })
+    }
+    
+    static func GetTicketFromTables(tables: [String], restaurant: String, completionHandler: @escaping (_ tickets: [Ticket]) -> ()) {
+        var tickets: [Ticket] = []
+        
+        //Dummy tables for now
+        var orderTables = tables
+        orderTables.append("12")
+        orderTables.append("15")
+        
+        ref.observe(.value, with: {(FIRDataSnapshot) in
+            
+            let value = FIRDataSnapshot.value as? NSDictionary
+            let semTableTicket = DispatchGroup.init()
+            
+            
+            for item in (value?.allKeys)!{
+                semTableTicket.enter()
+
+                GetTicket(id: item as! String, restaurant: restaurant) {
+                    ticket in
+
+                    if orderTables.count > 0 && ticket.tableNum == orderTables[0] {
+                        orderTables.remove(at: 0)
+                        tickets.append(ticket)
+                    }
+                    semTableTicket.leave()
+                }
+        
+            }
+            
+            semTableTicket.notify(queue: DispatchQueue.main, execute: {
+                completionHandler(tickets) })
+            
+        }) {(error) in
+            print(error.localizedDescription)}
     }
 }
