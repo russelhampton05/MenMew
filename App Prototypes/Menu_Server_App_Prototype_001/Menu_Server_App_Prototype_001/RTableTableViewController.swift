@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import Firebase
 
 class RTableTableViewController: UITableViewController {
-
+    
+    //Reference
+    let ref = FIRDatabase.database().reference().child("Tickets")
     //Variables
     var restaurant: Restaurant?
     var location: String?
@@ -26,7 +29,22 @@ class RTableTableViewController: UITableViewController {
 
         self.title = restaurant!.title!
         
-        loadTickets(restaurant: restaurant!.restaurant_ID!)
+        //loadTickets(restaurant: restaurant!.restaurant_ID!)
+        
+        //Observe for updates
+        ref.observe(.value, with:{(FIRDataSnapshot) in
+            var newTickets: [Ticket] = []
+            for item in FIRDataSnapshot.children {
+                let ticket = Ticket(snapshot: item as! FIRDataSnapshot)
+                newTickets.append(ticket)
+            }
+            
+            self.ticketList = newTickets
+            self.tableView.reloadData()
+            
+        }){(error) in
+            print(error.localizedDescription)
+        }
     }
     
     //Load tickets based on selected restaurant

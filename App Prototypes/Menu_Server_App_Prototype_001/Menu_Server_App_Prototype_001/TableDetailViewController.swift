@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import Firebase
 
 class TableDetailViewController: UIViewController {
 
+    
     //Variables
     var ticket: Ticket?
     @IBOutlet weak var statusLabel: UILabel!
@@ -35,9 +37,8 @@ class TableDetailViewController: UIViewController {
             fulfillButton.setTitle("Fulfill Order", for: .normal)
         }
 
-        //performSegue(withIdentifier: "CustomerTableSegue", sender: self)
-        //performSegue(withIdentifier: "OrderTableSegue", sender: self)
-        // Do any additional setup after loading the view.
+
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,33 +54,16 @@ class TableDetailViewController: UIViewController {
             
             //Call customers associated with ticket
             //Sample customer until ticket can hold values for users and items
-            UserManager.GetUser(id: "S3Yyp2BRfSNCjgfW48hsS96B2Of1") {
-                user in
-                
-                var userList: [String] = []
-                userList.append(user.name!)
-                custVC.customerList = userList
-            }
+            
         }
         else if segue.identifier == "OrderTableSegue" {
             let orderVC = segue.destination as! OrderTableViewController
             
-            //orderVC.orderList = ticket!.orderList
-            
+            //orderVC.orderList = ticket!.orderList200522c6b0349d8965b3bc32fa0f823            
             //Call items associated with ticket
             //Sample data
-            var idList: [String] = []
-            idList.append("ee3004f1cd774bba9afb9ab1c12dd567")
-            MenuItemManager.GetMenuItem(ids: idList) {
-                items in
-                
-                var orderList: [(name: String, price: Double)] = []
-                for item in items {
-                    orderList.append((name: item.desc!, price: item.price!))
-                }
-                
-                orderVC.orderList = orderList
-            }
+            
+            
         }
     }	
     @IBAction func fulfillButtonPressed(_ sender: AnyObject) {

@@ -56,7 +56,7 @@ class MenuItemManager{
         }
         
         sem1.notify(queue: DispatchQueue.main, execute: {
-            print("Finished all requests for menu items")
+            //print("Finished all requests for menu items")
             completionHandler(items) })
     }
 }

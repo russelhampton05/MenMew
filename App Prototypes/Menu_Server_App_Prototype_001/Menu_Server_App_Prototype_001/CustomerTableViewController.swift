@@ -16,6 +16,17 @@ class CustomerTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        UserManager.GetUser(id: "S3Yyp2BRfSNCjgfW48hsS96B2Of1") {
+            user in
+            
+            var userList: [String] = []
+            userList.append(user.name!)
+            self.customerList = userList
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,7 +41,12 @@ class CustomerTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        return customerList!.count
+        if customerList == nil {
+            return 0
+        }
+        else {
+            return customerList!.count
+        }
     }
 
 

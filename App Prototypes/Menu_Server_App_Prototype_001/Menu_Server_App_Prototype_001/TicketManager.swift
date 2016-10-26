@@ -106,6 +106,8 @@ class TicketManager {
         var orderTables = tables
         orderTables.append("12")
         orderTables.append("15")
+        orderTables.append("17")
+        orderTables.append("21")
         
         ref.observe(.value, with: {(FIRDataSnapshot) in
             

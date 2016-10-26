@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Firebase
 func testFunc(){
     
 }
@@ -126,6 +127,13 @@ class Restaurant {
     }
 }
 
+    
+
+
+    
+
+    
+
 class Ticket {
     
     var ticket_ID: String?
@@ -157,6 +165,25 @@ class Ticket {
         self.paid = paid
         self.itemsOrdered = itemsOrdered
         self.desc = desc
+    }
+    
+    init(snapshot: FIRDataSnapshot) {
+        let snapshotValue = snapshot.value as! [String: AnyObject]
+        
+        self.ticket_ID = snapshot.key
+        self.user_ID = snapshotValue["user"] as? String
+        self.restaurant_ID = snapshotValue["restaurant"] as? String
+
+        self.tableNum = String(describing: snapshotValue["table"] as! Int)
+        self.timestamp = snapshotValue["timestamp"] as? String
+        
+        self.paid = false
+
+        self.desc = snapshotValue["desc"] as? String
+        
+        
+        //ItemsOrdered is the array of items ordered for the table
+      //  let menuItems = snapshotValue["itemsOrdered"] as? NSDictionary
     }
 }
 

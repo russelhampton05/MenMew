@@ -16,6 +16,27 @@ class OrderTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        var idList: [String] = []
+        idList.append("ee3004f1cd774bba9afb9ab1c12dd567")
+        idList.append("4200522c6b0349d8965b3bc32fa0f823")
+        
+        MenuItemManager.GetMenuItem(ids: idList) {
+            items in
+            
+            var orderList: [(name: String, price: Double)] = []
+            
+            if items[0].desc != nil {
+                for item in items {
+                    orderList.append((name: item.desc!, price: item.price!))
+                }
+            }
+            
+            self.orderList = orderList
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,7 +52,12 @@ class OrderTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        return orderList!.count
+        if orderList == nil {
+            return 0
+        }
+        else {
+            return orderList!.count
+        }
     }
 
     
