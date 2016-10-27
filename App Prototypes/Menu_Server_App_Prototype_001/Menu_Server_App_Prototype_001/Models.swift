@@ -128,12 +128,6 @@ class Restaurant {
 }
 
     
-
-
-    
-
-    
-
 class Ticket {
     
     var ticket_ID: String?
@@ -181,6 +175,16 @@ class Ticket {
 
         self.desc = snapshotValue["desc"] as? String
         
+        
+        //let menuItems = value?["itemsOrdered"] as? NSDictionary
+        
+        
+        MenuItemManager.GetMenuItem(ids: snapshotValue["itemsOrdered"]?.allKeys as! [String]) {
+            items in
+            
+            self.itemsOrdered = items;
+        }
+
         
         //ItemsOrdered is the array of items ordered for the table
       //  let menuItems = snapshotValue["itemsOrdered"] as? NSDictionary
