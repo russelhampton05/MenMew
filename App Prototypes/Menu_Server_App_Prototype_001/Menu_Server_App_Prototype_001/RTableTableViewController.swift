@@ -36,8 +36,22 @@ class RTableTableViewController: UITableViewController {
             var newTickets: [Ticket] = []
             for item in FIRDataSnapshot.children {
                 let ticket = Ticket(snapshot: item as! FIRDataSnapshot)
-                newTickets.append(ticket)
+                
+                //Filter according to assigned tables
+                var tableList: [String] = ["12", "15", "22", "8"]
+                if tableList.contains(ticket.tableNum!) {
+                    newTickets.append(ticket)
+                }
+                
             }
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            
+            print(dateFormatter.date(from: newTickets[0].timestamp!)!)
+            
+            //Sort tickets by datetime
+            newTickets.sort() {dateFormatter.date(from: $0.timestamp!)! > dateFormatter.date(from: $1.timestamp!)!}
             
             self.ticketList = newTickets
             self.tableView.reloadData()
