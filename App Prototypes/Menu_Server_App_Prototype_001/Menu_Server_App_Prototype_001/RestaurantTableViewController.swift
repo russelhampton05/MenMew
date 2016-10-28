@@ -76,6 +76,10 @@ class RestaurantTableViewController: UITableViewController {
         if segue.identifier == "TableListSegue" {
             let tableVC = segue.destination as! RTableTableViewController
             
+            let backItem = UIBarButtonItem()
+            backItem.title = ""
+            navigationItem.backBarButtonItem = backItem
+            
             tableVC.restaurant = restaurantArray[segueIndex!]
         }
     }

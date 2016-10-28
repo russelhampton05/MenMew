@@ -11,32 +11,12 @@ import UIKit
 class OrderTableViewController: UITableViewController {
     
     //Variables
-    var orderList: [(name: String, price: Double)]?
+    var orderList: [MenuItem]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        var idList: [String] = []
-        idList.append("ee3004f1cd774bba9afb9ab1c12dd567")
-        idList.append("4200522c6b0349d8965b3bc32fa0f823")
-        
-        MenuItemManager.GetMenuItem(ids: idList) {
-            items in
-            
-            var orderList: [(name: String, price: Double)] = []
-            
-            if items[0].desc != nil {
-                for item in items {
-                    orderList.append((name: item.desc!, price: item.price!))
-                }
-            }
-            
-            self.orderList = orderList
-            
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -64,8 +44,8 @@ class OrderTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "OrderCell", for: indexPath)
 
-        cell.textLabel!.text = orderList![indexPath.row].name
-        cell.detailTextLabel!.text = "$" + String(orderList![indexPath.row].price)
+        cell.textLabel!.text = orderList![indexPath.row].title
+        cell.detailTextLabel!.text = "$" + String(describing: orderList![indexPath.row].price!)
 
         return cell
     }

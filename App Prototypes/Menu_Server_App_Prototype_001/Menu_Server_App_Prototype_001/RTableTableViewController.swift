@@ -28,27 +28,26 @@ class RTableTableViewController: UITableViewController {
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
 
         self.title = restaurant!.title!
-        
-        //loadTickets(restaurant: restaurant!.restaurant_ID!)
-        
+
         //Observe for updates
         ref.observe(.value, with:{(FIRDataSnapshot) in
             var newTickets: [Ticket] = []
             for item in FIRDataSnapshot.children {
                 let ticket = Ticket(snapshot: item as! FIRDataSnapshot)
                 
-                //Filter according to assigned tables
-                var tableList: [String] = ["12", "15", "22", "8"]
-                if tableList.contains(ticket.tableNum!) {
+                //Filter according to assigned tables and unpaid tickets
+                //Dummy data on tables for now
+                let tableList: [String] = ["12", "15", "22", "8"]
+                if tableList.contains(ticket.tableNum!) && !ticket.paid! && self.restaurant!.restaurant_ID == ticket.restaurant_ID! {
                     newTickets.append(ticket)
                 }
                 
             }
             
+            //Initialize date formatter
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
             
-            print(dateFormatter.date(from: newTickets[0].timestamp!)!)
             
             //Sort tickets by datetime
             newTickets.sort() {dateFormatter.date(from: $0.timestamp!)! > dateFormatter.date(from: $1.timestamp!)!}
@@ -91,29 +90,41 @@ class RTableTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ticketList.count
+        if ticketList.count == 0 {
+            return 1
+        }
+        else {
+            return ticketList.count
+        }
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableCell", for: indexPath) as! RTableCell
         
         //Get updated information regarding status
-        
-        
-        cell.tableLabel.text = "Table " + ticketList[indexPath.row].tableNum!
-        cell.ticketLabel.text = "Ticket " + ticketList[indexPath.row].desc!
-        
-        if ticketList[indexPath.row].paid! {
-            cell.statusLabel.text = "Fulfilled"
+        if ticketList.count > 0 {
+            tableView.isUserInteractionEnabled = true
+            cell.tableLabel.text = "Table " + ticketList[indexPath.row].tableNum!
+            cell.ticketLabel.text = "Ticket " + ticketList[indexPath.row].desc!
+            
+            if ticketList[indexPath.row].paid! {
+                cell.statusLabel.text = "Fulfilled"
+            }
+            else if !(ticketList[indexPath.row].paid!) {
+                cell.statusLabel.text = "Open"
+            }
+            
+            cell.dateLabel.text = ticketList[indexPath.row].timestamp!
         }
-        else if !(ticketList[indexPath.row].paid!) {
-            cell.statusLabel.text = "Open"
+        
+        else {
+            cell.tableLabel.text = "No active tables assigned"
+            tableView.isUserInteractionEnabled = false
         }
-
-        cell.dateLabel.text = ticketList[indexPath.row].timestamp!
+        
         return cell
     }
-
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         segueIndex = indexPath.row
         performSegue(withIdentifier: "TableDetailSegue", sender: self)
@@ -129,6 +140,10 @@ class RTableTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "TableDetailSegue" {
             let tableDetailVC = segue.destination as! TableDetailViewController
+            
+            let backItem = UIBarButtonItem()
+            backItem.title = ""
+            navigationItem.backBarButtonItem = backItem
             
             tableDetailVC.ticket = ticketList[segueIndex!]
         }

@@ -8,11 +8,10 @@
 
 import Foundation
 import Firebase
-func testFunc(){
-    
-}
 
-class User{
+
+//User Class
+class User {
     
     var ID: String
     var name: String?
@@ -25,11 +24,15 @@ class User{
         self.ticket = ticket
     }
 }
+
+//Details Class
 //need to look at maybe changing this
 struct Details {
     var sides: [String]
     var cookType: [String]
 }
+
+//Menu Class
 class Menu{
     var rest_id : String?
     var title : String?
@@ -50,6 +53,7 @@ class Menu{
     }
 }
 
+//Menu Group Class
 class MenuGroup{
     var cover_picture: String?
     var desc: String?
@@ -78,6 +82,7 @@ class MenuGroup{
 //Menu item will have a member called "item", which will tie it in to the actaul
 //details necessary for order tracking.
 
+//Menu Item Class
 class MenuItem {
     //will eventually point to an actual item (if we care to implement that, possibly not)
     //for now just UI facing fields and those needed for ordering/pricing
@@ -107,6 +112,7 @@ class MenuItem {
     
 }
 
+//Restaurant Class
 class Restaurant {
     var restaurant_ID: String?
     var title: String?
@@ -127,7 +133,8 @@ class Restaurant {
     }
 }
 
-    
+
+//Ticket Class
 class Ticket {
     
     var ticket_ID: String?
@@ -171,12 +178,9 @@ class Ticket {
         self.tableNum = String(describing: snapshotValue["table"] as! Int)
         self.timestamp = snapshotValue["timestamp"] as? String
         
-        self.paid = false
+        self.paid = snapshotValue["paid"] as? Bool
 
         self.desc = snapshotValue["desc"] as? String
-        
-        
-        //let menuItems = value?["itemsOrdered"] as? NSDictionary
         
         
         MenuItemManager.GetMenuItem(ids: snapshotValue["itemsOrdered"]?.allKeys as! [String]) {
