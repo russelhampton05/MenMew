@@ -30,7 +30,7 @@ class TicketManager {
                 print(value?["table"] as! Int)
                 ticket.tableNum = String(describing: value?["table"] as! Int)
                 ticket.timestamp = value?["timestamp"] as? String
-                //ticket.paid = value?["paid"] as? Bool
+                ticket.paid = value?["paid"] as? Bool
                 ticket.desc = value?["desc"] as? String
                 
                 
