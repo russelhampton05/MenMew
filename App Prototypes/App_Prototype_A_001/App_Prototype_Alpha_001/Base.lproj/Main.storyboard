@@ -682,14 +682,14 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="m4A-ff-hZG">
-                                            <frame key="frameInset" minX="15" minY="-5" width="53" height="35.5"/>
+                                            <frame key="frameInset" minX="15" minY="-5" width="53" height="36"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="30"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="InT-N5-Yhb">
-                                            <frame key="frameInset" minX="15" minY="30.5" width="52" height="19"/>
+                                            <frame key="frameInset" minX="15" minY="31" width="52" height="19"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1054,14 +1054,13 @@
                             <rect key="frame" x="0.0" y="88" width="375" height="400"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="bap-Qa-bJs">
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="bap-Qa-bJs">
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mD5-P3-I0S">
-                                            <color key="backgroundColor" red="1" green="0.41582992860000001" blue="0.3595783099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="100" id="UCd-jw-SUZ"/>
-                                            </constraints>
-                                        </view>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="spK-3D-JgC">
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="24"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="F5w-Xa-pdj">
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tax:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zSR-eg-Ob8">
@@ -1093,7 +1092,7 @@
                                                 <constraint firstItem="R8K-pN-4cE" firstAttribute="baseline" secondItem="rMJ-wk-99p" secondAttribute="firstBaseline" id="XUz-7b-CW7"/>
                                             </constraints>
                                         </stackView>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="A3T-NQ-qhW">
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="A3T-NQ-qhW">
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OE9-WS-fvh">
                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1119,27 +1118,23 @@
                                         </stackView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="A3T-NQ-qhW" firstAttribute="top" secondItem="R3X-sF-kS3" secondAttribute="bottom" constant="50" id="0V1-B8-q4U"/>
                                         <constraint firstAttribute="trailing" secondItem="A3T-NQ-qhW" secondAttribute="trailing" constant="100" id="1BB-Bf-HKe"/>
                                         <constraint firstItem="R3X-sF-kS3" firstAttribute="trailing" secondItem="bap-Qa-bJs" secondAttribute="trailingMargin" id="BWY-Hd-xPm"/>
-                                        <constraint firstAttribute="trailing" secondItem="mD5-P3-I0S" secondAttribute="trailing" id="Baq-lq-HBq"/>
                                         <constraint firstItem="R3X-sF-kS3" firstAttribute="leading" secondItem="bap-Qa-bJs" secondAttribute="leadingMargin" id="FbT-JF-Rbx"/>
-                                        <constraint firstItem="mD5-P3-I0S" firstAttribute="leading" secondItem="bap-Qa-bJs" secondAttribute="leading" id="Ldg-lZ-tfx"/>
-                                        <constraint firstItem="mD5-P3-I0S" firstAttribute="top" secondItem="bap-Qa-bJs" secondAttribute="top" id="NhO-QY-MlH"/>
-                                        <constraint firstItem="F5w-Xa-pdj" firstAttribute="top" secondItem="mD5-P3-I0S" secondAttribute="bottom" id="Q2e-To-qcu"/>
+                                        <constraint firstItem="spK-3D-JgC" firstAttribute="leading" secondItem="bap-Qa-bJs" secondAttribute="leading" id="LwD-YO-BUB"/>
                                         <constraint firstAttribute="trailing" secondItem="F5w-Xa-pdj" secondAttribute="trailing" id="Xyb-Rj-haf"/>
                                         <constraint firstItem="F5w-Xa-pdj" firstAttribute="leading" secondItem="bap-Qa-bJs" secondAttribute="leadingMargin" id="iGo-Mu-O9i"/>
                                         <constraint firstAttribute="bottom" secondItem="R3X-sF-kS3" secondAttribute="bottom" id="k2g-Rn-zmh"/>
                                         <constraint firstItem="F5w-Xa-pdj" firstAttribute="leading" secondItem="bap-Qa-bJs" secondAttribute="leading" id="l02-TA-bo7"/>
                                         <constraint firstItem="F5w-Xa-pdj" firstAttribute="trailing" secondItem="bap-Qa-bJs" secondAttribute="trailingMargin" id="nBk-uW-LwI"/>
                                         <constraint firstItem="A3T-NQ-qhW" firstAttribute="leading" secondItem="bap-Qa-bJs" secondAttribute="leading" constant="100" id="ocK-c8-xMh"/>
+                                        <constraint firstAttribute="trailing" secondItem="spK-3D-JgC" secondAttribute="trailing" id="qEr-1I-tAv"/>
                                         <constraint firstItem="R3X-sF-kS3" firstAttribute="leading" secondItem="bap-Qa-bJs" secondAttribute="leading" id="qyK-Nd-zVe"/>
                                         <constraint firstItem="F5w-Xa-pdj" firstAttribute="top" secondItem="bap-Qa-bJs" secondAttribute="top" id="rTH-BF-Q8b"/>
                                         <constraint firstAttribute="trailing" secondItem="R3X-sF-kS3" secondAttribute="trailing" id="uXl-h2-zZw"/>
                                     </constraints>
                                     <variation key="default">
                                         <mask key="constraints">
-                                            <exclude reference="Q2e-To-qcu"/>
                                             <exclude reference="Xyb-Rj-haf"/>
                                             <exclude reference="iGo-Mu-O9i"/>
                                             <exclude reference="rTH-BF-Q8b"/>
@@ -1163,6 +1158,7 @@
                                 <mask key="constraints">
                                     <exclude reference="JZ4-0M-PnH"/>
                                     <exclude reference="ok2-gT-nzS"/>
+                                    <exclude reference="rxZ-wK-s36"/>
                                 </mask>
                             </variation>
                         </view>
@@ -1228,6 +1224,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="cancelButton" destination="cNN-CC-iYU" id="pO8-iI-Vcc"/>
+                        <outlet property="confirmButton" destination="OE9-WS-fvh" id="K5T-MK-5pk"/>
+                        <outlet property="itemLabel" destination="spK-3D-JgC" id="Kho-Rd-TW3"/>
                         <outlet property="taxValue" destination="qPV-6t-zWA" id="agS-Zt-n6B"/>
                         <outlet property="totalValue" destination="rMJ-wk-99p" id="lrj-HC-8of"/>
                         <segue destination="d2T-7G-BoZ" kind="unwind" identifier="UnwindMenu" unwindAction="unwindToMenuDetails:" id="Gti-uU-oXd"/>
@@ -2060,14 +2059,14 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Rqc-vg-xPF">
-                                            <frame key="frameInset" minX="15" minY="12" width="42.5" height="28.5"/>
+                                            <frame key="frameInset" minX="15" minY="11" width="43" height="29"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="24"/>
                                             <color key="textColor" red="1" green="0.41582992860000001" blue="0.3595783099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eqL-zM-nGA">
-                                            <frame key="frameInset" minX="15" minY="40.5" width="52" height="19"/>
+                                            <frame key="frameInset" minX="15" minY="40" width="52" height="19"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                             <color key="textColor" red="1" green="0.41582992860000001" blue="0.3595783099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

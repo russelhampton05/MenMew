@@ -225,12 +225,19 @@ class MenuDetailsViewController: UITableViewController {
     @IBAction func unwindToMenuDetails(_ sender: UIStoryboardSegue) {
         if let sourceVC = sender.source as? OrderConfirmationViewController {
             ticket = sourceVC.ticket!
-            doneButton.isEnabled = false
+
             self.navigationController?.isNavigationBarHidden = false
+            
+            if ticket?.itemsOrdered?.count == 0 {
+                doneButton.isEnabled = false
+            }
         }
         else if let sourceVC = sender.source as? SummaryViewController {
             ticket = sourceVC.ticket
-            doneButton.isEnabled = false
+            
+            if ticket?.itemsOrdered?.count == 0 {
+                doneButton.isEnabled = false
+            }
         }
     }
     

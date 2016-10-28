@@ -13,6 +13,9 @@ class SummaryViewController : UITableViewController {
     @IBOutlet weak var taxValue: UILabel!
     @IBOutlet weak var totalValue: UILabel!
     @IBOutlet weak var doneButton: UIButton!
+    @IBOutlet var confirmButton: UIButton!
+    @IBOutlet var cancelButton: UIButton!
+    @IBOutlet var itemLabel: UILabel!
     
   //  var orderArray: [(title: String, price: Double)] = []
     var total: Double = 0.0
@@ -28,6 +31,9 @@ class SummaryViewController : UITableViewController {
             UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: font], for: UIControlState())
         }
         
+        self.confirmButton.isHidden = false
+        self.cancelButton.isHidden = false
+        
         delay(0.1){
             self.calculateTax()
             self.calculateRunningTotal()
@@ -39,26 +45,30 @@ class SummaryViewController : UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "SummaryCell") as! SummaryCell
         
-        let title = cell.viewWithTag(1) as! UILabel
-        title.text = self.ticket?.itemsOrdered?[(indexPath as NSIndexPath).row].title
-        
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        let price = cell.viewWithTag(2) as! UILabel
-        let priceHolder = self.ticket!.itemsOrdered![(indexPath as NSIndexPath).row].price!
-        price.text = formatter.string(from: priceHolder as NSNumber)
-        
-       
-        
-        
-        total += priceHolder
-        
+        if (ticket?.itemsOrdered?.count)! > 0 {
+            let title = cell.viewWithTag(1) as! UILabel
+            title.text = self.ticket?.itemsOrdered?[(indexPath as NSIndexPath).row].title
+            
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .currency
+            let price = cell.viewWithTag(2) as! UILabel
+            let priceHolder = self.ticket!.itemsOrdered![(indexPath as NSIndexPath).row].price!
+            price.text = formatter.string(from: priceHolder as NSNumber)
+            
+            total += priceHolder
+        }
 
         return cell
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (ticket?.itemsOrdered?.count)!    }
+        if (ticket?.itemsOrdered?.count)! > 0 {
+            return (ticket?.itemsOrdered?.count)!
+        }
+        else {
+            return 0
+        }
+    }
     
     //Calculate added tax
     func calculateTax() {
@@ -71,9 +81,45 @@ class SummaryViewController : UITableViewController {
     func calculateRunningTotal() {
         runningTotal = total + tax
         
-        totalValue.text = "$" + String(runningTotal)
+        totalValue.text = "$" + String(format: "%.2f", runningTotal)
     }
     
+    //Update running total on item deletion
+    func updateTotal(value: Double) {
+        total -= value
+        
+        calculateTax()
+        
+        calculateRunningTotal()
+        
+        if runningTotal == 0 {
+            self.confirmButton.isHidden = true
+            self.cancelButton.isHidden = true
+            
+            itemLabel.text = "No items here. Order something!"
+        }
+    }
+    
+    //Edit functions
+    //Override to support conditional editing of the table view.
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    //Override to support editing the table view.
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            //Delete the menu item in the ticket
+            updateTotal(value: (ticket!.itemsOrdered?[indexPath.row].price)!)
+            self.ticket!.itemsOrdered?.remove(at: indexPath.row)
+            
+            
+            //Delete the row from the data source
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+
+
     //Cancel all orders
     @IBAction func cancelOrders(_ sender: AnyObject) {
         let cancelPopup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Popup") as! PopupViewController

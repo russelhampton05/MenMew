@@ -138,9 +138,24 @@ class MainMenuViewController: UITableViewController{
     @IBAction func unwindToMain(_ sender: UIStoryboardSegue) {
         if let sourceVC = sender.source as? MenuDetailsViewController {
             ticket = sourceVC.ticket
+            
+            if ticket?.itemsOrdered?.count == 0 {
+                ordersButton.isEnabled = false
+            }
         }
         else if let sourceVC = sender.source as? OrderConfirmationViewController {
             ticket = sourceVC.ticket
+            
+            if ticket?.itemsOrdered?.count == 0 {
+                ordersButton.isEnabled = false
+            }
+        }
+        else if let sourceVC = sender.source as? SummaryViewController {
+            ticket = sourceVC.ticket
+            
+            if ticket?.itemsOrdered?.count == 0 {
+                ordersButton.isEnabled = false
+            }
         }
     }
 
