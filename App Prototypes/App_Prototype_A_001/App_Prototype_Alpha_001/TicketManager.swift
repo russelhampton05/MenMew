@@ -29,7 +29,7 @@ class TicketManager {
                 ticket.restaurant_ID = value?["restaurant"] as? String
                 ticket.tableNum = value?["tableNum"] as? String
                 ticket.timestamp = value?["timestamp"] as? String
-                //ticket.paid = value?["paid"] as? Bool
+                ticket.paid = value?["paid"] as! Bool
                 ticket.desc = value?["desc"] as? String
             
             
