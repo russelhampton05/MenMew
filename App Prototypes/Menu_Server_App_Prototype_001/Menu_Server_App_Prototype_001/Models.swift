@@ -25,6 +25,24 @@ class User {
     }
 }
 
+//Server Class
+class Server {
+    var ID: String
+    var name: String?
+    var email: String?
+    
+    var restaurants: [String]?
+    var tables: [Int]?
+    
+    init (id: String, name: String?, email: String?, restaurants: [String]?, tables: [Int]?) {
+        self.ID = id
+        self.name = name
+        self.email = email
+        self.restaurants = restaurants
+        self.tables = tables
+    }
+}
+
 //Details Class
 //need to look at maybe changing this
 struct Details {

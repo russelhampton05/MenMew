@@ -75,6 +75,10 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             FIRAuth.auth()?.createUser(withEmail: self.usernameField.text!, password: self.passwordField.text!, completion: {(user, error) in
                 
                 if error == nil {
+                    
+                    //Add Server to Firebase
+                    
+                    
                     self.passwordField.text = ""
                     self.confirmPasswordField.text = ""
                     

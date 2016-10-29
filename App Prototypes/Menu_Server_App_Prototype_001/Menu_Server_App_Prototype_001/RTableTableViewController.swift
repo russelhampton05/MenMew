@@ -31,17 +31,15 @@ class RTableTableViewController: UITableViewController {
 
         //Observe for updates
         ref.observe(.value, with:{(FIRDataSnapshot) in
-            var newTickets: [Ticket] = []
+            var ticketList: [Ticket] = []
             for item in FIRDataSnapshot.children {
                 let ticket = Ticket(snapshot: item as! FIRDataSnapshot)
                 
                 //Filter according to assigned tables and unpaid tickets
-                //Dummy data on tables for now
-                let tableList: [String] = ["12", "15", "22", "8"]
-                if tableList.contains(ticket.tableNum!) && !ticket.paid! && self.restaurant!.restaurant_ID == ticket.restaurant_ID! {
-                    newTickets.append(ticket)
-                }
                 
+                if currentServer!.tables!.contains(Int(ticket.tableNum!)!) {
+                    ticketList.append(ticket)
+                }
             }
             
             //Initialize date formatter
@@ -50,9 +48,9 @@ class RTableTableViewController: UITableViewController {
             
             
             //Sort tickets by datetime
-            newTickets.sort() {dateFormatter.date(from: $0.timestamp!)! > dateFormatter.date(from: $1.timestamp!)!}
+            ticketList.sort() {dateFormatter.date(from: $0.timestamp!)! > dateFormatter.date(from: $1.timestamp!)!}
             
-            self.ticketList = newTickets
+            self.ticketList = ticketList
             self.tableView.reloadData()
             
         }){(error) in

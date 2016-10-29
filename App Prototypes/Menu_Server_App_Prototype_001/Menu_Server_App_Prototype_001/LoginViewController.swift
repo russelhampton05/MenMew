@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 
 //Globals
-var currentUser: User?
+var currentServer: Server?
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
 
@@ -36,15 +36,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         //Check for existing logged in user
         if let fbUser = FIRAuth.auth()?.currentUser {
             //Check if logged in user exists in Firebase
-            UserManager.GetUser(id: fbUser.uid) {
-                user in
+            ServerManager.GetServer(id: fbUser.uid) {
+                server in
                 
-                if user.ID != nil {
+                if server.ID != nil {
                     self.logoutButton.isHidden = false
                     self.registerButton.isHidden = true
                     self.usernameField.text = fbUser.email!
                     
-                    currentUser = user
+                    currentServer = server
                 }
             }
             

@@ -13,7 +13,7 @@ import FirebaseDatabase
 ///this class needs love! Needs to be updated to look like the Menu Manager / Ticket Manager classes
 //also need to add gathering of tickets
 //should only grab ticket ids that show up with value FALSE (unpaid) under users->userid->tickets->ticketid: FALSE. Shouldn't be more than one by design (one per rest id)
-//Ticket population can't happen until rest id is found!
+//Ticket population can't happen until rest id is found! 
 
 class UserManager{
     
@@ -31,10 +31,10 @@ class UserManager{
     static func GetUser(id: String, completionHandler: @escaping (_ user: User) -> ()) {
         
         let user = User(id: id, email: nil, name: nil, ticket: nil)
-        
+
         UserManager.ref.child(id).observeSingleEvent(of: .value, with: { (FIRDataSnapshot) in
             let value = FIRDataSnapshot.value as? NSDictionary
-            
+
             user.name = value?["name"] as? String
             user.email = value?["email"] as? String
             
@@ -95,7 +95,7 @@ class UserManager{
                 tickets = nil
                 completionHandler(currentTicket)
             }
-            
+
             
         }) {(error) in
             print(error.localizedDescription)}
