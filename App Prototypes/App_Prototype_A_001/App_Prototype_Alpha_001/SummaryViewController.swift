@@ -22,6 +22,7 @@ class SummaryViewController : UITableViewController {
     var ticket: Ticket? //if those blows up just do ticket = Ticket() in the did load
     var tax: Double = 0.0
     var runningTotal: Double = 0.0
+    var ticketsToRemove: [String] = []
     //tax rate really should be pulled from the DB! For now this is fine.
     let taxRate: Double = 0.12
     
@@ -110,6 +111,7 @@ class SummaryViewController : UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             //Delete the menu item in the ticket
+            ticketsToRemove.append((ticket!.itemsOrdered?[indexPath.row].item_ID!)!)
             updateTotal(value: (ticket!.itemsOrdered?[indexPath.row].price)!)
             self.ticket!.itemsOrdered?.remove(at: indexPath.row)
             
@@ -161,7 +163,7 @@ class SummaryViewController : UITableViewController {
     @IBAction func doneButtonPressed(_ sender: AnyObject) {
         
         //Submit the ticket
-        UserManager.SetTicket(user: currentUser!, ticket: ticket!) {
+        UserManager.SetTicket(user: currentUser!, ticket: ticket!, toRemove: ticketsToRemove) {
             completed in
 
             if completed {

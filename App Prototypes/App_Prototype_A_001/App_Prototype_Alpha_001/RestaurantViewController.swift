@@ -40,6 +40,7 @@ class RestaurantViewController: UIViewController {
     @IBOutlet weak var tableLabel: UILabel!
     
     var menu: Menu?
+    var counter: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -116,7 +117,7 @@ class RestaurantViewController: UIViewController {
         }
     }
     
-    func loadTicketInformation() {
+    func loadTicketInformation(completionHandler: @escaping (_ ticket: Ticket) -> ()) {
         let ref = FIRDatabase.database().reference().child("Tickets")
         
         ref.observe(.value, with: {(FIRDataSnapshot) in
@@ -125,18 +126,20 @@ class RestaurantViewController: UIViewController {
                 
                 let ticket = Ticket(snapshot: item as! FIRDataSnapshot)
                 
-                if ticket.paid! && ticket.restaurant_ID! == self.menu?.rest_id! {
+                if !(ticket.paid!) && ticket.restaurant_ID! == self.menu?.rest_id! {
                     currentUser!.ticket = ticket
+                    
+                    completionHandler(ticket)
                     
                     break
                 }
                 
             }
             
-            self.performSegue(withIdentifier: "MainMenuSegue", sender: self)
-            
         }){(error) in
             print(error.localizedDescription)}
+        
+        
     }
     
     func loadRestaurantInformation() {
@@ -150,7 +153,15 @@ class RestaurantViewController: UIViewController {
             }
             else {
                 currentRestaurant = "fac4b7243c8d47d69a309fb7471d21b9"
-                self.loadTicketInformation()
+                self.loadTicketInformation() {
+                    ticket in
+                    
+                    self.counter += 1
+                    
+                    if self.counter == 1 {
+                        self.performSegue(withIdentifier: "MainMenuSegue", sender: self)
+                    }
+                }
             }
         }
     }
