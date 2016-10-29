@@ -27,10 +27,6 @@ class MainMenuViewController: UITableViewController{
     var orderArray: [(title: String, price: Double)] = []
     let transition = CircleTransition()
 
-  //  var menuArray = [[MenuItem]]()
-   // var categoryArray = [(name: String, desc: String)]()
-   // var restaurant: String?
- 
     
     //@IBOutlet weak var restaurantLabel: UINavigationItem!
 

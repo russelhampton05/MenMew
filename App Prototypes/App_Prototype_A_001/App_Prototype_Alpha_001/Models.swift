@@ -7,9 +7,7 @@
 //
 
 import Foundation
-func testFunc(){
-    
-}
+import Firebase
 
 class User{
     
@@ -106,19 +104,20 @@ class MenuItem {
     
 }
 
+//Ticket Class
 class Ticket {
     
     var ticket_ID: String?
     var user_ID: String?
-    var paid = false
     var restaurant_ID: String?
     var tableNum: String?
     var timestamp: String?
+    var paid: Bool?
     var itemsOrdered: [MenuItem]?
     var desc: String?
     
     init() {
-       
+        
         self.ticket_ID = ""
         self.user_ID = ""
         self.restaurant_ID = ""
@@ -128,22 +127,42 @@ class Ticket {
         self.desc = ""
     }
     
-    init(ticket_ID: String, user_ID: String, restaurant_ID: String, tableNum: String, timestamp: String,  itemsOrdered:[MenuItem]?, desc: String?) {
+    init(ticket_ID: String, user_ID: String, restaurant_ID: String, tableNum: String, timestamp: String, paid: Bool, itemsOrdered:[MenuItem]?, desc: String?) {
         self.ticket_ID = ticket_ID
         self.user_ID = user_ID
         self.restaurant_ID = restaurant_ID
-    
         self.tableNum = tableNum
         self.timestamp = timestamp
-        
+        self.paid = paid
         self.itemsOrdered = itemsOrdered
         self.desc = desc
     }
-    convenience init(ticket_ID: String, user_ID: String, restaurant_ID: String, tableNum: String, timestamp: String, paid: Bool, itemsOrdered:[MenuItem]?, desc: String?) {
     
-        self.init(ticket_ID: ticket_ID, user_ID: user_ID, restaurant_ID: restaurant_ID, tableNum: tableNum, timestamp: timestamp, paid: false, itemsOrdered: itemsOrdered, desc: desc)
+    init(snapshot: FIRDataSnapshot) {
+        let snapshotValue = snapshot.value as! [String: AnyObject]
+        
+        self.ticket_ID = snapshot.key
+        self.user_ID = snapshotValue["user"] as? String
+        self.restaurant_ID = snapshotValue["restaurant"] as? String
+        
+        self.tableNum = String(describing: snapshotValue["table"] as! Int)
+        self.timestamp = snapshotValue["timestamp"] as? String
+        
+        self.paid = snapshotValue["paid"] as? Bool
+        
+        self.desc = snapshotValue["desc"] as? String
+        
+        
+        MenuItemManager.GetMenuItem(ids: snapshotValue["itemsOrdered"]?.allKeys as! [String]) {
+            items in
+            
+            self.itemsOrdered = items;
+        }
+        
+        
+        //ItemsOrdered is the array of items ordered for the table
+        //  let menuItems = snapshotValue["itemsOrdered"] as? NSDictionary
     }
-    
 }
 
 

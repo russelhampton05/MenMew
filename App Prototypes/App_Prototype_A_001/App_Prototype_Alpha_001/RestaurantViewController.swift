@@ -117,15 +117,26 @@ class RestaurantViewController: UIViewController {
     }
     
     func loadTicketInformation() {
-        UserManager.GetTicket(user: currentUser!, restaurant: "fac4b7243c8d47d69a309fb7471d21b9") {
-            ticket in
+        let ref = FIRDatabase.database().reference().child("Tickets")
+        
+        ref.observe(.value, with: {(FIRDataSnapshot) in
             
-            if ticket != nil {
-                currentUser!.ticket = ticket
+            for item in FIRDataSnapshot.children {
                 
-                self.performSegue(withIdentifier: "MainMenuSegue", sender: self)
+                let ticket = Ticket(snapshot: item as! FIRDataSnapshot)
+                
+                if ticket.paid! && ticket.restaurant_ID! == self.menu?.rest_id! {
+                    currentUser!.ticket = ticket
+                    
+                    break
+                }
+                
             }
-        }
+            
+            self.performSegue(withIdentifier: "MainMenuSegue", sender: self)
+            
+        }){(error) in
+            print(error.localizedDescription)}
     }
     
     func loadRestaurantInformation() {
@@ -256,6 +267,17 @@ class RestaurantViewController: UIViewController {
  
  }){(error) in
  print(error.localizedDescription)}
+ 
+ 
+ UserManager.GetTicket(user: currentUser!, restaurant: "fac4b7243c8d47d69a309fb7471d21b9") {
+ ticket in
+ 
+ if ticket != nil {
+ currentUser!.ticket = ticket
+ 
+ self.performSegue(withIdentifier: "MainMenuSegue", sender: self)
+ }
+ }
         */
 
 

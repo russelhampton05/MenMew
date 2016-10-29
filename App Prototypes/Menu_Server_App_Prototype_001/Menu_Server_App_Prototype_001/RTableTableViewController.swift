@@ -37,7 +37,7 @@ class RTableTableViewController: UITableViewController {
                 
                 //Filter according to assigned tables and unpaid tickets
                 
-                if currentServer!.tables!.contains(Int(ticket.tableNum!)!) {
+                if currentServer!.tables!.contains(Int(ticket.tableNum!)!) && ticket.restaurant_ID == self.restaurant!.restaurant_ID! {
                     ticketList.append(ticket)
                 }
             }
@@ -54,8 +54,7 @@ class RTableTableViewController: UITableViewController {
             self.tableView.reloadData()
             
         }){(error) in
-            print(error.localizedDescription)
-        }
+            print(error.localizedDescription)}
     }
     
     //Load tickets based on selected restaurant

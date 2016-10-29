@@ -45,7 +45,9 @@ class OrderTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "OrderCell", for: indexPath)
 
         cell.textLabel!.text = orderList![indexPath.row].title
-        cell.detailTextLabel!.text = "$" + String(describing: orderList![indexPath.row].price!)
+        
+        let price = orderList![indexPath.row].price!
+        cell.detailTextLabel!.text = "$" + String(format: "%.2f", price)
 
         return cell
     }
