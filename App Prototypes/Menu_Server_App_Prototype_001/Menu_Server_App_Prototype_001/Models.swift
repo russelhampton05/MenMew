@@ -163,6 +163,8 @@ class Ticket {
     var paid: Bool?
     var itemsOrdered: [MenuItem]?
     var desc: String?
+    var confirmed: Bool?
+    var status: String?
     
     init() {
         
@@ -173,9 +175,11 @@ class Ticket {
         self.paid = false
         self.itemsOrdered = []
         self.desc = ""
+        self.confirmed = false
+        self.status = "Ordering"
     }
     
-    init(ticket_ID: String, user_ID: String, restaurant_ID: String, tableNum: String, timestamp: String, paid: Bool, itemsOrdered:[MenuItem]?, desc: String?) {
+    init(ticket_ID: String, user_ID: String, restaurant_ID: String, tableNum: String, timestamp: String, paid: Bool, itemsOrdered:[MenuItem]?, desc: String?, confirmed: Bool?, status: String?) {
         self.ticket_ID = ticket_ID
         self.user_ID = user_ID
         self.restaurant_ID = restaurant_ID
@@ -184,6 +188,8 @@ class Ticket {
         self.paid = paid
         self.itemsOrdered = itemsOrdered
         self.desc = desc
+        self.confirmed = confirmed
+        self.status = status
     }
     
     init(snapshot: FIRDataSnapshot) {
@@ -192,13 +198,15 @@ class Ticket {
         self.ticket_ID = snapshot.key
         self.user_ID = snapshotValue["user"] as? String
         self.restaurant_ID = snapshotValue["restaurant"] as? String
-
+        
         self.tableNum = String(describing: snapshotValue["table"] as! Int)
         self.timestamp = snapshotValue["timestamp"] as? String
         
         self.paid = snapshotValue["paid"] as? Bool
-
+        
         self.desc = snapshotValue["desc"] as? String
+        self.confirmed = snapshotValue["confirmed"] as? Bool
+        self.status = snapshotValue["status"] as? String
         
         
         MenuItemManager.GetMenuItem(ids: snapshotValue["itemsOrdered"]?.allKeys as! [String]) {
@@ -206,10 +214,10 @@ class Ticket {
             
             self.itemsOrdered = items;
         }
-
+        
         
         //ItemsOrdered is the array of items ordered for the table
-      //  let menuItems = snapshotValue["itemsOrdered"] as? NSDictionary
+        //  let menuItems = snapshotValue["itemsOrdered"] as? NSDictionary
     }
 }
 

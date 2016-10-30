@@ -35,11 +35,10 @@ class SummaryViewController : UITableViewController {
         self.confirmButton.isHidden = false
         self.cancelButton.isHidden = false
         
-        //why do we have delay here! -.- Thank god we aren't writing code to help spacex launch rockets.
-        delay(0.1){
-            self.calculateTax()
-            self.calculateRunningTotal()
-        }
+        checkTicketStatus()
+
+        self.calculateTax()
+        self.calculateRunningTotal()
     }
     
     //Load summary details in table
@@ -163,6 +162,15 @@ class SummaryViewController : UITableViewController {
     
     @IBAction func doneButtonPressed(_ sender: AnyObject) {
         
+        //Set current timestamp
+        let currentDate = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        //Set the timestamp, confirmation and status
+        ticket!.timestamp = dateFormatter.string(from: currentDate)
+        ticket!.confirmed = true
+        ticket!.status = "Order Placed"
         
         UserManager.SetTicket(user: currentUser!, ticket: ticket!, toRemove: ticketsToRemove) {
             completed in
@@ -173,5 +181,16 @@ class SummaryViewController : UITableViewController {
             
         }
         
+    }
+    
+    func checkTicketStatus() {
+        if ticket!.confirmed! {
+            self.confirmButton.setTitle("Update", for: .normal)
+            self.cancelButton.setTitle("Cancel All", for: .normal)
+        }
+        else {
+            self.confirmButton.setTitle("Confirm", for: .normal)
+            self.cancelButton.setTitle("Clear All", for: .normal)
+        }
     }
 }

@@ -132,14 +132,26 @@ class UserManager{
             //Otherwise, create a new ticket entry by generating a UID
             let uuid = UUID().uuidString
             currentTicket.ticket_ID = uuid
+            currentTicket.status = "Ordering"
+            currentTicket.confirmed = false
+            currentTicket.paid = false
             
             completionHandler(currentTicket)
         }
     }
     
+    static func UpdateTicketStatus(user: User, ticket: String) {
+        TicketManager.ref.child(ticket).child("status").setValue("Ordering")
+    }
+    
     static func SetTicket(user: User, ticket: Ticket, toRemove: [String]?, completionHandler: @escaping (_ completed: Bool) -> ()) {
+        
         UserManager.ref.child(user.ID).child("tickets").child(ticket.ticket_ID!).setValue(false)
+        
+        //Update timestamp, confirmed and status
         TicketManager.ref.child(ticket.ticket_ID!).child("timestamp").setValue(ticket.timestamp)
+        TicketManager.ref.child(ticket.ticket_ID!).child("confirmed").setValue(ticket.confirmed)
+        TicketManager.ref.child(ticket.ticket_ID!).child("status").setValue(ticket.status)
         
         var itemFreq: [String:Int] = [:]
         
@@ -159,10 +171,6 @@ class UserManager{
         }
         
         completionHandler(true)
-    }
-    
-    static func CompleteTicket(user: User, ticket: String) {
-        UserManager.ref.child(String(user.ID)).child("tickets").child(String(ticket)).setValue(false)
     }
    
 }

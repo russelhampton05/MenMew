@@ -103,13 +103,7 @@ class RTableTableViewController: UITableViewController {
             tableView.isUserInteractionEnabled = true
             cell.tableLabel.text = "Table " + ticketList[indexPath.row].tableNum!
             cell.ticketLabel.text = "Ticket " + ticketList[indexPath.row].desc!
-            
-            if ticketList[indexPath.row].paid! {
-                cell.statusLabel.text = "Fulfilled"
-            }
-            else if !(ticketList[indexPath.row].paid!) {
-                cell.statusLabel.text = "Open"
-            }
+            cell.statusLabel.text = ticketList[indexPath.row].status!
             
             cell.dateLabel.text = ticketList[indexPath.row].timestamp!
         }

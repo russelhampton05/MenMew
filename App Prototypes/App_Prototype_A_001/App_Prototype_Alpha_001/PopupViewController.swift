@@ -98,7 +98,7 @@ class PopupViewController: UIViewController {
             addedLabel.text = menuItem! + " has been added to the order."
         }
         else if context == "CancelMenuItems" {
-            addedLabel.text = "Are you sure you want to cancel the order/s?"
+            addedLabel.text = "Are you sure you want to clear all orders?"
             cancelButton.isHidden = false
         }
         else if context == "FulfillOrder" {

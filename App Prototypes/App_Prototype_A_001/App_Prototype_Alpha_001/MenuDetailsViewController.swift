@@ -71,11 +71,6 @@ class MenuDetailsViewController: UITableViewController {
         cell.foodPrice.text = (NSString(format: "$%.2f", (menu_group?.items![(indexPath as NSIndexPath).row].price!)!) as String)
         cell.foodDesc.text = menu_group?.items![(indexPath as NSIndexPath).row].desc
         cell.foodImage.image = UIImage(named: (menu_group?.items![(indexPath as NSIndexPath).row].image)!)
-
-       //cell.foodTitle.text = menuArray![(indexPath as NSIndexPath).row].title
-      //  cell.foodPrice.text = (NSString(format: "$%.2f", menuArray![(indexPath as NSIndexPath).row].price) as String)
-      //  cell.foodDesc.text = menuArray![(indexPath as NSIndexPath).row].desc
-      //  cell.foodImage.image = UIImage(named: menuArray![(indexPath as NSIndexPath).row].image)
         
         return cell
     }
@@ -205,6 +200,7 @@ class MenuDetailsViewController: UITableViewController {
         confirmPopup.addMessage(context: "AddMenuItem")
         
         closeCell()
+        UserManager.UpdateTicketStatus(user: currentUser!, ticket: ticket!.ticket_ID!)
         
         tableView.isScrollEnabled = false
     }

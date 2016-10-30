@@ -9,11 +9,21 @@
 import UIKit
 
 class OrderConfirmationViewController: UIViewController {
+    
+    //Variables
     var ticket: Ticket?
+    
+    //IBOutlets
+    @IBOutlet var ticketLabel: UILabel!
+    @IBOutlet var dateLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.navigationController?.isNavigationBarHidden = true
+        
+        ticketLabel.text = ticket!.desc!
+        dateLabel.text = ticket!.timestamp!
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
