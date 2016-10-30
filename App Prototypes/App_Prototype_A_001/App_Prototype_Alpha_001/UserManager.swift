@@ -114,7 +114,7 @@ class UserManager{
                 if ticket.ticket_ID == currentTicket.ticket_ID {
                     
                     //Set the ticket
-                    SetTicket(user: user, ticket: currentTicket) {
+                    SetTicket(user: user, ticket: currentTicket, toRemove: nil) {
                         completed in
                         
                         if completed {
@@ -136,7 +136,7 @@ class UserManager{
         }
     }
     
-    static func SetTicket(user: User, ticket: Ticket, completionHandler: @escaping (_ completed: Bool) -> ()) {
+    static func SetTicket(user: User, ticket: Ticket, toRemove: [String]?, completionHandler: @escaping (_ completed: Bool) -> ()) {
         UserManager.ref.child(user.ID).child("tickets").child(ticket.ticket_ID!).setValue(false)
         TicketManager.ref.child(ticket.ticket_ID!).child("timestamp").setValue(ticket.timestamp)
         
@@ -146,6 +146,13 @@ class UserManager{
             itemFreq[item.item_ID!] = (itemFreq[item.item_ID!] ?? 0) + 1
         }
         
+        if toRemove != nil {
+            for item in toRemove! {
+                TicketManager.ref.child(ticket.ticket_ID!).child("itemsOrdered").child(item).setValue(nil)
+            }
+        }
+        
+        
         for (key, value) in itemFreq {
             TicketManager.ref.child(ticket.ticket_ID!).child("itemsOrdered").child(key).setValue(value)
         }
@@ -154,7 +161,7 @@ class UserManager{
     }
     
     static func CompleteTicket(user: User, ticket: String) {
-        UserManager.ref.child(String(user.ID)).child("tickets").child(String(ticket)).setValue(true)
+        UserManager.ref.child(String(user.ID)).child("tickets").child(String(ticket)).setValue(false)
     }
     
 }
