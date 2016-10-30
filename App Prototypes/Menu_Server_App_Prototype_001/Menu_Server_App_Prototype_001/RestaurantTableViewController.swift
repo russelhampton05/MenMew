@@ -87,8 +87,9 @@ class RestaurantTableViewController: UITableViewController {
     func loadRestaurants() {
         //For now, load all restaurants
         var restaurantList: [String] = []
-        restaurantList.append("3681a0c9fad041da80e4fd53fb029910")
-        restaurantList.append("fac4b7243c8d47d69a309fb7471d21b9")
+        for item in currentServer!.restaurants! {
+            restaurantList.append(item)
+        }
         
         RestaurantManager.GetRestaurant(ids: restaurantList) {
             restaurants in
