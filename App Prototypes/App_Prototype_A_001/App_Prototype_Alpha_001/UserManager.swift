@@ -70,10 +70,11 @@ class UserManager{
                 }
                 
                 let semTicket = DispatchGroup.init()
-                semTicket.enter()
-                
+
+                //note to self : this needs to merge all open tickets into one. I'll add it to my to do : Russel
                 for openTicket in openTickets {
                     
+                                    semTicket.enter()
                     
                     TicketManager.GetTicket(id: openTicket, restaurant: restaurant)	{
                         ticket in
@@ -163,5 +164,5 @@ class UserManager{
     static func CompleteTicket(user: User, ticket: String) {
         UserManager.ref.child(String(user.ID)).child("tickets").child(String(ticket)).setValue(false)
     }
-    
+   
 }

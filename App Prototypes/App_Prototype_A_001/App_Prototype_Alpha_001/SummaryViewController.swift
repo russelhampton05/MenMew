@@ -35,6 +35,7 @@ class SummaryViewController : UITableViewController {
         self.confirmButton.isHidden = false
         self.cancelButton.isHidden = false
         
+        //why do we have delay here! -.- Thank god we aren't writing code to help spacex launch rockets.
         delay(0.1){
             self.calculateTax()
             self.calculateRunningTotal()
@@ -162,7 +163,7 @@ class SummaryViewController : UITableViewController {
     
     @IBAction func doneButtonPressed(_ sender: AnyObject) {
         
-        //Submit the ticket
+        
         UserManager.SetTicket(user: currentUser!, ticket: ticket!, toRemove: ticketsToRemove) {
             completed in
 

@@ -118,16 +118,16 @@ class RestaurantViewController: UIViewController {
     }
     
     func loadTicketInformation() {
-//        UserManager.GetTicket(user: currentUser!, restaurant: "fac4b7243c8d47d69a309fb7471d21b9") {
-//            ticket in
-//            
-//            if ticket != nil {
-//                currentUser!.ticket = ticket
-//                
-//                self.performSegue(withIdentifier: "MainMenuSegue", sender: self)
-//            }
-//        }
-        self.performSegue(withIdentifier: "MainMenuSegue", sender: self)
+        UserManager.GetTicket(user: currentUser!, restaurant: "fac4b7243c8d47d69a309fb7471d21b9") {
+            ticket in
+            
+            if ticket != nil {
+                currentUser!.ticket = ticket
+                
+            }
+            self.performSegue(withIdentifier: "MainMenuSegue", sender: self)
+            
+        }
     }
     
     func loadRestaurantInformation() {
@@ -141,20 +141,12 @@ class RestaurantViewController: UIViewController {
             }
             else {
                 currentRestaurant = "fac4b7243c8d47d69a309fb7471d21b9"
-                self.loadTicketInformation() {
-                    ticket in
-                    
-                    self.counter += 1
-                    
-                    if self.counter == 1 {
-                        self.performSegue(withIdentifier: "MainMenuSegue", sender: self)
-                    }
+                self.loadTicketInformation()
                 }
             }
         }
     }
-}
-    /*
+/*
 =======
     
     //JSON parsing method, may be changed/replaced

@@ -20,6 +20,7 @@ class TicketManager {
         let ticket = Ticket()
         
         ref.child(id).observe(.value, with: {(FIRDataSnapshot) in
+        ref.child(id).observeSingleEvent(of: .value, with: {(FIRDataSnapshot) in
             
             let value = FIRDataSnapshot.value as? NSDictionary
             
