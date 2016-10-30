@@ -40,6 +40,7 @@ class RestaurantViewController: UIViewController {
     @IBOutlet weak var tableLabel: UILabel!
     
     var menu: Menu?
+    var counter: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -140,7 +141,15 @@ class RestaurantViewController: UIViewController {
             }
             else {
                 currentRestaurant = "fac4b7243c8d47d69a309fb7471d21b9"
-                self.loadTicketInformation()
+                self.loadTicketInformation() {
+                    ticket in
+                    
+                    self.counter += 1
+                    
+                    if self.counter == 1 {
+                        self.performSegue(withIdentifier: "MainMenuSegue", sender: self)
+                    }
+                }
             }
         }
     }
@@ -257,6 +266,17 @@ class RestaurantViewController: UIViewController {
  
  }){(error) in
  print(error.localizedDescription)}
+ 
+ 
+ UserManager.GetTicket(user: currentUser!, restaurant: "fac4b7243c8d47d69a309fb7471d21b9") {
+ ticket in
+ 
+ if ticket != nil {
+ currentUser!.ticket = ticket
+ 
+ self.performSegue(withIdentifier: "MainMenuSegue", sender: self)
+ }
+ }
         */
 
 
