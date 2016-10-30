@@ -48,7 +48,7 @@ class MenuCell : UITableViewCell {
     //Subscribe the cell for observing frame changes
     func watchFrameChanges() {
         if !isObserving {
-            addObserver(self, forKeyPath: "frame", options: .new, context: nil)
+            addObserver(self, forKeyPath: "frame", options: NSKeyValueObservingOptions.new, context: nil)
             checkHeight()
         }
     }
@@ -67,8 +67,12 @@ class MenuCell : UITableViewCell {
             checkHeight()
         }
     }
+    
+    override func prepareForReuse() {
+        removeObserver(self, forKeyPath: "frame")
+    }
 
     deinit {
-        ignoreFrameChanges()
+        removeObserver(self, forKeyPath: "frame")
     }
 }

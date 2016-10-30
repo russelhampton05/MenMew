@@ -22,6 +22,8 @@ class MenuDetailsViewController: UITableViewController {
     var categoryArray = [(name: String, desc: String)]()
     var categoryTitle: String?
     var restaurantName: String?
+    var curentCell: MenuCell?
+    var indexPaths : Array<IndexPath> = []
     
     @IBOutlet var categoryLabel: UINavigationItem!
     @IBOutlet weak var doneButton: UIBarButtonItem!
@@ -84,6 +86,7 @@ class MenuDetailsViewController: UITableViewController {
 
     //Check for selected items in the table via index paths
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         let previousIndexPath = selectedIndexPath
         
         if indexPath == selectedIndexPath {
@@ -93,8 +96,6 @@ class MenuDetailsViewController: UITableViewController {
         else {
             selectedIndexPath = indexPath
         }
-        
-        var indexPaths : Array<IndexPath> = []
         
         if let previous = previousIndexPath {
             indexPaths += [previous]
@@ -115,6 +116,7 @@ class MenuDetailsViewController: UITableViewController {
     //Enable the cell to observe frame change
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         (cell as! MenuCell).watchFrameChanges()
+        curentCell = cell as? MenuCell
     }
     
     //Disable the cell to observe frame change
@@ -130,6 +132,25 @@ class MenuDetailsViewController: UITableViewController {
         else {
             return MenuCell.normalHeight
         }
+    }
+    
+    func closeCell() {
+        let previousIndexPath = selectedIndexPath
+        selectedIndexPath = nil
+        
+        if let previous = previousIndexPath {
+            indexPaths += [previous]
+        }
+        
+        if let current = selectedIndexPath {
+            indexPaths += [current]
+        }
+        
+        if indexPaths.count > 0 {
+            tableView.reloadRows(at: indexPaths, with: UITableViewRowAnimation.automatic)
+        }
+        
+        selectedIndexPath = previousIndexPath
     }
     
     //Display the popup menu choices modal
@@ -183,6 +204,8 @@ class MenuDetailsViewController: UITableViewController {
         confirmPopup.didMove(toParentViewController: self)
         confirmPopup.addMessage(context: "AddMenuItem")
         
+        closeCell()
+        
         tableView.isScrollEnabled = false
     }
     
@@ -195,19 +218,19 @@ class MenuDetailsViewController: UITableViewController {
     //Segues for Back and Done Button Presses
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ConfirmOrder" {
+            
+            //Disable cell observers
+            self.curentCell?.ignoreFrameChanges()
+            
             let summaryTable = segue.destination as! SummaryViewController
             
             summaryTable.ticket = ticket!
         }
         else if segue.identifier == "ReturnMainSegue" {
             let mainVC = segue.destination as! MainMenuViewController
-        //    mainVC.menuArray = fullMenu!
+
             mainVC.ticket = ticket
-          //  mainVC.categoryArray = categoryArray
-           // mainVC.restaurant = restaurantName!
             mainVC.menu = menu
-            //mainVC.reloadDetails()
-            //mainVC.reloadDetails(orderArray!, sourceMenuArray: fullMenu!, sourceRestaurant: restaurantName!)
         }
     }
 
@@ -240,7 +263,6 @@ class MenuDetailsViewController: UITableViewController {
             }
         }
     }
-    
 }
 
 
