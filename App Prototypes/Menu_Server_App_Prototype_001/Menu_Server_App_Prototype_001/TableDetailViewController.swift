@@ -27,19 +27,29 @@ class TableDetailViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableNumLabel.text = "Table #" + ticket!.tableNum!
+        tableNumLabel.text = "TABLE #" + ticket!.tableNum!
         ticketLabel.text = "Ticket " + ticket!.desc!
-        dateLabel.text = ticket!.timestamp!
+        
+        //Format date to more human-readable result
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        let currentDate = formatter.date(from: ticket!.timestamp!)
+        
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        
+        dateLabel.text = formatter.string(from: currentDate!)
         
 
         getCustomer()
         
         if ticket!.paid! {
-            statusLabel.text = "Fulfilled"
+            statusLabel.text = "FULFILLED"
             fulfillButton.isHidden = true
         }
         else if !(ticket!.paid!) {
-            statusLabel.text = "Open"
+            statusLabel.text = "Open, " + ticket!.status!
             fulfillButton.isHidden = false
             fulfillButton.setTitle("Fulfill Order", for: .normal)
         }

@@ -105,11 +105,23 @@ class RTableTableViewController: UITableViewController {
             cell.ticketLabel.text = "Ticket " + ticketList[indexPath.row].desc!
             cell.statusLabel.text = ticketList[indexPath.row].status!
             
-            cell.dateLabel.text = ticketList[indexPath.row].timestamp!
+            //Format date to more human-readable result
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            
+            let currentDate = formatter.date(from:ticketList[indexPath.row].timestamp!)
+            
+            formatter.dateStyle = .short
+            formatter.timeStyle = .short
+            
+            cell.dateLabel.text = formatter.string(from: currentDate!)
         }
         
         else {
-            cell.tableLabel.text = "No active tables assigned"
+            cell.tableLabel.text = "No active tables assigned."
+            cell.dateLabel.text = ""
+            cell.statusLabel.text = ""
+            cell.ticketLabel.text = ""
             tableView.isUserInteractionEnabled = false
         }
         

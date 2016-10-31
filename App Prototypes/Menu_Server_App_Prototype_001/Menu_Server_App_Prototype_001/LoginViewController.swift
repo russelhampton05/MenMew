@@ -32,7 +32,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         usernameField.autocorrectionType = UITextAutocorrectionType.no
         passwordField.autocorrectionType = UITextAutocorrectionType.no
-        
+
         //Check for existing logged in user
         if let fbUser = FIRAuth.auth()?.currentUser {
             //Check if logged in user exists in Firebase

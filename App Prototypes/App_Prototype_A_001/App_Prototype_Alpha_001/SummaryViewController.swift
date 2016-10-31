@@ -15,6 +15,7 @@ class SummaryViewController : UITableViewController {
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet var confirmButton: UIButton!
     @IBOutlet var cancelButton: UIButton!
+    @IBOutlet var payButton: UIButton!
     @IBOutlet var itemLabel: UILabel!
     
   //  var orderArray: [(title: String, price: Double)] = []
@@ -34,6 +35,13 @@ class SummaryViewController : UITableViewController {
         
         self.confirmButton.isHidden = false
         self.cancelButton.isHidden = false
+        
+        if !ticket!.paid! {
+            self.payButton.isHidden = false
+        }
+        else {
+            self.payButton.isHidden = true
+        }
         
         checkTicketStatus()
 
@@ -146,6 +154,11 @@ class SummaryViewController : UITableViewController {
             
             orderConfirmVC.ticket = ticket
         }
+        else if segue.identifier == "PaymentSegue" {
+            let paymentVC = segue.destination as! PaymentDetailsViewController
+            
+            paymentVC.ticket = ticket
+        }
         
     }
     @IBAction func backButtonPressed(_ sender: AnyObject) {
@@ -191,6 +204,16 @@ class SummaryViewController : UITableViewController {
         else {
             self.confirmButton.setTitle("Confirm", for: .normal)
             self.cancelButton.setTitle("Clear All", for: .normal)
+        }
+    }
+    
+    @IBAction func payButtonPressed(_ sender: AnyObject) {
+        self.performSegue(withIdentifier: "PaymentSegue", sender: self)
+    }
+    
+    @IBAction func unwindToSummary(_ sender: UIStoryboardSegue) {
+        if let sourceVC = sender.source as? PaymentDetailsViewController {
+            self.navigationController?.isNavigationBarHidden = false
         }
     }
 }

@@ -37,6 +37,8 @@
 		945C697A1D8EDFCB0022C83A /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945C69711D8EDFCB0022C83A /* SummaryViewController.swift */; };
 		945C697B1D8EDFCB0022C83A /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945C69731D8EDFCB0022C83A /* SWRevealViewController.m */; };
 		945C697D1D8EDFE70022C83A /* CircleTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945C697C1D8EDFE70022C83A /* CircleTransition.swift */; };
+		94656EE21DC7D875003E15B2 /* PaymentDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94656EE11DC7D875003E15B2 /* PaymentDetailsViewController.swift */; };
+		94656EE51DC7DAE4003E15B2 /* PaymentPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94656EE41DC7DAE4003E15B2 /* PaymentPickerViewController.swift */; };
 		947F63271DBD38AC00ABF04F /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947F63261DBD38AC00ABF04F /* PaymentViewController.swift */; };
 		947F63291DBD38E000ABF04F /* PaymentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947F63281DBD38E000ABF04F /* PaymentTableViewController.swift */; };
 		94DC4C377099C87DD5549139 /* Pods_App_Prototype_Alpha_001Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7DBEF1DA767B467488F678E /* Pods_App_Prototype_Alpha_001Tests.framework */; };
@@ -105,6 +107,8 @@
 		945C69721D8EDFCB0022C83A /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		945C69731D8EDFCB0022C83A /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		945C697C1D8EDFE70022C83A /* CircleTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleTransition.swift; sourceTree = "<group>"; };
+		94656EE11DC7D875003E15B2 /* PaymentDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentDetailsViewController.swift; sourceTree = "<group>"; };
+		94656EE41DC7DAE4003E15B2 /* PaymentPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentPickerViewController.swift; sourceTree = "<group>"; };
 		947F63261DBD38AC00ABF04F /* PaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
 		947F63281DBD38E000ABF04F /* PaymentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentTableViewController.swift; sourceTree = "<group>"; };
 		AC97524F1DAC345100BCC0A7 /* MenuGroupManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuGroupManager.swift; sourceTree = "<group>"; };
@@ -161,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				4A3C67DF1DA2F74D00D9D263 /* Models.swift */,
+				94656EE41DC7DAE4003E15B2 /* PaymentPickerViewController.swift */,
 				4A3C67E11DA2F8BF00D9D263 /* UserManager.swift */,
 				846FD97F1DA8A2D600191223 /* MenuManager.swift */,
 				AC97524F1DAC345100BCC0A7 /* MenuGroupManager.swift */,
@@ -286,12 +291,21 @@
 				941C681D1DBAAA76006B2F78 /* GoogleService-Info.plist */,
 				945C69431D8EDECA0022C83A /* LaunchScreen.storyboard */,
 				945C693E1D8EDECA0022C83A /* Main.storyboard */,
+				94656EE31DC7D87C003E15B2 /* Payment Controllers */,
 				4A67428A1DA7E9E70033DCEF /* User Profile Controllers */,
 				4A67428B1DA7EA020033DCEF /* Menu Controllers */,
 				4A67428C1DA7EA230033DCEF /* Order Controllers */,
 				4A1135C51D9974F7006DDFAE /* Test_Data.json */,
 			);
 			path = App_Prototype_Alpha_001;
+			sourceTree = "<group>";
+		};
+		94656EE31DC7D87C003E15B2 /* Payment Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				94656EE11DC7D875003E15B2 /* PaymentDetailsViewController.swift */,
+			);
+			name = "Payment Controllers";
 			sourceTree = "<group>";
 		};
 		B1BBE1307D78A3508C58D2B6 /* Frameworks */ = {
@@ -602,9 +616,11 @@
 				945C697A1D8EDFCB0022C83A /* SummaryViewController.swift in Sources */,
 				4A3C67E01DA2F74D00D9D263 /* Models.swift in Sources */,
 				945A67081D8F260E00FAB14A /* MenuDetailsViewController.swift in Sources */,
+				94656EE51DC7DAE4003E15B2 /* PaymentPickerViewController.swift in Sources */,
 				4A9B5D491D91C461009F2F72 /* SettingsViewController.swift in Sources */,
 				4A3C67E21DA2F8BF00D9D263 /* UserManager.swift in Sources */,
 				4A0ECC781D9C3C09004811F3 /* OrderDetailsTableViewController.swift in Sources */,
+				94656EE21DC7D875003E15B2 /* PaymentDetailsViewController.swift in Sources */,
 				947F63291DBD38E000ABF04F /* PaymentTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

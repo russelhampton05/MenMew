@@ -22,8 +22,18 @@ class OrderConfirmationViewController: UIViewController {
         
         self.navigationController?.isNavigationBarHidden = true
         
+        //Format date to more human-readable result
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        let currentDate = formatter.date(from: ticket!.timestamp!)
+        
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        
+        
         ticketLabel.text = ticket!.desc!
-        dateLabel.text = ticket!.timestamp!
+        dateLabel.text = formatter.string(from: currentDate!)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
