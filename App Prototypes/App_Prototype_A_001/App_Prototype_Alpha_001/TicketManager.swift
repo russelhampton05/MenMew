@@ -15,6 +15,11 @@ class TicketManager {
     
     static let ref = FIRDatabase.database().reference().child("Tickets")
     
+    
+    static func UpdatePayTicket(ticket: Ticket, isPaid: Bool ){
+        ref.child(ticket.ticket_ID!).updateChildValues(["paid": isPaid])
+        UserManager.ref.child(ticket.user_ID!).child("tickets").updateChildValues([ticket.ticket_ID! : isPaid])
+    }
     static func GetTicket(id: String, restaurant: String, completionHandler: @escaping (_ ticket: Ticket) -> ()) {
         
         let ticket = Ticket()

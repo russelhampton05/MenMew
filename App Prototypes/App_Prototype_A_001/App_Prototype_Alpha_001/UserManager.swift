@@ -19,6 +19,8 @@ class UserManager{
     
     static let ref = FIRDatabase.database().reference().child("Users")
     
+    
+    
     static func AddUser(user: User){
         
         //Create new user entry on database
@@ -71,19 +73,19 @@ class UserManager{
                 
                 let semTicket = DispatchGroup.init()
 
-                //note to self : this needs to merge all open tickets into one. I'll add it to my to do : Russel
-                for openTicket in openTickets {
+                
+               for openTicket in openTickets {
                     
                                     semTicket.enter()
                     
                     TicketManager.GetTicket(id: openTicket, restaurant: restaurant)	{
                         ticket in
                         
-                        currentTicket = ticket
                         
-                        if currentTicket.restaurant_ID == restaurant {
-                            semTicket.leave()
+                        if ticket.restaurant_ID == restaurant {
+                             currentTicket = ticket
                         }
+                        semTicket.leave()
                     }
                 }
                 
