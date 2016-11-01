@@ -18,6 +18,7 @@ class TicketManager {
     
     static func UpdatePayTicket(ticket: Ticket, isPaid: Bool ){
         ref.child(ticket.ticket_ID!).updateChildValues(["paid": isPaid])
+        ref.child(ticket.ticket_ID!).child("tip").setValue(ticket.tip)
         UserManager.ref.child(ticket.user_ID!).child("tickets").updateChildValues([ticket.ticket_ID! : isPaid])
     }
     static func GetTicket(id: String, restaurant: String, completionHandler: @escaping (_ ticket: Ticket) -> ()) {
@@ -39,6 +40,8 @@ class TicketManager {
                 ticket.desc = value?["desc"] as? String
                 ticket.confirmed = value?["confirmed"] as? Bool
                 ticket.status = "Ordering"
+                ticket.total = value?["total"] as? Double
+                ticket.tip = value?["tip"] as? Double
             
                 //ItemsOrdered is the array of items ordered for the table
                 let menuItems = value?["itemsOrdered"] as? NSDictionary

@@ -155,6 +155,9 @@ class UserManager{
         TicketManager.ref.child(ticket.ticket_ID!).child("confirmed").setValue(ticket.confirmed)
         TicketManager.ref.child(ticket.ticket_ID!).child("status").setValue(ticket.status)
         
+        //Update current total
+        TicketManager.ref.child(ticket.ticket_ID!).child("total").setValue(ticket.total)
+        
         var itemFreq: [String:Int] = [:]
         
         for item in ticket.itemsOrdered! {

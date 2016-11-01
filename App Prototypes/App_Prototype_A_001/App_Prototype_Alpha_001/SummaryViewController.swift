@@ -45,8 +45,7 @@ class SummaryViewController : UITableViewController {
         
         checkTicketStatus()
 
-        self.calculateTax()
-        self.calculateRunningTotal()
+        
     }
     
     //Load summary details in table
@@ -65,6 +64,16 @@ class SummaryViewController : UITableViewController {
             price.text = formatter.string(from: priceHolder as NSNumber)
             
             total += priceHolder
+            
+        }
+        
+        if indexPath.row == (ticket?.itemsOrdered?.count)! - 1 {
+            
+
+                self.calculateTax()
+                self.calculateRunningTotal()
+            
+            
         }
 
         return cell
@@ -184,6 +193,9 @@ class SummaryViewController : UITableViewController {
         ticket!.timestamp = dateFormatter.string(from: currentDate)
         ticket!.confirmed = true
         ticket!.status = "Order Placed"
+        
+        //Set the total
+        ticket!.total = runningTotal
         
         UserManager.SetTicket(user: currentUser!, ticket: ticket!, toRemove: ticketsToRemove) {
             completed in

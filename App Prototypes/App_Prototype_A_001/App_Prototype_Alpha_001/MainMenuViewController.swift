@@ -132,6 +132,8 @@ class MainMenuViewController: UITableViewController{
     }
  
     @IBAction func unwindToMain(_ sender: UIStoryboardSegue) {
+        self.navigationController?.isNavigationBarHidden = false
+        
         if let sourceVC = sender.source as? MenuDetailsViewController {
             ticket = sourceVC.ticket
             

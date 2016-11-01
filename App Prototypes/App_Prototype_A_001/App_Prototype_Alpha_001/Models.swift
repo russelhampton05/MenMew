@@ -117,6 +117,8 @@ class Ticket {
     var desc: String?
     var confirmed: Bool?
     var status: String?
+    var total: Double?
+    var tip: Double?
     
     init() {
         
@@ -129,9 +131,11 @@ class Ticket {
         self.desc = ""
         self.confirmed = false
         self.status = "Ordering"
+        self.total = 0.0
+        self.tip = 0.0
     }
     
-    init(ticket_ID: String, user_ID: String, restaurant_ID: String, tableNum: String, timestamp: String, paid: Bool, itemsOrdered:[MenuItem]?, desc: String?, confirmed: Bool?, status: String?) {
+    init(ticket_ID: String, user_ID: String, restaurant_ID: String, tableNum: String, timestamp: String, paid: Bool, itemsOrdered:[MenuItem]?, desc: String?, confirmed: Bool?, status: String?, total: Double?, tip: Double?) {
         self.ticket_ID = ticket_ID
         self.user_ID = user_ID
         self.restaurant_ID = restaurant_ID
@@ -142,6 +146,8 @@ class Ticket {
         self.desc = desc
         self.confirmed = confirmed
         self.status = status
+        self.total = total
+        self.tip = tip
     }
     
     init(snapshot: FIRDataSnapshot) {
@@ -159,7 +165,8 @@ class Ticket {
         self.desc = snapshotValue["desc"] as? String
         self.confirmed = snapshotValue["confirmed"] as? Bool
         self.status = snapshotValue["status"] as? String
-        
+        self.total = snapshotValue["total"] as? Double
+        self.tip = snapshotValue["tip"] as? Double
         
         MenuItemManager.GetMenuItem(ids: snapshotValue["itemsOrdered"]?.allKeys as! [String]) {
             items in

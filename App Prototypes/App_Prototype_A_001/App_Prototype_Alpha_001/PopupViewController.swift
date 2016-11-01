@@ -19,7 +19,7 @@ class PopupViewController: UIViewController {
     var customMessage = String()
     var condition: String?
     var register = false
-    var item: String?
+    var doubleValue: Double?
 
     
     override func viewDidLoad() {
@@ -92,7 +92,7 @@ class PopupViewController: UIViewController {
         }
         else if self.condition == "PayOrder" {
             if let payVC = self.parent as? PaymentDetailsViewController {
-                //Segue to payment confirmation page
+                payVC.performSegue(withIdentifier: "PaymentSummarySegue", sender: payVC)
             }
         }
     }
@@ -114,7 +114,7 @@ class PopupViewController: UIViewController {
             addedLabel.text = "Error in retrieving QR code data. Please scan again."
         }
         else if context == "PayOrder" {
-            addedLabel.text = "Confirm paying order with " + self.item! + "?"
+            addedLabel.text = "Confirm paying for this ticket?"
         }
         else {
             addedLabel.text = context

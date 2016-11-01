@@ -37,6 +37,7 @@
 		945C697A1D8EDFCB0022C83A /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945C69711D8EDFCB0022C83A /* SummaryViewController.swift */; };
 		945C697B1D8EDFCB0022C83A /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945C69731D8EDFCB0022C83A /* SWRevealViewController.m */; };
 		945C697D1D8EDFE70022C83A /* CircleTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945C697C1D8EDFE70022C83A /* CircleTransition.swift */; };
+		94614A2D1DC8E96A00EED80B /* PaymentSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94614A2C1DC8E96A00EED80B /* PaymentSummaryViewController.swift */; };
 		94656EE21DC7D875003E15B2 /* PaymentDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94656EE11DC7D875003E15B2 /* PaymentDetailsViewController.swift */; };
 		94656EE51DC7DAE4003E15B2 /* PaymentPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94656EE41DC7DAE4003E15B2 /* PaymentPickerViewController.swift */; };
 		947F63271DBD38AC00ABF04F /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947F63261DBD38AC00ABF04F /* PaymentViewController.swift */; };
@@ -107,6 +108,7 @@
 		945C69721D8EDFCB0022C83A /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		945C69731D8EDFCB0022C83A /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		945C697C1D8EDFE70022C83A /* CircleTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleTransition.swift; sourceTree = "<group>"; };
+		94614A2C1DC8E96A00EED80B /* PaymentSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentSummaryViewController.swift; sourceTree = "<group>"; };
 		94656EE11DC7D875003E15B2 /* PaymentDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentDetailsViewController.swift; sourceTree = "<group>"; };
 		94656EE41DC7DAE4003E15B2 /* PaymentPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentPickerViewController.swift; sourceTree = "<group>"; };
 		947F63261DBD38AC00ABF04F /* PaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
@@ -304,6 +306,7 @@
 			isa = PBXGroup;
 			children = (
 				94656EE11DC7D875003E15B2 /* PaymentDetailsViewController.swift */,
+				94614A2C1DC8E96A00EED80B /* PaymentSummaryViewController.swift */,
 			);
 			name = "Payment Controllers";
 			sourceTree = "<group>";
@@ -599,6 +602,7 @@
 				945C69781D8EDFCB0022C83A /* RestaurantViewController.swift in Sources */,
 				4A54AC6F1DA810F4008C7E57 /* CookTypePickerViewController.swift in Sources */,
 				947F63271DBD38AC00ABF04F /* PaymentViewController.swift in Sources */,
+				94614A2D1DC8E96A00EED80B /* PaymentSummaryViewController.swift in Sources */,
 				4A0E979D1D9C0CC900ECA82F /* ProfileViewController.swift in Sources */,
 				4A9B5D4B1D91D023009F2F72 /* OrderConfirmationViewController.swift in Sources */,
 				945C69751D8EDFCB0022C83A /* MenuCell.swift in Sources */,
