@@ -139,7 +139,7 @@ class UserManager{
             uuid = uuid.replacingOccurrences(of: "-", with: "")
 
             currentTicket.user_ID = user.ID
-            currentTicket.tableNum = "33"
+            currentTicket.tableNum = "0"
             currentTicket.restaurant_ID = restaurant
             currentTicket.ticket_ID = uuid
             currentTicket.desc = UserManager.randomString(length: 6)
@@ -149,7 +149,13 @@ class UserManager{
             currentTicket.tip = 0.0
             currentTicket.total = 0.0
             
-            completionHandler(currentTicket)
+            SetTicket(user: user, ticket: currentTicket, toRemove: nil) {
+                completed in
+                
+                if completed {
+                    completionHandler(currentTicket)
+                }
+            }
         }
     }
     

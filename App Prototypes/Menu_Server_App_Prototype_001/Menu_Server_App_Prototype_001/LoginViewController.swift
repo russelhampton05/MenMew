@@ -99,6 +99,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     self.usernameField.text = ""
                     self.passwordField.text = ""
                     
+                    ServerManager.GetServer(id: user!.uid) {
+                        server in
+                        
+                        if server.ID != nil {
+                            
+                            currentServer = server
+                        }
+                    }
+                    
                     self.performSegue(withIdentifier: "RestaurantListSegue", sender: self)
                 }
                 else {

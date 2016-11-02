@@ -36,7 +36,7 @@ class TicketManager {
                 ticket.ticket_ID = id
                 ticket.user_ID = value?["user"] as? String
                 ticket.restaurant_ID = value?["restaurant"] as? String
-                ticket.tableNum = value?["tableNum"] as? String
+                ticket.tableNum = value?["table"] as? String
                 ticket.timestamp = value?["timestamp"] as? String
                 ticket.paid = value?["paid"] as? Bool
                 ticket.desc = value?["desc"] as? String
@@ -50,32 +50,41 @@ class TicketManager {
             
                 var itemArray: [String] = []
                 var quantityArray: [Int] = []
-                for item in (menuItems?.allKeys)! {
-                    itemArray.append(item as! String)
-                    quantityArray.append(menuItems?.value(forKey: item as! String) as! Int)
-                }
-            
-                let semItem = DispatchGroup.init()
-                semItem.enter()
-                
-                MenuItemManager.GetMenuItem(ids: itemArray) {
-                    items in
-                
-                    var orderedArray: [MenuItem] = []
-                
-                    //Build the array of tuples
-                    for index in 0...items.count-1 {
-                        orderedArray.append(items[index])
+                if menuItems != nil {
+                    for item in (menuItems?.allKeys)! {
+                        itemArray.append(item as! String)
+                        quantityArray.append(menuItems?.value(forKey: item as! String) as! Int)
                     }
-                
-                    ticket.itemsOrdered = orderedArray
-                
-                    semItem.leave()
+                    
+                    let semItem = DispatchGroup.init()
+                    semItem.enter()
+                    
+                    MenuItemManager.GetMenuItem(ids: itemArray) {
+                        items in
+                        
+                        var orderedArray: [MenuItem] = []
+                        
+                        //Build the array of tuples
+                        for index in 0...items.count-1 {
+                            orderedArray.append(items[index])
+                        }
+                        
+                        ticket.itemsOrdered = orderedArray
+                        
+                        semItem.leave()
+                    }
+                    
+                    semItem.notify(queue: DispatchQueue.main, execute: {
+                        completionHandler(ticket) })
                 }
+                
+                else {
+                    ticket.itemsOrdered = []
+                    completionHandler(ticket)
+                }
+
+            }
             
-                semItem.notify(queue: DispatchQueue.main, execute: {
-                    completionHandler(ticket) })
-                }
             else {
                 completionHandler(ticket)
             }
