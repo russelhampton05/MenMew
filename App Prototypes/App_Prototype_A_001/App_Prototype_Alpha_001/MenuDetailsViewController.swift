@@ -70,7 +70,10 @@ class MenuDetailsViewController: UITableViewController {
         cell.foodTitle.text = menu_group?.items![(indexPath as NSIndexPath).row].title
         cell.foodPrice.text = (NSString(format: "$%.2f", (menu_group?.items![(indexPath as NSIndexPath).row].price!)!) as String)
         cell.foodDesc.text = menu_group?.items![(indexPath as NSIndexPath).row].desc
-        cell.foodImage.image = UIImage(named: (menu_group?.items![(indexPath as NSIndexPath).row].image)!)
+        
+        let url = URL(string: (menu_group?.items![(indexPath as NSIndexPath).row].image)!)
+        let data = try? Data(contentsOf: url!)
+        cell.foodImage.image = UIImage(data: data!)
         
         return cell
     }

@@ -84,8 +84,17 @@ class UserManager{
                         
                         if ticket.restaurant_ID == restaurant {
                              currentTicket = ticket
+                            
+                            semTicket.leave()
                         }
-                        semTicket.leave()
+                        
+                        else {
+                            CreateTicket(user: user, ticket: nil, restaurant: restaurant) {
+                                ticket in
+                                
+                                semTicket.leave()
+                            }
+                        }   
                     }
                 }
                 
