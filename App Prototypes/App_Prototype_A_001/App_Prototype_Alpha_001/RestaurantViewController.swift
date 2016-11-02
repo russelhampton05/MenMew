@@ -41,6 +41,7 @@ class RestaurantViewController: UIViewController {
     
     var menu: Menu?
     var counter: Int = 0
+    var menuID : String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -118,7 +119,7 @@ class RestaurantViewController: UIViewController {
     }
     
     func loadTicketInformation() {
-        UserManager.GetTicket(user: currentUser!, restaurant: "fac4b7243c8d47d69a309fb7471d21b9") {
+        UserManager.GetTicket(user: currentUser!, restaurant: (menu?.rest_id!)!) {
             ticket in
             
             if ticket != nil {
@@ -131,7 +132,7 @@ class RestaurantViewController: UIViewController {
     }
     
     func loadRestaurantInformation() {
-        MenuManager.GetMenu(id: "fac4b7243c8d47d69a309fb7471d21b9") {
+        MenuManager.GetMenu(id: (menuID)!) {
             menu in
             
             self.menu = menu
@@ -140,7 +141,7 @@ class RestaurantViewController: UIViewController {
                 self.printError()
             }
             else {
-                currentRestaurant = "fac4b7243c8d47d69a309fb7471d21b9"
+                currentRestaurant =  (menu.rest_id!)
                 self.loadTicketInformation()
                 }
             }

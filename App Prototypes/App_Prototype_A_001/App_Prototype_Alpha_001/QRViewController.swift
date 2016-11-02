@@ -40,6 +40,8 @@ class QRViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate
         self.configureVideoCapture()
         self.addVideoPreviewLayer()
         self.initializeQRView()
+
+     //   performSegue(withIdentifier: "MenuLoadSegue", sender: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -166,7 +168,7 @@ class QRViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let menuLoadVC = segue.destination as! RestaurantViewController
         
-      //menuLoadVC.connectionURL = connectionURL
+      menuLoadVC.menuID  = String(describing: connectionURL)
     }
     
     
