@@ -83,6 +83,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                     
                     UserManager.AddUser(user: newUser)
                     
+                    currentUser = newUser
+                    
                     self.emailField.text = ""
                     self.passwordField.text = ""
                     self.confirmPasswordField.text = ""

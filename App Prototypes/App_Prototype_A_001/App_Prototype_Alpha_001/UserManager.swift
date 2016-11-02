@@ -95,8 +95,11 @@ class UserManager{
                 
             }
             else {
-                tickets = nil
-                completionHandler(currentTicket)
+                CreateTicket(user: user, ticket: nil, restaurant: restaurant) {
+                    ticket in
+                    
+                    completionHandler(ticket)
+                }
             }
 
             
@@ -132,11 +135,19 @@ class UserManager{
         }
         else {
             //Otherwise, create a new ticket entry by generating a UID
-            let uuid = UUID().uuidString
+            var uuid = UUID().uuidString.lowercased()
+            uuid = uuid.replacingOccurrences(of: "-", with: "")
+
+            currentTicket.user_ID = user.ID
+            currentTicket.tableNum = "33"
+            currentTicket.restaurant_ID = restaurant
             currentTicket.ticket_ID = uuid
+            currentTicket.desc = UserManager.randomString(length: 6)
             currentTicket.status = "Ordering"
             currentTicket.confirmed = false
             currentTicket.paid = false
+            currentTicket.tip = 0.0
+            currentTicket.total = 0.0
             
             completionHandler(currentTicket)
         }
@@ -148,7 +159,14 @@ class UserManager{
     
     static func SetTicket(user: User, ticket: Ticket, toRemove: [String]?, completionHandler: @escaping (_ completed: Bool) -> ()) {
         
+        //Update user details
         UserManager.ref.child(user.ID).child("tickets").child(ticket.ticket_ID!).setValue(false)
+        
+        //Update restaurant, table information
+        TicketManager.ref.child(ticket.ticket_ID!).child("restaurant").setValue(ticket.restaurant_ID)
+        TicketManager.ref.child(ticket.ticket_ID!).child("desc").setValue(ticket.desc)
+        TicketManager.ref.child(ticket.ticket_ID!).child("table").setValue(ticket.tableNum)
+        TicketManager.ref.child(ticket.ticket_ID!).child("user").setValue(ticket.user_ID)
         
         //Update timestamp, confirmed and status
         TicketManager.ref.child(ticket.ticket_ID!).child("timestamp").setValue(ticket.timestamp)
@@ -156,7 +174,10 @@ class UserManager{
         TicketManager.ref.child(ticket.ticket_ID!).child("status").setValue(ticket.status)
         
         //Update current total
+        TicketManager.ref.child(ticket.ticket_ID!).child("paid").setValue(ticket.paid)
+        TicketManager.ref.child(ticket.ticket_ID!).child("tip").setValue(ticket.tip)
         TicketManager.ref.child(ticket.ticket_ID!).child("total").setValue(ticket.total)
+        
         
         var itemFreq: [String:Int] = [:]
         
@@ -175,7 +196,25 @@ class UserManager{
             TicketManager.ref.child(ticket.ticket_ID!).child("itemsOrdered").child(key).setValue(value)
         }
         
+
+        
         completionHandler(true)
+    }
+    
+    static func randomString(length: Int) -> String {
+        
+        let letters : NSString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        let len = UInt32(letters.length)
+        
+        var randomString = ""
+        
+        for _ in 0 ..< length {
+            let rand = arc4random_uniform(len)
+            var nextChar = letters.character(at: Int(rand))
+            randomString += NSString(characters: &nextChar, length: 1) as String
+        }
+        
+        return randomString
     }
    
 }

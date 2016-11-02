@@ -15,11 +15,12 @@ class PopupViewController: UIViewController {
     @IBOutlet weak var cancelButton: UIButton!
     
     var menuItem: String?
-    var ticket: String?
+    var ticketString: String?
     var customMessage = String()
     var condition: String?
     var register = false
     var doubleValue: Double?
+    var ticket: Ticket?
 
     
     override func viewDidLoad() {
@@ -77,6 +78,21 @@ class PopupViewController: UIViewController {
         else if self.condition == "CancelMenuItems" {
             if let summaryP = self.parent as? SummaryViewController {
                
+                var toRemove: [String] = []
+                
+                for item in ticket!.itemsOrdered! {
+                    toRemove.append(item.item_ID!)
+                }
+                
+                ticket!.itemsOrdered = []
+                
+                UserManager.SetTicket(user: currentUser!, ticket: ticket!, toRemove: toRemove) {
+                    completed in
+                    
+                    if completed {
+                        
+                    }
+                }
                 summaryP.performSegue(withIdentifier: "UnwindMenu", sender: summaryP)
             }
         }

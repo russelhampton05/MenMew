@@ -54,6 +54,7 @@ class PaymentDetailsViewController: UIViewController, UITextFieldDelegate {
             
             TicketManager.UpdatePayTicket(ticket: ticket!, isPaid: true)
             
+            ticket!.paid = true
             paySumVC.ticket = ticket
         }
     }

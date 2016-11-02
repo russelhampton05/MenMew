@@ -17,22 +17,6 @@ import Firebase
 class RestaurantViewController: UIViewController {
     
 
-    /*
-
-    var restaurantTitle: String?
-    var location: String?
-    var tableNum: Int?
-    var dataDictionary: [[String: Any]]?
-    var categoryArray = [(name: String, desc: String)]()
-    var menuGroup = [MenuItem]()
-    var menuArray = [[MenuItem]]()
- 
- 
-    var connectionURL: URL?
- 
-    */
-    
-
 
     //IBOutlets
 
@@ -132,7 +116,7 @@ class RestaurantViewController: UIViewController {
     }
     
     func loadRestaurantInformation() {
-        MenuManager.GetMenu(id: (menuID)!) {
+        MenuManager.GetMenu(id: menuID!) {
             menu in
             
             self.menu = menu
@@ -141,7 +125,7 @@ class RestaurantViewController: UIViewController {
                 self.printError()
             }
             else {
-                currentRestaurant =  (menu.rest_id!)
+                currentRestaurant =  menu.rest_id!
                 self.loadTicketInformation()
                 }
             }

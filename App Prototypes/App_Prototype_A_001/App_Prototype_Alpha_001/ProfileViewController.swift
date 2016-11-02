@@ -15,17 +15,12 @@ class ProfileViewController: UIViewController {
     @IBOutlet var emailButton: UIButton!
     @IBOutlet var passwordButton: UIButton!
     @IBOutlet var nameButton: UIButton!
-    @IBOutlet var paymentButton: UIButton!
     @IBOutlet var profilePhoto: UIImageView!
     
     @IBOutlet var nameTitle: UILabel!
     @IBOutlet var locationTitle: UILabel!
     
     var restaurantName: String?
-    var currentPayment: Payment?
-    var paymentList: [Payment] = []
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,16 +28,9 @@ class ProfileViewController: UIViewController {
         //Display current user information
         if let user = FIRAuth.auth()?.currentUser {
             
-            //Eventually a user model will have more data such as payment information
-            //Test payment
-            if currentPayment == nil {
-                currentPayment = Payment(name: "XXXX-1234", type: "VISA")
-            }
-            
             emailButton.setTitle(user.email, for: .normal)
             passwordButton.setTitle(String(repeating: "*", count: user.email!.characters.count), for: .normal)
             nameButton.setTitle(user.displayName, for: .normal)
-            paymentButton.setTitle(currentPayment!.name, for: .normal)
             
             nameTitle.text = user.displayName
             locationTitle.text = restaurantName!
@@ -56,14 +44,7 @@ class ProfileViewController: UIViewController {
         else {
             
         }
-        
-        
-        //Dummy data for payments
-        //Test data
-        paymentList.append(Payment(name: "XXXX-1234", type: "VISA"))
-        paymentList.append(Payment(name: "XXXX-4567", type: "MasterCard"))
-        paymentList.append(Payment(name: "jdoe@gmail.com", type: "PayPal"))
-        paymentList.append(Payment(name: "XX23ARW2", type: "Rewards Card"))
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -88,9 +69,7 @@ class ProfileViewController: UIViewController {
         initiatePopup(input: "Name")
     }
     
-    @IBAction func paymentButtonPressed(_ sender: AnyObject) {
-    }
-    
+
     //Instantiate the popup
     func initiatePopup(input: String) {
         
@@ -102,24 +81,5 @@ class ProfileViewController: UIViewController {
         self.addChildViewController(updatePopup)
         self.view.addSubview(updatePopup.view)
         updatePopup.didMove(toParentViewController: self)
-    }
-    
-    //Segue to payment page
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "PaymentSegue" {
-            let paymentVC = segue.destination as! PaymentViewController
-            
-            paymentVC.currentPayment = currentPayment
-            paymentVC.paymentList = paymentList
-        }
-    }
-    
-    //Unwind Segue
-    @IBAction func unwindToPayments(_ sender: UIStoryboardSegue) {
-        if let sourceVC = sender.source as? PaymentViewController {
-            currentPayment = sourceVC.currentPayment
-            
-            paymentButton.setTitle(currentPayment!.name, for: .normal)
-        }
     }
 }

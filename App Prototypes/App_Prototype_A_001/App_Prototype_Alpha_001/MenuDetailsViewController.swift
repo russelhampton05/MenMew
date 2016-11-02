@@ -41,7 +41,7 @@ class MenuDetailsViewController: UITableViewController {
         categoryLabel.title = menu_group!.title
         
         if  ticket == nil {
-            UserManager.CreateTicket(user: currentUser!, ticket: nil, restaurant: menu!.rest_id) {
+            UserManager.CreateTicket(user: currentUser!, ticket: nil, restaurant: menu!.rest_id!) {
                 ticket in
             
                 self.ticket = ticket

@@ -19,7 +19,9 @@ class TicketManager {
     static func UpdatePayTicket(ticket: Ticket, isPaid: Bool ){
         ref.child(ticket.ticket_ID!).updateChildValues(["paid": isPaid])
         ref.child(ticket.ticket_ID!).child("tip").setValue(ticket.tip)
-        UserManager.ref.child(ticket.user_ID!).child("tickets").updateChildValues([ticket.ticket_ID! : isPaid])
+        
+        //Update in Users
+        UserManager.ref.child(ticket.user_ID!).child("tickets").child(ticket.ticket_ID!).setValue(true)
     }
     static func GetTicket(id: String, restaurant: String, completionHandler: @escaping (_ ticket: Ticket) -> ()) {
         

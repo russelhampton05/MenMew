@@ -50,7 +50,7 @@ class MainMenuViewController: UITableViewController{
         tableView.rowHeight = UITableViewAutomaticDimension
         
         //Check for existing orders
-        if ticket != nil {
+        if ticket != nil && ticket!.itemsOrdered!.count > 0 {
             ordersButton.isEnabled = true
         }
         else {
@@ -69,12 +69,9 @@ class MainMenuViewController: UITableViewController{
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ("MenuCell")) as UITableViewCell!
         
-         cell?.textLabel!.text = menu?.menu_groups?[(indexPath as NSIndexPath).row].title
-         cell?.detailTextLabel!.text = menu?.menu_groups?[(indexPath as NSIndexPath).row].desc
+        cell?.textLabel!.text = menu?.menu_groups?[(indexPath as NSIndexPath).row].title
+        cell?.detailTextLabel!.text = menu?.menu_groups?[(indexPath as NSIndexPath).row].desc
 
-       // cell?.textLabel!.text = categoryArray[(indexPath as NSIndexPath).row].name
-      //  cell?.detailTextLabel!.text = categoryArray[(indexPath as NSIndexPath).row].desc
-        
         let bgView = UIView()
         bgView.backgroundColor = UIColor.white
         cell?.selectedBackgroundView = bgView
@@ -114,45 +111,54 @@ class MainMenuViewController: UITableViewController{
         else if segue.identifier == "SettingsSegue" {
             let settingsVC = segue.destination as! SettingsViewController
             
-            settingsVC.ticket = ticket        }
+            settingsVC.ticket = ticket
+        }
         else if segue.identifier == "OrderSummarySegue" {
             let orderVC = segue.destination as! SummaryViewController
             
-            orderVC.ticket = currentUser?.ticket
+            orderVC.ticket = ticket!
         }
     }
     
-    func reloadDetails(){
-        if (self.revealViewController()) != nil {
-            print("test")
-        }
-
-        //May be deleted
-
-    }
  
+    //Unwind Segues
     @IBAction func unwindToMain(_ sender: UIStoryboardSegue) {
         self.navigationController?.isNavigationBarHidden = false
         
         if let sourceVC = sender.source as? MenuDetailsViewController {
             ticket = sourceVC.ticket
             
-            if ticket?.itemsOrdered?.count == 0 {
-                ordersButton.isEnabled = false
+            if (ticket?.itemsOrdered?.count)! > 0 {
+                ordersButton.isEnabled = true
             }
         }
         else if let sourceVC = sender.source as? OrderConfirmationViewController {
             ticket = sourceVC.ticket
             
-            if ticket?.itemsOrdered?.count == 0 {
-                ordersButton.isEnabled = false
+            if (ticket?.itemsOrdered?.count)! > 0 {
+                ordersButton.isEnabled = true
             }
         }
         else if let sourceVC = sender.source as? SummaryViewController {
             ticket = sourceVC.ticket
             
-            if ticket?.itemsOrdered?.count == 0 {
+            ordersButton.isEnabled = false
+        }
+        else if let sourceVC = sender.source as? PaymentSummaryViewController {
+            ticket = sourceVC.ticket
+            
+            if ticket!.paid! {
                 ordersButton.isEnabled = false
+            }
+            
+            //Create new ticket for potential future orders
+            UserManager.CreateTicket(user: currentUser!, ticket: nil, restaurant: currentRestaurant!) {
+                ticket in
+                
+                self.ticket = nil
+                self.ticket = ticket
+                
+                currentUser!.ticket = self.ticket
             }
         }
     }

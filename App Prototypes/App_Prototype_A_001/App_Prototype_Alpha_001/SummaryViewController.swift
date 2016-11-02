@@ -149,7 +149,7 @@ class SummaryViewController : UITableViewController {
         self.view.addSubview(cancelPopup.view)
         cancelPopup.didMove(toParentViewController: self)
         cancelPopup.addMessage(context: "CancelMenuItems")
-        ticket?.itemsOrdered?.removeAll()
+        cancelPopup.ticket = ticket!
         tableView.isScrollEnabled = false
     }
     

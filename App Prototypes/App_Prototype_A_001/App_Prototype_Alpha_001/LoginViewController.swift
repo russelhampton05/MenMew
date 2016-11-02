@@ -98,7 +98,16 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     self.usernameField.text = ""
                     self.passwordField.text = ""
                     
-                    self.performSegue(withIdentifier: "QRScanSegue", sender: self)
+                    UserManager.GetUser(id: user!.uid) {
+                        user in
+                        
+                        if user.ID != nil {
+                            
+                            currentUser = user
+                            
+                            self.performSegue(withIdentifier: "QRScanSegue", sender: self)
+                        }
+                    }
                 }
                 else {
                    self.showPopup(message: (error?.localizedDescription)!)
@@ -124,6 +133,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func logoutButtonPressed(_ sender: AnyObject) {
         try! FIRAuth.auth()?.signOut()
+        currentUser = nil
         
         self.usernameField.text = ""
         self.passwordField.text = ""
