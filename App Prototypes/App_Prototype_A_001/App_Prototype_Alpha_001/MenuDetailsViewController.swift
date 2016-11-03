@@ -8,6 +8,8 @@
 
 import UIKit
 
+    var imageCache = NSMutableDictionary()
+
 class MenuDetailsViewController: UITableViewController {
     
     var menu: Menu?
@@ -16,19 +18,18 @@ class MenuDetailsViewController: UITableViewController {
     var ordered: Bool = false
     var ticket : Ticket?
     var menu_group:MenuGroup?
-    //Can load data directly from the parent menu (which loads from JSON)
-    //var menuArray: [MenuItem]?
-    //var fullMenu: [[MenuItem]]?
     var categoryArray = [(name: String, desc: String)]()
     var categoryTitle: String?
     var restaurantName: String?
+    var currentTable: String?
     var curentCell: MenuCell?
     var indexPaths : Array<IndexPath> = []
     
+    
+    //IBOutlets
     @IBOutlet var categoryLabel: UINavigationItem!
     @IBOutlet weak var doneButton: UIBarButtonItem!
     @IBOutlet var backButton: UIBarButtonItem!
-    
     
     
     override func viewDidLoad() {
@@ -41,14 +42,15 @@ class MenuDetailsViewController: UITableViewController {
         categoryLabel.title = menu_group!.title
         
         if  ticket == nil {
-            UserManager.CreateTicket(user: currentUser!, ticket: nil, restaurant: menu!.rest_id!) {
-                ticket in
-            
-                self.ticket = ticket
+            doneButton.isEnabled = false
+        }
+        else if ticket?.itemsOrdered != nil {
+            if (ticket?.itemsOrdered?.count)! > 0 && ordered == false {
+                doneButton.isEnabled = true
             }
         }
-        else if (ticket?.itemsOrdered?.count)! > 0 && ordered == false {
-            doneButton.isEnabled = true
+        else {
+            doneButton.isEnabled = false
         }
     }
 
@@ -71,7 +73,8 @@ class MenuDetailsViewController: UITableViewController {
         cell.foodPrice.text = (NSString(format: "$%.2f", (menu_group?.items![(indexPath as NSIndexPath).row].price!)!) as String)
         cell.foodDesc.text = menu_group?.items![(indexPath as NSIndexPath).row].desc
 
-        cell.foodImage.getImage(source: (menu_group?.items![(indexPath as NSIndexPath).row].image)!)
+        cell.foodImage.getImage(urlString: (menu_group?.items![(indexPath as NSIndexPath).row].image)!)
+
         
         return cell
     }
@@ -153,7 +156,7 @@ class MenuDetailsViewController: UITableViewController {
     @IBAction func addMenuItem(_ sender: AnyObject) {
         
         //Real condition will be checking if the menu item allows for extra menu choices
-        if menu_group?.title == "Specials" || menu_group?.title == "Lunch" {
+        if menu_group?.title == "Memes" {
             let detailPopup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MenuPopup") as! MenuDetailPopupViewController
             
             //Here, in production the choices will be loaded from Firebase
@@ -184,6 +187,17 @@ class MenuDetailsViewController: UITableViewController {
     //Display the popup confirmation modal
     @IBAction func addOrder(_ sender: AnyObject) {
         
+        if ticket == nil {
+            UserManager.CreateTicket(user: currentUser!, ticket: nil, restaurant: menu!.rest_id!) {
+                ticket in
+                
+                UserManager.UpdateTicketTable(user: currentUser!, ticket: ticket.ticket_ID!, table: self.currentTable!)
+                
+                
+                self.ticket = ticket
+            }
+        }
+        
         if doneButton.isEnabled == false {
             doneButton.isEnabled = true
         }
@@ -201,7 +215,9 @@ class MenuDetailsViewController: UITableViewController {
         confirmPopup.addMessage(context: "AddMenuItem")
         
         closeCell()
-        UserManager.UpdateTicketStatus(user: currentUser!, ticket: ticket!.ticket_ID!)
+        
+        
+        UserManager.UpdateTicketStatus(user: currentUser!, ticket: ticket!.ticket_ID!, status: "Ordering")
         
         tableView.isScrollEnabled = false
     }
@@ -260,20 +276,34 @@ class MenuDetailsViewController: UITableViewController {
             }
         }
     }
+    
     }
     extension UIImageView {
-        func getImage(source: String) {
-            URLSession.shared.dataTask(with: NSURL(string: source)! as URL, completionHandler: { (data, response, error) -> Void in
-                if error != nil {
-                    print(error!.localizedDescription)
-                }
-                
-                DispatchQueue.main.async (execute: { () -> Void in
+        func getImage(urlString: String) {
+            
+            self.image = nil
+            
+            if let img = imageCache.value(forKey: urlString) as? UIImage{
+                self.image = img
+            }
+            else{
+                let session = URLSession.shared
+                let task = session.dataTask(with: NSURL(string: urlString)! as URL, completionHandler: { (data, response, error) -> Void in
                     
-                    let image = UIImage(data: data!)
-                    self.image = image
+                    if(error == nil){
+                        
+                        if let img = UIImage(data: data!) {
+                            imageCache.setValue(img, forKey: urlString)    // Image saved for cache
+                            DispatchQueue.main.async(execute: {
+                                self.image = img
+                            })
+                        }
+                        
+                        
+                    }
                 })
-            }).resume()
+                task.resume()
+            }
         }
     }
     

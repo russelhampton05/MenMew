@@ -90,10 +90,10 @@ class PopupViewController: UIViewController {
                     completed in
                     
                     if completed {
-                        
+                        UserManager.UpdateTicketStatus(user: currentUser!, ticket: self.ticket!.ticket_ID!, status: "Order Cancelled")
                     }
                 }
-                summaryP.performSegue(withIdentifier: "UnwindMenu", sender: summaryP)
+                summaryP.performSegue(withIdentifier: "UnwindMainMenu", sender: summaryP)
             }
         }
         else if self.register {

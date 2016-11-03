@@ -16,16 +16,15 @@ import Firebase
 
 class RestaurantViewController: UIViewController {
     
-
-
     //IBOutlets
-
     @IBOutlet weak var restaurantLabel: UILabel!
     @IBOutlet weak var tableLabel: UILabel!
     
+    //Variables
     var menu: Menu?
     var counter: Int = 0
     var menuID : String?
+    var currentTable: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,12 +32,6 @@ class RestaurantViewController: UIViewController {
         
         //Check for user and restaurant IDs to load tickets
         loadRestaurantInformation()
-        
-        //get this from QR eventually
-        
-        
-        //Call on JSON Parsing
-      //  parseJSONData()
 
     }
 
@@ -64,6 +57,7 @@ class RestaurantViewController: UIViewController {
             let mainMenuVC = segue.destination as! MainMenuViewController
         
             mainMenuVC.menu = self.menu
+            mainMenuVC.currentTable = self.currentTable!
             mainMenuVC.ticket = currentUser!.ticket
         }
         else if segue.identifier == "QRReturnSegue" {
@@ -106,11 +100,21 @@ class RestaurantViewController: UIViewController {
         UserManager.GetTicket(user: currentUser!, restaurant: (menu?.rest_id!)!) {
             ticket in
             
+            //Assign current ticket and table
             if ticket.ticket_ID != nil {
+                
+                UserManager.UpdateTicketTable(user: currentUser!, ticket: ticket.ticket_ID!, table: self.currentTable!)
+                ticket.tableNum = self.currentTable!
                 currentUser!.ticket = ticket
                 
+                self.restaurantLabel.text = self.menu!.title!
+                self.tableLabel.text = "Table " + self.currentTable!
             }
-            self.performSegue(withIdentifier: "MainMenuSegue", sender: self)
+            
+            let delay = DispatchTime.now() + 1
+            DispatchQueue.main.asyncAfter(deadline: delay) {
+                self.performSegue(withIdentifier: "MainMenuSegue", sender: self)
+            }
             
         }
     }
@@ -126,6 +130,7 @@ class RestaurantViewController: UIViewController {
             }
             else {
                 currentRestaurant =  menu.rest_id!
+
                 self.loadTicketInformation()
                 }
             }

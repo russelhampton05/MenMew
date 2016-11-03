@@ -115,6 +115,7 @@ class SummaryViewController : UITableViewController {
             self.cancelButton.isHidden = true
             
             itemLabel.text = "No items here. Order something!"
+            payButton.isHidden = true
         }
     }
     
@@ -132,6 +133,10 @@ class SummaryViewController : UITableViewController {
             updateTotal(value: (ticket!.itemsOrdered?[indexPath.row].price)!)
             self.ticket!.itemsOrdered?.remove(at: indexPath.row)
             
+            //Update the ticket
+            UserManager.SetTicket(user: currentUser!, ticket: ticket!, toRemove: ticketsToRemove) {
+                completed in
+            }
             
             //Delete the row from the data source
             tableView.deleteRows(at: [indexPath], with: .fade)

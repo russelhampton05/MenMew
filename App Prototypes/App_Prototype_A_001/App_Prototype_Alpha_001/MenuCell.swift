@@ -18,29 +18,31 @@ class MenuCell : UITableViewCell {
     @IBOutlet weak var foodShadow: UIImageView!
     @IBOutlet weak var shadowHeight: NSLayoutConstraint!
     @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var descView: UIStackView!
     
     var isObserving = false
     
     //Cell heights
-    class var expandedHeight: CGFloat { get { return 300 } }
+    class var expandedHeight: CGFloat { get { return 340 } }
     class var normalHeight: CGFloat { get { return 180 } }
     
     //Check for the cell's height to show or hide details
     func checkHeight() {
         
-        UIView.animate(withDuration: 0.1, animations: {
+        UIView.animate(withDuration: 0.2, animations: {
+            self.descView.isHidden = (self.frame.size.height < MenuCell.expandedHeight)
             self.foodDesc.isHidden = (self.frame.size.height < MenuCell.expandedHeight)
             self.addButton.isHidden = (self.frame.size.height < MenuCell.expandedHeight)
         })
         
         if frame.size.height < MenuCell.expandedHeight {
-            UIView.animate(withDuration: 0.1, animations: {
+            UIView.animate(withDuration: 0.3, animations: {
                 self.shadowHeight.constant = 50
             })
         }
         else {
-            UIView.animate(withDuration: 0.1, animations: {
-                self.shadowHeight.constant = 100
+            UIView.animate(withDuration: 0.3, animations: {
+                self.shadowHeight.constant = 140
             })
         }
     }
@@ -57,6 +59,7 @@ class MenuCell : UITableViewCell {
     func ignoreFrameChanges() {
         if isObserving {
             removeObserver(self, forKeyPath: "frame")
+            self.descView.isHidden = true
             isObserving = false
         }
     }

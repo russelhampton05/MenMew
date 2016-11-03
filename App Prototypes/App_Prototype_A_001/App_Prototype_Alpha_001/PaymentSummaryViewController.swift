@@ -23,6 +23,8 @@ class PaymentSummaryViewController: UIViewController {
 
         ticketLabel.text = ticket!.desc!
         priceLabel.text = "$" + String(format: "%.2f", ticket!.total! + ticket!.tip!)
+        
+        UserManager.UpdateTicketStatus(user: currentUser!, ticket: ticket!.ticket_ID!, status: "Order Paid")
     }
 
     override func didReceiveMemoryWarning() {

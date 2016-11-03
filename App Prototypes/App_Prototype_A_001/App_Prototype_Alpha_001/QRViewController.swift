@@ -168,8 +168,13 @@ class QRViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let menuLoadVC = segue.destination as! RestaurantViewController
         
-        let restID = String(describing: connectionURL!)
+        let codeString = String(describing: connectionURL!)
+        
+        var tokens = codeString.components(separatedBy: "/")
+        let restID = tokens[0]
+        let currentTable = tokens[1]
         menuLoadVC.menuID = restID
+        menuLoadVC.currentTable = currentTable
     }
     
     
@@ -182,7 +187,7 @@ class QRViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate
         URLSession.shared.dataTask(with: connectionURL!, completionHandler: {(data, response, error) in
             if error != nil {
                 //Error
-                print(error)
+                print(error!.localizedDescription)
             } else {
                 do {
                     let jsonData = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [String: Any]

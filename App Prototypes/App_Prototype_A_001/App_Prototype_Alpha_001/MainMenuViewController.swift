@@ -26,6 +26,7 @@ class MainMenuViewController: UITableViewController{
     //Variables
     var orderArray: [(title: String, price: Double)] = []
     let transition = CircleTransition()
+    var currentTable: String?
 
     
     //@IBOutlet weak var restaurantLabel: UINavigationItem!
@@ -107,6 +108,7 @@ class MainMenuViewController: UITableViewController{
             menuVC.menu_group = menu?.menu_groups![segueIndex!]
             menuVC.ticket = self.ticket
             menuVC.restaurantName = menu?.title
+            menuVC.currentTable = self.currentTable!
         }
         else if segue.identifier == "SettingsSegue" {
             let settingsVC = segue.destination as! SettingsViewController
@@ -149,16 +151,8 @@ class MainMenuViewController: UITableViewController{
             
             if ticket!.paid! {
                 ordersButton.isEnabled = false
-            }
-            
-            //Create new ticket for potential future orders
-            UserManager.CreateTicket(user: currentUser!, ticket: nil, restaurant: currentRestaurant!) {
-                ticket in
                 
-                self.ticket = nil
-                self.ticket = ticket
-                
-                currentUser!.ticket = self.ticket
+                ticket = nil
             }
         }
     }

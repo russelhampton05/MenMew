@@ -72,34 +72,41 @@ class UserManager{
                 }
                 
                 let semTicket = DispatchGroup.init()
-
                 
-               for openTicket in openTickets {
-                    
-                                    semTicket.enter()
-                    
-                    TicketManager.GetTicket(id: openTicket, restaurant: restaurant)	{
-                        ticket in
+                if openTickets.count > 0 {
+                    for openTicket in openTickets {
                         
+                        semTicket.enter()
                         
-                        if ticket.restaurant_ID == restaurant {
-                            currentTicket = ticket
+                        TicketManager.GetTicket(id: openTicket, restaurant: restaurant)	{
+                            ticket in
                             
-                            semTicket.leave()
-                        }
-                        
-                        else {
-                            CreateTicket(user: user, ticket: nil, restaurant: restaurant) {
-                                ticket in
-                                
+                            
+                            if ticket.restaurant_ID == restaurant {
                                 currentTicket = ticket
                                 
                                 semTicket.leave()
                             }
-                        }   
+                                
+                            else {
+                                CreateTicket(user: user, ticket: nil, restaurant: restaurant) {
+                                    ticket in
+                                    
+                                    currentTicket = ticket
+                                    
+                                    semTicket.leave()
+                                }
+                            }
+                        }
                     }
                 }
-                
+                else {
+                    CreateTicket(user: user, ticket: nil, restaurant: restaurant) {
+                        ticket in
+                        
+                        currentTicket = ticket
+                    }
+                }
                 semTicket.notify(queue: DispatchQueue.main, execute: {
                     completionHandler(currentTicket)
                 })
@@ -150,7 +157,7 @@ class UserManager{
             uuid = uuid.replacingOccurrences(of: "-", with: "")
 
             currentTicket.user_ID = user.ID
-            currentTicket.tableNum = "32"
+            currentTicket.tableNum = ""
             currentTicket.restaurant_ID = restaurant
             currentTicket.ticket_ID = uuid
             currentTicket.desc = UserManager.randomString(length: 6)
@@ -177,8 +184,12 @@ class UserManager{
         }
     }
     
-    static func UpdateTicketStatus(user: User, ticket: String) {
-        TicketManager.ref.child(ticket).child("status").setValue("Ordering")
+    static func UpdateTicketStatus(user: User, ticket: String, status: String) {
+        TicketManager.ref.child(ticket).child("status").setValue(status)
+    }
+    
+    static func UpdateTicketTable(user: User, ticket: String, table: String) {
+        TicketManager.ref.child(ticket).child("table").setValue(table)
     }
     
     static func SetTicket(user: User, ticket: Ticket, toRemove: [String]?, completionHandler: @escaping (_ completed: Bool) -> ()) {
