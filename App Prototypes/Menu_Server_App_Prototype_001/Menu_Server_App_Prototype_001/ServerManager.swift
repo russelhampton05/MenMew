@@ -56,11 +56,11 @@ class ServerManager {
             }
             
             //Get list of tables
-            var tableList: [Int] = []
+            var tableList: [String] = []
             if tables != nil {
                 for item in (tables?.allKeys)! {
                     if tables?.value(forKey: item as! String) as! Bool == true {
-                        tableList.append(Int((item as? String)!)!)
+                        tableList.append((item as? String)!)
                     }
                 }
                 

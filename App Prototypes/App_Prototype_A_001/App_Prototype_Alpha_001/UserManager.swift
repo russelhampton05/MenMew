@@ -60,8 +60,8 @@ class UserManager{
             
             
             //Get tickets
-            var tickets = value?["tickets"] as? NSDictionary
-            //var currentTicketID: String?
+            let tickets = value?["tickets"] as? NSDictionary
+
             var openTickets: [String] = []
             if tickets != nil {
                 
@@ -83,7 +83,7 @@ class UserManager{
                         
                         
                         if ticket.restaurant_ID == restaurant {
-                             currentTicket = ticket
+                            currentTicket = ticket
                             
                             semTicket.leave()
                         }
@@ -91,6 +91,8 @@ class UserManager{
                         else {
                             CreateTicket(user: user, ticket: nil, restaurant: restaurant) {
                                 ticket in
+                                
+                                currentTicket = ticket
                                 
                                 semTicket.leave()
                             }
@@ -148,7 +150,7 @@ class UserManager{
             uuid = uuid.replacingOccurrences(of: "-", with: "")
 
             currentTicket.user_ID = user.ID
-            currentTicket.tableNum = "0"
+            currentTicket.tableNum = "32"
             currentTicket.restaurant_ID = restaurant
             currentTicket.ticket_ID = uuid
             currentTicket.desc = UserManager.randomString(length: 6)
@@ -157,6 +159,13 @@ class UserManager{
             currentTicket.paid = false
             currentTicket.tip = 0.0
             currentTicket.total = 0.0
+            
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            
+            let currentDate = Date()
+            
+            currentTicket.timestamp = formatter.string(from: currentDate)
             
             SetTicket(user: user, ticket: currentTicket, toRemove: nil) {
                 completed in

@@ -28,7 +28,7 @@ class TicketManager {
                 ticket.user_ID = value?["user"] as? String
                 ticket.restaurant_ID = value?["restaurant"] as? String
                 print(value?["table"] as! Int)
-                ticket.tableNum = String(describing: value?["table"] as! Int)
+                ticket.tableNum = value?["table"] as? String
                 ticket.timestamp = value?["timestamp"] as? String
                 ticket.paid = value?["paid"] as? Bool
                 ticket.desc = value?["desc"] as? String
@@ -108,6 +108,8 @@ class TicketManager {
         orderTables.append("15")
         orderTables.append("17")
         orderTables.append("21")
+        orderTables.append("22")
+        orderTables.append("0")
         
         ref.observe(.value, with: {(FIRDataSnapshot) in
             

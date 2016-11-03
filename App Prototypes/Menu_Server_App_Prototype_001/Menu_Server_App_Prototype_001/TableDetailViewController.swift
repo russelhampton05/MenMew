@@ -66,11 +66,18 @@ class TableDetailViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if ticket!.itemsOrdered!.count == 0 {
-            return 1
+        if ticket!.itemsOrdered != nil {
+            if ticket!.itemsOrdered!.count > 0 {
+                
+                    return ticket!.itemsOrdered!.count
+            
+            }
+            else {
+                return 1
+            }
         }
         else {
-            return ticket!.itemsOrdered!.count
+            return 1
         }
     }
     
@@ -79,7 +86,7 @@ class TableDetailViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath)
         
         
-        if ticket!.itemsOrdered!.count > 0 {
+        if ticket!.itemsOrdered != nil && ticket!.itemsOrdered!.count > 0 {
             cell.textLabel!.text = ticket!.itemsOrdered![indexPath.row].title
             
             let price = ticket!.itemsOrdered![indexPath.row].price!

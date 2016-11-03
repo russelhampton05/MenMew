@@ -106,7 +106,7 @@ class RestaurantViewController: UIViewController {
         UserManager.GetTicket(user: currentUser!, restaurant: (menu?.rest_id!)!) {
             ticket in
             
-            if ticket != nil {
+            if ticket.ticket_ID != nil {
                 currentUser!.ticket = ticket
                 
             }

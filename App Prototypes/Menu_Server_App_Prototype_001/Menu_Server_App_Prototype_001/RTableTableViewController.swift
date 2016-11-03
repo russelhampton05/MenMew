@@ -37,8 +37,12 @@ class RTableTableViewController: UITableViewController {
                 
                 //Filter according to assigned tables and unpaid tickets
                 
-                if currentServer!.tables!.contains(Int(ticket.tableNum!)!) && ticket.restaurant_ID == self.restaurant!.restaurant_ID! {
-                    ticketList.append(ticket)
+                if ticket.restaurant_ID == self.restaurant!.restaurant_ID! {
+                    if ticket.tableNum != nil {
+                        if currentServer!.tables!.contains(ticket.tableNum!) {
+                            ticketList.append(ticket)
+                        }
+                    }
                 }
             }
             

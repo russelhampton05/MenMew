@@ -168,6 +168,7 @@ class Ticket {
         self.total = snapshotValue["total"] as? Double
         self.tip = snapshotValue["tip"] as? Double
         
+        
         MenuItemManager.GetMenuItem(ids: snapshotValue["itemsOrdered"]?.allKeys as! [String]) {
             items in
             

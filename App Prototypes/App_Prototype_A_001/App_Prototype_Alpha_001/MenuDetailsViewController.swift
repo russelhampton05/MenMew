@@ -70,10 +70,8 @@ class MenuDetailsViewController: UITableViewController {
         cell.foodTitle.text = menu_group?.items![(indexPath as NSIndexPath).row].title
         cell.foodPrice.text = (NSString(format: "$%.2f", (menu_group?.items![(indexPath as NSIndexPath).row].price!)!) as String)
         cell.foodDesc.text = menu_group?.items![(indexPath as NSIndexPath).row].desc
-        
-        let url = URL(string: (menu_group?.items![(indexPath as NSIndexPath).row].image)!)
-        let data = try? Data(contentsOf: url!)
-        cell.foodImage.image = UIImage(data: data!)
+
+        cell.foodImage.getImage(source: (menu_group?.items![(indexPath as NSIndexPath).row].image)!)
         
         return cell
     }
@@ -262,6 +260,20 @@ class MenuDetailsViewController: UITableViewController {
             }
         }
     }
-}
-
-
+    }
+    extension UIImageView {
+        func getImage(source: String) {
+            URLSession.shared.dataTask(with: NSURL(string: source)! as URL, completionHandler: { (data, response, error) -> Void in
+                if error != nil {
+                    print(error!.localizedDescription)
+                }
+                
+                DispatchQueue.main.async (execute: { () -> Void in
+                    
+                    let image = UIImage(data: data!)
+                    self.image = image
+                })
+            }).resume()
+        }
+    }
+    

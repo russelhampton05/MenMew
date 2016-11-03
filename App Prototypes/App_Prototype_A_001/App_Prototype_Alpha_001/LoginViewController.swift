@@ -101,7 +101,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     UserManager.GetUser(id: user!.uid) {
                         user in
                         
-                        if user.ID != nil {
+                        if user.name != nil {
                             
                             currentUser = user
                             
