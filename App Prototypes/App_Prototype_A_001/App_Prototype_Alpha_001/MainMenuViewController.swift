@@ -108,7 +108,7 @@ class MainMenuViewController: UITableViewController{
             menuVC.menu_group = menu?.menu_groups![segueIndex!]
             menuVC.ticket = self.ticket
             menuVC.restaurantName = menu?.title
-            menuVC.currentTable = self.currentTable!
+            menuVC.currentTable = ticket!.tableNum!
         }
         else if segue.identifier == "SettingsSegue" {
             let settingsVC = segue.destination as! SettingsViewController

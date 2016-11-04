@@ -166,15 +166,17 @@ class QRViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let menuLoadVC = segue.destination as! RestaurantViewController
-        
-        let codeString = String(describing: connectionURL!)
-        
-        var tokens = codeString.components(separatedBy: "/")
-        let restID = tokens[0]
-        let currentTable = tokens[1]
-        menuLoadVC.menuID = restID
-        menuLoadVC.currentTable = currentTable
+        if segue.identifier == "MenuLoadSegue" {
+            let menuLoadVC = segue.destination as! RestaurantViewController
+            
+            let codeString = String(describing: connectionURL!)
+            
+            var tokens = codeString.components(separatedBy: "/")
+            let restID = tokens[0]
+            let currentTable = tokens[1]
+            menuLoadVC.menuID = restID
+            menuLoadVC.currentTable = currentTable
+        }
     }
     
     
