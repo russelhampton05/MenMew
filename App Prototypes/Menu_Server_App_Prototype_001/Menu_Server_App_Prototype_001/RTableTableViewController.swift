@@ -26,23 +26,31 @@ class RTableTableViewController: UITableViewController {
         
         tableView.rowHeight = 70
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-
+        
         self.title = restaurant!.title!
-
+        
         //Observe for updates
         ref.observe(.value, with:{(FIRDataSnapshot) in
             var ticketList: [Ticket] = []
             for item in FIRDataSnapshot.children {
                 let ticket = Ticket(snapshot: item as! FIRDataSnapshot)
                 
-                //Filter according to assigned tables and unpaid tickets
+                let value = item as? NSDictionary
+                let menuItems = value?["itemsOrdered"] as? NSDictionary
                 
-                if ticket.restaurant_ID == self.restaurant!.restaurant_ID! {
-                    if ticket.tableNum != nil {
-                        if currentServer!.tables!.contains(ticket.tableNum!) {
-                            ticketList.append(ticket)
+                
+                //I'm assuming this is pass by reference, so the ticket passed in should be changed when this is done
+                
+                //Also this is intentionally async to prevent UI Drag.
+                TicketManager.PopulateTicketItemsAsync(ticket: ticket, items: menuItems!)
+                
+                    if ticket.restaurant_ID == self.restaurant!.restaurant_ID! {
+                        if ticket.tableNum != nil {
+                            if currentServer!.tables!.contains(ticket.tableNum!) {
+                                ticketList.append(ticket)
+                            }
                         }
-                    }
+                    
                 }
             }
             

@@ -15,23 +15,42 @@ class TicketManager {
     
     static let ref = FIRDatabase.database().reference().child("Tickets")
     
+    //I'm assuming this is pass by reference, so the ticket passed in should be changed when this is done
+    static func PopulateTicketItemsAsync(ticket:Ticket, items: NSDictionary){
+        var itemArray: [String] = []
+        var quantityArray: [Int] = []
+        for item in (items.allKeys) {
+            itemArray.append(item as! String)
+            quantityArray.append(items.value(forKey: item as! String) as! Int)
+        }
+        
+        
+        MenuItemManager.GetMenuItem(ids: itemArray) {
+            items in
+            
+            var orderedArray: [MenuItem] = []
+            
+            //Build the array of tuples
+            for index in 0...items.count-1 {
+                orderedArray.append(items[index])
+            }
+            
+            ticket.itemsOrdered = orderedArray
+            
+        }
+        
+   
+    }
     static func GetTicket(id: String, restaurant: String, completionHandler: @escaping (_ ticket: Ticket) -> ()) {
         
-        let ticket = Ticket()
+        var ticket = Ticket()
         
         ref.child(id).observe(.value, with: {(FIRDataSnapshot) in
             
             let value = FIRDataSnapshot.value as? NSDictionary
             
             if value?["restaurant"] as? String == restaurant {
-                ticket.ticket_ID = id
-                ticket.user_ID = value?["user"] as? String
-                ticket.restaurant_ID = value?["restaurant"] as? String
-                print(value?["table"] as! Int)
-                ticket.tableNum = value?["table"] as? String
-                ticket.timestamp = value?["timestamp"] as? String
-                ticket.paid = value?["paid"] as? Bool
-                ticket.desc = value?["desc"] as? String
+                ticket = Ticket(snapshot: FIRDataSnapshot.value as! FIRDataSnapshot)
                 
                 
                 //ItemsOrdered is the array of items ordered for the table
@@ -104,6 +123,7 @@ class TicketManager {
         
         //Dummy tables for now
         var orderTables = tables
+        //removeee meeee
         orderTables.append("12")
         orderTables.append("15")
         orderTables.append("17")

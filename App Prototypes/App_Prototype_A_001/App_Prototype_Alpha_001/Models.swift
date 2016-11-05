@@ -114,14 +114,17 @@ class Ticket {
     var timestamp: String?
     var paid: Bool?
     var itemsOrdered: [MenuItem]?
+    
     var desc: String?
     var confirmed: Bool?
     var status: String?
     var total: Double?
     var tip: Double?
+    var message_ID: String?
+    
     
     init() {
-        
+        self.message_ID = ""
         self.ticket_ID = ""
         self.user_ID = ""
         self.restaurant_ID = ""
@@ -133,9 +136,10 @@ class Ticket {
         self.status = "Ordering"
         self.total = 0.0
         self.tip = 0.0
+        self.messages = []
     }
     
-    init(ticket_ID: String, user_ID: String, restaurant_ID: String, tableNum: String, timestamp: String, paid: Bool, itemsOrdered:[MenuItem]?, desc: String?, confirmed: Bool?, status: String?, total: Double?, tip: Double?) {
+    init(ticket_ID: String, user_ID: String, restaurant_ID: String, tableNum: String, timestamp: String, paid: Bool, itemsOrdered:[MenuItem]?, desc: String?, confirmed: Bool?, status: String?, total: Double?, tip: Double?, message_ID: String?) {
         self.ticket_ID = ticket_ID
         self.user_ID = user_ID
         self.restaurant_ID = restaurant_ID
@@ -148,6 +152,14 @@ class Ticket {
         self.status = status
         self.total = total
         self.tip = tip
+        self.message_ID = message_ID
+        if self.message_ID == nil{
+            self.message_ID = generateGUID()
+        }
+    }
+    
+    func generateGUID() -> String {
+        return UUID().uuidString
     }
     
     init(snapshot: FIRDataSnapshot) {
@@ -168,12 +180,16 @@ class Ticket {
         self.total = snapshotValue["total"] as? Double
         self.tip = snapshotValue["tip"] as? Double
         
-        
-        MenuItemManager.GetMenuItem(ids: snapshotValue["itemsOrdered"]?.allKeys as! [String]) {
-            items in
-            
-            self.itemsOrdered = items;
+        if snapshotValue["message"] != nil{
+            self.message_ID = snapshotValue["message"]
         }
+        else{
+            self.message_ID = generateGUID()
+        }
+//        MenuItemManager.GetMenuItem(ids: snapshotValue["itemsOrdered"]?.allKeys as! [String]) {
+//            items in
+//            self.itemsOrdered = items;
+//        }
         
         
         //ItemsOrdered is the array of items ordered for the table

@@ -25,7 +25,7 @@ class TicketManager {
     }
     static func GetTicket(id: String, restaurant: String, completionHandler: @escaping (_ ticket: Ticket) -> ()) {
         
-        let ticket = Ticket()
+        var ticket = Ticket()
         
         //ref.child(id).observe(.value, with: {(FIRDataSnapshot) in
         ref.child(id).observeSingleEvent(of: .value, with: {(FIRDataSnapshot) in
@@ -33,18 +33,9 @@ class TicketManager {
             let value = FIRDataSnapshot.value as? NSDictionary
             
             if value?["restaurant"] as? String == restaurant {
-                ticket.ticket_ID = id
-                ticket.user_ID = value?["user"] as? String
-                ticket.restaurant_ID = value?["restaurant"] as? String
-                ticket.tableNum = value?["table"] as? String
-                ticket.timestamp = value?["timestamp"] as? String
-                ticket.paid = value?["paid"] as? Bool
-                ticket.desc = value?["desc"] as? String
-                ticket.confirmed = value?["confirmed"] as? Bool
-                ticket.status = "Ordering"
-                ticket.total = value?["total"] as? Double
-                ticket.tip = value?["tip"] as? Double
-            
+                
+                ticket = Ticket(value)
+                
                 //ItemsOrdered is the array of items ordered for the table
                 let menuItems = value?["itemsOrdered"] as? NSDictionary
             
