@@ -136,7 +136,6 @@ class Ticket {
         self.status = "Ordering"
         self.total = 0.0
         self.tip = 0.0
-        self.messages = []
     }
     
     init(ticket_ID: String, user_ID: String, restaurant_ID: String, tableNum: String, timestamp: String, paid: Bool, itemsOrdered:[MenuItem]?, desc: String?, confirmed: Bool?, status: String?, total: Double?, tip: Double?, message_ID: String?) {
