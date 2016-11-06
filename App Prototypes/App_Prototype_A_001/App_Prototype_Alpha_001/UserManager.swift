@@ -166,7 +166,8 @@ class UserManager{
             currentTicket.paid = false
             currentTicket.tip = 0.0
             currentTicket.total = 0.0
-            
+            currentTicket.generateMessageGUID()
+            MessageManager.CreateTicketAsync(id: currentTicket.message_ID!)
             let formatter = DateFormatter()
             formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
             
