@@ -34,7 +34,17 @@ class TicketManager {
             
             if value?["restaurant"] as? String == restaurant {
                 
-                ticket = Ticket(value)
+                ticket = Ticket(snapshot: FIRDataSnapshot)
+                
+                
+              
+                 //if the ticket message is nothing then make one
+                if (ticket.message_ID?.characters.count)! < 1{
+                    ticket.generateMessageGUID()
+                    
+                    ref.child(ticket.ticket_ID!).child("message").setValue(ticket.message_ID!)
+                    MessageManager.CreateTicketAsync(id: ticket.ticket_ID!)
+                }
                 
                 //ItemsOrdered is the array of items ordered for the table
                 let menuItems = value?["itemsOrdered"] as? NSDictionary

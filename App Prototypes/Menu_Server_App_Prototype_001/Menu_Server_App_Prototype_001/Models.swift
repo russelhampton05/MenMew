@@ -201,12 +201,12 @@ class Ticket {
         self.tip = tip
         self.message_ID = message_ID
         if self.message_ID == nil{
-            self.message_ID = generateGUID()
+            self.message_ID = ""
         }
     }
     
-    func generateGUID() -> String {
-        return UUID().uuidString
+    func generateMessageGUID() {
+        self.message_ID =  UUID().uuidString
     }
     
     init(snapshot: FIRDataSnapshot) {
@@ -216,7 +216,7 @@ class Ticket {
         self.user_ID = snapshotValue["user"] as? String
         self.restaurant_ID = snapshotValue["restaurant"] as? String
         
-        self.tableNum = String(describing: snapshotValue["table"] as! Int)
+        self.tableNum = snapshotValue["table"] as? String
         self.timestamp = snapshotValue["timestamp"] as? String
         
         self.paid = snapshotValue["paid"] as? Bool
@@ -231,7 +231,7 @@ class Ticket {
             self.message_ID = snapshotValue["message"] as! String?
         }
         else{
-            self.message_ID = generateGUID()
+            self.message_ID = ""
         }
         //        MenuItemManager.GetMenuItem(ids: snapshotValue["itemsOrdered"]?.allKeys as! [String]) {
         //            items in
