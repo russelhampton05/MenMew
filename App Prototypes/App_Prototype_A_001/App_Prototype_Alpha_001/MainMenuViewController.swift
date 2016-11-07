@@ -93,9 +93,11 @@ class MainMenuViewController: UITableViewController{
                         
                         if (error != nil){
                             
-                            print(error?.localizedDescription)
+                            print(error!.localizedDescription)
                         }
                     }
+                    
+                    MessageManager.WriteUserMessage(id: message.message_ID!, message: "nil")
                 }
             }
         })

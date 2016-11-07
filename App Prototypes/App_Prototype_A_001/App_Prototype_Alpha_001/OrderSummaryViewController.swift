@@ -52,12 +52,12 @@ class OrderSummaryViewController: UIViewController {
     
     @IBAction func refillButtonPressed(_ sender: Any) {
         //Initiate message to server
-        MessageManager.WriteServerMessage(id: currentUser!.ticket!.ticket_ID!, message: "Requesting Refill")
+        MessageManager.WriteServerMessage(id: currentUser!.ticket!.ticket_ID!, message: "Requesting refill at Table \(currentUser!.ticket!.tableNum!)")
     }
     
     @IBAction func helpButtonPressed(_ sender: Any) {
         //Initiate message to server
-        MessageManager.WriteServerMessage(id: currentUser!.ticket!.ticket_ID!, message: "Requesting assistance at table \(currentUser!.ticket!.tableNum!)")
+        MessageManager.WriteServerMessage(id: currentUser!.ticket!.ticket_ID!, message: "Requesting assistance at Table \(currentUser!.ticket!.tableNum!)")
     }
     
     

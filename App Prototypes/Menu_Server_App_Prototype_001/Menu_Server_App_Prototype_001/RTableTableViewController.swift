@@ -22,6 +22,7 @@ class RTableTableViewController: UITableViewController {
     var segueIndex: Int?
     let formatter = DateFormatter()
     var ticketList: [Ticket] = []
+    var ticketIDList: [String] = []
     let requestIdentifier = "Request"
     
     
@@ -59,6 +60,7 @@ class RTableTableViewController: UITableViewController {
                         if ticket.tableNum != nil {
                             if currentServer!.tables!.contains(ticket.tableNum!) {
                                 ticketList.append(ticket)
+                                self.ticketIDList.append(ticket.ticket_ID!)
                             }
                         }
                     }
@@ -69,6 +71,7 @@ class RTableTableViewController: UITableViewController {
                         if ticket.tableNum != nil {
                             if currentServer!.tables!.contains(ticket.tableNum!) {
                                 ticketList.append(ticket)
+                                self.ticketIDList.append(ticket.ticket_ID!)
                             }
                         }
                     }
@@ -98,26 +101,28 @@ class RTableTableViewController: UITableViewController {
             for item in FIRDataSnapshot.children {
                 
                 let message = Message(snapshot: item as! FIRDataSnapshot)
-                //let messageItem = item as? NSDictionary
-                //let serverMessage = messageItem?["server"] as? String
                 
-                if message.serverMessage != nil {
-                    let content = UNMutableNotificationContent()
-                    content.title = "Server Alert"
-                    content.body = message.serverMessage!
-                    content.sound = UNNotificationSound.default()
-                    
-                    
-                    let trigger = UNTimeIntervalNotificationTrigger.init(timeInterval: 0.1, repeats: false)
-                    let request = UNNotificationRequest(identifier: self.requestIdentifier, content: content, trigger: trigger)
-                    
-                    UNUserNotificationCenter.current().delegate = self
-                    UNUserNotificationCenter.current().add(request){(error) in
+                if self.ticketIDList.contains(message.message_ID!) {
+                    if message.serverMessage != "nil" {
+                        let content = UNMutableNotificationContent()
+                        content.title = "Server Alert"
+                        content.body = message.serverMessage!
+                        content.sound = UNNotificationSound.default()
                         
-                        if (error != nil){
+                        
+                        let trigger = UNTimeIntervalNotificationTrigger.init(timeInterval: 0.1, repeats: false)
+                        let request = UNNotificationRequest(identifier: self.requestIdentifier, content: content, trigger: trigger)
+                        
+                        UNUserNotificationCenter.current().delegate = self
+                        UNUserNotificationCenter.current().add(request){(error) in
                             
-                            print(error?.localizedDescription)
+                            if (error != nil){
+                                
+                                print(error!.localizedDescription)
+                            }
                         }
+                        
+                        MessageManager.WriteServerMessage(id: message.message_ID!, message: "nil")
                     }
                 }
             }
