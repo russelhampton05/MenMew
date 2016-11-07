@@ -10,13 +10,13 @@
 		4A0E979B1D9C06F800ECA82F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0E979A1D9C06F800ECA82F /* LoginViewController.swift */; };
 		4A0E979D1D9C0CC900ECA82F /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0E979C1D9C0CC900ECA82F /* ProfileViewController.swift */; };
 		4A0E979F1D9C171C00ECA82F /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0E979E1D9C171C00ECA82F /* RegisterViewController.swift */; };
-		4A0ECC781D9C3C09004811F3 /* OrderDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0ECC771D9C3C09004811F3 /* OrderDetailsTableViewController.swift */; };
 		4A1135C61D9974F7006DDFAE /* Test_Data.json in Resources */ = {isa = PBXBuildFile; fileRef = 4A1135C51D9974F7006DDFAE /* Test_Data.json */; };
 		4A3C67E01DA2F74D00D9D263 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3C67DF1DA2F74D00D9D263 /* Models.swift */; };
 		4A3C67E21DA2F8BF00D9D263 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3C67E11DA2F8BF00D9D263 /* UserManager.swift */; };
 		4A54AC6D1DA807F5008C7E57 /* SidesPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A54AC6C1DA807F5008C7E57 /* SidesPickerViewController.swift */; };
 		4A54AC6F1DA810F4008C7E57 /* CookTypePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A54AC6E1DA810F4008C7E57 /* CookTypePickerViewController.swift */; };
 		4A54AC711DA81380008C7E57 /* MenuDetailPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A54AC701DA81380008C7E57 /* MenuDetailPopupViewController.swift */; };
+		4A990EB41DD0C11B00F2F82E /* OrderSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A990EB31DD0C11B00F2F82E /* OrderSummaryViewController.swift */; };
 		4A9B5D491D91C461009F2F72 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9B5D481D91C461009F2F72 /* SettingsViewController.swift */; };
 		4A9B5D4B1D91D023009F2F72 /* OrderConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9B5D4A1D91D023009F2F72 /* OrderConfirmationViewController.swift */; };
 		840EA9591DCE5AEE008C90D3 /* MessageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840EA9581DCE5AEE008C90D3 /* MessageManager.swift */; };
@@ -69,13 +69,13 @@
 		4A0E979A1D9C06F800ECA82F /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4A0E979C1D9C0CC900ECA82F /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		4A0E979E1D9C171C00ECA82F /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RegisterViewController.swift; path = ../RegisterViewController.swift; sourceTree = "<group>"; };
-		4A0ECC771D9C3C09004811F3 /* OrderDetailsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDetailsTableViewController.swift; sourceTree = "<group>"; };
 		4A1135C51D9974F7006DDFAE /* Test_Data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Test_Data.json; sourceTree = "<group>"; };
 		4A3C67DF1DA2F74D00D9D263 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		4A3C67E11DA2F8BF00D9D263 /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		4A54AC6C1DA807F5008C7E57 /* SidesPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SidesPickerViewController.swift; path = ../SidesPickerViewController.swift; sourceTree = "<group>"; };
 		4A54AC6E1DA810F4008C7E57 /* CookTypePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CookTypePickerViewController.swift; sourceTree = "<group>"; };
 		4A54AC701DA81380008C7E57 /* MenuDetailPopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuDetailPopupViewController.swift; sourceTree = "<group>"; };
+		4A990EB31DD0C11B00F2F82E /* OrderSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderSummaryViewController.swift; sourceTree = "<group>"; };
 		4A9B5D481D91C461009F2F72 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		4A9B5D4A1D91D023009F2F72 /* OrderConfirmationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderConfirmationViewController.swift; sourceTree = "<group>"; };
 		55EDBC2E077AE8334DA052EE /* Pods-App_Prototype_Alpha_001Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App_Prototype_Alpha_001Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-App_Prototype_Alpha_001Tests/Pods-App_Prototype_Alpha_001Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -227,7 +227,7 @@
 			isa = PBXGroup;
 			children = (
 				4A9B5D4A1D91D023009F2F72 /* OrderConfirmationViewController.swift */,
-				4A0ECC771D9C3C09004811F3 /* OrderDetailsTableViewController.swift */,
+				4A990EB31DD0C11B00F2F82E /* OrderSummaryViewController.swift */,
 			);
 			name = "Order Controllers";
 			sourceTree = "<group>";
@@ -600,6 +600,7 @@
 				4A9B5D4B1D91D023009F2F72 /* OrderConfirmationViewController.swift in Sources */,
 				945C69751D8EDFCB0022C83A /* MenuCell.swift in Sources */,
 				945C697D1D8EDFE70022C83A /* CircleTransition.swift in Sources */,
+				4A990EB41DD0C11B00F2F82E /* OrderSummaryViewController.swift in Sources */,
 				945C693B1D8EDECA0022C83A /* AppDelegate.swift in Sources */,
 				846FD9801DA8A2D600191223 /* MenuManager.swift in Sources */,
 				945C697B1D8EDFCB0022C83A /* SWRevealViewController.m in Sources */,
@@ -616,7 +617,6 @@
 				4A9B5D491D91C461009F2F72 /* SettingsViewController.swift in Sources */,
 				4A3C67E21DA2F8BF00D9D263 /* UserManager.swift in Sources */,
 				840EA9591DCE5AEE008C90D3 /* MessageManager.swift in Sources */,
-				4A0ECC781D9C3C09004811F3 /* OrderDetailsTableViewController.swift in Sources */,
 				94656EE21DC7D875003E15B2 /* PaymentDetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

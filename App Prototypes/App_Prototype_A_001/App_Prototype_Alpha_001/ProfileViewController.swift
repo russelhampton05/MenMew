@@ -32,8 +32,8 @@ class ProfileViewController: UIViewController {
             passwordButton.setTitle(String(repeating: "*", count: user.email!.characters.count), for: .normal)
             nameButton.setTitle(user.displayName, for: .normal)
             
-            nameTitle.text = user.displayName
-            locationTitle.text = restaurantName!
+            nameTitle.text = currentUser!.name!
+            locationTitle.text = "At " + restaurantName!
             
             if user.photoURL != nil {
                 let imageData = try? Data(contentsOf: user.photoURL!)

@@ -8,7 +8,9 @@
 
 import UIKit
 import Foundation
-
+import UserNotifications
+import UserNotificationsUI
+import Firebase
 
 class MainMenuViewController: UITableViewController{
     
@@ -27,6 +29,7 @@ class MainMenuViewController: UITableViewController{
     var orderArray: [(title: String, price: Double)] = []
     let transition = CircleTransition()
     var currentTable: String?
+    let requestIdentifier = "Request"
 
     
     //@IBOutlet weak var restaurantLabel: UINavigationItem!
@@ -60,6 +63,43 @@ class MainMenuViewController: UITableViewController{
         
         menuButton.target = self.revealViewController()
         menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
+        
+        initializeNotificationObserver()
+    }
+    
+    func initializeNotificationObserver() {
+        let messageRef = FIRDatabase.database().reference().child("Messages")
+        
+        messageRef.observe(.value, with:{(FIRDataSnapshot) in
+            
+            for item in FIRDataSnapshot.children {
+                
+                let message = Message(snapshot: item as! FIRDataSnapshot)
+                //let messageItem = item as? NSDictionary
+                //let serverMessage = messageItem?["server"] as? String
+                
+                if message.userMessage != "nil" {
+                    let content = UNMutableNotificationContent()
+                    content.title = "User Alert"
+                    content.body = message.userMessage!
+                    content.sound = UNNotificationSound.default()
+                    
+                    
+                    let trigger = UNTimeIntervalNotificationTrigger.init(timeInterval: 0.1, repeats: false)
+                    let request = UNNotificationRequest(identifier: self.requestIdentifier, content: content, trigger: trigger)
+                    
+                    UNUserNotificationCenter.current().delegate = self
+                    UNUserNotificationCenter.current().add(request){(error) in
+                        
+                        if (error != nil){
+                            
+                            print(error?.localizedDescription)
+                        }
+                    }
+                }
+            }
+        })
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -112,8 +152,7 @@ class MainMenuViewController: UITableViewController{
         }
         else if segue.identifier == "SettingsSegue" {
             let settingsVC = segue.destination as! SettingsViewController
-            
-            settingsVC.ticket = ticket
+
         }
         else if segue.identifier == "OrderSummarySegue" {
             let orderVC = segue.destination as! SummaryViewController
@@ -159,5 +198,27 @@ class MainMenuViewController: UITableViewController{
 
     @IBAction func ordersButtonPressed(_ sender: AnyObject) {
         performSegue(withIdentifier: "OrderSummarySegue", sender: self)
+    }
+}
+
+extension MainMenuViewController: UNUserNotificationCenterDelegate {
+    
+    
+    public func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        print("Tapped in notification")
+    }
+    
+    //This is key callback to present notification while the app is in foreground
+    public func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        
+        print("Notification being triggered")
+        //You can either present alert ,sound or increase badge while the app is in foreground too with ios 10
+        //to distinguish between notifications
+        if notification.request.identifier == requestIdentifier {
+            
+            completionHandler( [.alert,.sound,.badge])
+            
+        }
     }
 }

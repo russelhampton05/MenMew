@@ -233,14 +233,30 @@ class Ticket {
         else{
             self.message_ID = ""
         }
-        //        MenuItemManager.GetMenuItem(ids: snapshotValue["itemsOrdered"]?.allKeys as! [String]) {
-        //            items in
-        //            self.itemsOrdered = items;
-        //        }
+        
+        //MenuItemManager.GetMenuItem(ids: snapshotValue["itemsOrdered"]?.allKeys as! [String]) {
+            //items in
+            //self.itemsOrdered = items;
+        //}
         
         
         //ItemsOrdered is the array of items ordered for the table
         //  let menuItems = snapshotValue["itemsOrdered"] as? NSDictionary
     }
 }
+
+//Message Class
+class Message {
+    var message_ID: String?
+    var serverMessage: String?
+    var userMessage: String?
+    
+    init(snapshot: FIRDataSnapshot) {
+        let snapshotValue = snapshot.value as! [String: AnyObject]
+        self.message_ID = snapshot.key
+        self.serverMessage = snapshotValue["server"] as? String
+        self.userMessage = snapshotValue["user"] as? String
+    }
+}
+
 

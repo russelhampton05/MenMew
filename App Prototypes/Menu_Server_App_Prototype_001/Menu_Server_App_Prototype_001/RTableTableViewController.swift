@@ -8,17 +8,21 @@
 
 import UIKit
 import Firebase
+import UserNotifications
+import UserNotificationsUI
 
 class RTableTableViewController: UITableViewController {
     
     //Reference
     let ref = FIRDatabase.database().reference().child("Tickets")
+    
     //Variables
     var restaurant: Restaurant?
     var location: String?
     var segueIndex: Int?
     let formatter = DateFormatter()
     var ticketList: [Ticket] = []
+    let requestIdentifier = "Request"
     
     
     override func viewDidLoad() {
@@ -29,28 +33,45 @@ class RTableTableViewController: UITableViewController {
         
         self.title = restaurant!.title!
         
+        initializeTickets()
+        initializeNotificationObserver()
+    }
+    
+    func initializeTickets() {
         //Observe for updates
         ref.observe(.value, with:{(FIRDataSnapshot) in
             var ticketList: [Ticket] = []
             for item in FIRDataSnapshot.children {
                 let ticket = Ticket(snapshot: item as! FIRDataSnapshot)
                 
-                let value = item as? NSDictionary
-                let menuItems = value?["itemsOrdered"] as? NSDictionary
+                let snapshotItem = item as! FIRDataSnapshot
+                let snapshotValue = snapshotItem.value as! [String: AnyObject]
+                let menuItems = snapshotValue["itemsOrdered"] as? NSDictionary
                 
                 
                 //I'm assuming this is pass by reference, so the ticket passed in should be changed when this is done
                 
                 //Also this is intentionally async to prevent UI Drag.
-                TicketManager.PopulateTicketItemsAsync(ticket: ticket, items: menuItems!)
-                
+                if menuItems != nil{
+                    TicketManager.PopulateTicketItemsAsync(ticket: ticket, items: menuItems!)
+                    
                     if ticket.restaurant_ID == self.restaurant!.restaurant_ID! {
                         if ticket.tableNum != nil {
                             if currentServer!.tables!.contains(ticket.tableNum!) {
                                 ticketList.append(ticket)
                             }
                         }
+                    }
+                }
                     
+                else {
+                    if ticket.restaurant_ID == self.restaurant!.restaurant_ID! {
+                        if ticket.tableNum != nil {
+                            if currentServer!.tables!.contains(ticket.tableNum!) {
+                                ticketList.append(ticket)
+                            }
+                        }
+                    }
                 }
             }
             
@@ -69,21 +90,36 @@ class RTableTableViewController: UITableViewController {
             print(error.localizedDescription)}
     }
     
-    //Load tickets based on selected restaurant
-    //For now, only loads all tickets (not filtered)
-    func loadTickets(restaurant: String) {
-        let semTicket = DispatchGroup.init()
-        semTicket.enter()
-        RestaurantManager.GetRestaurantTickets(restaurant: restaurant) {
-            tickets in
-            
-            self.ticketList = tickets
-            semTicket.leave()
-        }
+    @IBAction func initializeNotificationObserver() {
+        let messageRef = FIRDatabase.database().reference().child("Messages")
         
-        semTicket.notify(queue: DispatchQueue.main, execute: {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
+        messageRef.observe(.value, with:{(FIRDataSnapshot) in
+            
+            for item in FIRDataSnapshot.children {
+                
+                let message = Message(snapshot: item as! FIRDataSnapshot)
+                //let messageItem = item as? NSDictionary
+                //let serverMessage = messageItem?["server"] as? String
+                
+                if message.serverMessage != nil {
+                    let content = UNMutableNotificationContent()
+                    content.title = "Server Alert"
+                    content.body = message.serverMessage!
+                    content.sound = UNNotificationSound.default()
+                    
+                    
+                    let trigger = UNTimeIntervalNotificationTrigger.init(timeInterval: 0.1, repeats: false)
+                    let request = UNNotificationRequest(identifier: self.requestIdentifier, content: content, trigger: trigger)
+                    
+                    UNUserNotificationCenter.current().delegate = self
+                    UNUserNotificationCenter.current().add(request){(error) in
+                        
+                        if (error != nil){
+                            
+                            print(error?.localizedDescription)
+                        }
+                    }
+                }
             }
         })
     }
@@ -180,7 +216,27 @@ class RTableTableViewController: UITableViewController {
         }
     }
     
-    func getStatus() {
+
+}
+
+extension RTableTableViewController: UNUserNotificationCenterDelegate {
+    
+    
+    public func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
+        print("Tapped in notification")
+    }
+    
+    //This is key callback to present notification while the app is in foreground
+    public func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        
+        print("Notification being triggered")
+        //You can either present alert ,sound or increase badge while the app is in foreground too with ios 10
+        //to distinguish between notifications
+        if notification.request.identifier == requestIdentifier {
+            
+            completionHandler( [.alert,.sound,.badge])
+            
+        }
     }
 }

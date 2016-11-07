@@ -9,25 +9,37 @@
 import UIKit
 
 class SettingsViewController: UITableViewController {
-
-    var ticket: Ticket?
+    //IBOutlets
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var locationLabel: UILabel!
+    
+    //Variables
     var restaurantName: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        nameLabel.text = currentUser!.name
+        
+        MenuManager.GetMenu(id: currentUser!.ticket!.restaurant_ID!) {
+            menu in
+            
+            self.locationLabel.text = "At " + menu.title!
+            self.restaurantName = menu.title!
+        }
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ProfileSegue" {
             let profileVC = segue.destination as! ProfileViewController
-            
-            profileVC.restaurantName = "RJ's Steakhouse"
-            
+            profileVC.restaurantName = self.restaurantName!
         }
-        if segue.identifier == "OrderSegue" {
-            let orderVC = segue.destination as! SummaryViewController
+        if segue.identifier == "SummarySegue" {
             
-            orderVC.ticket = ticket
+            let orderVC = segue.destination as! OrderSummaryViewController
+            
+            orderVC.ticket = currentUser!.ticket
+            
         }
     }
     
@@ -36,9 +48,8 @@ class SettingsViewController: UITableViewController {
         if let sourceVC = sender.source as? ProfileViewController {
             
         }
-        else if let sourceVC = sender.source as? SummaryViewController {
+        else if let sourceVC = sender.source as? OrderSummaryViewController {
             
         }
     }
-   
 }

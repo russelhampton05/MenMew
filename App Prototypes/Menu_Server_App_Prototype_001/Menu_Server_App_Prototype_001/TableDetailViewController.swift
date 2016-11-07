@@ -102,14 +102,8 @@ class TableDetailViewController: UITableViewController {
     
     
     @IBAction func fulfillButtonPressed(_ sender: AnyObject) {
-        
-        let fulfillPopup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Popup") as! PopupViewController
-        
-        self.addChildViewController(fulfillPopup)
-        self.view.addSubview(fulfillPopup.view)
-        fulfillPopup.didMove(toParentViewController: self)
-        fulfillPopup.ticket = ticket!.desc
-        fulfillPopup.addMessage(context: "FulfillOrder")
+        //Initiate message to user
+        MessageManager.WriteUserMessage(id: ticket!.ticket_ID!, message: "Your order ticket \(ticket!.desc!) is on the way.")
     }
     
     func getCustomer() {
