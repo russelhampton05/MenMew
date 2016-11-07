@@ -6,6 +6,14 @@ class MessageManager {
     //This class handles ticket statuses that the app UI can use to display and update
     //order information for each table.
     
+    static func WriteServerMessage(id: String, message: String)
+    {
+        ref.child(id).child("server").setValue(message)
+    }
+    static func WriteUserMessage(id: String, message: String)
+    {
+        ref.child(id).child("user").setValue(message)
+    }
     static let ref = FIRDatabase.database().reference().child("Messages")
     
     //this is ok as async

@@ -15,6 +15,14 @@ class MessageManager {
     
     static let ref = FIRDatabase.database().reference().child("Messages")
     
+    static func WriteServerMessage(id: String, message: String)
+    {
+        ref.child(id).child("server").setValue(message)
+    }
+    static func WriteUserMessage(id: String, message: String)
+    {
+        ref.child(id).child("user").setValue(message)
+    }
     //this is ok as async
     static func CreateTicketAsync(id: String){
         ref.child(id).child("user").setValue("nil")
