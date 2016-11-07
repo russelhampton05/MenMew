@@ -103,7 +103,7 @@ class TableDetailViewController: UITableViewController {
     
     @IBAction func fulfillButtonPressed(_ sender: AnyObject) {
         //Initiate message to user
-        MessageManager.WriteUserMessage(id: ticket!.ticket_ID!, message: "Your order ticket \(ticket!.desc!) is on the way.")
+        MessageManager.WriteUserMessage(id: ticket!.message_ID!, message: "Your order ticket \(ticket!.desc!) is on the way.")
     }
     
     func getCustomer() {

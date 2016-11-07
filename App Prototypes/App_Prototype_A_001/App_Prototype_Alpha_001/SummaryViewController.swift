@@ -196,6 +196,7 @@ class SummaryViewController : UITableViewController {
         
         //Set the timestamp, confirmation and status
         ticket!.timestamp = dateFormatter.string(from: currentDate)
+        ticket!.tableNum = currentTable!
         ticket!.confirmed = true
         ticket!.status = "Order Placed"
         
@@ -217,10 +218,12 @@ class SummaryViewController : UITableViewController {
         if ticket!.confirmed! {
             self.confirmButton.setTitle("Update", for: .normal)
             self.cancelButton.setTitle("Cancel All", for: .normal)
+            self.payButton.isHidden = false
         }
         else {
             self.confirmButton.setTitle("Confirm", for: .normal)
             self.cancelButton.setTitle("Clear All", for: .normal)
+            self.payButton.isHidden = true
         }
     }
     

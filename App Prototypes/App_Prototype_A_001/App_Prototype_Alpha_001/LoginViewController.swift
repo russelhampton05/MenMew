@@ -12,6 +12,7 @@ import Firebase
 //Global Variables
 var currentUser: User?
 var currentRestaurant: String?
+var currentTable: String?
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
     

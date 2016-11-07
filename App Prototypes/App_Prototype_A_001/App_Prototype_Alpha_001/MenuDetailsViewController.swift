@@ -21,7 +21,7 @@ class MenuDetailsViewController: UITableViewController {
     var categoryArray = [(name: String, desc: String)]()
     var categoryTitle: String?
     var restaurantName: String?
-    var currentTable: String?
+    //var currentTable: String?
     var curentCell: MenuCell?
     var indexPaths : Array<IndexPath> = []
     
@@ -191,9 +191,9 @@ class MenuDetailsViewController: UITableViewController {
             UserManager.CreateTicket(user: currentUser!, ticket: nil, restaurant: menu!.rest_id!) {
                 ticket in
                 
-                UserManager.UpdateTicketTable(user: currentUser!, ticket: ticket.ticket_ID!, table: self.currentTable!)
+                UserManager.UpdateTicketTable(user: currentUser!, ticket: ticket.ticket_ID!, table: currentTable!)
                 
-                
+                currentUser!.ticket = ticket
                 self.ticket = ticket
             }
         }

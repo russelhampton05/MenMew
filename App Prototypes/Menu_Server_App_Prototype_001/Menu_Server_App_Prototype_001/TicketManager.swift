@@ -124,45 +124,4 @@ class TicketManager {
         semTicket.notify(queue: DispatchQueue.main, execute: {
             completionHandler(tickets) })
     }
-    
-    static func GetTicketFromTables(tables: [String], restaurant: String, completionHandler: @escaping (_ tickets: [Ticket]) -> ()) {
-        var tickets: [Ticket] = []
-        
-        //Dummy tables for now
-        var orderTables = tables
-        //removeee meeee
-        orderTables.append("12")
-        orderTables.append("15")
-        orderTables.append("17")
-        orderTables.append("21")
-        orderTables.append("22")
-        orderTables.append("0")
-        
-        ref.observe(.value, with: {(FIRDataSnapshot) in
-            
-            let value = FIRDataSnapshot.value as? NSDictionary
-            let semTableTicket = DispatchGroup.init()
-            
-            
-            for item in (value?.allKeys)!{
-                semTableTicket.enter()
-
-                GetTicket(id: item as! String, restaurant: restaurant) {
-                    ticket in
-
-                    if orderTables.count > 0 && ticket.tableNum == orderTables[0] {
-                        orderTables.remove(at: 0)
-                        tickets.append(ticket)
-                    }
-                    semTableTicket.leave()
-                }
-        
-            }
-            
-            semTableTicket.notify(queue: DispatchQueue.main, execute: {
-                completionHandler(tickets) })
-            
-        }) {(error) in
-            print(error.localizedDescription)}
-    }
 }

@@ -214,6 +214,9 @@ class UserManager{
         TicketManager.ref.child(ticket.ticket_ID!).child("tip").setValue(ticket.tip)
         TicketManager.ref.child(ticket.ticket_ID!).child("total").setValue(ticket.total)
         
+        //Update message id
+        TicketManager.ref.child(ticket.ticket_ID!).child("message").setValue(ticket.message_ID)
+        
         
         var itemFreq: [String:Int] = [:]
         

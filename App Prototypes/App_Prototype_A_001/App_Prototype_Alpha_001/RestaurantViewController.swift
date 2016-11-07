@@ -24,7 +24,7 @@ class RestaurantViewController: UIViewController {
     var menu: Menu?
     var counter: Int = 0
     var menuID : String?
-    var currentTable: String?
+    //var currentTable: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,8 +57,8 @@ class RestaurantViewController: UIViewController {
             let mainMenuVC = segue.destination as! MainMenuViewController
         
             mainMenuVC.menu = self.menu
-            mainMenuVC.currentTable = self.currentTable!
-            mainMenuVC.ticket = currentUser!.ticket
+            //mainMenuVC.currentTable = self.currentTable!
+            mainMenuVC.ticket = currentUser!.ticket!
         }
         else if segue.identifier == "QRReturnSegue" {
             let qrVC = segue.destination as! QRViewController
@@ -103,12 +103,12 @@ class RestaurantViewController: UIViewController {
             //Assign current ticket and table
             if ticket.ticket_ID != nil {
                 
-                UserManager.UpdateTicketTable(user: currentUser!, ticket: ticket.ticket_ID!, table: self.currentTable!)
-                ticket.tableNum = self.currentTable!
+                UserManager.UpdateTicketTable(user: currentUser!, ticket: ticket.ticket_ID!, table: currentTable!)
+                ticket.tableNum = currentTable!
                 currentUser!.ticket = ticket
                 
                 self.restaurantLabel.text = self.menu!.title!
-                self.tableLabel.text = "Table " + self.currentTable!
+                self.tableLabel.text = "Table " + currentTable!
             }
             
             let delay = DispatchTime.now() + 1

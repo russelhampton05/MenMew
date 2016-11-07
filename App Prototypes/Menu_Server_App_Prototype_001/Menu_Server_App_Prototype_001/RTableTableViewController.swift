@@ -42,6 +42,7 @@ class RTableTableViewController: UITableViewController {
         //Observe for updates
         ref.observe(.value, with:{(FIRDataSnapshot) in
             var ticketList: [Ticket] = []
+            var ticketIDList: [String] = []
             for item in FIRDataSnapshot.children {
                 let ticket = Ticket(snapshot: item as! FIRDataSnapshot)
                 
@@ -56,26 +57,29 @@ class RTableTableViewController: UITableViewController {
                 if menuItems != nil{
                     TicketManager.PopulateTicketItemsAsync(ticket: ticket, items: menuItems!)
                     
-                    if ticket.restaurant_ID == self.restaurant!.restaurant_ID! {
-                        if ticket.tableNum != nil {
-                            if currentServer!.tables!.contains(ticket.tableNum!) {
-                                ticketList.append(ticket)
-                                self.ticketIDList.append(ticket.ticket_ID!)
-                            }
-                        }
-                    }
-                }
                     
-                else {
                     if ticket.restaurant_ID == self.restaurant!.restaurant_ID! {
                         if ticket.tableNum != nil {
                             if currentServer!.tables!.contains(ticket.tableNum!) {
                                 ticketList.append(ticket)
-                                self.ticketIDList.append(ticket.ticket_ID!)
+                                ticketIDList.append(ticket.message_ID!)
                             }
                         }
                     }
                 }
+                else {
+                    
+                    if ticket.restaurant_ID == self.restaurant!.restaurant_ID! {
+                        if ticket.tableNum != nil {
+                            if currentServer!.tables!.contains(ticket.tableNum!) {
+                                ticketList.append(ticket)
+                                ticketIDList.append(ticket.message_ID!)
+                            }
+                        }
+                    }
+                }
+                
+                
             }
             
             //Initialize date formatter
@@ -87,6 +91,7 @@ class RTableTableViewController: UITableViewController {
             ticketList.sort() {dateFormatter.date(from: $0.timestamp!)! > dateFormatter.date(from: $1.timestamp!)!}
             
             self.ticketList = ticketList
+            self.ticketIDList = ticketIDList
             self.tableView.reloadData()
             
         }){(error) in

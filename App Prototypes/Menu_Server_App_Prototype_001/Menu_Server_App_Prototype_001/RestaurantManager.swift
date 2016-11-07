@@ -51,13 +51,4 @@ class RestaurantManager {
         semRest.notify(queue: DispatchQueue.main, execute: {
             completionHandler(restaurants) })
     }
-    
-    static func GetRestaurantTickets(restaurant: String, completionHandler: @escaping (_ tickets: [Ticket]) -> ()) {
-        
-        TicketManager.GetTicketFromTables(tables: [], restaurant: restaurant) {
-            tickets in
-
-            completionHandler(tickets)
-        }
-    }
 }

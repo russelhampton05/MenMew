@@ -28,7 +28,7 @@ class MainMenuViewController: UITableViewController{
     //Variables
     var orderArray: [(title: String, price: Double)] = []
     let transition = CircleTransition()
-    var currentTable: String?
+    //var currentTable: String?
     let requestIdentifier = "Request"
 
     
@@ -78,7 +78,7 @@ class MainMenuViewController: UITableViewController{
                 //let messageItem = item as? NSDictionary
                 //let serverMessage = messageItem?["server"] as? String
                 
-                if message.userMessage != "nil" {
+                if message.userMessage != "nil" && message.message_ID == self.ticket!.message_ID! {
                     let content = UNMutableNotificationContent()
                     content.title = "User Alert"
                     content.body = message.userMessage!
@@ -150,7 +150,7 @@ class MainMenuViewController: UITableViewController{
             menuVC.menu_group = menu?.menu_groups![segueIndex!]
             menuVC.ticket = self.ticket
             menuVC.restaurantName = menu?.title
-            menuVC.currentTable = ticket!.tableNum!
+            //menuVC.currentTable = currentTable!
         }
         else if segue.identifier == "SettingsSegue" {
             let settingsVC = segue.destination as! SettingsViewController

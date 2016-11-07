@@ -173,9 +173,11 @@ class QRViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate
             
             var tokens = codeString.components(separatedBy: "/")
             let restID = tokens[0]
-            let currentTable = tokens[1]
+            //let currentTable = tokens[1]
+            
+            currentTable = tokens[1]
             menuLoadVC.menuID = restID
-            menuLoadVC.currentTable = currentTable
+            //menuLoadVC.currentTable = currentTable
         }
     }
     
