@@ -9,6 +9,7 @@
 import Foundation
 import Firebase
 import FirebaseDatabase
+import FirebaseStorage
 
 ///this class needs love! Needs to be updated to look like the Menu Manager / Ticket Manager classes
 //also need to add gathering of tickets
@@ -32,14 +33,14 @@ class UserManager{
     
     static func GetUser(id: String, completionHandler: @escaping (_ user: User) -> ()) {
         
-        let user = User(id: id, email: nil, name: nil, ticket: nil)
+        let user = User(id: id, email: nil, name: nil, ticket: nil, image: nil)
 
         UserManager.ref.child(id).observeSingleEvent(of: .value, with: { (FIRDataSnapshot) in
             let value = FIRDataSnapshot.value as? NSDictionary
 
             user.name = value?["name"] as? String
             user.email = value?["email"] as? String
-            
+            user.image = value?["image"] as? String
             
             //Defer ticket retrieval to a separate function
             user.ticket = nil
@@ -238,6 +239,42 @@ class UserManager{
 
         
         completionHandler(true)
+    }
+    
+    static func uploadImage(user: User, image: UIImage) {
+        
+        //Initialize storage reference
+        let data = UIImageJPEGRepresentation(image, 1.0)
+        let storage = FIRStorage.storage()
+        let storageRef = storage.reference()
+        
+        let userPhotosRef = storageRef.child("UserPhotos")
+        let userRef = userPhotosRef.child(user.ID)
+        let imageRef = userRef.child("profile.jpg")
+        
+        let uploadTask = imageRef.put(data!, metadata: nil) { metadata, error in
+            if (error != nil) {
+                print(error!.localizedDescription)
+            }
+            else {
+                //Replace previous image reference
+                let newImageURL: String = metadata!.downloadURL()!.absoluteString
+                ref.child(user.ID).child("image").setValue(newImageURL)
+            }
+        }
+        
+    }
+    
+    static func getImageURL(user: User, completionHandler: @escaping (_ url: String) -> ()) {
+        
+        UserManager.ref.child(user.ID).observeSingleEvent(of: .value, with: { (FIRDataSnapshot) in
+            let value = FIRDataSnapshot.value as? NSDictionary
+            
+            
+            let imgURL = value?["image"] as? String
+            
+            completionHandler(imgURL!)
+        })
     }
     
     static func randomString(length: Int) -> String {

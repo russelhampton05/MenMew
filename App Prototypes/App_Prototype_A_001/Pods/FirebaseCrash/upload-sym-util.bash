@@ -373,5 +373,10 @@ fcr_upload_files() {
 
         ERRMSG="$(property error:message "${META_UPLOAD_RESULT_PLIST}")"
 
-         done
+        if [[ "${ERRMSG}" ]]; then
+            xcerror "symbolFileMappings:upsert: ${ERRMSG}"
+            xcnote "symbolFileMappings:upsert: The metadata for the symbol file failed to update."
+            return 1
+        fi
+    done
 }

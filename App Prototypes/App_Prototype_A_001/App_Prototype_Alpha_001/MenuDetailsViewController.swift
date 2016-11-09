@@ -73,7 +73,7 @@ class MenuDetailsViewController: UITableViewController {
         cell.foodPrice.text = (NSString(format: "$%.2f", (menu_group?.items![(indexPath as NSIndexPath).row].price!)!) as String)
         cell.foodDesc.text = menu_group?.items![(indexPath as NSIndexPath).row].desc
 
-        cell.foodImage.getImage(urlString: (menu_group?.items![(indexPath as NSIndexPath).row].image)!)
+        cell.foodImage.getImage(urlString: (menu_group?.items![(indexPath as NSIndexPath).row].image)!, circle: false)
 
         
         return cell
@@ -279,7 +279,7 @@ class MenuDetailsViewController: UITableViewController {
     
     }
     extension UIImageView {
-        func getImage(urlString: String) {
+        func getImage(urlString: String, circle: Bool) {
             
             self.image = nil
             
@@ -296,6 +296,10 @@ class MenuDetailsViewController: UITableViewController {
                             imageCache.setValue(img, forKey: urlString)    // Image saved for cache
                             DispatchQueue.main.async(execute: {
                                 self.image = img
+                                
+                                if circle {
+                                    self.image = img.circle
+                                }
                             })
                         }
                         

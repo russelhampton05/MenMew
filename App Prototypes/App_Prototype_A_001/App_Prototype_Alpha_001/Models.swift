@@ -15,11 +15,14 @@ class User{
     var name: String?
     var email: String?
     var ticket: Ticket?
-    init(id: String, email: String?, name: String?, ticket:Ticket?){
+    var image: String?
+    
+    init(id: String, email: String?, name: String?, ticket:Ticket?, image: String?){
         self.ID = id
         self.email = email
         self.name = name
         self.ticket = ticket
+        self.image = image
     }
 }
 //need to look at maybe changing this

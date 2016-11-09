@@ -384,6 +384,7 @@
                     <connections>
                         <outlet property="locationLabel" destination="tRH-k8-cHr" id="OCm-S4-tc8"/>
                         <outlet property="nameLabel" destination="Gte-JV-dlT" id="bMV-rV-ww4"/>
+                        <outlet property="profilePhoto" destination="RQA-GM-VjR" id="oYX-Pj-Tcw"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MI1-cZ-FVJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -630,7 +631,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="R1q-9v-QL9">
                                         <rect key="frame" x="40" y="87.5" width="263" height="202"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile_round" translatesAutoresizingMaskIntoConstraints="NO" id="p5Q-Y6-NwZ">
+                                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile_round" translatesAutoresizingMaskIntoConstraints="NO" id="p5Q-Y6-NwZ">
                                                 <rect key="frame" x="67.5" y="0.0" width="128" height="128"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="128" id="Bu2-LJ-z17"/>

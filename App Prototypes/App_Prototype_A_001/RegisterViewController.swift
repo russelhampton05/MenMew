@@ -79,7 +79,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                 
                 if error == nil {
                     //Create associated entry on Firebase
-                    let newUser = User(id: (user?.uid)!, email: (user?.email)!, name: self.usernameField.text!, ticket: nil)
+                    let newUser = User(id: (user?.uid)!, email: (user?.email)!, name: self.usernameField.text!, ticket: nil, image: nil)
                     
                     UserManager.AddUser(user: newUser)
                     

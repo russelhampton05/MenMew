@@ -12,6 +12,7 @@ class SettingsViewController: UITableViewController {
     //IBOutlets
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
+    @IBOutlet weak var profilePhoto: UIImageView!
     
     //Variables
     var restaurantName: String?
@@ -27,6 +28,11 @@ class SettingsViewController: UITableViewController {
             self.locationLabel.text = "At " + menu.title!
             self.restaurantName = menu.title!
         }
+        
+        if currentUser!.image != nil {
+            profilePhoto.getImage(urlString: currentUser!.image!, circle: true)
+        }
+        
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -46,7 +52,13 @@ class SettingsViewController: UITableViewController {
     //Unwind Segue
     @IBAction func unwindToSettings(_ sender: UIStoryboardSegue) {
         if let sourceVC = sender.source as? ProfileViewController {
-            
+            currentUser!.image = sourceVC.newImageURL!
+
+            if currentUser!.image != nil {
+                profilePhoto.image = nil
+                profilePhoto.getImage(urlString: currentUser!.image!, circle: true)
+            }
+            tableView.reloadData()
         }
         else if let sourceVC = sender.source as? OrderSummaryViewController {
             
