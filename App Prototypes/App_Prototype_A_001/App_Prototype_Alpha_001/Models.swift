@@ -16,13 +16,15 @@ class User{
     var email: String?
     var ticket: Ticket?
     var image: String?
+    var theme: String?
     
-    init(id: String, email: String?, name: String?, ticket:Ticket?, image: String?){
+    init(id: String, email: String?, name: String?, ticket: Ticket?, image: String?, theme: String?){
         self.ID = id
         self.email = email
         self.name = name
         self.ticket = ticket
         self.image = image
+        self.theme = theme
     }
 }
 //need to look at maybe changing this
@@ -211,5 +213,45 @@ class Message {
         self.message_ID = snapshot.key
         self.serverMessage = snapshotValue["server"] as? String
         self.userMessage = snapshotValue["user"] as? String
+    }
+}
+
+//Theme Class
+class Theme {
+    var bgColor: UIColor?
+    var textColor: UIColor?
+    var hlColor: UIColor?
+    
+    init(type: String) {
+        if type == "Salmon" {
+            bgColor = UIColor(red: 255, green: 106, blue: 92)
+            textColor = UIColor(red: 255, green: 106, blue: 92)
+            hlColor = UIColor(red: 255, green: 255, blue: 255)
+        }
+        else if type == "Light" {
+            bgColor = UIColor(red: 255, green: 255, blue: 255)
+            textColor = UIColor(red: 255, green: 255, blue: 255)
+            hlColor = UIColor(red: 255, green: 106, blue: 92)
+        }
+        else if type == "Midnight" {
+            bgColor = UIColor(red: 255, green: 106, blue: 92)
+            textColor = UIColor(red: 255, green: 106, blue: 92)
+            hlColor = UIColor(red: 255, green: 255, blue: 255)
+        }
+        else if type == "Slate" {
+            bgColor = UIColor(red: 27, green: 27, blue: 27)
+            textColor = UIColor(red: 27, green: 27, blue: 27)
+            hlColor = UIColor(red: 255, green: 255, blue: 255)
+        }
+    }
+}
+
+extension UIColor {
+    convenience init(red: Int, green: Int, blue: Int) {
+        let newRed = CGFloat(red)/255
+        let newGreen = CGFloat(green)/255
+        let newBlue = CGFloat(blue)/255
+        
+        self.init(red: newRed, green: newGreen, blue: newBlue, alpha: 1.0)
     }
 }

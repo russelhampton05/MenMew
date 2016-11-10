@@ -13,6 +13,7 @@ import Firebase
 var currentUser: User?
 var currentRestaurant: String?
 var currentTable: String?
+var currentTheme: Theme?
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
     

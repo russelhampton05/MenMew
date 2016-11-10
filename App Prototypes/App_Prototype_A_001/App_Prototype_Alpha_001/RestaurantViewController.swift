@@ -32,9 +32,9 @@ class RestaurantViewController: UIViewController {
         
         //Check for user and restaurant IDs to load tickets
         loadRestaurantInformation()
-
+        
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -51,11 +51,11 @@ class RestaurantViewController: UIViewController {
     func delay(_ time: Double, closure: @escaping () -> ()) {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
     }
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "MainMenuSegue" {
             let mainMenuVC = segue.destination as! MainMenuViewController
-        
+            
             mainMenuVC.menu = self.menu
             //mainMenuVC.currentTable = self.currentTable!
             mainMenuVC.ticket = currentUser!.ticket!
@@ -130,136 +130,25 @@ class RestaurantViewController: UIViewController {
             }
             else {
                 currentRestaurant =  menu.rest_id!
-
+                
                 self.loadTicketInformation()
-                }
             }
         }
     }
-/*
-=======
     
-    //JSON parsing method, may be changed/replaced
->>>>>>> master
-    func parseJSONData() {
+    func loadTheme() {
+        currentTheme = Theme.init(type: currentUser!.theme!)
         
-        URLSession.shared.dataTask(with: connectionURL!, completionHandler: {(data, response, error) in
-            if error != nil {
-                //Error
-                print(error)
-            } else {
-                do {
-                    let jsonData = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [String: Any]
-                    
-                    
-                    if let categories = jsonData["category"] as? [[String: Any]] {
-                        
-                        if let restaurantName = jsonData["name"] as? String {
-                            self.restaurantTitle = restaurantName
-                        }
-                        
-                        if let restaurantLocation = jsonData["location"] as? String {
-                            self.location = restaurantLocation
-                        }
-                        
-                        if let restaurantTableNum = jsonData["table"] as? Int {
-                            self.tableNum = restaurantTableNum
-                        }
-                        
-                        DispatchQueue.main.async(execute: { () -> Void in
-                            self.restaurantLabel.text = self.restaurantTitle!
-                            self.tableLabel.text = "Table " + String(self.tableNum!)
-                        })
-                        
-                        
-                        for var category in categories {
-                            
-                            self.categoryArray.append((name: category["cat_name"] as! String, desc: category["cat_desc"] as! String))
-                            
-                            let items = category["item"] as! [[String: Any]]
-                            
-                            for item in items {
-                                
-                                let newMenuItem = MenuItem(title: item["name"] as! String, price: item["price"] as! Double, image: item["image"] as! String, desc: item["desc"] as! String)
-                                
-                                self.menuGroup.append(newMenuItem)
-                            }
-                            
-                            self.menuArray.append(self.menuGroup)
-                            self.menuGroup.removeAll()
-                        }
-                    }
-                    
-                    self.performSegue(withIdentifier: "MainMenuSegue", sender: self)
-                    
-                } catch let error as NSError {
-                    //Error
-                    print(error)
-                }
-            }
-        }).resume()
- 
- 
- //Get most recent ticket
- var tickets = value?["tickets"] as? NSDictionary
- var currentTicketID: String?
- 
- if tickets != nil {
- 
- for item in (tickets?.allKeys)! {
- if tickets?.value(forKey: item as! String) as! Bool == false {
- currentTicketID = item as? String
- }
- }
- 
- 
- TicketManager.GetTicket(id: currentTicketID!)	{
- ticket in
- 
- currentTicket = ticket
- 
- completionHandler(currentTicket)
- }
- }
- else {
- tickets = nil
- completionHandler(currentTicket)
- }
-
- 
- ref.child(user.ID).child("tickets").observe(.value, with: {(FIRDataSnapshot) in
- if FIRDataSnapshot.value as! Bool == false {
- FIRDatabase.database().reference().child("tickets").child(FIRDataSnapshot.key).observeSingleEvent(of: .value, with: { (snapshot) in
- let value = snapshot.value as? NSDictionary
- if value?["restaurant"] as! String == restaurant {
- TicketManager.GetTicket(id: FIRDataSnapshot.key, restaurant: restaurant) {
- retrievedTicket in
- ticket = retrievedTicket
- 
- completionHandler(ticket)
- }
- }
- }) { (error) in
- print(error.localizedDescription)
- }
- } else {
- ticket = Ticket()
- }
- 
- }){(error) in
- print(error.localizedDescription)}
- 
- 
- UserManager.GetTicket(user: currentUser!, restaurant: "fac4b7243c8d47d69a309fb7471d21b9") {
- ticket in
- 
- if ticket != nil {
- currentUser!.ticket = ticket
- 
- self.performSegue(withIdentifier: "MainMenuSegue", sender: self)
- }
- }
-        */
-
-
-
+        //Background and Tint
+        self.view.backgroundColor = currentTheme!.bgColor!
+        self.view.tintColor = currentTheme!.hlColor!
+        
+        //Labels
+        self.restaurantLabel.textColor = currentTheme!.textColor!
+        self.restaurantLabel.backgroundColor = currentTheme!.hlColor!
+        self.tableLabel.textColor = currentTheme!.textColor!
+        self.tableLabel.backgroundColor = currentTheme!.hlColor!
+        
+        //Buttons
+    }
+}

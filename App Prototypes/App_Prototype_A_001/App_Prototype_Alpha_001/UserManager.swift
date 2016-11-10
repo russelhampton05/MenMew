@@ -33,7 +33,7 @@ class UserManager{
     
     static func GetUser(id: String, completionHandler: @escaping (_ user: User) -> ()) {
         
-        let user = User(id: id, email: nil, name: nil, ticket: nil, image: nil)
+        let user = User(id: id, email: nil, name: nil, ticket: nil, image: nil, theme: nil)
 
         UserManager.ref.child(id).observeSingleEvent(of: .value, with: { (FIRDataSnapshot) in
             let value = FIRDataSnapshot.value as? NSDictionary
@@ -41,6 +41,7 @@ class UserManager{
             user.name = value?["name"] as? String
             user.email = value?["email"] as? String
             user.image = value?["image"] as? String
+            user.theme = value?["theme"] as? String
             
             //Defer ticket retrieval to a separate function
             user.ticket = nil
