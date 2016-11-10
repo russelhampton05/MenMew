@@ -31,7 +31,6 @@ class MenuDetailsViewController: UITableViewController {
     @IBOutlet weak var doneButton: UIBarButtonItem!
     @IBOutlet var backButton: UIBarButtonItem!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         if let font = UIFont(name: "HelveticaNeue", size: 12) {
@@ -52,6 +51,8 @@ class MenuDetailsViewController: UITableViewController {
         else {
             doneButton.isEnabled = false
         }
+        
+        loadTheme()
     }
 
     override func didReceiveMemoryWarning() {
@@ -275,6 +276,25 @@ class MenuDetailsViewController: UITableViewController {
                 doneButton.isEnabled = false
             }
         }
+    }
+    
+    func loadTheme() {
+        
+        //Background and Tint
+        self.view.backgroundColor = currentTheme!.bgColor!
+        self.view.tintColor = currentTheme!.hlColor!
+        tableView.backgroundColor = currentTheme!.bgColor!
+        
+        //Navigation
+        UINavigationBar.appearance().backgroundColor = currentTheme!.bgColor!
+        UINavigationBar.appearance().tintColor = currentTheme!.hlColor!
+        self.navigationController?.navigationBar.barTintColor = currentTheme!.bgColor!
+        self.navigationController?.navigationBar.tintColor = currentTheme!.hlColor!
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: currentTheme!.hlColor!, NSFontAttributeName: UIFont.systemFont(ofSize: 20, weight: UIFontWeightLight)]
+        
+        //Labels
+        
+        //Buttons
     }
     
     }

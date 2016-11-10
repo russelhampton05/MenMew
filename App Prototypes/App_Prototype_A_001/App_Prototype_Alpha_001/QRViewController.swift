@@ -23,8 +23,8 @@ class QRViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate
     var tableNum: Int?
     var connectionURL: URL?
     
-    @IBOutlet weak var messageLabel:UILabel!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var messageLabel:UILabel!
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -41,7 +41,7 @@ class QRViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate
         self.addVideoPreviewLayer()
         self.initializeQRView()
 
-     //   performSegue(withIdentifier: "MenuLoadSegue", sender: self)
+        loadTheme()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -236,5 +236,20 @@ class QRViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate
             
             performSegue(withIdentifier: "MenuLoadSegue", sender: self)
         }
+    }
+    
+    func loadTheme() {
+        //Background and Tint
+        self.view.backgroundColor = currentTheme!.bgColor!
+        self.view.tintColor = currentTheme!.hlColor!
+
+        
+        //Labels
+        titleLabel.backgroundColor = currentTheme!.bgColor!
+        titleLabel.textColor = currentTheme!.hlColor!
+        messageLabel.backgroundColor = currentTheme!.bgColor!
+        messageLabel.textColor = currentTheme!.hlColor!
+        
+        //Buttons
     }
 }

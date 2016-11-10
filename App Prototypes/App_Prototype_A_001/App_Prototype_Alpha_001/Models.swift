@@ -234,8 +234,8 @@ class Theme {
             hlColor = UIColor(red: 255, green: 106, blue: 92)
         }
         else if type == "Midnight" {
-            bgColor = UIColor(red: 255, green: 106, blue: 92)
-            textColor = UIColor(red: 255, green: 106, blue: 92)
+            bgColor = UIColor(red: 55, green: 30, blue: 96)
+            textColor = UIColor(red: 55, green: 30, blue: 96)
             hlColor = UIColor(red: 255, green: 255, blue: 255)
         }
         else if type == "Slate" {

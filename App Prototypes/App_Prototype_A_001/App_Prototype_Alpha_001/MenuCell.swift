@@ -45,6 +45,9 @@ class MenuCell : UITableViewCell {
                 self.shadowHeight.constant = 140
             })
         }
+        
+        addButton.backgroundColor = currentTheme!.hlColor!
+        addButton.setTitleColor(currentTheme!.textColor!, for: .normal)
     }
     
     //Subscribe the cell for observing frame changes

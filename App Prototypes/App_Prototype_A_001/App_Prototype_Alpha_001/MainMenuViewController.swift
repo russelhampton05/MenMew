@@ -12,33 +12,22 @@ import UserNotifications
 import UserNotificationsUI
 import Firebase
 
-class MainMenuViewController: UITableViewController{
+class MainMenuViewController: UITableViewController {
     
-    var menu: Menu?
-    var ticket: Ticket?
-    var segueIndex: Int?
-    
-
     //IBOutlets
-    
     @IBOutlet var menuButton: UIBarButtonItem!
     @IBOutlet weak var ordersButton: UIBarButtonItem!
     @IBOutlet weak var restaurantLabel: UINavigationItem!
-    
+
     //Variables
     var orderArray: [(title: String, price: Double)] = []
-    let transition = CircleTransition()
-    //var currentTable: String?
     let requestIdentifier = "Request"
-
-    
-    //@IBOutlet weak var restaurantLabel: UINavigationItem!
-
+    var menu: Menu?
+    var ticket: Ticket?
+    var segueIndex: Int?
     var menuArray = [[MenuItem]]()
     var categoryArray = [(name: String, desc: String)]()
     var restaurant: String?
-    //var segueIndex: Int?
-    var test: String = ""
 
     
     override func viewDidLoad() {
@@ -65,6 +54,7 @@ class MainMenuViewController: UITableViewController{
         menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
         
         initializeNotificationObserver()
+        loadTheme()
     }
     
     func initializeNotificationObserver() {
@@ -114,12 +104,16 @@ class MainMenuViewController: UITableViewController{
         
         cell?.textLabel!.text = menu?.menu_groups?[(indexPath as NSIndexPath).row].title
         cell?.detailTextLabel!.text = menu?.menu_groups?[(indexPath as NSIndexPath).row].desc
+        
+        cell?.backgroundColor = currentTheme!.bgColor!
+        cell?.textLabel!.textColor = currentTheme!.hlColor!
+        cell?.detailTextLabel!.textColor = currentTheme!.hlColor!
 
         let bgView = UIView()
-        bgView.backgroundColor = UIColor.white
+        bgView.backgroundColor = currentTheme!.hlColor!
         cell?.selectedBackgroundView = bgView
-        cell?.textLabel?.highlightedTextColor = self.view.backgroundColor
-        cell?.detailTextLabel?.highlightedTextColor = self.view.backgroundColor
+        cell?.textLabel?.highlightedTextColor = currentTheme!.bgColor!
+        cell?.detailTextLabel?.highlightedTextColor = currentTheme!.bgColor!
         
         return cell!
     }
@@ -200,6 +194,25 @@ class MainMenuViewController: UITableViewController{
 
     @IBAction func ordersButtonPressed(_ sender: AnyObject) {
         performSegue(withIdentifier: "OrderSummarySegue", sender: self)
+    }
+    
+    func loadTheme() {
+        
+        //Background and Tint
+        self.view.backgroundColor = currentTheme!.bgColor!
+        self.view.tintColor = currentTheme!.hlColor!
+        tableView.backgroundColor = currentTheme!.bgColor!
+        
+        //Navigation
+        UINavigationBar.appearance().backgroundColor = currentTheme!.bgColor!
+        UINavigationBar.appearance().tintColor = currentTheme!.hlColor!
+        self.navigationController?.navigationBar.barTintColor = currentTheme!.bgColor!
+        self.navigationController?.navigationBar.tintColor = currentTheme!.hlColor!
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: currentTheme!.hlColor!, NSFontAttributeName: UIFont.systemFont(ofSize: 20, weight: UIFontWeightLight)]
+        
+        //Labels
+        
+        //Buttons
     }
 }
 

@@ -14,8 +14,13 @@ class PaymentSummaryViewController: UIViewController {
     var ticket: Ticket?
     
     //IBOutlets
+    @IBOutlet weak var summaryTitle: UILabel!
+    @IBOutlet weak var ticketTitle: UILabel!
+    @IBOutlet weak var priceTitle: UILabel!
+    @IBOutlet weak var thankTitle: UILabel!
     @IBOutlet var ticketLabel: UILabel!
     @IBOutlet var priceLabel: UILabel!
+    @IBOutlet weak var confirmButton: UIButton!
     
     
     override func viewDidLoad() {
@@ -25,6 +30,8 @@ class PaymentSummaryViewController: UIViewController {
         priceLabel.text = "$" + String(format: "%.2f", ticket!.total! + ticket!.tip!)
         
         UserManager.UpdateTicketStatus(user: currentUser!, ticket: ticket!.ticket_ID!, status: "Order Paid")
+        
+        loadTheme()
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,5 +44,22 @@ class PaymentSummaryViewController: UIViewController {
         performSegue(withIdentifier: "UnwindToMainSegue", sender: self)
     }
 
-
+    func loadTheme() {
+        
+        //Background and Tint
+        self.view.backgroundColor = currentTheme!.bgColor!
+        self.view.tintColor = currentTheme!.hlColor!
+        
+        //Labels
+        summaryTitle.textColor = currentTheme!.hlColor!
+        ticketTitle.textColor = currentTheme!.hlColor!
+        priceTitle.textColor = currentTheme!.hlColor!
+        thankTitle.textColor = currentTheme!.hlColor!
+        ticketLabel.textColor = currentTheme!.hlColor!
+        priceLabel.textColor = currentTheme!.hlColor!
+        
+        //Buttons
+        confirmButton.backgroundColor = currentTheme!.hlColor!
+        confirmButton.setTitleColor(currentTheme!.textColor!, for: .normal)
+    }
 }

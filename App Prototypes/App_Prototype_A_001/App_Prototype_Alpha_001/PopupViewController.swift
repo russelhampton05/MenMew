@@ -13,6 +13,7 @@ class PopupViewController: UIViewController {
     @IBOutlet weak var addedLabel: UILabel!
     @IBOutlet weak var confirmButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var popupView: UIView!
     
     var menuItem: String?
     var ticketString: String?
@@ -26,6 +27,8 @@ class PopupViewController: UIViewController {
     override func viewDidLoad() {
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0.6)
         self.showAnimate()
+        
+        loadTheme()
     }
     
     
@@ -135,6 +138,22 @@ class PopupViewController: UIViewController {
         else {
             addedLabel.text = context
         }
+    }
+    
+    func loadTheme() {
+        
+        //Background and Tint
+        popupView.backgroundColor = currentTheme!.bgColor!
+        self.view.tintColor = currentTheme!.hlColor!
+        
+        //Labels
+        addedLabel.textColor = currentTheme!.hlColor!
+        
+        //Buttons
+        confirmButton.backgroundColor = currentTheme!.hlColor!
+        confirmButton.setTitleColor(currentTheme!.bgColor!, for: .normal)
+        cancelButton.backgroundColor = currentTheme!.hlColor!
+        cancelButton.setTitleColor(currentTheme!.bgColor!, for: .normal)
     }
 }
 

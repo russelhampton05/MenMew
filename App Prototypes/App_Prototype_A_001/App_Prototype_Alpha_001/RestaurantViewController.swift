@@ -19,6 +19,7 @@ class RestaurantViewController: UIViewController {
     //IBOutlets
     @IBOutlet weak var restaurantLabel: UILabel!
     @IBOutlet weak var tableLabel: UILabel!
+    @IBOutlet weak var loadingTitle: UILabel!
     
     //Variables
     var menu: Menu?
@@ -32,6 +33,8 @@ class RestaurantViewController: UIViewController {
         
         //Check for user and restaurant IDs to load tickets
         loadRestaurantInformation()
+        
+        loadTheme()
         
     }
     
@@ -137,17 +140,20 @@ class RestaurantViewController: UIViewController {
     }
     
     func loadTheme() {
-        currentTheme = Theme.init(type: currentUser!.theme!)
-        
         //Background and Tint
         self.view.backgroundColor = currentTheme!.bgColor!
         self.view.tintColor = currentTheme!.hlColor!
         
+        //Navigation
+        UINavigationBar.appearance().backgroundColor = currentTheme!.bgColor!
+        UINavigationBar.appearance().tintColor = currentTheme!.hlColor!
+        self.navigationController?.navigationBar.barTintColor = currentTheme!.bgColor!
+        self.navigationController?.navigationBar.tintColor = currentTheme!.hlColor!
+        
         //Labels
-        self.restaurantLabel.textColor = currentTheme!.textColor!
-        self.restaurantLabel.backgroundColor = currentTheme!.hlColor!
-        self.tableLabel.textColor = currentTheme!.textColor!
-        self.tableLabel.backgroundColor = currentTheme!.hlColor!
+        self.restaurantLabel.textColor = currentTheme!.hlColor!
+        self.tableLabel.textColor = currentTheme!.hlColor!
+        loadingTitle.textColor = currentTheme!.hlColor!
         
         //Buttons
     }

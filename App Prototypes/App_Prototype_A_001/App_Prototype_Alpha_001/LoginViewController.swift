@@ -18,10 +18,14 @@ var currentTheme: Theme?
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
     //IBOutlets
+    @IBOutlet weak var loginTitle: UILabel!
+    @IBOutlet weak var emailLine: UIView!
+    @IBOutlet weak var passwordLine: UIView!
     @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var logoutButton: UIButton!
+    @IBOutlet weak var doneButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +53,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     self.usernameField.text = fbUser.email!
                     
                     currentUser = user
+                    self.loadTheme()
                 }
             }
             
@@ -57,6 +62,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             logoutButton.isHidden = true
             registerButton.isHidden = false
         }
+        
     }
 		
     override func didReceiveMemoryWarning() {
@@ -142,5 +148,34 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         logoutButton.isHidden = true
         registerButton.isHidden = false
         
+    }
+    
+    func loadTheme() {
+        currentTheme = Theme.init(type: currentUser!.theme!)
+        
+        //Background and Tint
+        self.view.backgroundColor = currentTheme!.bgColor!
+        self.view.tintColor = currentTheme!.hlColor!
+
+        
+        //Labels
+        loginTitle.textColor = currentTheme!.hlColor!
+        emailLine.backgroundColor = currentTheme!.hlColor!
+        passwordLine.backgroundColor = currentTheme!.hlColor!
+        
+        //Fields
+        usernameField.textColor = currentTheme!.hlColor!
+        usernameField.tintColor = currentTheme!.hlColor!
+        passwordField.textColor = currentTheme!.hlColor!
+        passwordField.tintColor = currentTheme!.hlColor!
+        
+        
+        //Buttons
+        doneButton.backgroundColor = currentTheme!.hlColor!
+        doneButton.setTitleColor(currentTheme!.textColor!, for: .normal)
+        logoutButton.backgroundColor = currentTheme!.hlColor!
+        logoutButton.setTitleColor(currentTheme!.textColor!, for: .normal)
+        registerButton.backgroundColor = currentTheme!.hlColor!
+        registerButton.setTitleColor(currentTheme!.textColor, for: .normal)
     }
 }

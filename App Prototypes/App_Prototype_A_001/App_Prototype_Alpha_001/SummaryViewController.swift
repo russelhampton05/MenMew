@@ -10,6 +10,10 @@ import UIKit
 
 class SummaryViewController : UITableViewController {
     
+    @IBOutlet weak var orderLine: UIView!
+    @IBOutlet weak var orderTitle: UILabel!
+    @IBOutlet weak var taxTitle: UILabel!
+    @IBOutlet weak var totalTitle: UILabel!
     @IBOutlet weak var taxValue: UILabel!
     @IBOutlet weak var totalValue: UILabel!
     @IBOutlet weak var doneButton: UIButton!
@@ -17,6 +21,8 @@ class SummaryViewController : UITableViewController {
     @IBOutlet var cancelButton: UIButton!
     @IBOutlet var payButton: UIButton!
     @IBOutlet var itemLabel: UILabel!
+    @IBOutlet weak var orderView: UIView!
+    @IBOutlet weak var buttonView: UIView!
     
   //  var orderArray: [(title: String, price: Double)] = []
     var total: Double = 0.0
@@ -44,7 +50,7 @@ class SummaryViewController : UITableViewController {
         }
         
         checkTicketStatus()
-
+        loadTheme()
         
     }
     
@@ -54,14 +60,19 @@ class SummaryViewController : UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SummaryCell") as! SummaryCell
         
         if (ticket?.itemsOrdered?.count)! > 0 {
+            cell.backgroundColor = currentTheme!.bgColor!
+            cell.tintColor = currentTheme!.hlColor!
+            
             let title = cell.viewWithTag(1) as! UILabel
             title.text = self.ticket?.itemsOrdered?[(indexPath as NSIndexPath).row].title
+            title.textColor = currentTheme!.hlColor!
             
             let formatter = NumberFormatter()
             formatter.numberStyle = .currency
             let price = cell.viewWithTag(2) as! UILabel
             let priceHolder = self.ticket!.itemsOrdered![(indexPath as NSIndexPath).row].price!
             price.text = formatter.string(from: priceHolder as NSNumber)
+            price.textColor = currentTheme!.hlColor!
             
             total += priceHolder
             
@@ -235,5 +246,40 @@ class SummaryViewController : UITableViewController {
         if let sourceVC = sender.source as? PaymentDetailsViewController {
             self.navigationController?.isNavigationBarHidden = false
         }
+    }
+    
+    func loadTheme() {
+        
+        //Background and Tint
+        self.view.backgroundColor = currentTheme!.bgColor!
+        self.view.tintColor = currentTheme!.hlColor!
+        tableView.backgroundColor = currentTheme!.bgColor!
+        orderView.backgroundColor = currentTheme!.bgColor!
+        buttonView.backgroundColor = currentTheme!.bgColor!
+        
+        //Navigation
+        UINavigationBar.appearance().backgroundColor = currentTheme!.bgColor!
+        UINavigationBar.appearance().tintColor = currentTheme!.hlColor!
+        self.navigationController?.navigationBar.barTintColor = currentTheme!.bgColor!
+        self.navigationController?.navigationBar.tintColor = currentTheme!.hlColor!
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: currentTheme!.hlColor!, NSFontAttributeName: UIFont.systemFont(ofSize: 20, weight: UIFontWeightLight)]
+        
+        //Labels
+        orderTitle.textColor = currentTheme!.hlColor!
+        taxValue.textColor = currentTheme!.hlColor!
+        totalValue.textColor = currentTheme!.hlColor!
+        itemLabel.textColor = currentTheme!.hlColor!
+        orderLine.backgroundColor = currentTheme!.hlColor!
+        taxTitle.textColor = currentTheme!.hlColor!
+        totalTitle.textColor = currentTheme!.hlColor!
+        
+        //Buttons
+        payButton.setTitleColor(currentTheme!.textColor!, for: .normal)
+        payButton.backgroundColor = currentTheme!.hlColor!
+
+        cancelButton.setTitleColor(currentTheme!.textColor!, for: .normal)
+        cancelButton.backgroundColor = currentTheme!.hlColor!
+        confirmButton.setTitleColor(currentTheme!.textColor!, for: .normal)
+        confirmButton.backgroundColor = currentTheme!.hlColor!
     }
 }

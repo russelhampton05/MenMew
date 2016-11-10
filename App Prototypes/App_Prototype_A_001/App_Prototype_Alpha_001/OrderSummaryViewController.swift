@@ -14,9 +14,11 @@ class OrderSummaryViewController: UIViewController {
     var ticket: Ticket?
     
     //IBOutlets
+    @IBOutlet weak var orderTitle: UILabel!
+    @IBOutlet weak var ticketTitle: UILabel!
     @IBOutlet weak var ticketLabel: UILabel!
+    @IBOutlet weak var totalTitle: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
-    @IBOutlet weak var serverLabel: UILabel!
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var refillButton: UIButton!
     @IBOutlet weak var helpButton: UIButton!
@@ -38,6 +40,8 @@ class OrderSummaryViewController: UIViewController {
         else {
             totalLabel.text = "$0.00"
         }
+        
+        loadTheme()
     }
     
     override func didReceiveMemoryWarning() {
@@ -60,5 +64,21 @@ class OrderSummaryViewController: UIViewController {
         MessageManager.WriteServerMessage(id: currentUser!.ticket!.message_ID!, message: "Requesting assistance at Table \(currentUser!.ticket!.tableNum!)")
     }
     
-    
+    func loadTheme() {
+        
+        //Background and Tint
+        self.view.backgroundColor = currentTheme!.hlColor!
+        self.view.tintColor = currentTheme!.bgColor!
+        
+        //Labels
+        orderTitle.textColor = currentTheme!.bgColor!
+        ticketTitle.textColor = currentTheme!.bgColor!
+        totalTitle.textColor = currentTheme!.bgColor!
+        ticketLabel.textColor = currentTheme!.bgColor!
+        totalLabel.textColor = currentTheme!.bgColor!
+        
+        //Buttons
+        doneButton.backgroundColor = currentTheme!.bgColor!
+        doneButton.setTitleColor(currentTheme!.hlColor!, for: .normal)
+    }
 }
