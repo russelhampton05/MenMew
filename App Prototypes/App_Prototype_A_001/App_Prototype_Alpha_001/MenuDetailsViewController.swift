@@ -281,16 +281,16 @@ class MenuDetailsViewController: UITableViewController {
     func loadTheme() {
         
         //Background and Tint
-        self.view.backgroundColor = currentTheme!.bgColor!
-        self.view.tintColor = currentTheme!.hlColor!
-        tableView.backgroundColor = currentTheme!.bgColor!
+        self.view.backgroundColor = currentTheme!.primary!
+        self.view.tintColor = currentTheme!.highlight!
+        tableView.backgroundColor = currentTheme!.primary!
         
         //Navigation
-        UINavigationBar.appearance().backgroundColor = currentTheme!.bgColor!
-        UINavigationBar.appearance().tintColor = currentTheme!.hlColor!
-        self.navigationController?.navigationBar.barTintColor = currentTheme!.bgColor!
-        self.navigationController?.navigationBar.tintColor = currentTheme!.hlColor!
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: currentTheme!.hlColor!, NSFontAttributeName: UIFont.systemFont(ofSize: 20, weight: UIFontWeightLight)]
+        UINavigationBar.appearance().backgroundColor = currentTheme!.primary!
+        UINavigationBar.appearance().tintColor = currentTheme!.highlight!
+        self.navigationController?.navigationBar.barTintColor = currentTheme!.primary!
+        self.navigationController?.navigationBar.tintColor = currentTheme!.highlight!
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: currentTheme!.highlight!, NSFontAttributeName: UIFont.systemFont(ofSize: 20, weight: UIFontWeightLight)]
         
         //Labels
         

@@ -13,6 +13,13 @@ class SettingsViewController: UITableViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var profilePhoto: UIImageView!
+    @IBOutlet weak var profileLabel: UILabel!
+    @IBOutlet weak var ordersLabel: UILabel!
+    @IBOutlet weak var settingsLabel: UILabel!
+    @IBOutlet weak var personaTab: UITableViewCell!
+    @IBOutlet weak var profileTab: UITableViewCell!
+    @IBOutlet weak var ordersTab: UITableViewCell!
+    @IBOutlet weak var settingsTab: UITableViewCell!
     
     //Variables
     var restaurantName: String?
@@ -33,6 +40,7 @@ class SettingsViewController: UITableViewController {
             profilePhoto.getImage(urlString: currentUser!.image!, circle: true)
         }
         
+        loadTheme()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -63,5 +71,27 @@ class SettingsViewController: UITableViewController {
         else if let sourceVC = sender.source as? OrderSummaryViewController {
             
         }
+    }
+    
+    func loadTheme() {
+        
+        //Background and Tint
+        self.view.backgroundColor = currentTheme!.secondary!
+        self.view.tintColor = currentTheme!.highlight!
+        self.tableView.backgroundColor = currentTheme!.secondary!
+        
+        //Labels
+        nameLabel.textColor = currentTheme!.highlight!
+        locationLabel.textColor = currentTheme!.highlight!
+        profileLabel.textColor = currentTheme!.highlight!
+        ordersLabel.textColor = currentTheme!.highlight!
+        settingsLabel.textColor = currentTheme!.highlight!
+        
+        //Cells
+        personaTab.backgroundColor = currentTheme!.secondary!
+        profileTab.backgroundColor = currentTheme!.secondary!
+        ordersTab.backgroundColor = currentTheme!.secondary!
+        settingsTab.backgroundColor = currentTheme!.secondary!
+
     }
 }

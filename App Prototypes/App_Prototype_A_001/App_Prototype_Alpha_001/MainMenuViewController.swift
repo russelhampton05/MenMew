@@ -105,15 +105,15 @@ class MainMenuViewController: UITableViewController {
         cell?.textLabel!.text = menu?.menu_groups?[(indexPath as NSIndexPath).row].title
         cell?.detailTextLabel!.text = menu?.menu_groups?[(indexPath as NSIndexPath).row].desc
         
-        cell?.backgroundColor = currentTheme!.bgColor!
-        cell?.textLabel!.textColor = currentTheme!.hlColor!
-        cell?.detailTextLabel!.textColor = currentTheme!.hlColor!
+        cell?.backgroundColor = currentTheme!.primary!
+        cell?.textLabel!.textColor = currentTheme!.highlight!
+        cell?.detailTextLabel!.textColor = currentTheme!.highlight!
 
         let bgView = UIView()
-        bgView.backgroundColor = currentTheme!.hlColor!
+        bgView.backgroundColor = currentTheme!.highlight!
         cell?.selectedBackgroundView = bgView
-        cell?.textLabel?.highlightedTextColor = currentTheme!.bgColor!
-        cell?.detailTextLabel?.highlightedTextColor = currentTheme!.bgColor!
+        cell?.textLabel?.highlightedTextColor = currentTheme!.primary!
+        cell?.detailTextLabel?.highlightedTextColor = currentTheme!.primary!
         
         return cell!
     }
@@ -199,16 +199,16 @@ class MainMenuViewController: UITableViewController {
     func loadTheme() {
         
         //Background and Tint
-        self.view.backgroundColor = currentTheme!.bgColor!
-        self.view.tintColor = currentTheme!.hlColor!
-        tableView.backgroundColor = currentTheme!.bgColor!
+        self.view.backgroundColor = currentTheme!.primary!
+        self.view.tintColor = currentTheme!.highlight!
+        tableView.backgroundColor = currentTheme!.primary!
         
         //Navigation
-        UINavigationBar.appearance().backgroundColor = currentTheme!.bgColor!
-        UINavigationBar.appearance().tintColor = currentTheme!.hlColor!
-        self.navigationController?.navigationBar.barTintColor = currentTheme!.bgColor!
-        self.navigationController?.navigationBar.tintColor = currentTheme!.hlColor!
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: currentTheme!.hlColor!, NSFontAttributeName: UIFont.systemFont(ofSize: 20, weight: UIFontWeightLight)]
+        UINavigationBar.appearance().backgroundColor = currentTheme!.primary!
+        UINavigationBar.appearance().tintColor = currentTheme!.highlight!
+        self.navigationController?.navigationBar.barTintColor = currentTheme!.primary!
+        self.navigationController?.navigationBar.tintColor = currentTheme!.highlight!
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: currentTheme!.highlight!, NSFontAttributeName: UIFont.systemFont(ofSize: 20, weight: UIFontWeightLight)]
         
         //Labels
         

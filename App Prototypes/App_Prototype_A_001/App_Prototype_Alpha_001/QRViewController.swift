@@ -240,15 +240,15 @@ class QRViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate
     
     func loadTheme() {
         //Background and Tint
-        self.view.backgroundColor = currentTheme!.bgColor!
-        self.view.tintColor = currentTheme!.hlColor!
+        self.view.backgroundColor = currentTheme!.primary!
+        self.view.tintColor = currentTheme!.highlight!
 
         
         //Labels
-        titleLabel.backgroundColor = currentTheme!.bgColor!
-        titleLabel.textColor = currentTheme!.hlColor!
-        messageLabel.backgroundColor = currentTheme!.bgColor!
-        messageLabel.textColor = currentTheme!.hlColor!
+        titleLabel.backgroundColor = currentTheme!.primary!
+        titleLabel.textColor = currentTheme!.highlight!
+        messageLabel.backgroundColor = currentTheme!.primary!
+        messageLabel.textColor = currentTheme!.highlight!
         
         //Buttons
     }

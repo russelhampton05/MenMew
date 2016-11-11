@@ -143,17 +143,17 @@ class PopupViewController: UIViewController {
     func loadTheme() {
         
         //Background and Tint
-        popupView.backgroundColor = currentTheme!.bgColor!
-        self.view.tintColor = currentTheme!.hlColor!
+        popupView.backgroundColor = currentTheme!.primary!
+        self.view.tintColor = currentTheme!.highlight!
         
         //Labels
-        addedLabel.textColor = currentTheme!.hlColor!
+        addedLabel.textColor = currentTheme!.highlight!
         
         //Buttons
-        confirmButton.backgroundColor = currentTheme!.hlColor!
-        confirmButton.setTitleColor(currentTheme!.bgColor!, for: .normal)
-        cancelButton.backgroundColor = currentTheme!.hlColor!
-        cancelButton.setTitleColor(currentTheme!.bgColor!, for: .normal)
+        confirmButton.backgroundColor = currentTheme!.highlight!
+        confirmButton.setTitleColor(currentTheme!.primary!, for: .normal)
+        cancelButton.backgroundColor = currentTheme!.highlight!
+        cancelButton.setTitleColor(currentTheme!.primary!, for: .normal)
     }
 }
 

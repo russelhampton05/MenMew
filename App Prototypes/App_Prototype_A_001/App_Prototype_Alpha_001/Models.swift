@@ -218,30 +218,30 @@ class Message {
 
 //Theme Class
 class Theme {
-    var bgColor: UIColor?
-    var textColor: UIColor?
-    var hlColor: UIColor?
+    var primary: UIColor?
+    var secondary: UIColor?
+    var highlight: UIColor?
     
     init(type: String) {
         if type == "Salmon" {
-            bgColor = UIColor(red: 255, green: 106, blue: 92)
-            textColor = UIColor(red: 255, green: 106, blue: 92)
-            hlColor = UIColor(red: 255, green: 255, blue: 255)
+            primary = UIColor(red: 255, green: 106, blue: 92)
+            secondary = UIColor(red: 255, green: 106, blue: 92)
+            highlight = UIColor(red: 255, green: 255, blue: 255)
         }
         else if type == "Light" {
-            bgColor = UIColor(red: 255, green: 255, blue: 255)
-            textColor = UIColor(red: 255, green: 255, blue: 255)
-            hlColor = UIColor(red: 255, green: 106, blue: 92)
+            primary = UIColor(red: 255, green: 255, blue: 255)
+            secondary = UIColor(red: 255, green: 255, blue: 255)
+            highlight = UIColor(red: 255, green: 106, blue: 92)
         }
         else if type == "Midnight" {
-            bgColor = UIColor(red: 55, green: 30, blue: 96)
-            textColor = UIColor(red: 55, green: 30, blue: 96)
-            hlColor = UIColor(red: 255, green: 255, blue: 255)
+            primary = UIColor(red: 55, green: 30, blue: 96)
+            secondary = UIColor(red: 18, green: 3, blue: 42)
+            highlight = UIColor(red: 255, green: 255, blue: 255)
         }
         else if type == "Slate" {
-            bgColor = UIColor(red: 27, green: 27, blue: 27)
-            textColor = UIColor(red: 27, green: 27, blue: 27)
-            hlColor = UIColor(red: 255, green: 255, blue: 255)
+            primary = UIColor(red: 27, green: 27, blue: 27)
+            secondary = UIColor(red: 67, green: 67, blue: 67)
+            highlight = UIColor(red: 255, green: 255, blue: 255)
         }
     }
 }

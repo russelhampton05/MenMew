@@ -54,25 +54,25 @@ class OrderConfirmationViewController: UIViewController {
     func loadTheme() {
         
         //Background and Tint
-        self.view.backgroundColor = currentTheme!.bgColor!
-        self.view.tintColor = currentTheme!.hlColor!
+        self.view.backgroundColor = currentTheme!.primary!
+        self.view.tintColor = currentTheme!.highlight!
         
         //Navigation
-        UINavigationBar.appearance().backgroundColor = currentTheme!.bgColor!
-        UINavigationBar.appearance().tintColor = currentTheme!.hlColor!
-        self.navigationController?.navigationBar.barTintColor = currentTheme!.bgColor!
+        UINavigationBar.appearance().backgroundColor = currentTheme!.primary!
+        UINavigationBar.appearance().tintColor = currentTheme!.highlight!
+        self.navigationController?.navigationBar.barTintColor = currentTheme!.primary!
         
         //Labels
-        orderTitle.textColor = currentTheme!.hlColor!
-        ticketTitle.textColor = currentTheme!.hlColor!
-        dateTitle.textColor = currentTheme!.hlColor!
-        ticketLabel.textColor = currentTheme!.hlColor!
-        dateLabel.textColor = currentTheme!.hlColor!
+        orderTitle.textColor = currentTheme!.highlight!
+        ticketTitle.textColor = currentTheme!.highlight!
+        dateTitle.textColor = currentTheme!.highlight!
+        ticketLabel.textColor = currentTheme!.highlight!
+        dateLabel.textColor = currentTheme!.highlight!
         
         
         //Buttons
-        confirmButton.backgroundColor = currentTheme!.hlColor!
-        confirmButton.setTitleColor(currentTheme!.textColor!, for: .normal)
+        confirmButton.backgroundColor = currentTheme!.highlight!
+        confirmButton.setTitleColor(currentTheme!.primary!, for: .normal)
     }
     
 }

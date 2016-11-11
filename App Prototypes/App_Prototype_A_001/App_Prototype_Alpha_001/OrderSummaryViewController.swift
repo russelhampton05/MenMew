@@ -67,18 +67,18 @@ class OrderSummaryViewController: UIViewController {
     func loadTheme() {
         
         //Background and Tint
-        self.view.backgroundColor = currentTheme!.hlColor!
-        self.view.tintColor = currentTheme!.bgColor!
+        self.view.backgroundColor = currentTheme!.highlight!
+        self.view.tintColor = currentTheme!.primary!
         
         //Labels
-        orderTitle.textColor = currentTheme!.bgColor!
-        ticketTitle.textColor = currentTheme!.bgColor!
-        totalTitle.textColor = currentTheme!.bgColor!
-        ticketLabel.textColor = currentTheme!.bgColor!
-        totalLabel.textColor = currentTheme!.bgColor!
+        orderTitle.textColor = currentTheme!.primary!
+        ticketTitle.textColor = currentTheme!.primary!
+        totalTitle.textColor = currentTheme!.primary!
+        ticketLabel.textColor = currentTheme!.primary!
+        totalLabel.textColor = currentTheme!.primary!
         
         //Buttons
-        doneButton.backgroundColor = currentTheme!.bgColor!
-        doneButton.setTitleColor(currentTheme!.hlColor!, for: .normal)
+        doneButton.backgroundColor = currentTheme!.primary!
+        doneButton.setTitleColor(currentTheme!.highlight!, for: .normal)
     }
 }

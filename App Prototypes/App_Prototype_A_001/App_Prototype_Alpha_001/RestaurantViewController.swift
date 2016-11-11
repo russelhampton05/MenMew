@@ -141,19 +141,19 @@ class RestaurantViewController: UIViewController {
     
     func loadTheme() {
         //Background and Tint
-        self.view.backgroundColor = currentTheme!.bgColor!
-        self.view.tintColor = currentTheme!.hlColor!
+        self.view.backgroundColor = currentTheme!.primary!
+        self.view.tintColor = currentTheme!.highlight!
         
         //Navigation
-        UINavigationBar.appearance().backgroundColor = currentTheme!.bgColor!
-        UINavigationBar.appearance().tintColor = currentTheme!.hlColor!
-        self.navigationController?.navigationBar.barTintColor = currentTheme!.bgColor!
-        self.navigationController?.navigationBar.tintColor = currentTheme!.hlColor!
+        UINavigationBar.appearance().backgroundColor = currentTheme!.primary!
+        UINavigationBar.appearance().tintColor = currentTheme!.highlight!
+        self.navigationController?.navigationBar.barTintColor = currentTheme!.primary!
+        self.navigationController?.navigationBar.tintColor = currentTheme!.highlight!
         
         //Labels
-        self.restaurantLabel.textColor = currentTheme!.hlColor!
-        self.tableLabel.textColor = currentTheme!.hlColor!
-        loadingTitle.textColor = currentTheme!.hlColor!
+        self.restaurantLabel.textColor = currentTheme!.highlight!
+        self.tableLabel.textColor = currentTheme!.highlight!
+        loadingTitle.textColor = currentTheme!.highlight!
         
         //Buttons
     }

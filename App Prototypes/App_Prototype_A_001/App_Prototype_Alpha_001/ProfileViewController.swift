@@ -17,8 +17,13 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet var nameButton: UIButton!
     @IBOutlet var profilePhoto: UIImageView!
     
+    @IBOutlet weak var profileLabel: UILabel!
+    @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var passwordLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet var nameTitle: UILabel!
     @IBOutlet var locationTitle: UILabel!
+    @IBOutlet weak var confirmButton: UIButton!
     
     //Variables
     var restaurantName: String?
@@ -55,6 +60,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         else {
             
         }
+        
+        loadTheme()
 
     }
 
@@ -104,6 +111,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             url in
             
             self.newImageURL = url
+            currentUser!.image = url
         }
         
         dismiss(animated: true, completion: nil)
@@ -121,6 +129,29 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         self.addChildViewController(updatePopup)
         self.view.addSubview(updatePopup.view)
         updatePopup.didMove(toParentViewController: self)
+    }
+    
+    func loadTheme() {
+        
+        //Background and Tint
+        self.view.backgroundColor = currentTheme!.secondary!
+        self.view.tintColor = currentTheme!.highlight!
+        
+        //Labels
+        profileLabel.textColor = currentTheme!.highlight!
+        nameTitle.textColor = currentTheme!.highlight!
+        locationTitle.textColor = currentTheme!.highlight!
+        emailLabel.textColor = currentTheme!.highlight!
+        passwordLabel.textColor = currentTheme!.highlight!
+        nameLabel.textColor = currentTheme!.highlight!
+        
+        //Buttons
+        emailButton.setTitleColor(currentTheme!.highlight!, for: .normal)
+        passwordButton.setTitleColor(currentTheme!.highlight!, for: .normal)
+        nameButton.setTitleColor(currentTheme!.highlight!, for: .normal)
+        confirmButton.backgroundColor = currentTheme!.highlight!
+        confirmButton.setTitleColor(currentTheme!.primary!, for: .normal)
+
     }
 }
 extension UIImage {

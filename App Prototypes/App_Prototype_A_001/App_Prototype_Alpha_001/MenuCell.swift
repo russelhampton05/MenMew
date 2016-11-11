@@ -46,8 +46,8 @@ class MenuCell : UITableViewCell {
             })
         }
         
-        addButton.backgroundColor = currentTheme!.hlColor!
-        addButton.setTitleColor(currentTheme!.textColor!, for: .normal)
+        addButton.backgroundColor = currentTheme!.highlight!
+        addButton.setTitleColor(currentTheme!.primary!, for: .normal)
     }
     
     //Subscribe the cell for observing frame changes

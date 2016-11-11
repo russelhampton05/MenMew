@@ -13,8 +13,13 @@ class ProfilePopupViewController: UIViewController, UITextFieldDelegate {
     
     //IBOutlets
     @IBOutlet var itemLabel: UILabel!
+    @IBOutlet weak var changeLabel: UILabel!
     @IBOutlet var confirmButton: UIButton!
+    @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet var updateField: UITextField!
+    @IBOutlet weak var popupView: UIView!
+    @IBOutlet weak var infoLabel: UILabel!
+    @IBOutlet weak var infoLine: UIView!
     
     var dataItem: String?
     var condition: String?
@@ -137,5 +142,24 @@ class ProfilePopupViewController: UIViewController, UITextFieldDelegate {
                 
             }
         }
+    }
+    
+    func loadTheme() {
+        
+        //Background and Tint
+        self.view.backgroundColor = currentTheme!.secondary!
+        self.view.tintColor = currentTheme!.highlight!
+        
+        //Labels
+        changeLabel.textColor = currentTheme!.highlight!
+        itemLabel.textColor = currentTheme!.highlight!
+        infoLine.backgroundColor = currentTheme!.highlight!
+        infoLabel.textColor = currentTheme!.highlight!
+        
+        //Buttons
+        confirmButton.backgroundColor = currentTheme!.highlight!
+        confirmButton.setTitleColor(currentTheme!.primary!, for: .normal)
+        cancelButton.backgroundColor = currentTheme!.highlight!
+        cancelButton.setTitleColor(currentTheme!.primary!, for: .normal)
     }
 }

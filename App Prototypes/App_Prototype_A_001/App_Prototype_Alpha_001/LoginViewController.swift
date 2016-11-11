@@ -154,28 +154,28 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         currentTheme = Theme.init(type: currentUser!.theme!)
         
         //Background and Tint
-        self.view.backgroundColor = currentTheme!.bgColor!
-        self.view.tintColor = currentTheme!.hlColor!
+        self.view.backgroundColor = currentTheme!.primary!
+        self.view.tintColor = currentTheme!.highlight!
 
         
         //Labels
-        loginTitle.textColor = currentTheme!.hlColor!
-        emailLine.backgroundColor = currentTheme!.hlColor!
-        passwordLine.backgroundColor = currentTheme!.hlColor!
+        loginTitle.textColor = currentTheme!.highlight!
+        emailLine.backgroundColor = currentTheme!.highlight!
+        passwordLine.backgroundColor = currentTheme!.highlight!
         
         //Fields
-        usernameField.textColor = currentTheme!.hlColor!
-        usernameField.tintColor = currentTheme!.hlColor!
-        passwordField.textColor = currentTheme!.hlColor!
-        passwordField.tintColor = currentTheme!.hlColor!
+        usernameField.textColor = currentTheme!.highlight!
+        usernameField.tintColor = currentTheme!.highlight!
+        passwordField.textColor = currentTheme!.highlight!
+        passwordField.tintColor = currentTheme!.highlight!
         
         
         //Buttons
-        doneButton.backgroundColor = currentTheme!.hlColor!
-        doneButton.setTitleColor(currentTheme!.textColor!, for: .normal)
-        logoutButton.backgroundColor = currentTheme!.hlColor!
-        logoutButton.setTitleColor(currentTheme!.textColor!, for: .normal)
-        registerButton.backgroundColor = currentTheme!.hlColor!
-        registerButton.setTitleColor(currentTheme!.textColor, for: .normal)
+        doneButton.backgroundColor = currentTheme!.highlight!
+        doneButton.setTitleColor(currentTheme!.primary!, for: .normal)
+        logoutButton.backgroundColor = currentTheme!.highlight!
+        logoutButton.setTitleColor(currentTheme!.primary!, for: .normal)
+        registerButton.backgroundColor = currentTheme!.highlight!
+        registerButton.setTitleColor(currentTheme!.primary, for: .normal)
     }
 }

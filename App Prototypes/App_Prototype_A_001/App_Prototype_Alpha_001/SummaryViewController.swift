@@ -60,19 +60,19 @@ class SummaryViewController : UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SummaryCell") as! SummaryCell
         
         if (ticket?.itemsOrdered?.count)! > 0 {
-            cell.backgroundColor = currentTheme!.bgColor!
-            cell.tintColor = currentTheme!.hlColor!
+            cell.backgroundColor = currentTheme!.primary!
+            cell.tintColor = currentTheme!.highlight!
             
             let title = cell.viewWithTag(1) as! UILabel
             title.text = self.ticket?.itemsOrdered?[(indexPath as NSIndexPath).row].title
-            title.textColor = currentTheme!.hlColor!
+            title.textColor = currentTheme!.highlight!
             
             let formatter = NumberFormatter()
             formatter.numberStyle = .currency
             let price = cell.viewWithTag(2) as! UILabel
             let priceHolder = self.ticket!.itemsOrdered![(indexPath as NSIndexPath).row].price!
             price.text = formatter.string(from: priceHolder as NSNumber)
-            price.textColor = currentTheme!.hlColor!
+            price.textColor = currentTheme!.highlight!
             
             total += priceHolder
             
@@ -251,35 +251,35 @@ class SummaryViewController : UITableViewController {
     func loadTheme() {
         
         //Background and Tint
-        self.view.backgroundColor = currentTheme!.bgColor!
-        self.view.tintColor = currentTheme!.hlColor!
-        tableView.backgroundColor = currentTheme!.bgColor!
-        orderView.backgroundColor = currentTheme!.bgColor!
-        buttonView.backgroundColor = currentTheme!.bgColor!
+        self.view.backgroundColor = currentTheme!.primary!
+        self.view.tintColor = currentTheme!.highlight!
+        tableView.backgroundColor = currentTheme!.primary!
+        orderView.backgroundColor = currentTheme!.primary!
+        buttonView.backgroundColor = currentTheme!.primary!
         
         //Navigation
-        UINavigationBar.appearance().backgroundColor = currentTheme!.bgColor!
-        UINavigationBar.appearance().tintColor = currentTheme!.hlColor!
-        self.navigationController?.navigationBar.barTintColor = currentTheme!.bgColor!
-        self.navigationController?.navigationBar.tintColor = currentTheme!.hlColor!
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: currentTheme!.hlColor!, NSFontAttributeName: UIFont.systemFont(ofSize: 20, weight: UIFontWeightLight)]
+        UINavigationBar.appearance().backgroundColor = currentTheme!.primary!
+        UINavigationBar.appearance().tintColor = currentTheme!.highlight!
+        self.navigationController?.navigationBar.barTintColor = currentTheme!.primary!
+        self.navigationController?.navigationBar.tintColor = currentTheme!.highlight!
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: currentTheme!.highlight!, NSFontAttributeName: UIFont.systemFont(ofSize: 20, weight: UIFontWeightLight)]
         
         //Labels
-        orderTitle.textColor = currentTheme!.hlColor!
-        taxValue.textColor = currentTheme!.hlColor!
-        totalValue.textColor = currentTheme!.hlColor!
-        itemLabel.textColor = currentTheme!.hlColor!
-        orderLine.backgroundColor = currentTheme!.hlColor!
-        taxTitle.textColor = currentTheme!.hlColor!
-        totalTitle.textColor = currentTheme!.hlColor!
+        orderTitle.textColor = currentTheme!.highlight!
+        taxValue.textColor = currentTheme!.highlight!
+        totalValue.textColor = currentTheme!.highlight!
+        itemLabel.textColor = currentTheme!.highlight!
+        orderLine.backgroundColor = currentTheme!.highlight!
+        taxTitle.textColor = currentTheme!.highlight!
+        totalTitle.textColor = currentTheme!.highlight!
         
         //Buttons
-        payButton.setTitleColor(currentTheme!.textColor!, for: .normal)
-        payButton.backgroundColor = currentTheme!.hlColor!
+        payButton.setTitleColor(currentTheme!.primary!, for: .normal)
+        payButton.backgroundColor = currentTheme!.highlight!
 
-        cancelButton.setTitleColor(currentTheme!.textColor!, for: .normal)
-        cancelButton.backgroundColor = currentTheme!.hlColor!
-        confirmButton.setTitleColor(currentTheme!.textColor!, for: .normal)
-        confirmButton.backgroundColor = currentTheme!.hlColor!
+        cancelButton.setTitleColor(currentTheme!.primary!, for: .normal)
+        cancelButton.backgroundColor = currentTheme!.highlight!
+        confirmButton.setTitleColor(currentTheme!.primary!, for: .normal)
+        confirmButton.backgroundColor = currentTheme!.highlight!
     }
 }

@@ -109,24 +109,24 @@ class PaymentDetailsViewController: UIViewController, UITextFieldDelegate {
     func loadTheme() {
         
         //Background and Tint
-        self.view.backgroundColor = currentTheme!.bgColor!
-        self.view.tintColor = currentTheme!.hlColor!
+        self.view.backgroundColor = currentTheme!.primary!
+        self.view.tintColor = currentTheme!.highlight!
         
         //Labels
-        payTitle.textColor = currentTheme!.hlColor!
-        ticketTitle.textColor = currentTheme!.hlColor!
-        priceTitle.textColor = currentTheme!.hlColor!
-        tipTitle.textColor = currentTheme!.hlColor!
-        ticketLabel.textColor = currentTheme!.hlColor!
-        priceLabel.textColor = currentTheme!.hlColor!
-        tipField.textColor = currentTheme!.hlColor!
-        tipLine.backgroundColor = currentTheme!.hlColor!
-        dollarTitle.textColor = currentTheme!.hlColor!
+        payTitle.textColor = currentTheme!.highlight!
+        ticketTitle.textColor = currentTheme!.highlight!
+        priceTitle.textColor = currentTheme!.highlight!
+        tipTitle.textColor = currentTheme!.highlight!
+        ticketLabel.textColor = currentTheme!.highlight!
+        priceLabel.textColor = currentTheme!.highlight!
+        tipField.textColor = currentTheme!.highlight!
+        tipLine.backgroundColor = currentTheme!.highlight!
+        dollarTitle.textColor = currentTheme!.highlight!
         
         //Buttons
-        confirmButton.backgroundColor = currentTheme!.hlColor!
-        confirmButton.setTitleColor(currentTheme!.textColor!, for: .normal)
-        cancelButton.backgroundColor = currentTheme!.hlColor!
-        cancelButton.setTitleColor(currentTheme!.textColor!, for: .normal)
+        confirmButton.backgroundColor = currentTheme!.highlight!
+        confirmButton.setTitleColor(currentTheme!.primary!, for: .normal)
+        cancelButton.backgroundColor = currentTheme!.highlight!
+        cancelButton.setTitleColor(currentTheme!.primary!, for: .normal)
     }
 }

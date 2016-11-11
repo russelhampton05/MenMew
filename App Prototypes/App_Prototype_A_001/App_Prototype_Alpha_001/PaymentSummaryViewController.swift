@@ -47,19 +47,19 @@ class PaymentSummaryViewController: UIViewController {
     func loadTheme() {
         
         //Background and Tint
-        self.view.backgroundColor = currentTheme!.bgColor!
-        self.view.tintColor = currentTheme!.hlColor!
+        self.view.backgroundColor = currentTheme!.primary!
+        self.view.tintColor = currentTheme!.highlight!
         
         //Labels
-        summaryTitle.textColor = currentTheme!.hlColor!
-        ticketTitle.textColor = currentTheme!.hlColor!
-        priceTitle.textColor = currentTheme!.hlColor!
-        thankTitle.textColor = currentTheme!.hlColor!
-        ticketLabel.textColor = currentTheme!.hlColor!
-        priceLabel.textColor = currentTheme!.hlColor!
+        summaryTitle.textColor = currentTheme!.highlight!
+        ticketTitle.textColor = currentTheme!.highlight!
+        priceTitle.textColor = currentTheme!.highlight!
+        thankTitle.textColor = currentTheme!.highlight!
+        ticketLabel.textColor = currentTheme!.highlight!
+        priceLabel.textColor = currentTheme!.highlight!
         
         //Buttons
-        confirmButton.backgroundColor = currentTheme!.hlColor!
-        confirmButton.setTitleColor(currentTheme!.textColor!, for: .normal)
+        confirmButton.backgroundColor = currentTheme!.highlight!
+        confirmButton.setTitleColor(currentTheme!.primary!, for: .normal)
     }
 }
