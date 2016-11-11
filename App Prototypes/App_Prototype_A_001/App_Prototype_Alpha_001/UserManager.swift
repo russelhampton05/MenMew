@@ -242,10 +242,10 @@ class UserManager{
         completionHandler(true)
     }
     
-    static func uploadImage(user: User, image: UIImage) {
+    static func uploadImage(user: User, image: UIImage, completionHandler: @escaping (_ done: Bool) -> ()) {
         
         //Initialize storage reference
-        let data = UIImageJPEGRepresentation(image, 1.0)
+        let data = UIImagePNGRepresentation(image)
         let storage = FIRStorage.storage()
         let storageRef = storage.reference()
         
@@ -261,6 +261,8 @@ class UserManager{
                 //Replace previous image reference
                 let newImageURL: String = metadata!.downloadURL()!.absoluteString
                 ref.child(user.ID).child("image").setValue(newImageURL)
+                
+                completionHandler(true)
             }
         }
         

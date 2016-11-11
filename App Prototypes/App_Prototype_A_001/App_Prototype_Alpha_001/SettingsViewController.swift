@@ -37,7 +37,7 @@ class SettingsViewController: UITableViewController {
         }
         
         if currentUser!.image != nil {
-            profilePhoto.getImage(urlString: currentUser!.image!, circle: true)
+            profilePhoto.getImage(urlString: currentUser!.image!, circle: false)
         }
         
         loadTheme()
@@ -60,9 +60,9 @@ class SettingsViewController: UITableViewController {
     //Unwind Segue
     @IBAction func unwindToSettings(_ sender: UIStoryboardSegue) {
         if let sourceVC = sender.source as? ProfileViewController {
-            currentUser!.image = sourceVC.newImageURL!
-
-            if currentUser!.image != nil {
+            
+            if sourceVC.newImageURL != nil {
+                currentUser!.image = sourceVC.newImageURL!
                 profilePhoto.image = nil
                 profilePhoto.getImage(urlString: currentUser!.image!, circle: true)
             }

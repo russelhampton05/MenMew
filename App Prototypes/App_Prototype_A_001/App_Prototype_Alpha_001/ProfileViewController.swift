@@ -53,7 +53,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             locationTitle.text = "At " + restaurantName!
             
             if currentUser!.image != nil {
-                profilePhoto.getImage(urlString: currentUser!.image!, circle: true)
+                profilePhoto.getImage(urlString: currentUser!.image!, circle: false)
             }
             
         }
@@ -73,6 +73,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     //Button press functions
     func imageTapped(img: Any) {
         //Open the photo gallery
+        self.confirmButton.isEnabled = false
         
         imagePicker.allowsEditing = false
         imagePicker.sourceType = .photoLibrary
@@ -104,15 +105,20 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         profilePhoto.image = pickedImage.circle
         
         //Upload image to user's profile on Firebase
-        UserManager.uploadImage(user: currentUser!, image: pickedImage.circle!)
-        
-        //Update current user with new profile image
-        UserManager.getImageURL(user: currentUser!) {
-            url in
+        UserManager.uploadImage(user: currentUser!, image: pickedImage.circle!) {
+            done in
             
-            self.newImageURL = url
-            currentUser!.image = url
+            //Update current user with new profile image
+            UserManager.getImageURL(user: currentUser!) {
+                url in
+                
+                self.newImageURL = url
+                
+                self.confirmButton.isEnabled = true
+            }
         }
+        
+        
         
         dismiss(animated: true, completion: nil)
     }
@@ -173,6 +179,7 @@ extension UIImage {
         imageView.image = self
         imageView.layer.cornerRadius = square.width/2
         imageView.layer.masksToBounds = true
+        imageView.backgroundColor = UIColor.clear
         UIGraphicsBeginImageContextWithOptions(imageView.bounds.size, false, scale)
         guard let context = UIGraphicsGetCurrentContext() else { return nil }
         imageView.layer.render(in: context)
