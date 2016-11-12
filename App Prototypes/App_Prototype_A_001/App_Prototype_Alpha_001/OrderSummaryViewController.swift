@@ -20,8 +20,8 @@ class OrderSummaryViewController: UIViewController {
     @IBOutlet weak var totalTitle: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var doneButton: UIButton!
-    @IBOutlet weak var refillButton: UIButton!
     @IBOutlet weak var helpButton: UIButton!
+    @IBOutlet var messageLabel: UILabel!
     
     
     override func viewDidLoad() {
@@ -41,6 +41,7 @@ class OrderSummaryViewController: UIViewController {
             totalLabel.text = "$0.00"
         }
         
+        messageLabel.isHidden = true
         loadTheme()
     }
     
@@ -54,31 +55,67 @@ class OrderSummaryViewController: UIViewController {
         performSegue(withIdentifier: "UnwindToSettingsSegue", sender: self)
     }
     
-    @IBAction func refillButtonPressed(_ sender: Any) {
-        //Initiate message to server
-        MessageManager.WriteServerMessage(id: currentUser!.ticket!.message_ID!, message: "Requesting refill at Table \(currentUser!.ticket!.tableNum!), Ticket #\(currentUser!.ticket!.desc!)")
-    }
     
     @IBAction func helpButtonPressed(_ sender: Any) {
-        //Initiate message to server
-        MessageManager.WriteServerMessage(id: currentUser!.ticket!.message_ID!, message: "Requesting assistance at Table \(currentUser!.ticket!.tableNum!)")
+        
+        //Initiate popup
+        let messagePopup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MessagePopup") as! MessagePopupViewController
+        
+        self.addChildViewController(messagePopup)
+        self.view.addSubview(messagePopup.view)
+        messagePopup.didMove(toParentViewController: self)
+        
+    }
+    
+    func sendMessage(message: String) {
+        
+        //Write the message
+        MessageManager.WriteServerMessage(id: currentUser!.ticket!.message_ID!, message: message)
+        
+        //Hide the button to avoid spam
+        UIView.animate(withDuration: 0.5, animations: { () -> Void in
+        self.helpButton.isHidden = true
+        self.messageLabel.isHidden = false
+        
+        })
+        
+        //Reinstate the help button after 10 seconds
+        let delay = DispatchTime.now() + 10
+        DispatchQueue.main.asyncAfter(deadline: delay) {
+            UIView.animate(withDuration: 0.5, animations: { () -> Void in
+                self.helpButton.isHidden = false
+                self.messageLabel.isHidden = true
+                
+            })
+            
+        }
     }
     
     func loadTheme() {
         
         //Background and Tint
-        self.view.backgroundColor = currentTheme!.highlight!
-        self.view.tintColor = currentTheme!.primary!
+        self.view.backgroundColor = currentTheme!.secondary!
+        self.view.tintColor = currentTheme!.invert!
         
         //Labels
-        orderTitle.textColor = currentTheme!.primary!
-        ticketTitle.textColor = currentTheme!.primary!
-        totalTitle.textColor = currentTheme!.primary!
-        ticketLabel.textColor = currentTheme!.primary!
-        totalLabel.textColor = currentTheme!.primary!
+        orderTitle.textColor = currentTheme!.invert!
+        ticketTitle.textColor = currentTheme!.invert!
+        totalTitle.textColor = currentTheme!.invert!
+        ticketLabel.textColor = currentTheme!.invert!
+        totalLabel.textColor = currentTheme!.invert!
         
         //Buttons
-        doneButton.backgroundColor = currentTheme!.primary!
-        doneButton.setTitleColor(currentTheme!.highlight!, for: .normal)
+        if currentTheme!.name! == "Salmon" {
+            doneButton.backgroundColor = currentTheme!.invert!
+            doneButton.setTitleColor(currentTheme!.highlight!, for: .normal)
+            helpButton.backgroundColor = currentTheme!.invert!
+            helpButton.setTitleColor(currentTheme!.highlight!, for: .normal)
+        }
+        else {
+            doneButton.backgroundColor = currentTheme!.invert!
+            doneButton.setTitleColor(currentTheme!.primary!, for: .normal)
+            helpButton.backgroundColor = currentTheme!.invert!
+            helpButton.setTitleColor(currentTheme!.highlight!, for: .normal)
+        }
     }
 }
