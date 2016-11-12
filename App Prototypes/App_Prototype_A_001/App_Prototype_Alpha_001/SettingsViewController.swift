@@ -67,6 +67,12 @@ class SettingsViewController: UITableViewController {
                 profilePhoto.getImage(urlString: currentUser!.image!, circle: true)
             }
             tableView.reloadData()
+            
+            if let rightVC = self.revealViewController().rightViewController as? MainMenuViewController {
+                rightVC.loadTheme()
+            }
+            
+            loadTheme()
         }
         else if let sourceVC = sender.source as? OrderSummaryViewController {
             
@@ -77,15 +83,15 @@ class SettingsViewController: UITableViewController {
         
         //Background and Tint
         self.view.backgroundColor = currentTheme!.secondary!
-        self.view.tintColor = currentTheme!.highlight!
+        self.view.tintColor = currentTheme!.invert!
         self.tableView.backgroundColor = currentTheme!.secondary!
         
         //Labels
-        nameLabel.textColor = currentTheme!.highlight!
-        locationLabel.textColor = currentTheme!.highlight!
-        profileLabel.textColor = currentTheme!.highlight!
-        ordersLabel.textColor = currentTheme!.highlight!
-        settingsLabel.textColor = currentTheme!.highlight!
+        nameLabel.textColor = currentTheme!.invert!
+        locationLabel.textColor = currentTheme!.invert!
+        profileLabel.textColor = currentTheme!.invert!
+        ordersLabel.textColor = currentTheme!.invert!
+        settingsLabel.textColor = currentTheme!.invert!
         
         //Cells
         personaTab.backgroundColor = currentTheme!.secondary!

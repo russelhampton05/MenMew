@@ -12,7 +12,7 @@ import UserNotifications
 import UserNotificationsUI
 import Firebase
 
-class MainMenuViewController: UITableViewController {
+class MainMenuViewController: UITableViewController, SWRevealViewControllerDelegate {
     
     //IBOutlets
     @IBOutlet var menuButton: UIBarButtonItem!
@@ -43,7 +43,7 @@ class MainMenuViewController: UITableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         
         //Check for existing orders
-        if ticket != nil && ticket!.itemsOrdered!.count > 0 {
+        if currentUser!.ticket != nil && currentUser!.ticket!.itemsOrdered!.count > 0 {
             ordersButton.isEnabled = true
         }
         else {
@@ -51,10 +51,29 @@ class MainMenuViewController: UITableViewController {
         }
         
         menuButton.target = self.revealViewController()
+        self.revealViewController().delegate = self
         menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
         
         initializeNotificationObserver()
         loadTheme()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        loadTheme()
+        tableView.reloadData()
+    }
+    
+    func revealController(_ revealController: SWRevealViewController!, willMoveTo position: FrontViewPosition) {
+        if position == FrontViewPosition.left {
+            self.view.isUserInteractionEnabled = true
+            loadTheme()
+            tableView.reloadData()
+        }
+        else {
+            self.view.isUserInteractionEnabled = false
+            loadTheme()
+            tableView.reloadData()
+        }
     }
     
     func initializeNotificationObserver() {

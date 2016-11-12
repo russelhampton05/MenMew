@@ -16,13 +16,14 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet var passwordButton: UIButton!
     @IBOutlet var nameButton: UIButton!
     @IBOutlet var profilePhoto: UIImageView!
-    
     @IBOutlet weak var profileLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var passwordLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet var nameTitle: UILabel!
     @IBOutlet var locationTitle: UILabel!
+    @IBOutlet var themeLabel: UILabel!
+    @IBOutlet var themeButton: UIButton!
     @IBOutlet weak var confirmButton: UIButton!
     
     //Variables
@@ -50,7 +51,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             nameButton.setTitle(user.displayName, for: .normal)
             
             nameTitle.text = currentUser!.name!
+            nameButton.setTitle(currentUser!.name!, for: .normal)
             locationTitle.text = "At " + restaurantName!
+            themeButton.setTitle(currentUser!.theme!, for: .normal)
             
             if currentUser!.image != nil {
                 profilePhoto.getImage(urlString: currentUser!.image!, circle: false)
@@ -97,6 +100,11 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         initiatePopup(input: "Name")
     }
     
+    @IBAction func themeButtonPressed(_ sender: Any) {
+        initiateThemePopup()
+    }
+    
+    
     //Profile image load
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
@@ -122,6 +130,11 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         dismiss(animated: true, completion: nil)
     }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+        self.confirmButton.isEnabled = true
+    }
 
 
     //Instantiate the popup
@@ -137,27 +150,77 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         updatePopup.didMove(toParentViewController: self)
     }
     
+    //Instantiate the theme popup
+    func initiateThemePopup() {
+        let themePopup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ThemePopup") as! ThemePopupViewController
+        
+        self.addChildViewController(themePopup)
+        self.view.addSubview(themePopup.view)
+        themePopup.didMove(toParentViewController: self)
+    }
+    
     func loadTheme() {
         
         //Background and Tint
         self.view.backgroundColor = currentTheme!.secondary!
-        self.view.tintColor = currentTheme!.highlight!
+        self.view.tintColor = currentTheme!.invert!
         
         //Labels
-        profileLabel.textColor = currentTheme!.highlight!
-        nameTitle.textColor = currentTheme!.highlight!
-        locationTitle.textColor = currentTheme!.highlight!
-        emailLabel.textColor = currentTheme!.highlight!
-        passwordLabel.textColor = currentTheme!.highlight!
-        nameLabel.textColor = currentTheme!.highlight!
+        profileLabel.textColor = currentTheme!.invert!
+        nameTitle.textColor = currentTheme!.invert!
+        locationTitle.textColor = currentTheme!.invert!
+        emailLabel.textColor = currentTheme!.invert!
+        passwordLabel.textColor = currentTheme!.invert!
+        nameLabel.textColor = currentTheme!.invert!
+        themeLabel.textColor = currentTheme!.invert!
         
         //Buttons
-        emailButton.setTitleColor(currentTheme!.highlight!, for: .normal)
-        passwordButton.setTitleColor(currentTheme!.highlight!, for: .normal)
-        nameButton.setTitleColor(currentTheme!.highlight!, for: .normal)
-        confirmButton.backgroundColor = currentTheme!.highlight!
-        confirmButton.setTitleColor(currentTheme!.primary!, for: .normal)
+        emailButton.setTitleColor(currentTheme!.invert!, for: .normal)
+        passwordButton.setTitleColor(currentTheme!.invert!, for: .normal)
+        nameButton.setTitleColor(currentTheme!.invert!, for: .normal)
+        themeButton.setTitleColor(currentTheme!.invert!, for: .normal)
+        
+        if currentTheme!.name! == "Salmon" {
+            confirmButton.backgroundColor = currentTheme!.invert!
+            confirmButton.setTitleColor(currentTheme!.highlight!, for: .normal)
+        }
+        else {
+            confirmButton.backgroundColor = currentTheme!.invert!
+            confirmButton.setTitleColor(currentTheme!.primary!, for: .normal)
+        }
 
+    }
+    
+    func reloadTheme() {
+        UIView.animate(withDuration: 0.8, animations: { () -> Void in
+            //Background and Tint
+            self.view.backgroundColor = currentTheme!.secondary!
+            self.view.tintColor = currentTheme!.invert!
+            
+            //Labels
+            self.profileLabel.textColor = currentTheme!.invert!
+            self.nameTitle.textColor = currentTheme!.invert!
+            self.locationTitle.textColor = currentTheme!.invert!
+            self.emailLabel.textColor = currentTheme!.invert!
+            self.passwordLabel.textColor = currentTheme!.invert!
+            self.nameLabel.textColor = currentTheme!.invert!
+            self.themeLabel.textColor = currentTheme!.invert!
+            
+            //Buttons
+            self.emailButton.setTitleColor(currentTheme!.invert!, for: .normal)
+            self.passwordButton.setTitleColor(currentTheme!.invert!, for: .normal)
+            self.nameButton.setTitleColor(currentTheme!.invert!, for: .normal)
+            self.themeButton.setTitleColor(currentTheme!.invert!, for: .normal)
+            
+            if currentTheme!.name! == "Salmon" {
+                self.confirmButton.backgroundColor = currentTheme!.invert!
+                self.confirmButton.setTitleColor(currentTheme!.highlight!, for: .normal)
+            }
+            else {
+                self.confirmButton.backgroundColor = currentTheme!.invert!
+                self.confirmButton.setTitleColor(currentTheme!.primary!, for: .normal)
+            }
+        })
     }
 }
 extension UIImage {

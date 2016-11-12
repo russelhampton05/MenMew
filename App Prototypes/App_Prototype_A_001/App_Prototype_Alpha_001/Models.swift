@@ -218,30 +218,40 @@ class Message {
 
 //Theme Class
 class Theme {
+    var name: String?
     var primary: UIColor?
     var secondary: UIColor?
     var highlight: UIColor?
+    var invert: UIColor?
     
     init(type: String) {
         if type == "Salmon" {
+            name = "Salmon"
             primary = UIColor(red: 255, green: 106, blue: 92)
-            secondary = UIColor(red: 255, green: 106, blue: 92)
+            secondary = UIColor(red: 255, green: 255, blue: 255)
             highlight = UIColor(red: 255, green: 255, blue: 255)
+            invert = UIColor(red: 255, green: 106, blue: 92)
         }
         else if type == "Light" {
+            name = "Light"
             primary = UIColor(red: 255, green: 255, blue: 255)
             secondary = UIColor(red: 255, green: 255, blue: 255)
-            highlight = UIColor(red: 255, green: 106, blue: 92)
+            highlight = UIColor(red: 255, green: 141, blue: 43)
+            invert = UIColor(red: 255, green: 141, blue: 43)
         }
         else if type == "Midnight" {
+            name = "Midnight"
             primary = UIColor(red: 55, green: 30, blue: 96)
             secondary = UIColor(red: 18, green: 3, blue: 42)
             highlight = UIColor(red: 255, green: 255, blue: 255)
+            invert = UIColor(red: 255, green: 255, blue: 255)
         }
         else if type == "Slate" {
+            name = "Slate"
             primary = UIColor(red: 27, green: 27, blue: 27)
-            secondary = UIColor(red: 67, green: 67, blue: 67)
+            secondary = UIColor(red: 20, green: 20, blue: 20)
             highlight = UIColor(red: 255, green: 255, blue: 255)
+            invert = UIColor(red: 255, green: 255, blue: 255)
         }
     }
 }

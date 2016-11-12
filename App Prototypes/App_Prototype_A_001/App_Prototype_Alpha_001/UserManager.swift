@@ -280,6 +280,10 @@ class UserManager{
         })
     }
     
+    static func setTheme(user: User, theme: String) {
+        ref.child(user.ID).child("theme").setValue(theme)
+    }
+    
     static func randomString(length: Int) -> String {
         
         let letters : NSString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"

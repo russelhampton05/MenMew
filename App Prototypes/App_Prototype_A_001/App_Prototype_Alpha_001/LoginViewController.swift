@@ -19,6 +19,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     //IBOutlets
     @IBOutlet weak var loginTitle: UILabel!
+    @IBOutlet var emailLabel: UILabel!
+    @IBOutlet var passwordLabel: UILabel!
     @IBOutlet weak var emailLine: UIView!
     @IBOutlet weak var passwordLine: UIView!
     @IBOutlet weak var usernameField: UITextField!
@@ -84,6 +86,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         return false
     }
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "QRScanSegue" {
@@ -153,29 +156,33 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     func loadTheme() {
         currentTheme = Theme.init(type: currentUser!.theme!)
         
-        //Background and Tint
-        self.view.backgroundColor = currentTheme!.primary!
-        self.view.tintColor = currentTheme!.highlight!
-
-        
-        //Labels
-        loginTitle.textColor = currentTheme!.highlight!
-        emailLine.backgroundColor = currentTheme!.highlight!
-        passwordLine.backgroundColor = currentTheme!.highlight!
-        
-        //Fields
-        usernameField.textColor = currentTheme!.highlight!
-        usernameField.tintColor = currentTheme!.highlight!
-        passwordField.textColor = currentTheme!.highlight!
-        passwordField.tintColor = currentTheme!.highlight!
-        
-        
-        //Buttons
-        doneButton.backgroundColor = currentTheme!.highlight!
-        doneButton.setTitleColor(currentTheme!.primary!, for: .normal)
-        logoutButton.backgroundColor = currentTheme!.highlight!
-        logoutButton.setTitleColor(currentTheme!.primary!, for: .normal)
-        registerButton.backgroundColor = currentTheme!.highlight!
-        registerButton.setTitleColor(currentTheme!.primary, for: .normal)
+        UIView.animate(withDuration: 0.8, animations: { () -> Void in
+            //Background and Tint
+            self.view.backgroundColor = currentTheme!.primary!
+            self.view.tintColor = currentTheme!.highlight!
+            
+            
+            //Labels
+            self.loginTitle.textColor = currentTheme!.highlight!
+            self.emailLine.backgroundColor = currentTheme!.highlight!
+            self.passwordLine.backgroundColor = currentTheme!.highlight!
+            self.emailLabel.textColor = currentTheme!.highlight!
+            self.passwordLabel.textColor = currentTheme!.highlight!
+            
+            //Fields
+            self.usernameField.textColor = currentTheme!.highlight!
+            self.usernameField.tintColor = currentTheme!.highlight!
+            self.passwordField.textColor = currentTheme!.highlight!
+            self.passwordField.tintColor = currentTheme!.highlight!
+            
+            
+            //Buttons
+            self.doneButton.backgroundColor = currentTheme!.highlight!
+            self.doneButton.setTitleColor(currentTheme!.primary!, for: .normal)
+            self.logoutButton.backgroundColor = currentTheme!.highlight!
+            self.logoutButton.setTitleColor(currentTheme!.primary!, for: .normal)
+            self.registerButton.backgroundColor = currentTheme!.highlight!
+            self.registerButton.setTitleColor(currentTheme!.primary, for: .normal)
+        })
     }
 }
