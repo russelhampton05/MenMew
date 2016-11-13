@@ -86,7 +86,7 @@ class PaymentDetailsViewController: UIViewController, UITextFieldDelegate {
 
     @IBAction func confirmButtonPressed(_ sender: AnyObject) {
         
-        let confirmPopup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Popup") as! PopupViewController
+        let confirmPopup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PaymentPopup") as! PaymentPopupViewController
         
         
         self.addChildViewController(confirmPopup)
@@ -95,14 +95,11 @@ class PaymentDetailsViewController: UIViewController, UITextFieldDelegate {
         
         if currentTip != nil {
             ticket!.tip! = currentTip!
-            confirmPopup.doubleValue = ticket!.tip!
         }
         else {
             ticket!.tip! = 0.0
-            confirmPopup.doubleValue = 0.0
         }
-        
-        confirmPopup.addMessage(context: "PayOrder")
+
     }
 
     @IBAction func cancelButtonPressed(_ sender: AnyObject) {
@@ -122,6 +119,7 @@ class PaymentDetailsViewController: UIViewController, UITextFieldDelegate {
             
             if( success ) {
                 didSucceed = success
+                
             }
             else{
                 

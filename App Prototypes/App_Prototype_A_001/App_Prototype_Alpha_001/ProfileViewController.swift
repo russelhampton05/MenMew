@@ -108,6 +108,10 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         initiateThemePopup()
     }
     
+    @IBAction func togglePressed(_ sender: Any) {
+        currentUser!.touchEnabled = touchToggle.isOn
+        UserManager.UpdateTouchIDPreference(user: currentUser!, pref: touchToggle.isOn)
+    }
     
     //Profile image load
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -129,8 +133,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
                 self.confirmButton.isEnabled = true
             }
         }
-        
-        
         
         dismiss(animated: true, completion: nil)
     }
@@ -197,7 +199,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
 
     }
-    //shame on you 
+
     func reloadTheme() {
         UIView.animate(withDuration: 0.5, animations: { () -> Void in
            self.loadTheme()

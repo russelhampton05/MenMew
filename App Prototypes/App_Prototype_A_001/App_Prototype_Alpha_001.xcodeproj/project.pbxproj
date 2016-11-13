@@ -24,6 +24,7 @@
 		84C403851DBD0B6F00775FCE /* TicketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C403841DBD0B6F00775FCE /* TicketManager.swift */; };
 		941C681E1DBAAA76006B2F78 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 941C681D1DBAAA76006B2F78 /* GoogleService-Info.plist */; };
 		9443215C1DBA9C30003746D8 /* ProfilePopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9443215B1DBA9C30003746D8 /* ProfilePopupViewController.swift */; };
+		94469D561DD916EB00D37A97 /* PaymentPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94469D551DD916EB00D37A97 /* PaymentPopupViewController.swift */; };
 		944D8D351DD7967300FDB034 /* MessagePopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944D8D341DD7967300FDB034 /* MessagePopupViewController.swift */; };
 		945A67081D8F260E00FAB14A /* MenuDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945C693C1D8EDECA0022C83A /* MenuDetailsViewController.swift */; };
 		945C693B1D8EDECA0022C83A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945C693A1D8EDECA0022C83A /* AppDelegate.swift */; };
@@ -89,6 +90,7 @@
 		8791E1D16694397796CC46C6 /* Pods-App_Prototype_Alpha_001UITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App_Prototype_Alpha_001UITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-App_Prototype_Alpha_001UITests/Pods-App_Prototype_Alpha_001UITests.debug.xcconfig"; sourceTree = "<group>"; };
 		941C681D1DBAAA76006B2F78 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9443215B1DBA9C30003746D8 /* ProfilePopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilePopupViewController.swift; sourceTree = "<group>"; };
+		94469D551DD916EB00D37A97 /* PaymentPopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentPopupViewController.swift; sourceTree = "<group>"; };
 		944D8D341DD7967300FDB034 /* MessagePopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagePopupViewController.swift; sourceTree = "<group>"; };
 		945C69371D8EDECA0022C83A /* App_Prototype_Alpha_001.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App_Prototype_Alpha_001.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		945C693A1D8EDECA0022C83A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 				945C696D1D8EDFCB0022C83A /* PopupViewController.swift */,
 				946691D41DD6B4AD00117157 /* ThemePopupViewController.swift */,
 				944D8D341DD7967300FDB034 /* MessagePopupViewController.swift */,
+				94469D551DD916EB00D37A97 /* PaymentPopupViewController.swift */,
 			);
 			name = "Popup Controllers";
 			sourceTree = "<group>";
@@ -624,6 +627,7 @@
 				945A67081D8F260E00FAB14A /* MenuDetailsViewController.swift in Sources */,
 				4A9B5D491D91C461009F2F72 /* SettingsViewController.swift in Sources */,
 				4A3C67E21DA2F8BF00D9D263 /* UserManager.swift in Sources */,
+				94469D561DD916EB00D37A97 /* PaymentPopupViewController.swift in Sources */,
 				840EA9591DCE5AEE008C90D3 /* MessageManager.swift in Sources */,
 				94656EE21DC7D875003E15B2 /* PaymentDetailsViewController.swift in Sources */,
 			);

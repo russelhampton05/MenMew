@@ -197,6 +197,10 @@ class UserManager{
         TicketManager.ref.child(ticket).child("table").setValue(table)
     }
     
+    static func UpdateTouchIDPreference(user: User, pref: Bool) {
+        ref.child(user.ID).child("touchEnabled").setValue(pref)
+    }
+    
     static func SetTicket(user: User, ticket: Ticket, toRemove: [String]?, completionHandler: @escaping (_ completed: Bool) -> ()) {
         
         //Update user details
