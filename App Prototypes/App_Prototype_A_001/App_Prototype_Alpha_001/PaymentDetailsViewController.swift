@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import LocalAuthentication
 
 class PaymentDetailsViewController: UIViewController, UITextFieldDelegate {
     
     //Variables
     var ticket: Ticket?
     var currentTip: Double?
+    
     
     //IBOutlets
     @IBOutlet weak var payTitle: UILabel!
@@ -107,6 +109,33 @@ class PaymentDetailsViewController: UIViewController, UITextFieldDelegate {
         performSegue(withIdentifier: "UnwindToSummarySegue", sender: self)
     }
     
+    
+    //Get Touch ID
+    func ConfirmWithTouchID(laContext: LAContext)->(Bool, NSError?){
+        var error: NSError?
+        var didSucceed = false
+        guard laContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) else {
+            return (didSucceed, error)
+        }
+        
+        laContext.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Only device owner is allowed", reply: { (success, error) -> Void in
+            
+            if( success ) {
+                didSucceed = success
+            }
+            else{
+                
+                // Check if there is an error
+                if error != nil {
+                    didSucceed = false
+                }
+                
+            }
+        })
+        
+        return (didSucceed, error)
+    }
+    //yup this is exactly what I hand in mind. Nice job.
     func loadTheme() {
         
         //Background and Tint

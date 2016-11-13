@@ -27,6 +27,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var confirmButton: UIButton!
     @IBOutlet var profileLine: UIView!
     
+    @IBOutlet weak var touchToggle: UISwitch!
+    @IBOutlet weak var touchLabel: UILabel!
+    
     //Variables
     var restaurantName: String?
     let imagePicker = UIImagePickerController()
@@ -175,12 +178,14 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         nameLabel.textColor = currentTheme!.invert!
         themeLabel.textColor = currentTheme!.invert!
         profileLine.backgroundColor = currentTheme!.invert!
+        touchLabel.textColor = currentTheme!.invert!
         
         //Buttons
         emailButton.setTitleColor(currentTheme!.invert!, for: .normal)
         passwordButton.setTitleColor(currentTheme!.invert!, for: .normal)
         nameButton.setTitleColor(currentTheme!.invert!, for: .normal)
         themeButton.setTitleColor(currentTheme!.invert!, for: .normal)
+        touchToggle.thumbTintColor = currentTheme!.invert!
         
         if currentTheme!.name! == "Salmon" {
             confirmButton.backgroundColor = currentTheme!.invert!
@@ -192,37 +197,10 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
 
     }
-    
+    //shame on you 
     func reloadTheme() {
         UIView.animate(withDuration: 0.5, animations: { () -> Void in
-            //Background and Tint
-            self.view.backgroundColor = currentTheme!.secondary!
-            self.view.tintColor = currentTheme!.invert!
-            
-            //Labels
-            self.profileLabel.textColor = currentTheme!.invert!
-            self.nameTitle.textColor = currentTheme!.invert!
-            self.locationTitle.textColor = currentTheme!.invert!
-            self.emailLabel.textColor = currentTheme!.invert!
-            self.passwordLabel.textColor = currentTheme!.invert!
-            self.nameLabel.textColor = currentTheme!.invert!
-            self.themeLabel.textColor = currentTheme!.invert!
-            self.profileLine.backgroundColor = currentTheme!.invert!
-            
-            //Buttons
-            self.emailButton.setTitleColor(currentTheme!.invert!, for: .normal)
-            self.passwordButton.setTitleColor(currentTheme!.invert!, for: .normal)
-            self.nameButton.setTitleColor(currentTheme!.invert!, for: .normal)
-            self.themeButton.setTitleColor(currentTheme!.invert!, for: .normal)
-            
-            if currentTheme!.name! == "Salmon" {
-                self.confirmButton.backgroundColor = currentTheme!.invert!
-                self.confirmButton.setTitleColor(currentTheme!.highlight!, for: .normal)
-            }
-            else {
-                self.confirmButton.backgroundColor = currentTheme!.invert!
-                self.confirmButton.setTitleColor(currentTheme!.primary!, for: .normal)
-            }
+           self.loadTheme()
         })
     }
 }

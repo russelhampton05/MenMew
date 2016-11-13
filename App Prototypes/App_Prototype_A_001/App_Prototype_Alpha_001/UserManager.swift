@@ -21,14 +21,16 @@ class UserManager{
     static let ref = FIRDatabase.database().reference().child("Users")
     
     
-    
-    static func AddUser(user: User){
+    //used for creation / updating
+    static func UpdateUser(user: User){
         
         //Create new user entry on database
         UserManager.ref.child(user.ID).child("name").setValue(user.name)
         UserManager.ref.child(user.ID).child("email").setValue(user.email)
+        UserManager.ref.child(user.ID).child("theme").setValue(user.theme)
+        UserManager.ref.child(user.ID).child("image").setValue(user.image)
+        UserManager.ref.child(user.ID).child("touchEnabled").setValue(user.touchEnabled)
         
-        return
     }
     
     static func GetUser(id: String, completionHandler: @escaping (_ user: User) -> ()) {
@@ -42,7 +44,7 @@ class UserManager{
             user.email = value?["email"] as? String
             user.image = value?["image"] as? String
             user.theme = value?["theme"] as? String
-            
+            user.touchEnabled = value?["touchEnabled"] as! Bool
             //Defer ticket retrieval to a separate function
             user.ticket = nil
             

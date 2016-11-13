@@ -17,7 +17,7 @@ class User{
     var ticket: Ticket?
     var image: String?
     var theme: String?
-    
+    var touchEnabled = false
     init(id: String, email: String?, name: String?, ticket: Ticket?, image: String?, theme: String?){
         self.ID = id
         self.email = email
@@ -25,6 +25,11 @@ class User{
         self.ticket = ticket
         self.image = image
         self.theme = theme
+    }
+    convenience init(id: String, email: String?, name: String?, ticket: Ticket?, image: String?, theme: String?, touchEnabled: Bool){
+        self.init( id: id, email: email, name: name, ticket: ticket, image: image, theme: theme)
+        self.touchEnabled = touchEnabled
+        
     }
 }
 //need to look at maybe changing this
