@@ -25,6 +25,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet var themeLabel: UILabel!
     @IBOutlet var themeButton: UIButton!
     @IBOutlet weak var confirmButton: UIButton!
+    @IBOutlet var profileLine: UIView!
     
     //Variables
     var restaurantName: String?
@@ -173,6 +174,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         passwordLabel.textColor = currentTheme!.invert!
         nameLabel.textColor = currentTheme!.invert!
         themeLabel.textColor = currentTheme!.invert!
+        profileLine.backgroundColor = currentTheme!.invert!
         
         //Buttons
         emailButton.setTitleColor(currentTheme!.invert!, for: .normal)
@@ -192,7 +194,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     func reloadTheme() {
-        UIView.animate(withDuration: 0.8, animations: { () -> Void in
+        UIView.animate(withDuration: 0.5, animations: { () -> Void in
             //Background and Tint
             self.view.backgroundColor = currentTheme!.secondary!
             self.view.tintColor = currentTheme!.invert!
@@ -205,6 +207,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             self.passwordLabel.textColor = currentTheme!.invert!
             self.nameLabel.textColor = currentTheme!.invert!
             self.themeLabel.textColor = currentTheme!.invert!
+            self.profileLine.backgroundColor = currentTheme!.invert!
             
             //Buttons
             self.emailButton.setTitleColor(currentTheme!.invert!, for: .normal)
@@ -236,7 +239,7 @@ extension UIImage {
         return result
     }
     var circle: UIImage? {
-        let square = CGSize(width: min(size.width, size.height), height: min(size.width, size.height))
+        let square = CGSize(width: min(size.width/3, size.height/3), height: min(size.width/3, size.height/3))
         let imageView = UIImageView(frame: CGRect(origin: .zero, size: square))
         imageView.contentMode = .scaleAspectFill
         imageView.image = self

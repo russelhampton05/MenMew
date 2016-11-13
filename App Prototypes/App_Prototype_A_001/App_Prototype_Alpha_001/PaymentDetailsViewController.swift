@@ -25,7 +25,8 @@ class PaymentDetailsViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var confirmButton: UIButton!
     @IBOutlet var cancelButton: UIButton!
     @IBOutlet var tipField: UITextField!
-    @IBOutlet weak var tipLine: UIView!
+    @IBOutlet var paymentLine: UIView!
+    @IBOutlet var tipLine: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -122,6 +123,7 @@ class PaymentDetailsViewController: UIViewController, UITextFieldDelegate {
         tipField.textColor = currentTheme!.highlight!
         tipLine.backgroundColor = currentTheme!.highlight!
         dollarTitle.textColor = currentTheme!.highlight!
+        paymentLine.backgroundColor = currentTheme!.highlight!
         
         //Buttons
         confirmButton.backgroundColor = currentTheme!.highlight!

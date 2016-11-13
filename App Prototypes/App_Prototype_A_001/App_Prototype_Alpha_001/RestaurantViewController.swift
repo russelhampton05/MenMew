@@ -31,6 +31,9 @@ class RestaurantViewController: UIViewController {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
         
+        self.restaurantLabel.isHidden = true
+        self.tableLabel.isHidden = true
+        
         //Check for user and restaurant IDs to load tickets
         loadRestaurantInformation()
         
@@ -112,9 +115,15 @@ class RestaurantViewController: UIViewController {
                 
                 self.restaurantLabel.text = self.menu!.title!
                 self.tableLabel.text = "Table " + currentTable!
+                
+                UIView.animate(withDuration: 0.5, animations: { () -> Void in
+                    self.restaurantLabel.isHidden = false
+                    self.tableLabel.isHidden = false
+                    
+                })
             }
             
-            let delay = DispatchTime.now() + 1
+            let delay = DispatchTime.now() + 1.5
             DispatchQueue.main.asyncAfter(deadline: delay) {
                 self.performSegue(withIdentifier: "MainMenuSegue", sender: self)
             }

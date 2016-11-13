@@ -22,6 +22,7 @@ class OrderSummaryViewController: UIViewController {
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var helpButton: UIButton!
     @IBOutlet var messageLabel: UILabel!
+    @IBOutlet var orderLine: UIView!
     
     
     override func viewDidLoad() {
@@ -103,6 +104,8 @@ class OrderSummaryViewController: UIViewController {
         totalTitle.textColor = currentTheme!.invert!
         ticketLabel.textColor = currentTheme!.invert!
         totalLabel.textColor = currentTheme!.invert!
+        messageLabel.textColor = currentTheme!.invert!
+        orderLine.backgroundColor = currentTheme!.invert!
         
         //Buttons
         if currentTheme!.name! == "Salmon" {
@@ -115,7 +118,7 @@ class OrderSummaryViewController: UIViewController {
             doneButton.backgroundColor = currentTheme!.invert!
             doneButton.setTitleColor(currentTheme!.primary!, for: .normal)
             helpButton.backgroundColor = currentTheme!.invert!
-            helpButton.setTitleColor(currentTheme!.highlight!, for: .normal)
+            helpButton.setTitleColor(currentTheme!.primary!, for: .normal)
         }
     }
 }

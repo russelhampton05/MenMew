@@ -67,7 +67,7 @@ class ThemePopupViewController: UIViewController {
     func showAnimate() {
         self.view.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
         self.view.alpha = 0.0
-        UIView.animate(withDuration: 0.25, animations: {
+        UIView.animate(withDuration: 0.5, animations: {
             self.view.alpha = 1.0
             self.view.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
         })
@@ -75,7 +75,7 @@ class ThemePopupViewController: UIViewController {
     
     //Popup remove animation
     func removeAnimate() {
-        UIView.animate(withDuration: 0.25, animations: {
+        UIView.animate(withDuration: 0.5, animations: {
             self.view.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
             self.view.alpha = 0.0
         }, completion:{(finished : Bool) in
@@ -152,7 +152,7 @@ class ThemePopupViewController: UIViewController {
 
     func loadTheme() {
         
-        UIView.animate(withDuration: 0.5, animations: { () -> Void in
+        UIView.animate(withDuration: 0.25, animations: { () -> Void in
             
             //Background and Tint
             self.view.tintColor = currentTheme!.invert!

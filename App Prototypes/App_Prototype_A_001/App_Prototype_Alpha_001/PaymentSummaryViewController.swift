@@ -21,6 +21,7 @@ class PaymentSummaryViewController: UIViewController {
     @IBOutlet var ticketLabel: UILabel!
     @IBOutlet var priceLabel: UILabel!
     @IBOutlet weak var confirmButton: UIButton!
+    @IBOutlet var summaryLine: UIView!
     
     
     override func viewDidLoad() {
@@ -57,6 +58,7 @@ class PaymentSummaryViewController: UIViewController {
         thankTitle.textColor = currentTheme!.highlight!
         ticketLabel.textColor = currentTheme!.highlight!
         priceLabel.textColor = currentTheme!.highlight!
+        summaryLine.backgroundColor = currentTheme!.highlight!
         
         //Buttons
         confirmButton.backgroundColor = currentTheme!.highlight!

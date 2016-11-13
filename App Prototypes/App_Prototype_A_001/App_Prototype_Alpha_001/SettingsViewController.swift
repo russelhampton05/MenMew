@@ -13,9 +13,6 @@ class SettingsViewController: UITableViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var profilePhoto: UIImageView!
-    @IBOutlet weak var profileLabel: UILabel!
-    @IBOutlet weak var ordersLabel: UILabel!
-    @IBOutlet weak var settingsLabel: UILabel!
     @IBOutlet weak var personaTab: UITableViewCell!
     @IBOutlet weak var profileTab: UITableViewCell!
     @IBOutlet weak var ordersTab: UITableViewCell!
@@ -41,7 +38,9 @@ class SettingsViewController: UITableViewController {
         }
         
         loadTheme()
+        loadCells()
     }
+    
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ProfileSegue" {
@@ -64,18 +63,52 @@ class SettingsViewController: UITableViewController {
             if sourceVC.newImageURL != nil {
                 currentUser!.image = sourceVC.newImageURL!
                 profilePhoto.image = nil
-                profilePhoto.getImage(urlString: currentUser!.image!, circle: true)
-            }
-            tableView.reloadData()
-            
-            if let rightVC = self.revealViewController().rightViewController as? MainMenuViewController {
-                rightVC.loadTheme()
+                profilePhoto.getImage(urlString: currentUser!.image!, circle: false)
             }
             
-            loadTheme()
+            reloadTheme()
         }
         else if let sourceVC = sender.source as? OrderSummaryViewController {
             
+        }
+    }
+    
+    func reloadTheme() {
+        
+        let delay = DispatchTime.now() + 0.5
+        DispatchQueue.main.asyncAfter(deadline: delay) {
+            
+            UIView.animate(withDuration: 0.25, animations: { () -> Void in
+                self.loadTheme()
+                self.loadCells()
+            })
+            
+        }
+    }
+    
+    func loadCells() {
+        let bgView = UIView()
+        
+        if currentTheme!.name! == "Salmon" {
+            bgView.backgroundColor = currentTheme!.primary!
+        }
+        else {
+            bgView.backgroundColor = currentTheme!.highlight!
+        }
+        
+        ordersTab.selectedBackgroundView = bgView
+        profileTab.selectedBackgroundView = bgView
+        settingsTab.selectedBackgroundView = bgView
+        
+        if currentTheme!.name! == "Salmon" {
+            ordersTab.textLabel?.highlightedTextColor = currentTheme!.highlight!
+            profileTab.textLabel?.highlightedTextColor = currentTheme!.highlight!
+            settingsTab.textLabel?.highlightedTextColor = currentTheme!.highlight!
+        }
+        else {
+            ordersTab.textLabel?.highlightedTextColor = currentTheme!.primary!
+            profileTab.textLabel?.highlightedTextColor = currentTheme!.primary!
+            settingsTab.textLabel?.highlightedTextColor = currentTheme!.primary!
         }
     }
     
@@ -89,15 +122,17 @@ class SettingsViewController: UITableViewController {
         //Labels
         nameLabel.textColor = currentTheme!.invert!
         locationLabel.textColor = currentTheme!.invert!
-        profileLabel.textColor = currentTheme!.invert!
-        ordersLabel.textColor = currentTheme!.invert!
-        settingsLabel.textColor = currentTheme!.invert!
+        ordersTab.textLabel?.textColor = currentTheme!.invert!
+        profileTab.textLabel?.textColor = currentTheme!.invert!
+        settingsTab.textLabel?.textColor = currentTheme!.invert!
         
         //Cells
         personaTab.backgroundColor = currentTheme!.secondary!
         profileTab.backgroundColor = currentTheme!.secondary!
         ordersTab.backgroundColor = currentTheme!.secondary!
         settingsTab.backgroundColor = currentTheme!.secondary!
+        
+        
 
     }
 }

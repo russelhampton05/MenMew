@@ -138,6 +138,8 @@ class MessagePopupViewController: UIViewController, UITableViewDelegate, UITable
         //Background and Tint
         view.tintColor = currentTheme!.highlight!
         popupView.backgroundColor = currentTheme!.primary!
+        messageTableView.backgroundColor = currentTheme!.primary!
+        messageTableView.sectionIndexBackgroundColor = currentTheme!.primary!
         
         //Labels
         requestLabel.textColor = currentTheme!.highlight!

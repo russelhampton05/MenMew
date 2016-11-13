@@ -198,7 +198,9 @@ class MainMenuViewController: UITableViewController, SWRevealViewControllerDeleg
         else if let sourceVC = sender.source as? SummaryViewController {
             ticket = sourceVC.ticket
             
-            ordersButton.isEnabled = false
+            if (ticket?.itemsOrdered?.count)! > 0 {
+                ordersButton.isEnabled = true
+            }
         }
         else if let sourceVC = sender.source as? PaymentSummaryViewController {
             ticket = sourceVC.ticket

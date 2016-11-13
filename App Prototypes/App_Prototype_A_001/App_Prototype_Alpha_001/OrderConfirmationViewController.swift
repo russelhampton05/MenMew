@@ -20,6 +20,7 @@ class OrderConfirmationViewController: UIViewController {
     @IBOutlet weak var ticketTitle: UILabel!
     @IBOutlet weak var dateTitle: UILabel!
     @IBOutlet weak var confirmButton: UIButton!
+    @IBOutlet var orderLine: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,6 +69,7 @@ class OrderConfirmationViewController: UIViewController {
         dateTitle.textColor = currentTheme!.highlight!
         ticketLabel.textColor = currentTheme!.highlight!
         dateLabel.textColor = currentTheme!.highlight!
+        orderLine.backgroundColor = currentTheme!.highlight!
         
         
         //Buttons
