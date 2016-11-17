@@ -25,6 +25,8 @@ class MenuManager{
             menu.rest_id = id
             menu.title = value?["title"] as? String
             menu.cover_picture = value?["cover_picture"] as? String
+            menu.tax = value?["tax"] as? Double
+            
             let menu_groups = value?["menu_groups"] as? NSDictionary
             var groups: [String] = []
             for group in (menu_groups?.allKeys)! {

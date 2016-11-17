@@ -189,16 +189,24 @@ class UserManager{
         }
     }
     
+    //Update ticket status
     static func UpdateTicketStatus(user: User, ticket: String, status: String) {
         TicketManager.ref.child(ticket).child("status").setValue(status)
     }
     
+    //Update table number
     static func UpdateTicketTable(user: User, ticket: String, table: String) {
         TicketManager.ref.child(ticket).child("table").setValue(table)
     }
     
+    //Update TouchID preference
     static func UpdateTouchIDPreference(user: User, pref: Bool) {
         ref.child(user.ID).child("touchEnabled").setValue(pref)
+    }
+    
+    //Update name
+    static func UpdateUserName(user: User, name: String) {
+        ref.child(user.ID).child("name").setValue(name)
     }
     
     static func SetTicket(user: User, ticket: Ticket, toRemove: [String]?, completionHandler: @escaping (_ completed: Bool) -> ()) {

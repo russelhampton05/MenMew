@@ -20,6 +20,7 @@ class MessagePopupViewController: UIViewController, UITableViewDelegate, UITable
     //Variables
     var messages: [String] = []
     var selectedMessage: String?
+    var didCancel: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +43,7 @@ class MessagePopupViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     @IBAction func cancelButtonPressed(_ sender: Any) {
+        didCancel = true
         removeAnimate()
     }
     
@@ -98,7 +100,10 @@ class MessagePopupViewController: UIViewController, UITableViewDelegate, UITable
         }, completion:{(finished : Bool) in
             if (finished)
             {
-                self.processMessage()
+                if !self.didCancel {
+                    self.processMessage()
+                }
+                
                 self.view.removeFromSuperview()
             }
         })

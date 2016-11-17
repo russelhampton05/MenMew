@@ -148,6 +148,7 @@ class PaymentPopupViewController: UIViewController {
         
         //Labels
         payConfirmLabel.textColor = currentTheme!.highlight!
+        payTitle.textColor = currentTheme!.highlight!
         
         //Buttons
         confirmButton.backgroundColor = currentTheme!.highlight!

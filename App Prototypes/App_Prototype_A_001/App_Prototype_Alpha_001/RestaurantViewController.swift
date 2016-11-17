@@ -141,7 +141,7 @@ class RestaurantViewController: UIViewController {
                 self.printError()
             }
             else {
-                currentRestaurant =  menu.rest_id!
+                currentRestaurant =  menu
                 
                 self.loadTicketInformation()
             }

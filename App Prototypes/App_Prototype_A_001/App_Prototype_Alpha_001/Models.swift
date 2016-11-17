@@ -41,19 +41,22 @@ class Menu{
     var rest_id : String?
     var title : String?
     var cover_picture : String?
+    var tax: Double?
     var menu_groups : [MenuGroup]? = []
-    init(id:String, title:String, cover_picture:String?, groups: [MenuGroup]){
+    
+    init(id:String, title:String, cover_picture:String?, groups: [MenuGroup], tax: Double?){
         self.rest_id = id
         self.title = title
         
         self.cover_picture = cover_picture
         self.menu_groups = groups
+        self.tax = tax
     }
     init(){
         
     }
-    convenience init(id:String, title:String, groups: [MenuGroup] ) {
-        self.init(id:id, title:title, cover_picture:nil, groups:groups)
+    convenience init(id: String, title: String, groups: [MenuGroup], tax: Double) {
+        self.init(id:id, title:title, cover_picture:nil, groups:groups, tax: tax)
     }
 }
 

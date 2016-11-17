@@ -31,7 +31,7 @@ class SummaryViewController : UITableViewController {
     var runningTotal: Double = 0.0
     var ticketsToRemove: [String] = []
     //tax rate really should be pulled from the DB! For now this is fine.
-    let taxRate: Double = 0.12
+    var taxRate: Double?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +39,7 @@ class SummaryViewController : UITableViewController {
             UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: font], for: UIControlState())
         }
         
+        self.taxRate = currentRestaurant!.tax!
         self.confirmButton.isHidden = false
         self.cancelButton.isHidden = false
         
@@ -101,7 +102,7 @@ class SummaryViewController : UITableViewController {
     
     //Calculate added tax
     func calculateTax() {
-        tax = total*taxRate
+        tax = total*taxRate!
         
         taxValue.text = "$" + String(tax)
     }

@@ -47,6 +47,12 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         //Initialize image picker delegate
         imagePicker.delegate = self
 
+        loadUser()
+        loadTheme()
+
+    }
+    
+    func loadUser() {
         //Display current user information
         if let user = FIRAuth.auth()?.currentUser {
             
@@ -67,8 +73,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         else {
             
         }
-        
-        loadTheme()
 
     }
 

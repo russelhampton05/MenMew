@@ -12,11 +12,21 @@ import Firebase
 class RegisterViewController: UIViewController, UITextFieldDelegate {
 
     //IBOutlets
+    @IBOutlet var registerLabel: UILabel!
+    @IBOutlet var nameLabel: UILabel!
+    @IBOutlet var emailLabel: UILabel!
+    @IBOutlet var passwordLabel: UILabel!
+    @IBOutlet var reenterLabel: UILabel!
     @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var confirmPasswordField: UITextField!
     @IBOutlet weak var confirmRegisterButton: UIButton!
+    @IBOutlet var cancelButton: UIButton!
+    @IBOutlet var nameLine: UIView!
+    @IBOutlet var emailLine: UIView!
+    @IBOutlet var passwordLine: UIView!
+    @IBOutlet var reenterLine: UIView!
     
     
     override func viewDidLoad() {
@@ -37,6 +47,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         passwordField.autocorrectionType = UITextAutocorrectionType.no
         confirmPasswordField.autocorrectionType = UITextAutocorrectionType.no
         
+        loadTheme()
     }
 
     override func didReceiveMemoryWarning() {
@@ -100,6 +111,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         }
 
     }
+    @IBAction func cancelButtonPressed(_ sender: Any) {
+        performSegue(withIdentifier: "UnwindToLoginSegue", sender: self)
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "QRScanSegue" {
@@ -120,5 +134,44 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         loginPopup.didMove(toParentViewController: self)
         loginPopup.addMessage(context: message)
         
+    }
+    
+    func loadTheme() {
+        currentTheme = Theme.init(type: "Salmon")
+        
+        UIView.animate(withDuration: 0.8, animations: { () -> Void in
+            
+            //Background and Tint
+            self.view.backgroundColor = currentTheme!.primary!
+            self.view.tintColor = currentTheme!.highlight!
+            
+            
+            //Labels
+            self.registerLabel.textColor = currentTheme!.highlight!
+            self.emailLine.backgroundColor = currentTheme!.highlight!
+            self.passwordLine.backgroundColor = currentTheme!.highlight!
+            self.nameLine.backgroundColor = currentTheme!.highlight!
+            self.reenterLine.backgroundColor = currentTheme!.highlight!
+            self.nameLabel.textColor = currentTheme!.highlight!
+            self.emailLabel.textColor = currentTheme!.highlight!
+            self.passwordLabel.textColor = currentTheme!.highlight!
+            self.reenterLabel.textColor = currentTheme!.highlight!
+            
+            //Fields
+            self.usernameField.textColor = currentTheme!.highlight!
+            self.usernameField.tintColor = currentTheme!.highlight!
+            self.emailField.textColor = currentTheme!.highlight!
+            self.emailField.tintColor = currentTheme!.highlight!
+            self.passwordField.textColor = currentTheme!.highlight!
+            self.passwordField.tintColor = currentTheme!.highlight!
+            self.confirmPasswordField.textColor = currentTheme!.highlight!
+            self.confirmPasswordField.tintColor = currentTheme!.highlight!
+            
+            //Buttons
+            self.confirmRegisterButton.backgroundColor = currentTheme!.highlight!
+            self.confirmRegisterButton.setTitleColor(currentTheme!.primary!, for: .normal)
+            self.cancelButton.backgroundColor = currentTheme!.highlight!
+            self.cancelButton.setTitleColor(currentTheme!.primary!, for: .normal)
+        })
     }
 }

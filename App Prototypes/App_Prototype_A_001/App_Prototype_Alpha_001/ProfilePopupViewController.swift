@@ -112,6 +112,10 @@ class ProfilePopupViewController: UIViewController, UITextFieldDelegate {
         }
         else {
             updateUserDetails(input: dataItem!)
+            
+            if let parentVC = self.parent as? ProfileViewController {
+                parentVC.loadUser()
+            }
         }
     }
     
@@ -139,7 +143,8 @@ class ProfilePopupViewController: UIViewController, UITextFieldDelegate {
                 }
             }
             else if input == "Name" {
-                
+                currentUser!.name = userEntry!
+                UserManager.UpdateUserName(user: currentUser!, name: userEntry!)
             }
         }
     }

@@ -11,7 +11,7 @@ import Firebase
 
 //Global Variables
 var currentUser: User?
-var currentRestaurant: String?
+var currentRestaurant: Menu?
 var currentTable: String?
 var currentTheme: Theme?
 
@@ -43,13 +43,17 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         usernameField.autocorrectionType = UITextAutocorrectionType.no
         passwordField.autocorrectionType = UITextAutocorrectionType.no
         
+        checkLogin()
+    }
+    
+    func checkLogin() {
         //Check for existing logged in user
         if let fbUser = FIRAuth.auth()?.currentUser {
             //Check if logged in user exists in Firebase
             UserManager.GetUser(id: fbUser.uid) {
                 user in
                 
-                if user.ID != nil {
+                if user.ID != "" {
                     self.logoutButton.isHidden = false
                     self.registerButton.isHidden = true
                     self.usernameField.text = fbUser.email!
@@ -64,7 +68,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             logoutButton.isHidden = true
             registerButton.isHidden = false
         }
-        
+
     }
 		
     override func didReceiveMemoryWarning() {
@@ -94,6 +98,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
         else if segue.identifier == "RegisterSegue" {
             let regVC = segue.destination as! RegisterViewController
+        }
+    }
+    
+    @IBAction func unwindToLogin(_ sender: UIStoryboardSegue) {
+        if let sourceVC = sender.source as? RegisterViewController {
+            checkLogin()
         }
     }
 
