@@ -30,6 +30,7 @@ class MenuDetailsViewController: UITableViewController {
     @IBOutlet var categoryLabel: UINavigationItem!
     @IBOutlet weak var doneButton: UIBarButtonItem!
     @IBOutlet var backButton: UIBarButtonItem!
+    @IBOutlet var categoryTapGestureRecognizer: UITapGestureRecognizer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,9 +53,28 @@ class MenuDetailsViewController: UITableViewController {
             doneButton.isEnabled = false
         }
         
+        initializeGestureRecognizers()
         loadTheme()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        let delay = DispatchTime.now() + 2
+        DispatchQueue.main.asyncAfter(deadline: delay) {
+            self.showTotal()
+        }
+    }
+    
+    func initializeGestureRecognizers() {
+        categoryTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(menuTapped(gesture:)))
+        self.navigationController?.navigationBar.isUserInteractionEnabled = true
+        
+        self.navigationController?.navigationBar.addGestureRecognizer(categoryTapGestureRecognizer)
+    }
+    
+    func menuTapped(gesture: UITapGestureRecognizer) {
+        showTotal()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -295,6 +315,36 @@ class MenuDetailsViewController: UITableViewController {
         //Labels
         
         //Buttons
+    }
+    
+    func showTotal() {
+        
+        let runningTotal = calculateTotal()
+        
+        let fadeTransition = CATransition()
+        fadeTransition.duration = 0.5
+        fadeTransition.type = kCATransitionFade
+        
+        navigationController?.navigationBar.layer.add(fadeTransition, forKey: "fadeText")
+        self.categoryLabel.title = "Current Total: $" + String(format: "%.2f", runningTotal)
+        
+        
+        let delay = DispatchTime.now() + 2
+        DispatchQueue.main.asyncAfter(deadline: delay) {
+            self.navigationController?.navigationBar.layer.add(fadeTransition, forKey: "fadeText")
+            self.categoryLabel.title = self.menu_group!.title
+        }
+    }
+    
+    func calculateTotal() -> Double {
+        var currTotal = 0.0
+        if (ticket?.itemsOrdered?.count)! > 0 {
+            for item in ticket!.itemsOrdered! {
+                currTotal += item.price!
+            }
+        }
+        
+        return currTotal
     }
     
     }

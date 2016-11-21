@@ -104,7 +104,7 @@ class SummaryViewController : UITableViewController {
     func calculateTax() {
         tax = total*taxRate!
         
-        taxValue.text = "$" + String(tax)
+        taxValue.text = "$" + String(format: "%.2f", tax)
     }
     
     //Calculate running total of all orders

@@ -18,6 +18,7 @@ class MainMenuViewController: UITableViewController, SWRevealViewControllerDeleg
     @IBOutlet var menuButton: UIBarButtonItem!
     @IBOutlet weak var ordersButton: UIBarButtonItem!
     @IBOutlet weak var restaurantLabel: UINavigationItem!
+    @IBOutlet var menuTapGestureRecognizer: UITapGestureRecognizer!
 
     //Variables
     var orderArray: [(title: String, price: Double)] = []
@@ -55,12 +56,18 @@ class MainMenuViewController: UITableViewController, SWRevealViewControllerDeleg
         menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
         
         initializeNotificationObserver()
+        initializeGestureRecognizers()
         loadTheme()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         loadTheme()
         tableView.reloadData()
+        
+        let delay = DispatchTime.now() + 2
+        DispatchQueue.main.asyncAfter(deadline: delay) {
+            self.showTotal()
+        }
     }
     
     func revealController(_ revealController: SWRevealViewController!, willMoveTo position: FrontViewPosition) {
@@ -111,6 +118,17 @@ class MainMenuViewController: UITableViewController, SWRevealViewControllerDeleg
             }
         })
 
+    }
+    
+    func initializeGestureRecognizers() {
+        menuTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(menuTapped(gesture:)))
+        self.navigationController?.navigationBar.isUserInteractionEnabled = true
+        
+        self.navigationController?.navigationBar.addGestureRecognizer(menuTapGestureRecognizer)
+    }
+    
+    func menuTapped(gesture: UITapGestureRecognizer) {
+        showTotal()
     }
 
     override func didReceiveMemoryWarning() {
@@ -234,6 +252,37 @@ class MainMenuViewController: UITableViewController, SWRevealViewControllerDeleg
         //Labels
         
         //Buttons
+    }
+    
+    func showTotal() {
+        
+        let runningTotal = calculateTotal()
+        
+        let fadeTransition = CATransition()
+        fadeTransition.duration = 0.5
+        fadeTransition.type = kCATransitionFade
+        
+        navigationController?.navigationBar.layer.add(fadeTransition, forKey: "fadeText")
+        self.restaurantLabel.title = "Current Total: $" + String(format: "%.2f", runningTotal)
+
+        
+        let delay = DispatchTime.now() + 2
+        DispatchQueue.main.asyncAfter(deadline: delay) {
+            self.navigationController?.navigationBar.layer.add(fadeTransition, forKey: "fadeText")
+            self.restaurantLabel.title = self.menu?.title
+            
+        }
+    }
+    
+    func calculateTotal() -> Double {
+        var currTotal = 0.0
+        if (ticket?.itemsOrdered?.count)! > 0 {
+            for item in ticket!.itemsOrdered! {
+                currTotal += item.price!
+            }
+        }
+        
+        return currTotal
     }
 }
 

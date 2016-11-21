@@ -116,14 +116,21 @@ class RestaurantViewController: UIViewController {
                 self.restaurantLabel.text = self.menu!.title!
                 self.tableLabel.text = "Table " + currentTable!
                 
-                UIView.animate(withDuration: 0.5, animations: { () -> Void in
-                    self.restaurantLabel.isHidden = false
-                    self.tableLabel.isHidden = false
-                    
-                })
+                
+                //Transition animation
+                let fadeTransition = CATransition()
+                fadeTransition.duration = 1.0
+                fadeTransition.type = kCATransitionFade
+                self.restaurantLabel.layer.add(fadeTransition, forKey: "fadeText")
+                self.tableLabel.layer.add(fadeTransition, forKey: "fadeText")
+                
+                self.restaurantLabel.isHidden = false
+                self.tableLabel.isHidden = false
+                
+                
             }
             
-            let delay = DispatchTime.now() + 1.5
+            let delay = DispatchTime.now() + 2
             DispatchQueue.main.asyncAfter(deadline: delay) {
                 self.performSegue(withIdentifier: "MainMenuSegue", sender: self)
             }

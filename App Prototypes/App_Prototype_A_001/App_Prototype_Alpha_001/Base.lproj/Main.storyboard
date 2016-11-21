@@ -855,14 +855,14 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="m4A-ff-hZG">
-                                            <rect key="frame" x="15" y="-5" width="53" height="35.5"/>
+                                            <rect key="frame" x="15" y="-5" width="53" height="36"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="30"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="InT-N5-Yhb">
-                                            <rect key="frame" x="15" y="30.5" width="52" height="19"/>
+                                            <rect key="frame" x="15" y="31" width="52" height="19"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -888,6 +888,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="menuButton" destination="zcJ-It-YnL" id="xlP-Ua-WMu"/>
+                        <outlet property="menuTapGestureRecognizer" destination="0dJ-A1-ogY" id="H9o-0d-uGx"/>
                         <outlet property="ordersButton" destination="mVd-d4-s2Z" id="u3j-m7-o82"/>
                         <outlet property="restaurantLabel" destination="Bew-zT-i7j" id="WP0-i1-X0D"/>
                         <segue destination="7ov-nd-rea" kind="show" identifier="CategoryDetailSegue" id="OEw-Xs-Nxl"/>
@@ -895,6 +896,7 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m7R-00-C02" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="0dJ-A1-ogY"/>
             </objects>
             <point key="canvasLocation" x="2014" y="-911"/>
         </scene>
@@ -1072,10 +1074,12 @@
                     <connections>
                         <outlet property="backButton" destination="36w-4o-ctv" id="Or4-e2-5Rt"/>
                         <outlet property="categoryLabel" destination="f09-Ls-fLQ" id="m9Q-XJ-cbu"/>
+                        <outlet property="categoryTapGestureRecognizer" destination="D1h-0a-iCh" id="DVx-Av-pr8"/>
                         <outlet property="doneButton" destination="10o-fZ-1l2" id="RMb-4v-GB3"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EEv-dN-Itq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="D1h-0a-iCh"/>
             </objects>
             <point key="canvasLocation" x="1896" y="-103"/>
         </scene>

@@ -66,16 +66,11 @@ class PopupViewController: UIViewController {
     
     //Check for which controller the popup must segue into
     func checkSegueCondition() {
-        if self.condition == "FulfillOrder" {
-            //if let parent = self.parent as? TableDetailViewController {
-                //parent.performSegue(withIdentifier: "UnwindToTableListSegue", sender: parent)
-            //}
-        }
-        else if self.condition == "AddOrderDetails" {
+
+        if self.condition == "AddMenuItem" {
             if let parent = self.parent as? MenuDetailsViewController {
                 
                 parent.tableView.isScrollEnabled = true
-                parent.addOrder(parent)
             }
         }
         else if self.condition == "CancelMenuItems" {

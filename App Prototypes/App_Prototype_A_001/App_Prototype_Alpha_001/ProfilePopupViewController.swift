@@ -43,6 +43,8 @@ class ProfilePopupViewController: UIViewController, UITextFieldDelegate {
         }
         
         itemLabel.text = dataItem
+        
+        loadTheme()
     }
 
     override func didReceiveMemoryWarning() {
