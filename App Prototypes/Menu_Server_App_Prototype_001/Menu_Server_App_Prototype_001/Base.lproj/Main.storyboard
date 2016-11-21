@@ -513,10 +513,16 @@
                     </view>
                     <navigationItem key="navigationItem" id="GR1-vE-Cxj"/>
                     <connections>
+                        <outlet property="doneButton" destination="1IJ-1Q-zMp" id="vP7-jO-G2O"/>
+                        <outlet property="emailLabel" destination="QeC-ld-mQU" id="6ju-Wn-JeE"/>
+                        <outlet property="emailLine" destination="5I9-Ss-qbG" id="4AV-I8-vAS"/>
+                        <outlet property="loginTitle" destination="Kp0-uR-YH8" id="EUp-Rk-dx0"/>
                         <outlet property="logoutButton" destination="Zs9-un-G2Z" id="Gpg-Tz-fzV"/>
                         <outlet property="passwordField" destination="Dc4-OZ-0Ly" id="YFh-dT-WXp"/>
-                        <outlet property="registerButton" destination="AgD-at-uUO" id="INX-HK-KDF"/>
-                        <outlet property="usernameField" destination="T0Y-lk-fBb" id="njw-Y3-d4h"/>
+                        <outlet property="passwordLabel" destination="qrq-6x-u4N" id="izk-N7-aJR"/>
+                        <outlet property="passwordLine" destination="ZIw-aH-b6v" id="6Bn-jY-4FA"/>
+                        <outlet property="registerButton" destination="AgD-at-uUO" id="vh1-sf-Zka"/>
+                        <outlet property="usernameField" destination="T0Y-lk-fBb" id="Hd8-ad-Ha3"/>
                         <segue destination="GBA-rB-5Dj" kind="show" identifier="RegisterSegue" id="xYd-jw-qG8"/>
                         <segue destination="7Xm-Wu-6rf" kind="show" identifier="RestaurantListSegue" id="tgW-er-NHC"/>
                     </connections>

@@ -42,9 +42,9 @@ class ServerManager {
             let restaurants = value?["restaurants"] as? NSDictionary
             let tables = value?["tables"] as? NSDictionary
 
-            if(server.theme == nil || server.theme?.characters.count < 1)
+            if(server.theme == nil || (server.theme?.characters.count)! < 1)
             {
-                server.theme = 'Salmon'
+                server.theme = "Salmon"
             }
             //Get list of restaurants
             var restList: [String] = []

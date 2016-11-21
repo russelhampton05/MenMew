@@ -37,7 +37,7 @@ class ThemePopupViewController: UIViewController {
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0.6)
         self.showAnimate()
         
-        themeTitle.text = currentUser!.theme!
+        themeTitle.text = currentServer!.theme!
         oldTheme = currentTheme
         
         initializeGestureRecognizers()
@@ -52,8 +52,8 @@ class ThemePopupViewController: UIViewController {
     
     @IBAction func confirmButtonPressed(_ sender: Any) {
         
-        currentUser!.theme = themeTitle.text
-        UserManager.setTheme(user: currentUser!, theme: themeTitle.text!)
+        currentServer!.theme = themeTitle.text
+        ServerManager.setTheme(server: currentServer!, theme: themeTitle.text!)
         
         removeAnimate()
     }
@@ -82,7 +82,7 @@ class ThemePopupViewController: UIViewController {
             if (finished)
             {
                 if let parent = self.parent as? AppSettingsViewController {
-                    parent.themeButton.setTitle(currentUser!.theme, for: .normal)
+                    parent.themeButton.setTitle(currentServer!.theme, for: .normal)
                     parent.reloadTheme()
                 }
                 self.view.removeFromSuperview()
