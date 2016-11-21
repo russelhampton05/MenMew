@@ -11,22 +11,36 @@ import Firebase
 
 class ProfileViewController: UIViewController {
     
-    @IBOutlet weak var usernameLabel: UILabel!
-    @IBOutlet weak var passwordLabel: UILabel!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var paymentLabel: UILabel!
+    @IBOutlet weak var profilePhoto: UIImageView!
+    @IBOutlet weak var profileHeader: UILabel!
+ 
     
     @IBOutlet weak var themeButton: UIButton!
-    @IBOutlet weak var themeLabel: UIStackView!
+    @IBOutlet weak var password: UILabel!
+    @IBOutlet weak var passwordLabel: UILabel!
+    @IBOutlet weak var userName: UILabel!
+    @IBOutlet weak var themeLabel: UILabel!
+    @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var paymentLabel: UILabel!
+    @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var payment: UILabel!
+    @IBOutlet weak var doneButton: UIButton!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var underPhotoLocation: UILabel!
+    @IBOutlet weak var underPhotoName: UILabel!
+   
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+              // Do any additional setup after loading the view.
         
         if let user = FIRAuth.auth()?.currentUser {
-            usernameLabel.text = user.email
+            userName.text = user.email
+           
             passwordLabel.text = "*******"
             nameLabel.text = user.displayName
+            underPhotoName.text = user.displayName
             paymentLabel.text = "VISA"
         }
         else {
@@ -48,36 +62,33 @@ class ProfileViewController: UIViewController {
 
     func loadTheme() {
         
-//        //Background and Tint
-//        self.view.backgroundColor = currentTheme!.secondary!
-//        self.view.tintColor = currentTheme!.invert!
-//        
-//        //Labels
-//        profileLabel.textColor = currentTheme!.invert!
-//        nameTitle.textColor = currentTheme!.invert!
-//        locationTitle.textColor = currentTheme!.invert!
-//        emailLabel.textColor = currentTheme!.invert!
-//        passwordLabel.textColor = currentTheme!.invert!
-//        nameLabel.textColor = currentTheme!.invert!
-//        themeLabel.textColor = currentTheme!.invert!
-//        profileLine.backgroundColor = currentTheme!.invert!
-//        touchLabel.textColor = currentTheme!.invert!
-//        
-//        //Buttons
-//        emailButton.setTitleColor(currentTheme!.invert!, for: .normal)
-//        passwordButton.setTitleColor(currentTheme!.invert!, for: .normal)
-//        nameButton.setTitleColor(currentTheme!.invert!, for: .normal)
-//        themeButton.setTitleColor(currentTheme!.invert!, for: .normal)
-//        touchToggle.thumbTintColor = currentTheme!.invert!
-//        
-//        if currentTheme!.name! == "Salmon" {
-//            confirmButton.backgroundColor = currentTheme!.invert!
-//            confirmButton.setTitleColor(currentTheme!.highlight!, for: .normal)
-//        }
-//        else {
-//            confirmButton.backgroundColor = currentTheme!.invert!
-//            confirmButton.setTitleColor(currentTheme!.primary!, for: .normal)
-//        }
+        //Background and Tint
+        self.view.backgroundColor = currentTheme!.secondary!
+        self.view.tintColor = currentTheme!.invert!
+        
+        //Labels
+        profileHeader.textColor = currentTheme!.invert!
+        underPhotoName.textColor = currentTheme!.invert!
+        underPhotoLocation.textColor = currentTheme!.invert!
+        emailLabel.textColor = currentTheme!.invert!
+        passwordLabel.textColor = currentTheme!.invert!
+        nameLabel.textColor = currentTheme!.invert!
+        themeLabel.textColor = currentTheme!.invert!
+        paymentLabel.backgroundColor = currentTheme!.invert!
+     //touchLabel.textColor = currentTheme!.invert!
+        
+        //Buttons
+
+        themeButton.setTitleColor(currentTheme!.invert!, for: .normal)
+        
+        if currentTheme!.name! == "Salmon" {
+           doneButton.backgroundColor = currentTheme!.invert!
+            doneButton.setTitleColor(currentTheme!.highlight!, for: .normal)
+        }
+        else {
+            doneButton.backgroundColor = currentTheme!.invert!
+            doneButton.setTitleColor(currentTheme!.primary!, for: .normal)
+        }
         
     }
     

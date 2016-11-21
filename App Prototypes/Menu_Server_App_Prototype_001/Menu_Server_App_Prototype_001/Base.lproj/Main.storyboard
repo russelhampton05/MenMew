@@ -338,12 +338,21 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="nameLabel" destination="kpc-Pl-tZv" id="lkR-5l-QZo"/>
-                        <outlet property="passwordLabel" destination="8kC-Z4-fBE" id="gAn-27-MLA"/>
-                        <outlet property="paymentLabel" destination="bXB-Zd-yjw" id="mPH-Kx-d7k"/>
+                        <outlet property="doneButton" destination="Qbf-41-F5S" id="pOA-4U-HRP"/>
+                        <outlet property="name" destination="kpc-Pl-tZv" id="dXE-af-Wk1"/>
+                        <outlet property="nameLabel" destination="j4i-nM-H20" id="LCD-Te-gjZ"/>
+                        <outlet property="password" destination="8kC-Z4-fBE" id="Mc9-5c-cXA"/>
+                        <outlet property="passwordLabel" destination="OIl-hX-N1T" id="ICc-Xg-rAX"/>
+                        <outlet property="payment" destination="bXB-Zd-yjw" id="NIU-t6-Vbm"/>
+                        <outlet property="paymentLabel" destination="wvb-V7-MF2" id="gP2-r3-kGd"/>
+                        <outlet property="profileHeader" destination="wls-SC-wIx" id="IuN-7A-uuw"/>
+                        <outlet property="profilePhoto" destination="j03-7N-lQ0" id="7ap-mj-VrX"/>
                         <outlet property="themeButton" destination="5vN-sb-8OX" id="Yeg-d2-2dE"/>
-                        <outlet property="themeLabel" destination="sRX-7j-nBW" id="5dK-UW-Bgs"/>
-                        <outlet property="usernameLabel" destination="gBb-Sq-9is" id="MVJ-rN-MC9"/>
+                        <outlet property="themeLabel" destination="yVH-wm-xgy" id="LVF-PY-aSi"/>
+                        <outlet property="underPhotoLocation" destination="VAD-My-mKU" id="L0N-P9-TvB"/>
+                        <outlet property="underPhotoName" destination="sux-1h-usr" id="19M-sG-NC6"/>
+                        <outlet property="userName" destination="gBb-Sq-9is" id="QNp-0I-cCe"/>
+                        <outlet property="userNameLabel" destination="hlO-Kp-WXE" id="heZ-sj-cFs"/>
                         <segue destination="JQ7-ne-KG6" kind="unwind" identifier="UnwindToSettingsSegue" unwindAction="unwindToSettings:" id="Z7P-fM-3fO"/>
                     </connections>
                 </viewController>
