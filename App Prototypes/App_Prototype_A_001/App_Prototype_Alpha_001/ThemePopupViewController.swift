@@ -81,7 +81,7 @@ class ThemePopupViewController: UIViewController {
         }, completion:{(finished : Bool) in
             if (finished)
             {
-                if let parent = self.parent as? ProfileViewController {
+                if let parent = self.parent as? AppSettingsViewController {
                     parent.themeButton.setTitle(currentUser!.theme, for: .normal)
                     parent.reloadTheme()
                 }

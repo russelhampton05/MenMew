@@ -65,11 +65,9 @@ class SettingsViewController: UITableViewController {
                 profilePhoto.image = nil
                 profilePhoto.getImage(urlString: currentUser!.image!, circle: false)
             }
-            
-            reloadTheme()
         }
-        else if let sourceVC = sender.source as? OrderSummaryViewController {
-            
+        else if let sourceVC = sender.source as? AppSettingsViewController {
+            reloadTheme()
         }
     }
     

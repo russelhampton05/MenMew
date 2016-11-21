@@ -30,7 +30,7 @@ class UserManager{
         UserManager.ref.child(user.ID).child("theme").setValue(user.theme)
         UserManager.ref.child(user.ID).child("image").setValue(user.image)
         UserManager.ref.child(user.ID).child("touchEnabled").setValue(user.touchEnabled)
-        
+        UserManager.ref.child(user.ID).child("notifications").setValue(user.notifications)
     }
     
     static func GetUser(id: String, completionHandler: @escaping (_ user: User) -> ()) {
@@ -45,6 +45,8 @@ class UserManager{
             user.image = value?["image"] as? String
             user.theme = value?["theme"] as? String
             user.touchEnabled = value?["touchEnabled"] as! Bool
+            user.notifications = value?["notifications"] as! Bool
+            
             //Defer ticket retrieval to a separate function
             user.ticket = nil
             
@@ -202,6 +204,11 @@ class UserManager{
     //Update TouchID preference
     static func UpdateTouchIDPreference(user: User, pref: Bool) {
         ref.child(user.ID).child("touchEnabled").setValue(pref)
+    }
+    
+    //Update Notifications preference
+    static func UpdateNotificationPreference(user: User, pref: Bool) {
+        ref.child(user.ID).child("notifications").setValue(pref)
     }
     
     //Update name

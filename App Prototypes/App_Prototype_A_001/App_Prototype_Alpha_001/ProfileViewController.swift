@@ -22,13 +22,11 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet var nameTitle: UILabel!
     @IBOutlet var locationTitle: UILabel!
-    @IBOutlet var themeLabel: UILabel!
-    @IBOutlet var themeButton: UIButton!
+
     @IBOutlet weak var confirmButton: UIButton!
     @IBOutlet var profileLine: UIView!
     
-    @IBOutlet weak var touchToggle: UISwitch!
-    @IBOutlet weak var touchLabel: UILabel!
+
     
     //Variables
     var restaurantName: String?
@@ -63,7 +61,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             nameTitle.text = currentUser!.name!
             nameButton.setTitle(currentUser!.name!, for: .normal)
             locationTitle.text = "At " + restaurantName!
-            themeButton.setTitle(currentUser!.theme!, for: .normal)
             
             if currentUser!.image != nil {
                 profilePhoto.getImage(urlString: currentUser!.image!, circle: false)
@@ -108,14 +105,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         initiatePopup(input: "Name")
     }
     
-    @IBAction func themeButtonPressed(_ sender: Any) {
-        initiateThemePopup()
-    }
-    
-    @IBAction func togglePressed(_ sender: Any) {
-        currentUser!.touchEnabled = touchToggle.isOn
-        UserManager.UpdateTouchIDPreference(user: currentUser!, pref: touchToggle.isOn)
-    }
     
     //Profile image load
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -160,15 +149,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         updatePopup.didMove(toParentViewController: self)
     }
     
-    //Instantiate the theme popup
-    func initiateThemePopup() {
-        let themePopup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ThemePopup") as! ThemePopupViewController
-        
-        self.addChildViewController(themePopup)
-        self.view.addSubview(themePopup.view)
-        themePopup.didMove(toParentViewController: self)
-    }
-    
     func loadTheme() {
         
         //Background and Tint
@@ -182,16 +162,14 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         emailLabel.textColor = currentTheme!.invert!
         passwordLabel.textColor = currentTheme!.invert!
         nameLabel.textColor = currentTheme!.invert!
-        themeLabel.textColor = currentTheme!.invert!
         profileLine.backgroundColor = currentTheme!.invert!
-        touchLabel.textColor = currentTheme!.invert!
+
         
         //Buttons
         emailButton.setTitleColor(currentTheme!.invert!, for: .normal)
         passwordButton.setTitleColor(currentTheme!.invert!, for: .normal)
         nameButton.setTitleColor(currentTheme!.invert!, for: .normal)
-        themeButton.setTitleColor(currentTheme!.invert!, for: .normal)
-        touchToggle.thumbTintColor = currentTheme!.invert!
+
         
         if currentTheme!.name! == "Salmon" {
             confirmButton.backgroundColor = currentTheme!.invert!

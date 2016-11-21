@@ -18,6 +18,8 @@ class User{
     var image: String?
     var theme: String?
     var touchEnabled = false
+    var notifications = true
+    
     init(id: String, email: String?, name: String?, ticket: Ticket?, image: String?, theme: String?){
         self.ID = id
         self.email = email
@@ -26,10 +28,10 @@ class User{
         self.image = image
         self.theme = theme
     }
-    convenience init(id: String, email: String?, name: String?, ticket: Ticket?, image: String?, theme: String?, touchEnabled: Bool){
+    convenience init(id: String, email: String?, name: String?, ticket: Ticket?, image: String?, theme: String?, touchEnabled: Bool, notifications: Bool){
         self.init( id: id, email: email, name: name, ticket: ticket, image: image, theme: theme)
         self.touchEnabled = touchEnabled
-        
+        self.notifications = notifications
     }
 }
 //need to look at maybe changing this

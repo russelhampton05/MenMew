@@ -55,12 +55,17 @@ class MainMenuViewController: UITableViewController, SWRevealViewControllerDeleg
         self.revealViewController().delegate = self
         menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
         
-        initializeNotificationObserver()
         initializeGestureRecognizers()
-        loadTheme()
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        if currentUser!.notifications {
+            initializeNotificationObserver()
+        }
+        else {
+            deinitializeObservers()
+        }
+        
         loadTheme()
         tableView.reloadData()
         
@@ -81,6 +86,11 @@ class MainMenuViewController: UITableViewController, SWRevealViewControllerDeleg
             loadTheme()
             tableView.reloadData()
         }
+    }
+    
+    func deinitializeObservers() {
+        let messageRef = FIRDatabase.database().reference().child("Messages")
+        messageRef.removeAllObservers()
     }
     
     func initializeNotificationObserver() {
