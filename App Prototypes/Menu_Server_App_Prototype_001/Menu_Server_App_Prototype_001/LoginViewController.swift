@@ -11,6 +11,7 @@ import Firebase
 
 //Globals
 var currentServer: Server?
+var currentTheme: Theme?
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
 

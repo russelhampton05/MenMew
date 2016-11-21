@@ -30,14 +30,14 @@ class ServerManager {
     
     static func GetServer(id: String, completionHandler: @escaping (_ server: Server) -> ()) {
         
-        let server = Server(id: id, name: nil, email: nil, restaurants: nil, tables: nil)
+        let server = Server(id: id, name: nil, email: nil, restaurants: nil, tables: nil, theme: nil)
         
         ServerManager.ref.child(id).observe(.value, with: { (FIRDataSnapshot) in
             let value = FIRDataSnapshot.value as? NSDictionary
             
             server.name = value?["name"] as? String
             server.email = value?["email"] as? String
-        
+            server.theme = value?["theme"] as? String
             let tickets = value?["tickets"] as? NSDictionary
             let restaurants = value?["restaurants"] as? NSDictionary
             let tables = value?["tables"] as? NSDictionary
@@ -72,5 +72,8 @@ class ServerManager {
         }) {(error) in
             print(error.localizedDescription)}
         
+    }
+    static func setTheme(server: Server, theme: String) {
+        ref.child(server.ID).child("theme").setValue(theme)
     }
 }

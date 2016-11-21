@@ -19,6 +19,17 @@ class UserManager{
     
     static let ref = FIRDatabase.database().reference().child("Users")
     
+    
+    static func UpdateUser(user: User){
+        
+        //Create new user entry on database
+        UserManager.ref.child(user.ID).child("name").setValue(user.name)
+        UserManager.ref.child(user.ID).child("email").setValue(user.email)
+        UserManager.ref.child(user.ID).child("theme").setValue(user.theme)
+   
+       
+        
+    }
     static func AddUser(user: User){
         
         //Create new user entry on database
@@ -30,14 +41,14 @@ class UserManager{
     
     static func GetUser(id: String, completionHandler: @escaping (_ user: User) -> ()) {
         
-        let user = User(id: id, email: nil, name: nil, ticket: nil)
+        let user = User(id: id, email: nil, name: nil, ticket: nil, theme: nil)
 
         UserManager.ref.child(id).observeSingleEvent(of: .value, with: { (FIRDataSnapshot) in
             let value = FIRDataSnapshot.value as? NSDictionary
 
             user.name = value?["name"] as? String
             user.email = value?["email"] as? String
-            
+            user.theme = value?["theme"] as? String
             
             //Defer ticket retrieval to a separate function
             user.ticket = nil
@@ -47,6 +58,10 @@ class UserManager{
         }) {(error) in
             print(error.localizedDescription)}
         
+    }
+    
+    static func setTheme(user: User, theme: String) {
+        ref.child(user.ID).child("theme").setValue(theme)
     }
     
     static func GetTicket(user: User, restaurant: String, completionHandler: @escaping (_ ticket: Ticket) -> ()) {
