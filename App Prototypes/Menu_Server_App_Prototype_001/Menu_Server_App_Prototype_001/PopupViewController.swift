@@ -10,6 +10,7 @@ import UIKit
 
 class PopupViewController: UIViewController {
 
+    @IBOutlet weak var popupView: UIView!
     @IBOutlet weak var addedLabel: UILabel!
     @IBOutlet weak var confirmButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
@@ -23,6 +24,7 @@ class PopupViewController: UIViewController {
     override func viewDidLoad() {
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0.6)
         self.showAnimate()
+        loadTheme()
 
     }
     
@@ -84,4 +86,21 @@ class PopupViewController: UIViewController {
             addedLabel.text = context
         }
     }
+    
+    func loadTheme() {
+        
+        //Background and Tint
+        popupView.backgroundColor = currentTheme!.primary!
+        self.view.tintColor = currentTheme!.highlight!
+        
+        //Labels
+        addedLabel.textColor = currentTheme!.highlight!
+        
+        //Buttons
+        confirmButton.backgroundColor = currentTheme!.highlight!
+        confirmButton.setTitleColor(currentTheme!.primary!, for: .normal)
+        cancelButton.backgroundColor = currentTheme!.highlight!
+        cancelButton.setTitleColor(currentTheme!.primary!, for: .normal)
+    }
+
 }

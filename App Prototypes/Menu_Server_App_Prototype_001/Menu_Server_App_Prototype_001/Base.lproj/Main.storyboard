@@ -1098,6 +1098,7 @@
                         <outlet property="addedLabel" destination="pTB-b6-u2N" id="8SF-rU-XRY"/>
                         <outlet property="cancelButton" destination="RI5-SY-ud9" id="IFF-DC-1pG"/>
                         <outlet property="confirmButton" destination="3d8-Gu-MzT" id="eBC-7i-IGT"/>
+                        <outlet property="popupView" destination="ang-4i-eRZ" id="Ue7-8A-hxH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hEZ-8S-vno" userLabel="First Responder" sceneMemberID="firstResponder"/>
