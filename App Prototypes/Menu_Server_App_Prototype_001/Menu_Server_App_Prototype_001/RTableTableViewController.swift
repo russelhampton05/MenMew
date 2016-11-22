@@ -207,6 +207,7 @@ class RTableTableViewController: UITableViewController {
             navigationItem.backBarButtonItem = backItem
             
             tableDetailVC.ticket = ticketList[segueIndex!]
+            currentTicket = ticketList[segueIndex!]
         }
     }
     

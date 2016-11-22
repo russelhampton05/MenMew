@@ -18,12 +18,15 @@ class User {
     var theme: String?
     var email: String?
     var ticket: Ticket?
-    init(id: String, email: String?, name: String?, ticket:Ticket?, theme: String?){
+    var image: String?
+    
+    init(id: String, email: String?, name: String?, ticket:Ticket?, theme: String?, image: String?){
         self.ID = id
         self.theme = theme
         self.email = email
         self.name = name
         self.ticket = ticket
+        self.image = image
     }
 }
 
@@ -33,17 +36,18 @@ class Server {
     var name: String?
     var email: String?
     var theme: String?
-    
+    var image: String?
     var restaurants: [String]?
     var tables: [String]?
     
-    init (id: String, name: String?, email: String?, restaurants: [String]?, tables: [String]?, theme: String?) {
+    init (id: String, name: String?, email: String?, restaurants: [String]?, tables: [String]?, theme: String?, image: String?) {
         self.ID = id
         self.theme = theme
         self.name = name
         self.email = email
         self.restaurants = restaurants
         self.tables = tables
+        self.image = image
     }
 }
 

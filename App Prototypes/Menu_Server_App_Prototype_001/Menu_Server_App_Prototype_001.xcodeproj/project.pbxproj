@@ -28,6 +28,8 @@
 		840EA95B1DCEC8CF008C90D3 /* MessageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840EA95A1DCEC8CF008C90D3 /* MessageManager.swift */; };
 		843C4D6A1DE2A48F0017A5AC /* ThemePopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843C4D691DE2A48F0017A5AC /* ThemePopupViewController.swift */; };
 		9449AB4D1DC4F3FC00C0401C /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9449AB4C1DC4F3FC00C0401C /* UserManager.swift */; };
+		945C152E1DE50409003416BE /* ProfilePopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945C152D1DE50409003416BE /* ProfilePopupViewController.swift */; };
+		945C15301DE50453003416BE /* MessagePopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945C152F1DE50453003416BE /* MessagePopupViewController.swift */; };
 		948BF33C1DBBCA8900C1DFC0 /* TicketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948BF33B1DBBCA8900C1DFC0 /* TicketManager.swift */; };
 		948BF33F1DBBD65B00C1DFC0 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948BF33E1DBBD65B00C1DFC0 /* Models.swift */; };
 		948BF3411DBBD90000C1DFC0 /* MenuItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948BF3401DBBD90000C1DFC0 /* MenuItemManager.swift */; };
@@ -62,6 +64,8 @@
 		840EA95A1DCEC8CF008C90D3 /* MessageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageManager.swift; sourceTree = "<group>"; };
 		843C4D691DE2A48F0017A5AC /* ThemePopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ThemePopupViewController.swift; path = ../../App_Prototype_A_001/App_Prototype_Alpha_001/ThemePopupViewController.swift; sourceTree = "<group>"; };
 		9449AB4C1DC4F3FC00C0401C /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		945C152D1DE50409003416BE /* ProfilePopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilePopupViewController.swift; sourceTree = "<group>"; };
+		945C152F1DE50453003416BE /* MessagePopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagePopupViewController.swift; sourceTree = "<group>"; };
 		948BF33B1DBBCA8900C1DFC0 /* TicketManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketManager.swift; sourceTree = "<group>"; };
 		948BF33E1DBBD65B00C1DFC0 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		948BF3401DBBD90000C1DFC0 /* MenuItemManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItemManager.swift; sourceTree = "<group>"; };
@@ -146,6 +150,8 @@
 				4A3C67DA1DA2B65900D9D263 /* RTableCell.swift */,
 				4A3C67C41DA2808600D9D263 /* PopupViewController.swift */,
 				843C4D691DE2A48F0017A5AC /* ThemePopupViewController.swift */,
+				945C152D1DE50409003416BE /* ProfilePopupViewController.swift */,
+				945C152F1DE50453003416BE /* MessagePopupViewController.swift */,
 			);
 			name = "Custom View Controllers";
 			sourceTree = "<group>";
@@ -332,6 +338,7 @@
 				4A3C67D91DA2984000D9D263 /* RTableTableViewController.swift in Sources */,
 				843C4D6A1DE2A48F0017A5AC /* ThemePopupViewController.swift in Sources */,
 				4A80DDA21DA3E5FB00F91DC5 /* OrderTableViewController.swift in Sources */,
+				945C15301DE50453003416BE /* MessagePopupViewController.swift in Sources */,
 				4A3C67C91DA2808600D9D263 /* LoginViewController.swift in Sources */,
 				4A3C67CF1DA283B200D9D263 /* RegisterViewController.swift in Sources */,
 				840EA95B1DCEC8CF008C90D3 /* MessageManager.swift in Sources */,
@@ -344,6 +351,7 @@
 				4A3C67CC1DA2808600D9D263 /* SettingsViewController.swift in Sources */,
 				4A80DD9F1DA3E51C00F91DC5 /* CustomerTableViewController.swift in Sources */,
 				948BF33C1DBBCA8900C1DFC0 /* TicketManager.swift in Sources */,
+				945C152E1DE50409003416BE /* ProfilePopupViewController.swift in Sources */,
 				948BF3411DBBD90000C1DFC0 /* MenuItemManager.swift in Sources */,
 				4A5567AF1DC0D8B900755E48 /* RestaurantManager.swift in Sources */,
 				948BF3431DBC01D900C1DFC0 /* ServerManager.swift in Sources */,

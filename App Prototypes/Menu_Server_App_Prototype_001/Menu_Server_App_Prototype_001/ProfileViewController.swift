@@ -9,57 +9,146 @@
 import UIKit
 import Firebase
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    @IBOutlet weak var profilePhoto: UIImageView!
-    @IBOutlet weak var profileHeader: UILabel!
- 
-    
-    @IBOutlet weak var themeButton: UIButton!
-    @IBOutlet weak var password: UILabel!
-    @IBOutlet weak var passwordLabel: UILabel!
-    @IBOutlet weak var userName: UILabel!
-    @IBOutlet weak var themeLabel: UILabel!
+    //IBOutlets
+    @IBOutlet var emailButton: UIButton!
+    @IBOutlet var passwordButton: UIButton!
+    @IBOutlet var nameButton: UIButton!
+    @IBOutlet var profilePhoto: UIImageView!
+    @IBOutlet weak var profileLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
-    @IBOutlet weak var paymentLabel: UILabel!
-    @IBOutlet weak var name: UILabel!
-    @IBOutlet weak var payment: UILabel!
-    @IBOutlet weak var doneButton: UIButton!
+    @IBOutlet weak var passwordLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var userNameLabel: UILabel!
-    @IBOutlet weak var underPhotoLocation: UILabel!
-    @IBOutlet weak var underPhotoName: UILabel!
-   
+    @IBOutlet var nameTitle: UILabel!
+    @IBOutlet var locationTitle: UILabel!
+    
+    @IBOutlet weak var confirmButton: UIButton!
+    @IBOutlet var profileLine: UIView!
+    
+    
+    
+    //Variables
+    var restaurantName: String?
+    let imagePicker = UIImagePickerController()
+    let context = CIContext()
+    var newImageURL: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-              // Do any additional setup after loading the view.
         
+        //Initialize gesture recognizer for profile image
+        let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(imageTapped(img:)))
+        profilePhoto.isUserInteractionEnabled = true
+        profilePhoto.addGestureRecognizer(tapGestureRecognizer)
+        
+        //Initialize image picker delegate
+        imagePicker.delegate = self
+        
+        loadUser()
+        loadTheme()
+        
+    }
+    
+    func loadUser() {
+        //Display current user information
         if let user = FIRAuth.auth()?.currentUser {
-            userName.text = user.email
-           
-            passwordLabel.text = "*******"
-            nameLabel.text = user.displayName
-            underPhotoName.text = user.displayName
-            paymentLabel.text = "VISA"
+            
+            emailButton.setTitle(user.email, for: .normal)
+            passwordButton.setTitle(String(repeating: "*", count: user.email!.characters.count), for: .normal)
+            nameButton.setTitle(user.displayName, for: .normal)
+            
+            nameTitle.text = currentServer!.name!
+            nameButton.setTitle(currentServer!.name!, for: .normal)
+            locationTitle.text = "At " + restaurantName!
+            
+            if currentServer!.image != nil {
+                profilePhoto.getImage(urlString: currentServer!.image!, circle: false)
+            }
+            
         }
         else {
             
         }
-    }
-    
-    
-   
-    @IBAction func themeButtonPressed(_ sender: AnyObject){       initiateThemePopup()
-    }
-    func initiateThemePopup() {
-        let themePopup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ThemePopup") as! ThemePopupViewController
         
-        self.addChildViewController(themePopup)
-        self.view.addSubview(themePopup.view)
-        themePopup.didMove(toParentViewController: self)
     }
-
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        
+    }
+    
+    //Button press functions
+    func imageTapped(img: Any) {
+        //Open the photo gallery
+        self.confirmButton.isEnabled = false
+        
+        imagePicker.allowsEditing = false
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    @IBAction func backButtonPressed(_ sender: AnyObject) {
+        performSegue(withIdentifier: "UnwindToSettingsSegue", sender: self)
+    }
+    
+    @IBAction func emailButtonPressed(_ sender: AnyObject) {
+        initiatePopup(input: "Email")
+    }
+    
+    @IBAction func passwordButtonPressed(_ sender: AnyObject) {
+        initiatePopup(input: "Password")
+    }
+    
+    @IBAction func nameButtonPressed(_ sender: AnyObject) {
+        initiatePopup(input: "Name")
+    }
+    
+    
+    //Profile image load
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        let pickedImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        
+        profilePhoto.image = pickedImage.circle
+        
+        //Upload image to user's profile on Firebase
+        ServerManager.uploadImage(server: currentServer!, image: pickedImage.circle!) {
+            done in
+            
+            //Update current user with new profile image
+            ServerManager.getImageURL(server: currentServer!) {
+                url in
+                
+                self.newImageURL = url
+                
+                self.confirmButton.isEnabled = true
+            }
+        }
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+        self.confirmButton.isEnabled = true
+    }
+    
+    
+    //Instantiate the popup
+    func initiatePopup(input: String) {
+        
+        let updatePopup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "UpdatePopup") as! ProfilePopupViewController
+        
+        updatePopup.condition = input
+        updatePopup.dataItem = input
+        
+        self.addChildViewController(updatePopup)
+        self.view.addSubview(updatePopup.view)
+        updatePopup.didMove(toParentViewController: self)
+    }
+    
     func loadTheme() {
         
         //Background and Tint
@@ -67,62 +156,37 @@ class ProfileViewController: UIViewController {
         self.view.tintColor = currentTheme!.invert!
         
         //Labels
-        profileHeader.textColor = currentTheme!.invert!
-        underPhotoName.textColor = currentTheme!.invert!
-        underPhotoLocation.textColor = currentTheme!.invert!
+        profileLabel.textColor = currentTheme!.invert!
+        nameTitle.textColor = currentTheme!.invert!
+        locationTitle.textColor = currentTheme!.invert!
         emailLabel.textColor = currentTheme!.invert!
         passwordLabel.textColor = currentTheme!.invert!
         nameLabel.textColor = currentTheme!.invert!
-        themeLabel.textColor = currentTheme!.invert!
-        paymentLabel.backgroundColor = currentTheme!.invert!
-     //touchLabel.textColor = currentTheme!.invert!
+        profileLine.backgroundColor = currentTheme!.invert!
+        
         
         //Buttons
-
-        themeButton.setTitleColor(currentTheme!.invert!, for: .normal)
+        emailButton.setTitleColor(currentTheme!.invert!, for: .normal)
+        passwordButton.setTitleColor(currentTheme!.invert!, for: .normal)
+        nameButton.setTitleColor(currentTheme!.invert!, for: .normal)
+        
         
         if currentTheme!.name! == "Salmon" {
-           doneButton.backgroundColor = currentTheme!.invert!
-            doneButton.setTitleColor(currentTheme!.highlight!, for: .normal)
+            confirmButton.backgroundColor = currentTheme!.invert!
+            confirmButton.setTitleColor(currentTheme!.highlight!, for: .normal)
         }
         else {
-            doneButton.backgroundColor = currentTheme!.invert!
-            doneButton.setTitleColor(currentTheme!.primary!, for: .normal)
+            confirmButton.backgroundColor = currentTheme!.invert!
+            confirmButton.setTitleColor(currentTheme!.primary!, for: .normal)
         }
         
     }
     
-
- 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-        
-        // Do any additional setup after loading the view.
-        
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-    @IBAction func backButtonPressed(_ sender: AnyObject) {
-        performSegue(withIdentifier: "UnwindToSettingsSegue", sender: self)
-    }
     func reloadTheme() {
         UIView.animate(withDuration: 0.5, animations: { () -> Void in
             self.loadTheme()
         })
     }
-    
-    
 }
 extension UIImage {
     var rounded: UIImage? {

@@ -8,6 +8,8 @@
 
 import UIKit
 
+var currentTicket: Ticket?
+
 class RestaurantTableViewController: UITableViewController {
     
     //IBOutlets
