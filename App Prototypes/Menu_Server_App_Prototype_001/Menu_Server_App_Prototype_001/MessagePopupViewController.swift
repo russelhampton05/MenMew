@@ -129,10 +129,9 @@ class MessagePopupViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func loadMessages() {
-        self.messages.append("Request Refill")
-        self.messages.append("Request Seating")
-        self.messages.append("Follow-up Order")
-        self.messages.append("Other Request")
+        self.messages.append("Order Ready")
+        self.messages.append("Order Delayed")
+        self.messages.append("Item/s Unavailable")
     }
     
     func loadTheme() {
