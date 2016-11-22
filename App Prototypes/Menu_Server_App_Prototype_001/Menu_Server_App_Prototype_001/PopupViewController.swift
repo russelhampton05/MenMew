@@ -29,7 +29,7 @@ class PopupViewController: UIViewController {
     }
     
     
-    @IBAction func confirmButtonPressed(_ sender: AnyObject) {
+    @IBAction func confirmButtonPressed(_ sender: AnyObject) {	
         self.removeAnimate()
     }
     

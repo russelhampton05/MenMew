@@ -9,7 +9,7 @@
 import UIKit
 
 class RTableCell: UITableViewCell {
-
+    
     //IBOutlets
     @IBOutlet weak var tableLabel: UILabel!
     @IBOutlet weak var ticketLabel: UILabel!
@@ -18,14 +18,28 @@ class RTableCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        loadTheme()
         // Initialization code
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
-
+    func loadTheme() {
+        
+        //Background and Tint
+        self.backgroundColor = currentTheme!.primary!
+        
+        self.tintColor = currentTheme!.highlight!
+        
+        //Labels
+        tableLabel.textColor = currentTheme!.highlight!
+        ticketLabel.textColor = currentTheme!.highlight!
+        statusLabel.textColor = currentTheme!.highlight!
+        dateLabel.textColor = currentTheme!.highlight!
+        
+        //Buttons
+    }
 }
