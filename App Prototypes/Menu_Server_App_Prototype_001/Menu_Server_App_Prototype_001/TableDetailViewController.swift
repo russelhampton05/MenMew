@@ -54,7 +54,24 @@ class TableDetailViewController: UITableViewController {
             fulfillButton.setTitle("Fulfill Order", for: .normal)
         }
     }
-
+    
+    func loadTheme() {
+        
+        //Background and Tint
+        self.view.backgroundColor = currentTheme!.primary!
+        self.view.tintColor = currentTheme!.highlight!
+        
+        //Labels
+        statusLabel.textColor = currentTheme!.highlight!
+        tableNumLabel.textColor = currentTheme!.highlight!
+        ticketLabel.textColor = currentTheme!.highlight!
+        customerLabel.textColor = currentTheme!.highlight!
+        dateLabel.textColor = currentTheme!.highlight!
+        
+        //Buttons
+        fulfillButton.backgroundColor = currentTheme!.highlight!
+            }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
