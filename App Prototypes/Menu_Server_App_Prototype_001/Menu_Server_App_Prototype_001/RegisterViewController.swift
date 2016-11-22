@@ -12,11 +12,18 @@ import Firebase
 class RegisterViewController: UIViewController, UITextFieldDelegate {
 
     
+    @IBOutlet weak var reenterLabel: UILabel!
+
+ 
+    @IBOutlet weak var passwordLabel: UILabel!
+    @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var registerLabel: UILabel!
     @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var confirmPasswordField: UITextField!
     @IBOutlet weak var confirmRegisterButton: UIButton!
     
+    @IBOutlet weak var emailField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +41,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         passwordField.autocorrectionType = UITextAutocorrectionType.no
         confirmPasswordField.autocorrectionType = UITextAutocorrectionType.no
         
+        loadTheme()
     }
 
     override func didReceiveMemoryWarning() {
@@ -99,7 +107,39 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             //let scanVC = segue.destination as! QRViewController
         }
     }
-    
+    func loadTheme() {
+        currentTheme = Theme.init(type: "Salmon")
+        
+        UIView.animate(withDuration: 0.8, animations: { () -> Void in
+            
+            //Background and Tint
+            self.view.backgroundColor = currentTheme!.primary!
+            self.view.tintColor = currentTheme!.highlight!
+            
+            
+            //Labels
+            self.registerLabel.textColor = currentTheme!.highlight!
+            self.emailLabel.textColor = currentTheme!.highlight!
+            self.passwordLabel.textColor = currentTheme!.highlight!
+            self.reenterLabel.textColor = currentTheme!.highlight!
+            
+            //Fields
+            self.usernameField.textColor = currentTheme!.highlight!
+            self.usernameField.tintColor = currentTheme!.highlight!
+            self.emailField.textColor = currentTheme!.highlight!
+            self.emailField.tintColor = currentTheme!.highlight!
+            self.passwordField.textColor = currentTheme!.highlight!
+            self.passwordField.tintColor = currentTheme!.highlight!
+            self.confirmPasswordField.textColor = currentTheme!.highlight!
+            self.confirmPasswordField.tintColor = currentTheme!.highlight!
+            
+            //Buttons
+            self.confirmRegisterButton.backgroundColor = currentTheme!.highlight!
+            self.confirmRegisterButton.setTitleColor(currentTheme!.primary!, for: .normal)
+//            self.cancelButton.backgroundColor = currentTheme!.highlight!
+//            self.cancelButton.setTitleColor(currentTheme!.primary!, for: .normal)
+        })
+    }
     func showPopup(message: String, isRegister: Bool) {
         let loginPopup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Popup") as! PopupViewController
         
