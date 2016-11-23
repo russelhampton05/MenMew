@@ -46,6 +46,7 @@ class RTableTableViewController: UITableViewController {
         }
         
         loadTheme()
+        tableView.reloadData()
     }
     
     func initializeTickets() {
@@ -178,7 +179,7 @@ class RTableTableViewController: UITableViewController {
         cell.ticketLabel.textColor = currentTheme!.highlight!
         cell.statusLabel.textColor = currentTheme!.highlight!
         cell.tableLabel.textColor = currentTheme!.highlight!
-        
+        cell.dateLabel.textColor = currentTheme!.highlight!
         
         //Get updated information regarding status
         if ticketList.count > 0 {
@@ -201,10 +202,11 @@ class RTableTableViewController: UITableViewController {
             let bgView = UIView()
             bgView.backgroundColor = currentTheme!.highlight!
             cell.selectedBackgroundView = bgView
-            cell.tableLabel.textColor = currentTheme!.primary!
-            cell.ticketLabel.textColor = currentTheme!.primary!
-            cell.statusLabel.textColor = currentTheme!.primary!
-            cell.tableLabel.textColor = currentTheme!.primary!
+            cell.tableLabel.highlightedTextColor = currentTheme!.primary!
+            cell.ticketLabel.highlightedTextColor = currentTheme!.primary!
+            cell.statusLabel.highlightedTextColor = currentTheme!.primary!
+            cell.tableLabel.highlightedTextColor = currentTheme!.primary!
+            cell.dateLabel.highlightedTextColor = currentTheme!.primary!
             
             cell.dateLabel.text = formatter.string(from: currentDate!)
         }

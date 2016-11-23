@@ -104,6 +104,10 @@ class MessagePopupViewController: UIViewController, UITableViewDelegate, UITable
                     self.processMessage()
                 }
                 
+                if let parent = self.parent as? TableDetailViewController {
+                    parent.tableView.isScrollEnabled = true
+                }
+                
                 self.view.removeFromSuperview()
             }
         })
@@ -111,6 +115,7 @@ class MessagePopupViewController: UIViewController, UITableViewDelegate, UITable
     
     func processMessage() {
         if let parent = self.parent as? TableDetailViewController {
+            
             if selectedMessage != nil {
                 
                 if selectedMessage == "Order Ready" {

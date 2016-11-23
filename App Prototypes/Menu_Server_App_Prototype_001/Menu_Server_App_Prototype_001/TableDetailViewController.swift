@@ -45,7 +45,7 @@ class TableDetailViewController: UITableViewController {
         formatter.timeStyle = .short
         
         dateLabel.text = formatter.string(from: currentDate!)
-        
+        messageLabel.isHidden = true
 
         getCustomer()
         
@@ -139,6 +139,8 @@ class TableDetailViewController: UITableViewController {
         self.addChildViewController(messagePopup)
         self.view.addSubview(messagePopup.view)
         messagePopup.didMove(toParentViewController: self)
+        
+        self.tableView.isScrollEnabled = false
     }
     
     func getCustomer() {
@@ -152,7 +154,7 @@ class TableDetailViewController: UITableViewController {
     func sendMessage(message: String) {
         
         //Write the message
-        MessageManager.WriteServerMessage(id: currentTicket!.message_ID!, message: message)
+        MessageManager.WriteUserMessage(id: currentTicket!.message_ID!, message: message)
         
         //Hide the button to avoid spam
         UIView.animate(withDuration: 0.5, animations: { () -> Void in
