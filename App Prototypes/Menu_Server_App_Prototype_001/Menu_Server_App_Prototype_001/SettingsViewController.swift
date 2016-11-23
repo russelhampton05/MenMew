@@ -17,7 +17,7 @@ class SettingsViewController: UITableViewController {
     @IBOutlet weak var profilePhoto: UIImageView!
     @IBOutlet weak var personaTab: UITableViewCell!
     @IBOutlet weak var profileTab: UITableViewCell!
-    @IBOutlet weak var ordersTab: UITableViewCell!
+   // @IBOutlet weak var ordersTab: UITableViewCell!
     @IBOutlet weak var settingsTab: UITableViewCell!
     
     //Variables
@@ -87,17 +87,17 @@ class SettingsViewController: UITableViewController {
             bgView.backgroundColor = currentTheme!.highlight!
         }
         
-        ordersTab.selectedBackgroundView = bgView
+      //  ordersTab.selectedBackgroundView = bgView
         profileTab.selectedBackgroundView = bgView
         settingsTab.selectedBackgroundView = bgView
         
         if currentTheme!.name! == "Salmon" {
-            ordersTab.textLabel?.highlightedTextColor = currentTheme!.highlight!
+          //  ordersTab.textLabel?.highlightedTextColor = currentTheme!.highlight!
             profileTab.textLabel?.highlightedTextColor = currentTheme!.highlight!
             settingsTab.textLabel?.highlightedTextColor = currentTheme!.highlight!
         }
         else {
-            ordersTab.textLabel?.highlightedTextColor = currentTheme!.primary!
+           // ordersTab.textLabel?.highlightedTextColor = currentTheme!.primary!
             profileTab.textLabel?.highlightedTextColor = currentTheme!.primary!
             settingsTab.textLabel?.highlightedTextColor = currentTheme!.primary!
         }
@@ -113,14 +113,14 @@ class SettingsViewController: UITableViewController {
         //Labels
         nameLabel.textColor = currentTheme!.invert!
         locationLabel.textColor = currentTheme!.invert!
-        ordersTab.textLabel?.textColor = currentTheme!.invert!
+    //    ordersTab.textLabel?.textColor = currentTheme!.invert!
         profileTab.textLabel?.textColor = currentTheme!.invert!
         settingsTab.textLabel?.textColor = currentTheme!.invert!
         
         //Cells
         personaTab.backgroundColor = currentTheme!.secondary!
         profileTab.backgroundColor = currentTheme!.secondary!
-        ordersTab.backgroundColor = currentTheme!.secondary!
+      //  ordersTab.backgroundColor = currentTheme!.secondary!
         settingsTab.backgroundColor = currentTheme!.secondary!
         
         
