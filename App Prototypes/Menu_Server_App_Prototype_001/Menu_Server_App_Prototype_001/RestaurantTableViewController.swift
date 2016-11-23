@@ -35,7 +35,7 @@ class RestaurantTableViewController: UITableViewController {
         
         //Load the assigned restaurants
         loadRestaurants()
-
+        loadTheme()
     }
 
     override func didReceiveMemoryWarning() {
@@ -60,11 +60,16 @@ class RestaurantTableViewController: UITableViewController {
         cell.textLabel!.text = restaurantArray[(indexPath as NSIndexPath).row].title
         cell.detailTextLabel!.text = restaurantArray[(indexPath as NSIndexPath).row].location
         
+        cell.backgroundColor = currentTheme!.primary!
+        cell.textLabel!.textColor = currentTheme!.highlight!
+        cell.detailTextLabel!.textColor = currentTheme!.highlight!
+        
+        //Interaction
         let bgView = UIView()
-        bgView.backgroundColor = UIColor.white
+        bgView.backgroundColor = currentTheme!.highlight!
         cell.selectedBackgroundView = bgView
-        cell.textLabel?.highlightedTextColor = self.view.backgroundColor
-        cell.detailTextLabel?.highlightedTextColor = self.view.backgroundColor
+        cell.textLabel?.highlightedTextColor = currentTheme!.primary!
+        cell.detailTextLabel?.highlightedTextColor = currentTheme!.primary!
 
         return cell
     }
@@ -102,5 +107,11 @@ class RestaurantTableViewController: UITableViewController {
                 self.tableView.reloadData()
             }
         }
+    }
+    
+    func loadTheme() {
+        //Background and Tint
+        self.view.backgroundColor = currentTheme!.primary!
+        self.view.tintColor = currentTheme!.highlight!
     }
 }

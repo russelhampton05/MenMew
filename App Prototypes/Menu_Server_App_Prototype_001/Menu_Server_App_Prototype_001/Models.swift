@@ -39,8 +39,9 @@ class Server {
     var image: String?
     var restaurants: [String]?
     var tables: [String]?
+    var notifications = true
     
-    init (id: String, name: String?, email: String?, restaurants: [String]?, tables: [String]?, theme: String?, image: String?) {
+    init (id: String, name: String?, email: String?, restaurants: [String]?, tables: [String]?, theme: String?, image: String?, notifications: Bool) {
         self.ID = id
         self.theme = theme
         self.name = name
@@ -48,6 +49,7 @@ class Server {
         self.restaurants = restaurants
         self.tables = tables
         self.image = image
+        self.notifications = notifications
     }
 }
 

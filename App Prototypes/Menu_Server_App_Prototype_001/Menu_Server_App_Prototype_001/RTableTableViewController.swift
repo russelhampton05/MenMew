@@ -35,7 +35,17 @@ class RTableTableViewController: UITableViewController {
         self.title = restaurant!.title!
         
         initializeTickets()
-        initializeNotificationObserver()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if currentServer!.notifications {
+            initializeNotificationObserver()
+        }
+        else {
+            deinitializeObservers()
+        }
+        
+        loadTheme()
     }
     
     func initializeTickets() {
@@ -98,6 +108,11 @@ class RTableTableViewController: UITableViewController {
             print(error.localizedDescription)}
     }
     
+    func deinitializeObservers() {
+        let messageRef = FIRDatabase.database().reference().child("Messages")
+        messageRef.removeAllObservers()
+    }
+    
     @IBAction func initializeNotificationObserver() {
         let messageRef = FIRDatabase.database().reference().child("Messages")
         
@@ -156,6 +171,15 @@ class RTableTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableCell", for: indexPath) as! RTableCell
         
+        //Theme
+        cell.backgroundColor = currentTheme!.primary!
+        cell.tintColor = currentTheme!.highlight!
+        cell.tableLabel.textColor = currentTheme!.highlight!
+        cell.ticketLabel.textColor = currentTheme!.highlight!
+        cell.statusLabel.textColor = currentTheme!.highlight!
+        cell.tableLabel.textColor = currentTheme!.highlight!
+        
+        
         //Get updated information regarding status
         if ticketList.count > 0 {
             tableView.isUserInteractionEnabled = true
@@ -171,6 +195,16 @@ class RTableTableViewController: UITableViewController {
             
             formatter.dateStyle = .short
             formatter.timeStyle = .short
+            
+            
+            //Interaction
+            let bgView = UIView()
+            bgView.backgroundColor = currentTheme!.highlight!
+            cell.selectedBackgroundView = bgView
+            cell.tableLabel.textColor = currentTheme!.primary!
+            cell.ticketLabel.textColor = currentTheme!.primary!
+            cell.statusLabel.textColor = currentTheme!.primary!
+            cell.tableLabel.textColor = currentTheme!.primary!
             
             cell.dateLabel.text = formatter.string(from: currentDate!)
         }
@@ -227,7 +261,11 @@ class RTableTableViewController: UITableViewController {
         }
     }
     
-
+    func loadTheme() {
+        //Background and Tint
+        self.view.backgroundColor = currentTheme!.primary!
+        self.view.tintColor = currentTheme!.highlight!
+    }
 }
 
 extension RTableTableViewController: UNUserNotificationCenterDelegate {

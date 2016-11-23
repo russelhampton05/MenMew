@@ -22,6 +22,11 @@ class TableDetailViewController: UITableViewController {
     @IBOutlet weak var fulfillButton: UIButton!
     @IBOutlet var customerLabel: UILabel!
     @IBOutlet var dateLabel: UILabel!
+    @IBOutlet var messageLabel: UILabel!
+    @IBOutlet var tableLine: UIView!
+    @IBOutlet var customerTitle: UILabel!
+    @IBOutlet var dateTitle: UILabel!
+    @IBOutlet var menuItemsTitle: UILabel!
 
     
     override func viewDidLoad() {
@@ -67,10 +72,15 @@ class TableDetailViewController: UITableViewController {
         ticketLabel.textColor = currentTheme!.highlight!
         customerLabel.textColor = currentTheme!.highlight!
         dateLabel.textColor = currentTheme!.highlight!
+        tableLine.backgroundColor = currentTheme!.highlight!
+        customerTitle.textColor = currentTheme!.highlight!
+        dateTitle.textColor = currentTheme!.highlight!
+        menuItemsTitle.textColor = currentTheme!.highlight!
         
         //Buttons
         fulfillButton.backgroundColor = currentTheme!.highlight!
-            }
+        fulfillButton.setTitleColor(currentTheme!.primary, for: .normal)
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -106,6 +116,9 @@ class TableDetailViewController: UITableViewController {
         if ticket!.itemsOrdered != nil && ticket!.itemsOrdered!.count > 0 {
             cell.textLabel!.text = ticket!.itemsOrdered![indexPath.row].title
             
+            cell.backgroundColor = currentTheme!.primary!
+            cell.tintColor = currentTheme!.highlight!
+            
             let price = ticket!.itemsOrdered![indexPath.row].price!
             cell.detailTextLabel!.text = "$" + String(format: "%.2f", price)
         }
@@ -119,8 +132,13 @@ class TableDetailViewController: UITableViewController {
     
     
     @IBAction func fulfillButtonPressed(_ sender: AnyObject) {
-        //Initiate message to user
-        MessageManager.WriteUserMessage(id: ticket!.message_ID!, message: "Your order ticket \(ticket!.desc!) is on the way.")
+
+        //Initiate popup
+        let messagePopup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MessagePopup") as! MessagePopupViewController
+        
+        self.addChildViewController(messagePopup)
+        self.view.addSubview(messagePopup.view)
+        messagePopup.didMove(toParentViewController: self)
     }
     
     func getCustomer() {
@@ -130,4 +148,29 @@ class TableDetailViewController: UITableViewController {
             self.customerLabel.text = user.name!
         }
     }
+    
+    func sendMessage(message: String) {
+        
+        //Write the message
+        MessageManager.WriteServerMessage(id: currentTicket!.message_ID!, message: message)
+        
+        //Hide the button to avoid spam
+        UIView.animate(withDuration: 0.5, animations: { () -> Void in
+            self.fulfillButton.isHidden = true
+            self.messageLabel.isHidden = false
+            
+        })
+        
+        //Reinstate the help button after 10 seconds
+        let delay = DispatchTime.now() + 10
+        DispatchQueue.main.asyncAfter(deadline: delay) {
+            UIView.animate(withDuration: 0.5, animations: { () -> Void in
+                self.fulfillButton.isHidden = false
+                self.messageLabel.isHidden = true
+                
+            })
+            
+        }
+    }
+
 }

@@ -15,11 +15,8 @@ class AppSettingsViewController: UIViewController {
     @IBOutlet var settingsLine: UIView!
     @IBOutlet var themeLabel: UILabel!
     @IBOutlet var themeButton: UIButton!
-    @IBOutlet var notificationsLabel: UILabel!
-    @IBOutlet var notificationsSwitch: UISwitch!
     @IBOutlet var confirmButton: UIButton!
     @IBOutlet var themeDesc: UILabel!
-    @IBOutlet var notificationsDesc: UILabel!
     
     //Variables
     
@@ -29,8 +26,6 @@ class AppSettingsViewController: UIViewController {
         loadTheme()
         
         themeButton.setTitle(currentTheme!.name!, for: .normal)
-        touchIDSwitch.isOn = currentUser!.touchEnabled
-        notificationsSwitch.isOn = currentUser!.notifications
     }
     
     override func didReceiveMemoryWarning() {
@@ -51,17 +46,7 @@ class AppSettingsViewController: UIViewController {
     @IBAction func themeButtonPressed(_ sender: Any) {
         initiateThemePopup()
     }
-    
-    @IBAction func touchIDSwitchPressed(_ sender: Any) {
-        currentUser!.touchEnabled = touchIDSwitch.isOn
-        UserManager.UpdateTouchIDPreference(user: currentUser!, pref: touchIDSwitch.isOn)
-    }
-    
-    @IBAction func notificationsSwitchPressed(_ sender: Any) {
-        currentUser!.notifications = notificationsSwitch.isOn
-        UserManager.UpdateNotificationPreference(user: currentUser!, pref: notificationsSwitch.isOn)
-    }
-    
+
     @IBAction func confirmButtonPressed(_ sender: Any) {
         performSegue(withIdentifier: "UnwindToSettingsSegue", sender: self)
     }
@@ -76,14 +61,11 @@ class AppSettingsViewController: UIViewController {
         settingsLabel.textColor = currentTheme!.invert!
         settingsLine.backgroundColor = currentTheme!.invert!
         themeLabel.textColor = currentTheme!.invert!
-        notificationsLabel.textColor = currentTheme!.invert!
         themeDesc.textColor = currentTheme!.invert!
-        notificationsDesc.textColor = currentTheme!.invert!
         
         //Buttons
         themeButton.setTitleColor(currentTheme!.invert!, for: .normal)
-        notificationsSwitch.thumbTintColor = currentTheme!.invert!
-        notificationsSwitch.onTintColor = UIColor.lightGray
+
         
         if currentTheme!.name! == "Salmon" {
             confirmButton.backgroundColor = currentTheme!.invert!

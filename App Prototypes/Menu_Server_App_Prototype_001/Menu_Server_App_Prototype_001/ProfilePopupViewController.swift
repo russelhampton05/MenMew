@@ -145,8 +145,8 @@ class ProfilePopupViewController: UIViewController, UITextFieldDelegate {
                 }
             }
             else if input == "Name" {
-                currentUser!.name = userEntry!
-                UserManager.UpdateUserName(user: currentUser!, name: userEntry!)
+                currentServer!.name = userEntry!
+                ServerManager.UpdateUserName(server: currentServer!, name: userEntry!)
             }
         }
     }

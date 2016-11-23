@@ -31,7 +31,7 @@ class ServerManager {
     
     static func GetServer(id: String, completionHandler: @escaping (_ server: Server) -> ()) {
         
-        let server = Server(id: id, name: nil, email: nil, restaurants: nil, tables: nil, theme: nil, image: nil)
+        let server = Server(id: id, name: nil, email: nil, restaurants: nil, tables: nil, theme: nil, image: nil, notifications: true)
         
         ServerManager.ref.child(id).observe(.value, with: { (FIRDataSnapshot) in
             let value = FIRDataSnapshot.value as? NSDictionary
@@ -40,6 +40,8 @@ class ServerManager {
             server.email = value?["email"] as? String
             server.theme = value?["theme"] as? String
             server.image = value?["image"] as? String
+            server.notifications = value?["notifications"] as! Bool
+            
             let tickets = value?["tickets"] as? NSDictionary
             let restaurants = value?["restaurants"] as? NSDictionary
             let tables = value?["tables"] as? NSDictionary
@@ -87,7 +89,7 @@ class ServerManager {
         let storageRef = storage.reference()
         
         let userPhotosRef = storageRef.child("UserPhotos")
-        let userRef = userPhotosRef.child(user.ID)
+        let userRef = userPhotosRef.child(server.ID)
         let imageRef = userRef.child("profile.jpg")
         
         let uploadTask = imageRef.put(data!, metadata: nil) { metadata, error in
