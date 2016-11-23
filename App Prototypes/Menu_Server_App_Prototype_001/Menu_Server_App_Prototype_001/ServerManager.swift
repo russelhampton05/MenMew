@@ -109,7 +109,7 @@ class ServerManager {
     
     static func getImageURL(server: Server, completionHandler: @escaping (_ url: String) -> ()) {
         
-        UserManager.ref.child(server.ID).observeSingleEvent(of: .value, with: { (FIRDataSnapshot) in
+        ServerManager.ref.child(server.ID).observeSingleEvent(of: .value, with: { (FIRDataSnapshot) in
             let value = FIRDataSnapshot.value as? NSDictionary
             
             

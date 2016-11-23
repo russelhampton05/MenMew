@@ -29,7 +29,7 @@ class SettingsViewController: UITableViewController {
         nameLabel.text = currentServer!.name
 
             
-        self.locationLabel.text = "At " + restaurantName!
+        self.locationLabel.text = "On Duty"
     
         
         if currentServer!.image != nil {

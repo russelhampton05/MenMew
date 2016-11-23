@@ -27,6 +27,8 @@ class TableDetailViewController: UITableViewController {
     @IBOutlet var customerTitle: UILabel!
     @IBOutlet var dateTitle: UILabel!
     @IBOutlet var menuItemsTitle: UILabel!
+    @IBOutlet var tableInfoView: UIView!
+    @IBOutlet var buttonView: UIView!
 
     
     override func viewDidLoad() {
@@ -58,6 +60,8 @@ class TableDetailViewController: UITableViewController {
             fulfillButton.isHidden = false
             fulfillButton.setTitle("Fulfill Order", for: .normal)
         }
+        
+        loadTheme()
     }
     
     func loadTheme() {
@@ -65,6 +69,8 @@ class TableDetailViewController: UITableViewController {
         //Background and Tint
         self.view.backgroundColor = currentTheme!.primary!
         self.view.tintColor = currentTheme!.highlight!
+        tableInfoView.backgroundColor = currentTheme!.primary!
+        buttonView.backgroundColor = currentTheme!.primary!
         
         //Labels
         statusLabel.textColor = currentTheme!.highlight!
@@ -112,12 +118,15 @@ class TableDetailViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath)
         
+        //Theme
+        cell.backgroundColor = currentTheme!.primary!
+        cell.tintColor = currentTheme!.primary!
+        
+        cell.textLabel?.textColor = currentTheme!.highlight!
+        cell.detailTextLabel?.textColor = currentTheme!.highlight!
         
         if ticket!.itemsOrdered != nil && ticket!.itemsOrdered!.count > 0 {
             cell.textLabel!.text = ticket!.itemsOrdered![indexPath.row].title
-            
-            cell.backgroundColor = currentTheme!.primary!
-            cell.tintColor = currentTheme!.highlight!
             
             let price = ticket!.itemsOrdered![indexPath.row].price!
             cell.detailTextLabel!.text = "$" + String(format: "%.2f", price)

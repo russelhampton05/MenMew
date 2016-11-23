@@ -17,9 +17,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 
     //IBOutlets
     @IBOutlet weak var doneButton: UIButton!
-    @IBOutlet weak var passwordLine: UIStackView!
-    @IBOutlet weak var emailLine: UIStackView!
-    @IBOutlet weak var registerButton: UIButton!
+    @IBOutlet weak var passwordLine: UIView!
+    @IBOutlet weak var emailLine: UIView!
     @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var loginTitle: UILabel!
     @IBOutlet weak var passwordLabel: UILabel!
@@ -50,7 +49,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 
                 if server.ID != nil {
                     self.logoutButton.isHidden = false
-                    self.registerButton.isHidden = true
                     self.usernameField.text = fbUser.email!
                     
                     currentServer = server
@@ -61,7 +59,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
         else {
             logoutButton.isHidden = true
-            registerButton.isHidden = false
         }
 
     }
@@ -92,9 +89,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             let restaurantVC = segue.destination as! RestaurantTableViewController
             
         }
-        else if segue.identifier == "RegisterSegue" {
-            let regVC = segue.destination as! RegisterViewController
-        }
     }
 
     @IBAction func loginButtonPressed(_ sender: AnyObject) {
@@ -115,21 +109,23 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                         if server.ID != nil {
                             
                             currentServer = server
+                            
+                            self.loadTheme()
+                            
+                            self.performSegue(withIdentifier: "RestaurantListSegue", sender: self)
+                            
                         }
                     }
                     
-                    self.performSegue(withIdentifier: "RestaurantListSegue", sender: self)
                 }
                 else {
-                   self.showPopup(message: (error?.localizedDescription)!)
+                    self.showPopup(message: (error?.localizedDescription)!)
                 }
             })
         }
     }
     
-    @IBAction func registerButtonPressed(_ sender: AnyObject) {
-        self.performSegue(withIdentifier: "RegisterSegue", sender: self)
-    }
+
     
     func showPopup(message: String) {
         let loginPopup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Popup") as! PopupViewController
@@ -147,11 +143,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.usernameField.text = ""
         self.passwordField.text = ""
         logoutButton.isHidden = true
-        registerButton.isHidden = false
         
+        currentServer = nil
+        resetTheme()
     }
     func loadTheme() {
-        currentTheme = Theme.init(type: currentServer!.theme!)
+        if currentServer != nil {
+            currentTheme = Theme.init(type: currentServer!.theme!)
+        }
         
         UIView.animate(withDuration: 0.8, animations: { () -> Void in
             //Background and Tint
@@ -178,8 +177,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             self.doneButton.setTitleColor(currentTheme!.primary!, for: .normal)
             self.logoutButton.backgroundColor = currentTheme!.highlight!
             self.logoutButton.setTitleColor(currentTheme!.primary!, for: .normal)
-            self.registerButton.backgroundColor = currentTheme!.highlight!
-            self.registerButton.setTitleColor(currentTheme!.primary, for: .normal)
         })
+    }
+    
+    func resetTheme() {
+        currentTheme = Theme.init(type: "Salmon")
+        loadTheme()
     }
 }

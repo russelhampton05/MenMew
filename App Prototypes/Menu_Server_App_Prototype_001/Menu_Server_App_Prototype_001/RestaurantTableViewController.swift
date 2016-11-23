@@ -10,7 +10,7 @@ import UIKit
 
 var currentTicket: Ticket?
 
-class RestaurantTableViewController: UITableViewController {
+class RestaurantTableViewController: UITableViewController, SWRevealViewControllerDelegate {
     
     //IBOutlets
     @IBOutlet weak var menuButton: UIBarButtonItem!
@@ -31,6 +31,7 @@ class RestaurantTableViewController: UITableViewController {
         navigationItem.hidesBackButton = true
         
         menuButton.target = self.revealViewController()
+        self.revealViewController().delegate = self
         menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
         
         //Load the assigned restaurants
@@ -43,6 +44,12 @@ class RestaurantTableViewController: UITableViewController {
 
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+
+        loadTheme()
+        tableView.reloadData()
+
+    }
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -113,5 +120,12 @@ class RestaurantTableViewController: UITableViewController {
         //Background and Tint
         self.view.backgroundColor = currentTheme!.primary!
         self.view.tintColor = currentTheme!.highlight!
+        
+        //Navigation
+        UINavigationBar.appearance().backgroundColor = currentTheme!.primary!
+        UINavigationBar.appearance().tintColor = currentTheme!.highlight!
+        self.navigationController?.navigationBar.barTintColor = currentTheme!.primary!
+        self.navigationController?.navigationBar.tintColor = currentTheme!.highlight!
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: currentTheme!.highlight!, NSFontAttributeName: UIFont.systemFont(ofSize: 20, weight: UIFontWeightLight)]
     }
 }

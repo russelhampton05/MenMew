@@ -60,7 +60,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             
             nameTitle.text = currentServer!.name!
             nameButton.setTitle(currentServer!.name!, for: .normal)
-            locationTitle.text = "At " + restaurantName!
+            locationTitle.text = "On Duty"
             
             if currentServer!.image != nil {
                 profilePhoto.getImage(urlString: currentServer!.image!, circle: false)

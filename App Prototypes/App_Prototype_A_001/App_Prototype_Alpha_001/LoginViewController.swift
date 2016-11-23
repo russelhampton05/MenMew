@@ -125,7 +125,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                         if user.name != nil {
                             
                             currentUser = user
-                            
+                            self.loadTheme()
                             self.performSegue(withIdentifier: "QRScanSegue", sender: self)
                         }
                     }
@@ -161,6 +161,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         logoutButton.isHidden = true
         registerButton.isHidden = false
         
+        resetTheme()
     }
     
     func loadTheme() {
@@ -194,5 +195,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             self.registerButton.backgroundColor = currentTheme!.highlight!
             self.registerButton.setTitleColor(currentTheme!.primary, for: .normal)
         })
+    }
+    
+    func resetTheme() {
+        currentTheme = Theme.init(type: "Salmon")
+        loadTheme()
     }
 }
