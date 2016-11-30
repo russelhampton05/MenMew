@@ -97,7 +97,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 
     @IBAction func loginButtonPressed(_ sender: AnyObject) {
         
-        if (!usernameField.hasText || !passwordField.hasText) && (usernameField.text! != "" || passwordField.text! != "") {
+        if (!usernameField.hasText || !passwordField.hasText) || (usernameField.text! == "" || passwordField.text! == "") {
             showPopup(message: "Please enter an email and password.")
         }
         else {

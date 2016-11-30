@@ -154,7 +154,7 @@ class ProfilePopupViewController: UIViewController, UITextFieldDelegate {
     func loadTheme() {
         
         //Background and Tint
-        self.view.backgroundColor = currentTheme!.secondary!
+        self.popupView.backgroundColor = currentTheme!.secondary!
         self.view.tintColor = currentTheme!.highlight!
         
         //Labels

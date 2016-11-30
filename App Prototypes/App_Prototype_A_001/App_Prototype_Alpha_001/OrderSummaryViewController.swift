@@ -28,9 +28,19 @@ class OrderSummaryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        loadInfo()
+        loadTheme()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        loadInfo()
+    }
+    
+    func loadInfo() {
         ticketLabel.text = ticket!.desc!
         
-        if ticket!.total != nil || ticket!.total! > 0 {
+        if ticket!.total != nil && ticket!.total! > 0 {
+            print(ticket!.total!)
             if ticket!.tip != nil {
                 totalLabel.text = "$" + String(format: "%.2f", ticket!.total! + ticket!.tip!)
             }
@@ -43,7 +53,6 @@ class OrderSummaryViewController: UIViewController {
         }
         
         messageLabel.isHidden = true
-        loadTheme()
     }
     
     override func didReceiveMemoryWarning() {

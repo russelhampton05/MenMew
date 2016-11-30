@@ -28,11 +28,20 @@ class SettingsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        nameLabel.text = currentServer!.name
-
-            
-        self.locationLabel.text = "On Duty"
+        loadPage()
+    }
     
+    override func viewWillAppear(_ animated: Bool) {
+        loadPage()
+    }
+    
+    func loadPage()
+    {
+        nameLabel.text = currentServer!.name
+        
+        
+        self.locationLabel.text = "On Duty"
+        
         
         if currentServer!.image != nil {
             profilePhoto.getImage(urlString: currentServer!.image!, circle: false)
@@ -41,8 +50,7 @@ class SettingsViewController: UITableViewController {
         loadTheme()
         loadCells()
     }
-    
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ProfileSegue" {
             let profileVC = segue.destination as! ProfileViewController

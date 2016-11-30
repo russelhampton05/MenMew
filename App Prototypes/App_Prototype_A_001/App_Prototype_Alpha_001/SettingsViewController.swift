@@ -25,6 +25,15 @@ class SettingsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        loadPage()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        loadPage()
+    }
+    
+    func loadPage()
+    {
         nameLabel.text = currentUser!.name
         
         MenuManager.GetMenu(id: currentUser!.ticket!.restaurant_ID!) {
@@ -42,7 +51,7 @@ class SettingsViewController: UITableViewController {
         loadCells()
     }
     
-
+    //Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ProfileSegue" {
             let profileVC = segue.destination as! ProfileViewController
@@ -63,7 +72,7 @@ class SettingsViewController: UITableViewController {
     
     //Unwind Segue
     @IBAction func unwindToSettings(_ sender: UIStoryboardSegue) {
-        if let sourceVC = sender.source as? ProfileViewController {
+        if let sourceVC = sender.source as? ProfileViewController {	
             
             if sourceVC.newImageURL != nil {
                 currentUser!.image = sourceVC.newImageURL!

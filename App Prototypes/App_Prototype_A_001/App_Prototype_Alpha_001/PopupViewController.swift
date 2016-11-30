@@ -82,7 +82,8 @@ class PopupViewController: UIViewController {
                     toRemove.append(item.item_ID!)
                 }
                 
-                ticket!.itemsOrdered = []
+                ticket!.itemsOrdered!.removeAll()
+                ticket!.total = 0
                 
                 UserManager.SetTicket(user: currentUser!, ticket: ticket!, toRemove: toRemove) {
                     completed in

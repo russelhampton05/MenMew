@@ -229,6 +229,9 @@ class MainMenuViewController: UITableViewController, SWRevealViewControllerDeleg
             if (ticket?.itemsOrdered?.count)! > 0 {
                 ordersButton.isEnabled = true
             }
+            else {
+                ordersButton.isEnabled = false
+            }
         }
         else if let sourceVC = sender.source as? PaymentSummaryViewController {
             ticket = sourceVC.ticket
@@ -286,9 +289,11 @@ class MainMenuViewController: UITableViewController, SWRevealViewControllerDeleg
     
     func calculateTotal() -> Double {
         var currTotal = 0.0
-        if (ticket?.itemsOrdered?.count)! > 0 {
-            for item in ticket!.itemsOrdered! {
-                currTotal += item.price!
+        if ticket?.itemsOrdered != nil {
+            if (ticket?.itemsOrdered?.count)! > 0 {
+                for item in ticket!.itemsOrdered! {
+                    currTotal += item.price!
+                }
             }
         }
         

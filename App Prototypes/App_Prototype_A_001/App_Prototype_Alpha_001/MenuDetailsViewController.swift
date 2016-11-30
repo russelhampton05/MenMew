@@ -338,12 +338,13 @@ class MenuDetailsViewController: UITableViewController {
     
     func calculateTotal() -> Double {
         var currTotal = 0.0
-        if (ticket?.itemsOrdered?.count)! > 0 {
-            for item in ticket!.itemsOrdered! {
-                currTotal += item.price!
+        if ticket?.itemsOrdered != nil {
+            if (ticket?.itemsOrdered?.count)! > 0 {
+                for item in ticket!.itemsOrdered! {
+                    currTotal += item.price!
+                }
             }
         }
-        
         return currTotal
     }
     
