@@ -23,6 +23,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet var nameTitle: UILabel!
     @IBOutlet var locationTitle: UILabel!
     
+    @IBOutlet weak var preferencesLabel: UILabel!
     @IBOutlet weak var confirmButton: UIButton!
     @IBOutlet var profileLine: UIView!
     
@@ -113,6 +114,16 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         profilePhoto.image = pickedImage.circle
         
+        //Transition animation
+        let fadeTransition = CATransition()
+        fadeTransition.duration = 0.5
+        fadeTransition.type = kCATransitionFade
+        self.confirmButton.layer.add(fadeTransition, forKey: "fadeText")
+        self.preferencesLabel.layer.add(fadeTransition, forKey: "fadeText")
+        
+        self.confirmButton.isHidden = true
+        self.preferencesLabel.isHidden = false
+        
         //Upload image to user's profile on Firebase
         ServerManager.uploadImage(server: currentServer!, image: pickedImage.circle!) {
             done in
@@ -122,6 +133,16 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
                 url in
                 
                 self.newImageURL = url
+                
+                //Transition animation
+                let fadeTransition = CATransition()
+                fadeTransition.duration = 0.5
+                fadeTransition.type = kCATransitionFade
+                self.confirmButton.layer.add(fadeTransition, forKey: "fadeText")
+                self.preferencesLabel.layer.add(fadeTransition, forKey: "fadeText")
+                
+                self.confirmButton.isHidden = false
+                self.preferencesLabel.isHidden = true
                 
                 self.confirmButton.isEnabled = true
             }
@@ -163,6 +184,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         passwordLabel.textColor = currentTheme!.invert!
         nameLabel.textColor = currentTheme!.invert!
         profileLine.backgroundColor = currentTheme!.invert!
+        preferencesLabel.textColor = currentTheme!.invert!
         
         
         //Buttons

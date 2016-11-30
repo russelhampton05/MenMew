@@ -102,14 +102,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func unwindToLogin(_ sender: UIStoryboardSegue) {
-        if let sourceVC = sender.source as? RegisterViewController {
-            checkLogin()
-        }
+        self.navigationController?.isNavigationBarHidden = true
+        logoutButtonPressed(self)
     }
 
     @IBAction func loginButtonPressed(_ sender: AnyObject) {
         
-        if self.usernameField.text! == "" || self.passwordField.text! == "" {
+        if (!usernameField.hasText || !passwordField.hasText) && (usernameField.text != "" || passwordField.text! != "") {
             showPopup(message: "Please enter an email and password.")
         }
         else {
@@ -152,6 +151,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
     }
     
+    
     @IBAction func logoutButtonPressed(_ sender: AnyObject) {
         try! FIRAuth.auth()?.signOut()
         currentUser = nil
@@ -165,13 +165,22 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     func loadTheme() {
-        currentTheme = Theme.init(type: currentUser!.theme!)
+        if currentUser != nil {
+            currentTheme = Theme.init(type: currentUser!.theme!)
+        }
         
         UIView.animate(withDuration: 0.8, animations: { () -> Void in
             //Background and Tint
             self.view.backgroundColor = currentTheme!.primary!
             self.view.tintColor = currentTheme!.highlight!
             
+            self.setNeedsStatusBarAppearanceUpdate()
+            if currentTheme!.name! == "Midnight" || currentTheme!.name! == "Slate" {
+                UIApplication.shared.statusBarStyle = .lightContent
+            }
+            else {
+                UIApplication.shared.statusBarStyle = .default
+            }
             
             //Labels
             self.loginTitle.textColor = currentTheme!.highlight!

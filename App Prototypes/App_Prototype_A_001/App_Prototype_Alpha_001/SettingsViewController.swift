@@ -17,6 +17,7 @@ class SettingsViewController: UITableViewController {
     @IBOutlet weak var profileTab: UITableViewCell!
     @IBOutlet weak var ordersTab: UITableViewCell!
     @IBOutlet weak var settingsTab: UITableViewCell!
+    @IBOutlet weak var logoutTab: UITableViewCell!
     
     //Variables
     var restaurantName: String?
@@ -52,6 +53,10 @@ class SettingsViewController: UITableViewController {
             let orderVC = segue.destination as! OrderSummaryViewController
             
             orderVC.ticket = currentUser!.ticket
+            
+        }
+        if segue.identifier == "UnwindToLoginSegue" {
+            self.revealViewController().revealToggle(animated: true)
             
         }
     }
@@ -102,11 +107,13 @@ class SettingsViewController: UITableViewController {
             ordersTab.textLabel?.highlightedTextColor = currentTheme!.highlight!
             profileTab.textLabel?.highlightedTextColor = currentTheme!.highlight!
             settingsTab.textLabel?.highlightedTextColor = currentTheme!.highlight!
+            logoutTab.textLabel?.highlightedTextColor = currentTheme!.highlight!
         }
         else {
             ordersTab.textLabel?.highlightedTextColor = currentTheme!.primary!
             profileTab.textLabel?.highlightedTextColor = currentTheme!.primary!
             settingsTab.textLabel?.highlightedTextColor = currentTheme!.primary!
+            logoutTab.textLabel?.highlightedTextColor = currentTheme!.primary!
         }
     }
     
@@ -123,14 +130,13 @@ class SettingsViewController: UITableViewController {
         ordersTab.textLabel?.textColor = currentTheme!.invert!
         profileTab.textLabel?.textColor = currentTheme!.invert!
         settingsTab.textLabel?.textColor = currentTheme!.invert!
+        logoutTab.textLabel?.textColor = currentTheme!.invert!
         
         //Cells
         personaTab.backgroundColor = currentTheme!.secondary!
         profileTab.backgroundColor = currentTheme!.secondary!
         ordersTab.backgroundColor = currentTheme!.secondary!
         settingsTab.backgroundColor = currentTheme!.secondary!
-        
-        
-
+        logoutTab.backgroundColor = currentTheme!.secondary!
     }
 }

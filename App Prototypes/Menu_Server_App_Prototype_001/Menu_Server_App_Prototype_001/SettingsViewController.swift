@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 var imageCache = NSMutableDictionary()
 
@@ -19,6 +20,7 @@ class SettingsViewController: UITableViewController {
     @IBOutlet weak var profileTab: UITableViewCell!
    // @IBOutlet weak var ordersTab: UITableViewCell!
     @IBOutlet weak var settingsTab: UITableViewCell!
+    @IBOutlet weak var logoutTab: UITableViewCell!
     
     //Variables
     var restaurantName: String?
@@ -46,7 +48,10 @@ class SettingsViewController: UITableViewController {
             let profileVC = segue.destination as! ProfileViewController
 
         }
-
+        if segue.identifier == "UnwindToLoginSegue" {
+            self.revealViewController().revealToggle(animated: true)
+            
+        }
     }
     
     //Unwind Segue
@@ -87,12 +92,12 @@ class SettingsViewController: UITableViewController {
             bgView.backgroundColor = currentTheme!.highlight!
         }
         
-      //  ordersTab.selectedBackgroundView = bgView
+        logoutTab.selectedBackgroundView = bgView
         profileTab.selectedBackgroundView = bgView
         settingsTab.selectedBackgroundView = bgView
         
         if currentTheme!.name! == "Salmon" {
-          //  ordersTab.textLabel?.highlightedTextColor = currentTheme!.highlight!
+            logoutTab.textLabel?.highlightedTextColor = currentTheme!.highlight!
             profileTab.textLabel?.highlightedTextColor = currentTheme!.highlight!
             settingsTab.textLabel?.highlightedTextColor = currentTheme!.highlight!
         }
@@ -113,14 +118,14 @@ class SettingsViewController: UITableViewController {
         //Labels
         nameLabel.textColor = currentTheme!.invert!
         locationLabel.textColor = currentTheme!.invert!
-    //    ordersTab.textLabel?.textColor = currentTheme!.invert!
+        logoutTab.textLabel?.textColor = currentTheme!.invert!
         profileTab.textLabel?.textColor = currentTheme!.invert!
         settingsTab.textLabel?.textColor = currentTheme!.invert!
         
         //Cells
         personaTab.backgroundColor = currentTheme!.secondary!
         profileTab.backgroundColor = currentTheme!.secondary!
-      //  ordersTab.backgroundColor = currentTheme!.secondary!
+        logoutTab.backgroundColor = currentTheme!.secondary!
         settingsTab.backgroundColor = currentTheme!.secondary!
         
         

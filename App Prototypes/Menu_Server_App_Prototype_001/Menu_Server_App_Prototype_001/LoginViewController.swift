@@ -41,6 +41,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         usernameField.autocorrectionType = UITextAutocorrectionType.no
         passwordField.autocorrectionType = UITextAutocorrectionType.no
 
+        checkLogin()
+    }
+    
+    func checkLogin() {
         //Check for existing logged in user
         if let fbUser = FIRAuth.auth()?.currentUser {
             //Check if logged in user exists in Firebase
@@ -93,7 +97,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 
     @IBAction func loginButtonPressed(_ sender: AnyObject) {
         
-        if self.usernameField.text! == "" || self.passwordField.text! == "" {
+        if (!usernameField.hasText || !passwordField.hasText) && (usernameField.text! != "" || passwordField.text! != "") {
             showPopup(message: "Please enter an email and password.")
         }
         else {
@@ -137,6 +141,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
     }
     
+    @IBAction func unwindToLogin(_ sender: UIStoryboardSegue) {
+        self.navigationController?.isNavigationBarHidden = true
+        logoutButtonPressed(self)
+    }
+    
     @IBAction func logoutButtonPressed(_ sender: AnyObject) {
         try! FIRAuth.auth()?.signOut()
         
@@ -147,6 +156,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         currentServer = nil
         resetTheme()
     }
+    
     func loadTheme() {
         if currentServer != nil {
             currentTheme = Theme.init(type: currentServer!.theme!)
@@ -156,6 +166,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             //Background and Tint
             self.view.backgroundColor = currentTheme!.primary!
             self.view.tintColor = currentTheme!.highlight!
+            
+            self.setNeedsStatusBarAppearanceUpdate()
+            if currentTheme!.name! == "Midnight" || currentTheme!.name! == "Slate" {
+                UIApplication.shared.statusBarStyle = .lightContent
+            }
+            else {
+                UIApplication.shared.statusBarStyle = .default
+            }
             
             
             //Labels
