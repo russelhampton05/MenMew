@@ -244,7 +244,7 @@ class SummaryViewController : UITableViewController {
     }
     
     @IBAction func unwindToSummary(_ sender: UIStoryboardSegue) {
-        if let sourceVC = sender.source as? PaymentDetailsViewController {
+        if sender.source is PaymentDetailsViewController {
             self.navigationController?.isNavigationBarHidden = false
         }
     }

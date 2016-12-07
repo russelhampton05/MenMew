@@ -126,7 +126,7 @@ class ProfilePopupViewController: UIViewController, UITextFieldDelegate {
             
             if input == "Email" {
                 user.updateEmail(userEntry!) { error in
-                    if let error = error {
+                    if error != nil {
                         //Error
                     }
                     else {
@@ -136,7 +136,7 @@ class ProfilePopupViewController: UIViewController, UITextFieldDelegate {
             }
             else if input == "Password" {
                 user.updatePassword(userEntry!) { error in
-                    if let error = error {
+                    if error != nil {
                         //Error
                     }
                     else {

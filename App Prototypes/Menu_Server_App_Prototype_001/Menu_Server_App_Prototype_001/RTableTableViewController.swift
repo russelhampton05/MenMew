@@ -248,14 +248,14 @@ class RTableTableViewController: UITableViewController {
     }
     
     @IBAction func unwindToTableList(_ sender: UIStoryboardSegue) {
-        if let sourceVC = sender.source as? TableDetailViewController {
+        if sender.source is TableDetailViewController {
             
             //Update states and date for order fulfillment
             ticketList[segueIndex!].paid = true
             
             //Update timestamp
             let date = NSDate()
-            var currentDate = formatter.string(from: date as Date)
+            let currentDate = formatter.string(from: date as Date)
             ticketList[segueIndex!].timestamp = currentDate
             
             //RestaurantManager.UpdateTicket(ticket: ticketList[segueIndex!], restaurant: restaurant)

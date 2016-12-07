@@ -42,7 +42,7 @@ class ServerManager {
             server.image = value?["image"] as? String
             server.notifications = value?["notifications"] as! Bool
             
-            let tickets = value?["tickets"] as? NSDictionary
+            _ = value?["tickets"] as? NSDictionary
             let restaurants = value?["restaurants"] as? NSDictionary
             let tables = value?["tables"] as? NSDictionary
 
@@ -92,7 +92,7 @@ class ServerManager {
         let userRef = userPhotosRef.child(server.ID)
         let imageRef = userRef.child("profile.jpg")
         
-        let uploadTask = imageRef.put(data!, metadata: nil) { metadata, error in
+        _ = imageRef.put(data!, metadata: nil) { metadata, error in
             if (error != nil) {
                 print(error!.localizedDescription)
             }

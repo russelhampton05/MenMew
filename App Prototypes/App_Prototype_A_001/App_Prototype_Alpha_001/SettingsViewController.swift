@@ -21,6 +21,7 @@ class SettingsViewController: UITableViewController {
     
     //Variables
     var restaurantName: String?
+    var didLogout: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +30,10 @@ class SettingsViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        loadPage()
+        if didLogout {
+            loadPage()
+            didLogout = false
+        }
     }
     
     func loadPage()
@@ -51,6 +55,10 @@ class SettingsViewController: UITableViewController {
         loadCells()
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
     //Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ProfileSegue" {
@@ -65,8 +73,8 @@ class SettingsViewController: UITableViewController {
             
         }
         if segue.identifier == "UnwindToLoginSegue" {
+            didLogout = true
             self.revealViewController().revealToggle(animated: true)
-            
         }
     }
     
@@ -80,7 +88,7 @@ class SettingsViewController: UITableViewController {
                 profilePhoto.getImage(urlString: currentUser!.image!, circle: false)
             }
         }
-        else if let sourceVC = sender.source as? AppSettingsViewController {
+        else if sender.source is AppSettingsViewController {
             reloadTheme()
         }
     }
@@ -132,6 +140,14 @@ class SettingsViewController: UITableViewController {
         self.view.backgroundColor = currentTheme!.secondary!
         self.view.tintColor = currentTheme!.invert!
         self.tableView.backgroundColor = currentTheme!.secondary!
+        
+        if currentTheme!.name! == "Midnight" || currentTheme!.name! == "Slate" {
+            UIApplication.shared.statusBarStyle = .lightContent
+        }
+        else {
+            UIApplication.shared.statusBarStyle = .default
+        }
+        
         
         //Labels
         nameLabel.textColor = currentTheme!.invert!

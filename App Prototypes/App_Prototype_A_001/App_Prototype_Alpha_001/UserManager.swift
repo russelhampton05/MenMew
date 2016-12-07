@@ -274,7 +274,7 @@ class UserManager{
         let userRef = userPhotosRef.child(user.ID)
         let imageRef = userRef.child("profile.jpg")
         
-        let uploadTask = imageRef.put(data!, metadata: nil) { metadata, error in
+        imageRef.put(data!, metadata: nil) { metadata, error in
             if (error != nil) {
                 print(error!.localizedDescription)
             }

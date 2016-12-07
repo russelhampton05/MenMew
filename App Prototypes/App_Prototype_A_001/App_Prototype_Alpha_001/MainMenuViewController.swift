@@ -194,7 +194,7 @@ class MainMenuViewController: UITableViewController, SWRevealViewControllerDeleg
             //menuVC.currentTable = currentTable!
         }
         else if segue.identifier == "SettingsSegue" {
-            let settingsVC = segue.destination as! SettingsViewController
+            _ = segue.destination as! SettingsViewController
 
         }
         else if segue.identifier == "OrderSummarySegue" {
@@ -295,6 +295,10 @@ class MainMenuViewController: UITableViewController, SWRevealViewControllerDeleg
                     currTotal += item.price!
                 }
             }
+            
+            let tax = currTotal*currentRestaurant!.tax!
+            
+            currTotal = currTotal + tax
         }
         
         return currTotal

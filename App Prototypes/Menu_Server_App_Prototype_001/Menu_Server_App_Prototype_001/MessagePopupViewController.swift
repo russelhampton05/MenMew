@@ -125,7 +125,7 @@ class MessagePopupViewController: UIViewController, UITableViewDelegate, UITable
                     selectedMessage = "One or more items for order \(currentTicket!.desc!) is experiencing a delay."
                 }
                 else if selectedMessage == "Item/s Unavailable" {
-                    selectedMessage = "One or more items for order \(currentTicket!.desc!) is unavailable. We apologize for the inconvenience."
+                    selectedMessage = "We apologize, but one or more items for order \(currentTicket!.desc!) is unavailable."
                 }
                 
                 parent.sendMessage(message: selectedMessage!)

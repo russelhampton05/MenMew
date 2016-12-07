@@ -58,7 +58,7 @@ class TableDetailViewController: UITableViewController {
         else if !(ticket!.paid!) {
             statusLabel.text = "Open, " + ticket!.status!
             fulfillButton.isHidden = false
-            fulfillButton.setTitle("Fulfill Order", for: .normal)
+            fulfillButton.setTitle("Send Update", for: .normal)
         }
         
         loadTheme()
@@ -82,6 +82,7 @@ class TableDetailViewController: UITableViewController {
         customerTitle.textColor = currentTheme!.highlight!
         dateTitle.textColor = currentTheme!.highlight!
         menuItemsTitle.textColor = currentTheme!.highlight!
+        messageLabel.textColor = currentTheme!.highlight!
         
         //Buttons
         fulfillButton.backgroundColor = currentTheme!.highlight!

@@ -344,7 +344,12 @@ class MenuDetailsViewController: UITableViewController {
                     currTotal += item.price!
                 }
             }
+            
+            let tax = currTotal*currentRestaurant!.tax!
+            
+            currTotal = currTotal + tax
         }
+        
         return currTotal
     }
     

@@ -94,10 +94,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "QRScanSegue" {
-            let scanVC = segue.destination as! QRViewController
+            _ = segue.destination as! QRViewController
         }
         else if segue.identifier == "RegisterSegue" {
-            let regVC = segue.destination as! RegisterViewController
+            _ = segue.destination as! RegisterViewController
         }
     }
     

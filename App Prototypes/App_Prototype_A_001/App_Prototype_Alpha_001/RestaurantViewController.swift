@@ -67,7 +67,7 @@ class RestaurantViewController: UIViewController {
             mainMenuVC.ticket = currentUser!.ticket!
         }
         else if segue.identifier == "QRReturnSegue" {
-            let qrVC = segue.destination as! QRViewController
+            _ = segue.destination as! QRViewController
         }
     }
     

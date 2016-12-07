@@ -142,18 +142,37 @@ class PaymentPopupViewController: UIViewController {
 
     func loadTheme() {
         
-        //Background and Tint
-        popupView.backgroundColor = currentTheme!.primary!
-        self.view.tintColor = currentTheme!.highlight!
-        
-        //Labels
-        payConfirmLabel.textColor = currentTheme!.highlight!
-        payTitle.textColor = currentTheme!.highlight!
-        
-        //Buttons
-        confirmButton.backgroundColor = currentTheme!.highlight!
-        confirmButton.setTitleColor(currentTheme!.primary!, for: .normal)
-        cancelButton.backgroundColor = currentTheme!.highlight!
-        cancelButton.setTitleColor(currentTheme!.primary!, for: .normal)
+        if currentTheme!.name! == "Light" {
+            //Background and Tint
+            popupView.backgroundColor = currentTheme!.highlight!
+            self.view.tintColor = currentTheme!.primary!
+            
+            //Labels
+            
+            payConfirmLabel.textColor = currentTheme!.primary!
+            payTitle.textColor = currentTheme!.primary!
+            
+            //Buttons
+            confirmButton.backgroundColor = currentTheme!.primary!
+            confirmButton.setTitleColor(currentTheme!.highlight!, for: .normal)
+            cancelButton.backgroundColor = currentTheme!.primary!
+            cancelButton.setTitleColor(currentTheme!.highlight!, for: .normal)
+        }
+        else {
+            //Background and Tint
+            popupView.backgroundColor = currentTheme!.primary!
+            self.view.tintColor = currentTheme!.highlight!
+            
+            //Labels
+            
+            payConfirmLabel.textColor = currentTheme!.highlight!
+            payTitle.textColor = currentTheme!.highlight!
+            
+            //Buttons
+            confirmButton.backgroundColor = currentTheme!.highlight!
+            confirmButton.setTitleColor(currentTheme!.primary!, for: .normal)
+            cancelButton.backgroundColor = currentTheme!.highlight!
+            cancelButton.setTitleColor(currentTheme!.primary!, for: .normal)
+        }
     }
 }

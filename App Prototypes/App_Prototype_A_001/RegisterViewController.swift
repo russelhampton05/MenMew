@@ -117,7 +117,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "QRScanSegue" {
-            let scanVC = segue.destination as! QRViewController
+            _ = segue.destination as! QRViewController
         }
     }
     

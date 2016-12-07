@@ -51,7 +51,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             ServerManager.GetServer(id: fbUser.uid) {
                 server in
                 
-                if server.ID != nil {
+                if server.ID != "" {
                     self.logoutButton.isHidden = false
                     self.usernameField.text = fbUser.email!
                     
@@ -90,7 +90,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "RestaurantListSegue" {
-            let restaurantVC = segue.destination as! RestaurantTableViewController
+            _ = segue.destination as! RestaurantTableViewController
             
         }
     }
@@ -110,7 +110,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     ServerManager.GetServer(id: user!.uid) {
                         server in
                         
-                        if server.ID != nil {
+                        if server.ID != "" {
                             
                             currentServer = server
                             
