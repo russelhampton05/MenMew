@@ -89,6 +89,10 @@ class PopupViewController: UIViewController {
     
     func loadTheme() {
         
+        if currentTheme == nil {
+            currentTheme = Theme(type: "Salmon")
+        }
+        
         //Background and Tint
         popupView.backgroundColor = currentTheme!.primary!
         self.view.tintColor = currentTheme!.highlight!
