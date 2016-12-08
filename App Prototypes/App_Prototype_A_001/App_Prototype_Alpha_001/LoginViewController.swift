@@ -168,6 +168,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         if currentUser != nil {
             currentTheme = Theme.init(type: currentUser!.theme!)
         }
+        else {
+            currentTheme = Theme.init(type: "Salmon")
+        }
         
         UIView.animate(withDuration: 0.8, animations: { () -> Void in
             //Background and Tint
